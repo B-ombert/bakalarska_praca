@@ -22,3 +22,9 @@ Jeden z populárnych prístupov k tvorbe desktopových aplikácií je mať via
 Cieľom práce je navrhnúť a implementovať open-source desktopovú multiplatformovú kalendárovú aplikáciu. Aplikácia má podporovať manažment viacerých kalendárov, kalendárových udalostí (jednorázových aj opakujúcich sa), pripomienky udalostí a pod. Aplikácia má byť schopná efektívne pracovať s desiatkami kalendárov obsahujúcimi rádovo milióny udalostí. Aplikácia má fungovať v offline režime. Zároveň má vedieť synchronizovať svoje dáta s kalendárovými poskytovateľmi ako CalDav, Google Calendar, ICloud a Microsoft Exchange.
 
 ---
+
+## Denník
+
+- Oboznámenie sa so súborovým formátom iCalendar, knižnice pre prácu s týmito súbormi
+- Oboznámenie sa s protokolom CalDAV pre prácu s kalendárovými súbormi cez web
+- 
