@@ -1,6 +1,6 @@
 # Web stránka bakalárskej práce
 
-Tento repozitár slúži na údržbu a aktualizáciu webovej stránky bakalárskej práce. Každý člen tímu je zodpovedný za pridávanie nových informácií a aktualizáciu existujúcich materiálov.
+Tento repozitár slúži na prehľad postupu pri tvorbe bakalárskej práce.
 
 ---
 
