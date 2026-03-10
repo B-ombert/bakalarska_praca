@@ -1,0 +1,3 @@
+C:/uniba/projekt_kalendar/bc_test_app/cmake-build-debug/CMakeFiles/test.dir
+C:/uniba/projekt_kalendar/bc_test_app/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/uniba/projekt_kalendar/bc_test_app/cmake-build-debug/CMakeFiles/rebuild_cache.dir
