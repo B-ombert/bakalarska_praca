@@ -1,0 +1,1 @@
+ "C:/vcpkg/installed/x64-windows/debug/lib/libssl.lib" "C:/vcpkg/installed/x64-windows/debug/lib/libcrypto.lib" -lws2_32 -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
