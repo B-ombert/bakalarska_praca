@@ -1,7 +1,9 @@
-#include "crypto.h"
+#include "utils/crypto.h"
 #include <openssl/sha.h>
 #include <random>
 #include <string>
+
+namespace {
 
 std::string Base64UrlEncode(const unsigned char* data, size_t len){
     static const char* chars =
@@ -28,6 +30,8 @@ std::string Base64UrlEncode(const unsigned char* data, size_t len){
 
     return encoded;
 }
+
+} // namespace
 
 std::string GenerateCodeVerifier(){
     static const char charset[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

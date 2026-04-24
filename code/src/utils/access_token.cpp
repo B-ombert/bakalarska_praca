@@ -1,12 +1,15 @@
-#include "access_token.h"
+#include "utils/access_token.h"
+#include <iostream>
+#include <utils/json.hpp>
+#include "utils/http.h"
 
-AccessToken::AccessToken(::Platform platform) : Platform(platform) {
+AccessToken::AccessToken(int platform) : Platform(platform) {
     if (!GetNewToken()) {
         std::cerr << "Error in obtaining new access token";
     }
 }
 
-AccessToken::AccessToken(::Platform platform, const std::string &refresh_token) :
+AccessToken::AccessToken(int platform, const std::string &refresh_token) :
 Platform(platform), RefreshTokenValue(refresh_token) {
     if (refresh_token.empty()) {
         std::cerr << "Invalid refresh token\n";
@@ -127,6 +130,7 @@ bool AccessToken::RefreshAccessToken() {
     }
 
     req.postData = body.str();
+    req.verb = POST;
 
     std::string response = PerformHttpRequest(req);
     if (response.empty()) {
@@ -151,12 +155,4 @@ std::string AccessToken::UrlEncode(const std::string& value) {
     }
 
     return os.str();
-}
-
-void AccessToken::TestingFunction() {
-    std::cout << "Current access token duration: " << this->ExpiresAt << "\n";
-    std::this_thread::sleep_for(std::chrono::seconds(10));
-    std::cout << "Refreshing access token \n";
-    this->RefreshAccessToken();
-    std::cout << "New access token duration: " << this->ExpiresAt << "\n";
 }

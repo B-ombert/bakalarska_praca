@@ -1,9 +1,8 @@
 #pragma once
 #include <boost/asio.hpp>
-#include <json.hpp>
-#include <http.h>
-#include "crypto.h"
-#include "types.h"
+#include <utils/json.hpp>
+#include "utils/crypto.h"
+#include "utils/types.h"
 
 using json = nlohmann::json;
 using tcp = boost::asio::ip::tcp;
@@ -19,7 +18,6 @@ inline const char* MS_TOKEN_URL = "https://login.microsoftonline.com/common/oaut
 const std::string REDIRECT_URI = "http://localhost:8080";
 
 std::string CatchRedirectedAuthCode();
-std::string ParseJsonTokenResponse(const std::string& tokenResponse);
 std::string WritePostDataForGoogle(const tokenRequestParameters& params);
 std::string WritePostDataForMS(const tokenRequestParameters& params);
 std::string ExchangeCodeForToken(Platform platform, const tokenRequestParameters& params);

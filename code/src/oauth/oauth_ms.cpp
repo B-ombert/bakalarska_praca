@@ -1,4 +1,4 @@
-#include "oauth_ms.h"
+#include "oauth/oauth_ms.h"
 #include "http.h"
 #include <sstream>
 #include <thread>
@@ -16,7 +16,7 @@ std::string GetMSAuthCode(const std::string& code_challenge){
             "&response_type=code" +
             "&redirect_uri=" + REDIRECT_URI +
             "&response_mode=query" +
-            "&scope=offline_access%20Calendars.ReadWrite" +
+            "&scope=offline_access%20Calendars.ReadWrite%20User.Read" +
             "&code_challenge=" + code_challenge +
             "&code_challenge_method=S256";
 

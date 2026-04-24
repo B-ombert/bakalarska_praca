@@ -1,4 +1,4 @@
-#include "oauth_google.h"
+#include "oauth/oauth_google.h"
 #include "http.h"
 #include <sstream>
 #include <thread>
@@ -15,7 +15,7 @@ std::string GetGoogleAuthCode(const std::string& code_challenge){
          << "client_id=" << GOOGLE_CLIENT_ID
          << "&redirect_uri=" << REDIRECT_URI
          << "&response_type=code"
-         << "&scope=https://www.googleapis.com/auth/calendar"
+         << "&scope=https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.profile"
          << "&access_type=offline"
          << "&prompt=consent"
          << "&code_challenge=" << code_challenge
