@@ -1,71 +1,112 @@
 #include "http.h"
-#include "url_parser.h"
+#include "utils/url_parser.h"
 #include <boost/asio.hpp>
 #include <boost/asio/ssl.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/ssl.hpp>
 #include <iostream>
+#include <stdexcept>
 
 namespace beast = boost::beast;
 namespace http  = beast::http;
 namespace net   = boost::asio;
 using tcp = net::ip::tcp;
 
+namespace {
+
+std::string TrimHeaderValue(const std::string& value) {
+    const auto start = value.find_first_not_of(" \t");
+    if (start == std::string::npos) {
+        return "";
+    }
+
+    const auto end = value.find_last_not_of(" \t");
+    return value.substr(start, end - start + 1);
+}
+
+template <typename Stream>
+std::string ExecuteRequest(Stream& stream, const ParsedUrl& parsed, const HttpRequest& req) {
+    http::request<http::string_body> request;
+    request.version(11);
+    request.target(parsed.target);
+    request.set(http::field::host, parsed.host);
+    request.set(http::field::user_agent, "CalendarApp/1.0");
+    request.set(http::field::connection, "close");
+
+    for (const auto& header : req.headers) {
+        const auto separator = header.find(':');
+        if (separator == std::string::npos) {
+            continue;
+        }
+
+        request.set(header.substr(0, separator), TrimHeaderValue(header.substr(separator + 1)));
+    }
+
+    switch (req.verb) {
+        case POST:
+            request.method(http::verb::post);
+            break;
+        case PATCH:
+            request.method(http::verb::patch);
+            break;
+        case GET:
+            request.method(http::verb::get);
+            break;
+        case DELETE_:
+            request.method(http::verb::delete_);
+            break;
+        default:
+            throw std::invalid_argument("Unknown HTTP request verb");
+    }
+
+    if (!req.postData.empty()) {
+        request.body() = req.postData;
+        request.prepare_payload();
+    }
+
+    http::write(stream, request);
+
+    beast::flat_buffer buffer;
+    http::response<http::string_body> response;
+    http::read(stream, buffer, response);
+
+    return response.body();
+}
+
+} // namespace
+
 std::string PerformHttpRequest(const HttpRequest& req) {
     try {
-        auto p = ParseUrl(req.url);
+        const ParsedUrl parsed = ParseUrl(req.url);
 
         net::io_context ioc;
-        net::ssl::context ssl(net::ssl::context::tlsv12_client);
-        ssl.set_default_verify_paths();
-
         tcp::resolver resolver(ioc);
-        beast::ssl_stream<beast::tcp_stream> stream(ioc, ssl);
+        const auto results = resolver.resolve(parsed.host, parsed.port);
 
-        auto results = resolver.resolve(tcp::v4(),p.host, p.port);
+        if (parsed.scheme == "https") {
+            net::ssl::context ssl(net::ssl::context::tlsv12_client);
+            ssl.set_default_verify_paths();
 
-        beast::get_lowest_layer(stream).connect(results);
+            beast::ssl_stream<beast::tcp_stream> stream(ioc, ssl);
+            beast::get_lowest_layer(stream).connect(results);
+            stream.handshake(net::ssl::stream_base::client);
 
-        stream.handshake(net::ssl::stream_base::client);
+            std::string body = ExecuteRequest(stream, parsed, req);
 
-        http::request<http::string_body> request;
-        request.version(11);
-        request.target(p.target);
-        request.set(http::field::host, p.host);
-        request.set(http::field::user_agent, "CalendarApp/1.0");
-        request.set(http::field::connection, "close");
-
-        for (const auto& h : req.headers) {
-            auto pos = h.find(':');
-            if (pos != std::string::npos) {
-                request.set(
-                    h.substr(0, pos),
-                    h.substr(pos + 1)
-                    );
-            }
+            beast::error_code ec;
+            stream.shutdown(ec);
+            return body;
         }
 
-        if (!req.postData.empty()) {
-            request.method(http::verb::post);
-            request.body() = req.postData;
-            request.prepare_payload();
-        }
-        else {
-            request.method(http::verb::get);
+        if (parsed.scheme == "http") {
+            beast::tcp_stream stream(ioc);
+            stream.connect(results);
+            return ExecuteRequest(stream, parsed, req);
         }
 
-        http::write(stream, request);
-
-        beast::flat_buffer buffer;
-        http::response<http::string_body> response;
-
-        http::read(stream, buffer, response);
-
-        beast::error_code ec;
-        stream.shutdown(ec);
-
-        return response.body();
+        std::cerr << "Unsupported URL scheme: " << parsed.scheme << "\n";
+        return "";
     }
 
     catch (const std::exception& e) {

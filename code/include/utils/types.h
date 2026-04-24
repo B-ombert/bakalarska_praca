@@ -4,11 +4,11 @@
 
 enum Platform { GOOGLE, MICROSOFT};
 
-struct simpleEvent {
-    std::string summary;
-    std::string start;
-    std::string end;
-};
+enum Verb {POST, PATCH, GET, DELETE_};
+
+enum SyncStatus {SYNCED, PENDING_INSERT, PENDING_UPDATE, PENDING_DELETE};
+
+enum class EventType {SINGLE, MASTER, OCCURRENCE, EXCEPTION, CANCELLED_INSTANCE};
 
 struct tokenRequestParameters{
     std::string code;
@@ -19,6 +19,7 @@ struct HttpRequest {
     std::string url;
     std::vector<std::string> headers;
     std::string postData;
+    int verb = GET;
 };
 
 struct ParsedUrl {

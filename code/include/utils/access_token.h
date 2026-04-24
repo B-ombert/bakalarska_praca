@@ -1,24 +1,26 @@
 #pragma once
-#include "oauth_google.h"
-#include "oauth_ms.h"
+#include "oauth/oauth_google.h"
+#include "oauth/oauth_ms.h"
+#include <chrono>
 
 class AccessToken {
 public:
-    AccessToken(Platform platform);
-    AccessToken(Platform platform, const std::string& refresh_token);
-    Platform Platform;
+    std::string AccessTokenValue;
+    std::string RefreshTokenValue;
+
+    AccessToken(int platform);
+    AccessToken(int platform, const std::string& refresh_token);
+    int Platform;
     const std::string GetToken();
     const std::string GetRefreshToken();
 
     std::chrono::system_clock::time_point ExpiresAt;
 
     static std::string UrlEncode(const std::string& value);
-    void TestingFunction();
 
 private:
-    std::string AccessTokenValue;
 
-    std::string RefreshTokenValue;
+
     bool IsAccessTokenValid() const;
     bool RefreshAccessToken();
     bool GetNewToken();
