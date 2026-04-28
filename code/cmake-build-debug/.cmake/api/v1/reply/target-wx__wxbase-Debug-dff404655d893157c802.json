@@ -1,0 +1,189 @@
+{
+	"abstract" : true,
+	"artifacts" : 
+	[
+		{
+			"path" : "C:/vcpkg/installed/x64-windows/debug/bin//wxbase32ud_vc_x64_custom.dll"
+		},
+		{
+			"path" : "C:/vcpkg/installed/x64-windows/debug/lib//wxbase32ud.lib"
+		}
+	],
+	"backtrace" : 9,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"_add_library",
+			"add_library",
+			"include",
+			"_find_package",
+			"find_package",
+			"set_target_properties"
+		],
+		"files" : 
+		[
+			"C:/vcpkg/scripts/buildsystems/vcpkg.cmake",
+			"C:/vcpkg/installed/x64-windows/share/wxwidgets/wxWidgetsTargets.cmake",
+			"C:/vcpkg/installed/x64-windows/share/wxwidgets/wxWidgetsConfig.cmake",
+			"C:/vcpkg/installed/x64-windows/share/wxwidgets/vcpkg-cmake-wrapper.cmake",
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 4
+			},
+			{
+				"command" : 4,
+				"file" : 4,
+				"line" : 12,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 847,
+				"parent" : 1
+			},
+			{
+				"file" : 3,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 3,
+				"line" : 55,
+				"parent" : 3
+			},
+			{
+				"file" : 2,
+				"parent" : 4
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 80,
+				"parent" : 5
+			},
+			{
+				"file" : 1,
+				"parent" : 6
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 58,
+				"parent" : 7
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 639,
+				"parent" : 8
+			},
+			{
+				"command" : 5,
+				"file" : 1,
+				"line" : 60,
+				"parent" : 7
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	},
+	"id" : "wx::wxbase::@6890427a1f51a3e7e1df",
+	"imported" : true,
+	"interfaceLinkLibraries" : 
+	[
+		{
+			"backtrace" : 10,
+			"fragment" : "kernel32"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "user32"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "gdi32"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "comdlg32"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "winspool"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "winmm"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "shell32"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "shlwapi"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "comctl32"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "ole32"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "oleaut32"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "uuid"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "rpcrt4"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "advapi32"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "version"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "ws2_32"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "wininet"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "oleacc"
+		},
+		{
+			"backtrace" : 10,
+			"fragment" : "uxtheme"
+		}
+	],
+	"local" : true,
+	"name" : "wx::wxbase",
+	"nameOnDisk" : "wxbase32ud_vc_x64_custom.dll",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sources" : [],
+	"type" : "SHARED_LIBRARY"
+}
