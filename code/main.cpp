@@ -2,6 +2,7 @@
 
 #include "SQLiteCpp/Backup.h"
 #include "ui/local_calendar_app.h"
+#include "utils/access_token.h"
 #include "utils/types.h"
 
 namespace {
@@ -81,6 +82,7 @@ bool InitializeSchema(SQLite::Database& db) {
 } // namespace
 
 int main() {
+
     const std::string dbPath = APP_DB_PATH;
 
     try {
