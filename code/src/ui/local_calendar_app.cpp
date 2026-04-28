@@ -39,7 +39,9 @@ constexpr int kMinutesPerDay = 24 * 60;
 constexpr int kSecondsPerDay = 86400;
 constexpr int kTimelineHourHeight = 80;
 constexpr int kTimelineHeaderHeight = 52;
-constexpr int kTimelineAllDayLaneHeight = 30;
+constexpr int kTimelineAllDayLanePadding = 8;
+constexpr int kTimelineAllDayRowHeight = 30;
+constexpr int kTimelineAllDayMinRows = 2;
 constexpr int kTimelineTimeLabelWidth = 74;
 
 enum class CalendarViewMode {
@@ -93,14 +95,14 @@ std::string FormatTimeLabel(const long long epoch) {
 
 std::string BuildTimelineEventLabel(const Event& event, const long long dayEpoch) {
     if (event.allDay) {
-        return "All day\n" + event.title;
+        return event.title.empty() ? "All day" : event.title;
     }
 
     const long long clippedStart = std::max(event.startDateTime, dayEpoch);
     const long long clippedEnd = std::min(event.endDateTime, dayEpoch + kSecondsPerDay);
 
     std::ostringstream output;
-    output << FormatTimeLabel(clippedStart) << " - " << FormatTimeLabel(clippedEnd) << "\n" << event.title;
+    output << event.title << "\n" << FormatTimeLabel(clippedStart) << " - " << FormatTimeLabel(clippedEnd);
     return output.str();
 }
 
@@ -108,7 +110,20 @@ std::string BuildMonthEventLabel(const Event& event) {
     if (event.allDay) {
         return event.title;
     }
-    return FormatTimeLabel(event.startDateTime) + " " + event.title;
+    return event.title + " " + FormatTimeLabel(event.startDateTime);
+}
+
+void NormalizeAllDayEventRange(Event& event) {
+    if (!event.allDay) {
+        return;
+    }
+
+    event.startDateTime = StartOfUtcDay(event.startDateTime);
+    event.endDateTime = StartOfUtcDay(event.endDateTime);
+
+    if (event.endDateTime <= event.startDateTime) {
+        event.endDateTime = event.startDateTime + kSecondsPerDay;
+    }
 }
 
 int DaysInMonth(const int year, const int month) {
@@ -143,14 +158,24 @@ std::string MakeLocalProviderEventId(const long long startDateTime) {
     return "local-" + std::to_string(now) + "-" + std::to_string(startDateTime);
 }
 
+struct EventDraftDefaults {
+    long long startDateTime = 0;
+    long long endDateTime = 0;
+    bool allDay = false;
+};
+
 class EventEditorDialog final : public wxDialog {
 public:
-    EventEditorDialog(wxWindow* parent, const std::optional<Event>& event, const long long defaultDayEpoch)
+    EventEditorDialog(wxWindow* parent,
+                      const std::optional<Event>& event,
+                      const long long defaultDayEpoch,
+                      const std::optional<EventDraftDefaults>& defaults = std::nullopt)
         : wxDialog(parent, wxID_ANY, event.has_value() ? "Edit Event" : "New Event",
                    wxDefaultPosition, wxSize(460, 470),
                    wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
           originalEvent_(event),
-          defaultDayEpoch_(defaultDayEpoch) {
+          defaultDayEpoch_(defaultDayEpoch),
+          defaults_(defaults) {
         BuildLayout();
         LoadInitialValues();
     }
@@ -183,6 +208,7 @@ public:
 
         event.startDateTime = ParseUtcDateTimeInput(startCtrl_->GetValue().ToStdString(), event.allDay);
         event.endDateTime = ParseUtcDateTimeInput(endCtrl_->GetValue().ToStdString(), event.allDay);
+        NormalizeAllDayEventRange(event);
 
         if (!originalEvent_.has_value()) {
             event.instanceStart = event.startDateTime;
@@ -259,9 +285,11 @@ private:
         titleCtrl_->SetValue("");
         locationCtrl_->SetValue("");
         descriptionCtrl_->SetValue("");
-        allDayCtrl_->SetValue(false);
-        startCtrl_->SetValue(FormatUtcDateTimeInput(defaultDayEpoch_ + 9 * 3600, false));
-        endCtrl_->SetValue(FormatUtcDateTimeInput(defaultDayEpoch_ + 10 * 3600, false));
+        const EventDraftDefaults defaults = defaults_.value_or(
+            EventDraftDefaults{defaultDayEpoch_ + 9 * 3600, defaultDayEpoch_ + 10 * 3600, false});
+        allDayCtrl_->SetValue(defaults.allDay);
+        startCtrl_->SetValue(FormatUtcDateTimeInput(defaults.startDateTime, defaults.allDay));
+        endCtrl_->SetValue(FormatUtcDateTimeInput(defaults.endDateTime, defaults.allDay));
     }
 
     bool ValidateEvent(const Event& event) const {
@@ -317,6 +345,7 @@ private:
 
     std::optional<Event> originalEvent_;
     long long defaultDayEpoch_ = 0;
+    std::optional<EventDraftDefaults> defaults_;
     bool deleteRequested_ = false;
 
     wxTextCtrl* titleCtrl_ = nullptr;
@@ -332,10 +361,12 @@ public:
     MonthCellPanel(wxWindow* parent,
                    const int index,
                    std::function<void(int)> dayClicked,
+                   std::function<void(int)> emptySpaceClicked,
                    std::function<void(long long)> eventClicked)
         : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(150, 132)),
           index_(index),
           dayClicked_(std::move(dayClicked)),
+          emptySpaceClicked_(std::move(emptySpaceClicked)),
           eventClicked_(std::move(eventClicked)) {
         SetBackgroundColour(*wxWHITE);
 
@@ -348,8 +379,16 @@ public:
         });
         rootSizer->Add(headerButton_, 0, wxEXPAND | wxALL, 4);
 
+        bodyPanel_ = new wxPanel(this);
+        bodyPanel_->SetBackgroundColour(*wxWHITE);
+        bodyPanel_->Bind(wxEVT_LEFT_UP, [this](wxMouseEvent&) {
+            if (emptySpaceClicked_) {
+                emptySpaceClicked_(index_);
+            }
+        });
         eventsSizer_ = new wxBoxSizer(wxVERTICAL);
-        rootSizer->Add(eventsSizer_, 1, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 4);
+        bodyPanel_->SetSizer(eventsSizer_);
+        rootSizer->Add(bodyPanel_, 1, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 4);
         SetSizer(rootSizer);
     }
 
@@ -372,16 +411,19 @@ public:
             header << dayNumber;
         }
         headerButton_->SetLabel(header.str());
-        headerButton_->SetBackgroundColour(isSelected ? wxColour(221, 235, 255) : wxColour(246, 248, 252));
+        const wxColour selectionColour = isSelected ? wxColour(221, 235, 255) : wxColour(246, 248, 252);
+        headerButton_->SetBackgroundColour(selectionColour);
         headerButton_->SetForegroundColour(inCurrentMonth ? wxColour(34, 34, 34) : wxColour(140, 140, 140));
 
         eventsSizer_->Clear(true);
         eventButtons_.clear();
 
-        SetBackgroundColour(isSelected ? wxColour(239, 245, 255) : *wxWHITE);
+        const wxColour cellColour = isSelected ? wxColour(239, 245, 255) : *wxWHITE;
+        SetBackgroundColour(cellColour);
+        bodyPanel_->SetBackgroundColour(cellColour);
 
         for (const auto& event : dayEvents) {
-            auto* eventButton = new wxButton(this, wxID_ANY, BuildMonthEventLabel(event),
+            auto* eventButton = new wxButton(bodyPanel_, wxID_ANY, BuildMonthEventLabel(event),
                                              wxDefaultPosition, wxDefaultSize, wxBU_LEFT);
             eventButton->SetMinSize(wxSize(-1, 24));
             eventButton->SetBackgroundColour(wxColour(214, 234, 248));
@@ -402,8 +444,10 @@ private:
     int index_ = -1;
     long long dayEpoch_ = 0;
     std::function<void(int)> dayClicked_;
+    std::function<void(int)> emptySpaceClicked_;
     std::function<void(long long)> eventClicked_;
     wxButton* headerButton_ = nullptr;
+    wxPanel* bodyPanel_ = nullptr;
     wxBoxSizer* eventsSizer_ = nullptr;
     std::vector<wxButton*> eventButtons_;
 };
@@ -419,6 +463,7 @@ public:
         canvas_ = new wxPanel(this);
         canvas_->SetBackgroundStyle(wxBG_STYLE_PAINT);
         canvas_->Bind(wxEVT_PAINT, &TimelineViewPanel::OnPaint, this);
+        canvas_->Bind(wxEVT_LEFT_UP, &TimelineViewPanel::OnCanvasLeftUp, this);
         Bind(wxEVT_SIZE, &TimelineViewPanel::OnHostResized, this);
 
         SetSizer(new wxBoxSizer(wxVERTICAL));
@@ -449,6 +494,10 @@ public:
         eventClickHandler_ = std::move(handler);
     }
 
+    void SetEmptySlotClickHandler(std::function<void(long long, int)> handler) {
+        emptySlotClickHandler_ = std::move(handler);
+    }
+
 private:
     struct TimelineSegment {
         long long eventId = -1;
@@ -471,11 +520,31 @@ private:
     }
 
     int TotalCanvasHeight() const {
-        return kTimelineHeaderHeight + kTimelineAllDayLaneHeight + 24 * kTimelineHourHeight;
+        return kTimelineHeaderHeight + CurrentAllDayLaneHeight() + 24 * kTimelineHourHeight;
     }
 
     int TimelineTop() const {
-        return kTimelineHeaderHeight + kTimelineAllDayLaneHeight;
+        return kTimelineHeaderHeight + CurrentAllDayLaneHeight();
+    }
+
+    int CurrentAllDayLaneHeight() const {
+        int maxAllDayEvents = 0;
+        for (int dayIndex = 0; dayIndex < DayCount(); ++dayIndex) {
+            const long long dayEpoch = rangeStartEpoch_ + static_cast<long long>(dayIndex) * kSecondsPerDay;
+            int dayAllDayCount = 0;
+            for (const auto& event : events_) {
+                if (event.deletedAt != 0 || !event.allDay) {
+                    continue;
+                }
+                if (event.startDateTime < dayEpoch + kSecondsPerDay && event.endDateTime > dayEpoch) {
+                    ++dayAllDayCount;
+                }
+            }
+            maxAllDayEvents = std::max(maxAllDayEvents, dayAllDayCount);
+        }
+
+        const int rowCount = std::max(kTimelineAllDayMinRows, maxAllDayEvents);
+        return kTimelineAllDayLanePadding * 2 + rowCount * kTimelineAllDayRowHeight;
     }
 
     void RefreshView() {
@@ -604,8 +673,10 @@ private:
 
             for (size_t index = 0; index < allDaySegments.size(); ++index) {
                 auto* button = new wxButton(canvas_, wxID_ANY, allDaySegments[index].label,
-                                            wxPoint(dayX + 4, kTimelineHeaderHeight + 4 + static_cast<int>(index) * 20),
-                                            wxSize(usableWidth, 18), wxBU_LEFT);
+                                            wxPoint(dayX + 4,
+                                                    kTimelineHeaderHeight + kTimelineAllDayLanePadding +
+                                                    static_cast<int>(index) * kTimelineAllDayRowHeight),
+                                            wxSize(usableWidth, kTimelineAllDayRowHeight - 4), wxBU_LEFT);
                 button->SetBackgroundColour(wxColour(214, 234, 248));
                 button->SetForegroundColour(wxColour(24, 52, 77));
                 button->Bind(wxEVT_BUTTON, [handler = eventClickHandler_, id = allDaySegments[index].eventId](wxCommandEvent&) {
@@ -642,6 +713,27 @@ private:
         event.Skip();
     }
 
+    void OnCanvasLeftUp(wxMouseEvent& event) {
+        if (!emptySlotClickHandler_) {
+            event.Skip();
+            return;
+        }
+
+        const wxPoint point = event.GetPosition();
+        if (point.x < kTimelineTimeLabelWidth || point.y < TimelineTop()) {
+            event.Skip();
+            return;
+        }
+
+        const int dayColumnWidth = CurrentColumnWidth();
+        const int dayIndex = std::clamp((point.x - kTimelineTimeLabelWidth) / dayColumnWidth, 0, DayCount() - 1);
+        const long long dayEpoch = rangeStartEpoch_ + static_cast<long long>(dayIndex) * kSecondsPerDay;
+        const int minutesFromTop = std::clamp(((point.y - TimelineTop()) * 60) / kTimelineHourHeight, 0, kMinutesPerDay - 1);
+        const int hour = minutesFromTop / 60;
+        const int minute = (minutesFromTop % 60) < 30 ? 0 : 30;
+        emptySlotClickHandler_(dayEpoch, hour * 60 + minute);
+    }
+
     void OnPaint(wxPaintEvent&) {
         wxAutoBufferedPaintDC dc(canvas_);
         dc.SetBackground(wxBrush(*wxWHITE));
@@ -652,6 +744,20 @@ private:
         const int canvasHeight = canvas_->GetSize().GetHeight();
         const int timelineTop = TimelineTop();
         const long long today = StartOfUtcDay(std::time(nullptr));
+
+        for (int dayIndex = 0; dayIndex < DayCount(); ++dayIndex) {
+            const int x = kTimelineTimeLabelWidth + dayIndex * dayColumnWidth;
+            const long long dayEpoch = rangeStartEpoch_ + static_cast<long long>(dayIndex) * kSecondsPerDay;
+            const bool isToday = IsSameUtcDay(dayEpoch, today);
+            const bool isSelected = mode_ == CalendarViewMode::DAY && IsSameUtcDay(dayEpoch, selectedDayEpoch_);
+
+            if (isToday || isSelected) {
+                dc.SetBrush(wxBrush(isSelected ? wxColour(232, 240, 254) : wxColour(244, 248, 255)));
+                dc.SetPen(*wxTRANSPARENT_PEN);
+                dc.DrawRectangle(x + 1, 1, dayColumnWidth - 2, canvasHeight - 2);
+                dc.SetPen(wxPen(wxColour(225, 230, 236)));
+            }
+        }
 
         dc.SetPen(wxPen(wxColour(225, 230, 236)));
         dc.SetTextForeground(wxColour(80, 80, 80));
@@ -671,16 +777,6 @@ private:
         for (int dayIndex = 0; dayIndex < DayCount(); ++dayIndex) {
             const int x = kTimelineTimeLabelWidth + dayIndex * dayColumnWidth;
             const long long dayEpoch = rangeStartEpoch_ + static_cast<long long>(dayIndex) * kSecondsPerDay;
-            const bool isToday = IsSameUtcDay(dayEpoch, today);
-            const bool isSelected = mode_ == CalendarViewMode::DAY && IsSameUtcDay(dayEpoch, selectedDayEpoch_);
-
-            if (isToday || isSelected) {
-                dc.SetBrush(wxBrush(isSelected ? wxColour(232, 240, 254) : wxColour(244, 248, 255)));
-                dc.SetPen(*wxTRANSPARENT_PEN);
-                dc.DrawRectangle(x + 1, 1, dayColumnWidth - 2, canvasHeight - 2);
-                dc.SetPen(wxPen(wxColour(225, 230, 236)));
-            }
-
             dc.DrawLine(x, 0, x, canvasHeight);
             dc.DrawText(FormatShortDayHeader(dayEpoch), x + 8, 16);
         }
@@ -693,6 +789,7 @@ private:
     long long selectedDayEpoch_ = 0;
     std::vector<Event> events_;
     std::function<void(long long)> eventClickHandler_;
+    std::function<void(long long, int)> emptySlotClickHandler_;
     wxPanel* canvas_ = nullptr;
     std::vector<wxButton*> eventButtons_;
 };
@@ -789,6 +886,7 @@ private:
                 monthPage,
                 index,
                 [this](const int cellIndex) { HandleMonthCellClicked(cellIndex); },
+                [this](const int cellIndex) { HandleMonthCellCreateEvent(cellIndex); },
                 [this](const long long eventId) { OpenEventById(eventId); });
             gridSizer->Add(monthCells_[index], 1, wxEXPAND);
         }
@@ -849,8 +947,14 @@ private:
 
         weekTimeline_->SetMode(CalendarViewMode::WEEK);
         weekTimeline_->SetEventClickHandler([this](const long long eventId) { OpenEventById(eventId); });
+        weekTimeline_->SetEmptySlotClickHandler([this](const long long dayEpoch, const int minuteOfDay) {
+            OpenNewTimedEventDialog(dayEpoch, minuteOfDay);
+        });
         dayTimeline_->SetMode(CalendarViewMode::DAY);
         dayTimeline_->SetEventClickHandler([this](const long long eventId) { OpenEventById(eventId); });
+        dayTimeline_->SetEmptySlotClickHandler([this](const long long dayEpoch, const int minuteOfDay) {
+            OpenNewTimedEventDialog(dayEpoch, minuteOfDay);
+        });
     }
 
     void ApplyLook() {
@@ -1037,6 +1141,7 @@ private:
         event.createdAt = event.lastModified;
         event.startDateTime = ParseUtcDateTimeInput(startCtrl_->GetValue().ToStdString(), event.allDay);
         event.endDateTime = ParseUtcDateTimeInput(endCtrl_->GetValue().ToStdString(), event.allDay);
+        NormalizeAllDayEventRange(event);
 
         if (selectedEventId_ > 0) {
             auto existing = eventRepository_.getById(selectedEventId_);
@@ -1122,8 +1227,9 @@ private:
         }
     }
 
-    void OpenEventDialog(const std::optional<Event>& event = std::nullopt) {
-        EventEditorDialog dialog(this, event, selectedDayEpoch_);
+    void OpenEventDialog(const std::optional<Event>& event = std::nullopt,
+                         const std::optional<EventDraftDefaults>& defaults = std::nullopt) {
+        EventEditorDialog dialog(this, event, selectedDayEpoch_, defaults);
         if (dialog.ShowModal() != wxID_OK) {
             return;
         }
@@ -1153,6 +1259,36 @@ private:
         OpenEventDialog(*selectedEvent);
     }
 
+    void OpenNewAllDayEventDialog(const long long dayEpoch) {
+        selectedDayEpoch_ = dayEpoch;
+        const std::tm tm = EpochToUtcTm(selectedDayEpoch_);
+        visibleYear_ = tm.tm_year + 1900;
+        visibleMonth_ = tm.tm_mon + 1;
+        RefreshViewState();
+        ClearForm();
+
+        EventDraftDefaults defaults;
+        defaults.startDateTime = dayEpoch;
+        defaults.endDateTime = dayEpoch + kSecondsPerDay;
+        defaults.allDay = true;
+        OpenEventDialog(std::nullopt, defaults);
+    }
+
+    void OpenNewTimedEventDialog(const long long dayEpoch, const int minuteOfDay) {
+        selectedDayEpoch_ = dayEpoch;
+        const std::tm tm = EpochToUtcTm(selectedDayEpoch_);
+        visibleYear_ = tm.tm_year + 1900;
+        visibleMonth_ = tm.tm_mon + 1;
+        RefreshViewState();
+        ClearForm();
+
+        EventDraftDefaults defaults;
+        defaults.startDateTime = dayEpoch + static_cast<long long>(minuteOfDay) * 60;
+        defaults.endDateTime = defaults.startDateTime + 3600;
+        defaults.allDay = false;
+        OpenEventDialog(std::nullopt, defaults);
+    }
+
     void HandleMonthCellClicked(const int index) {
         if (index < 0 || index >= kMonthCellCount) {
             return;
@@ -1166,6 +1302,14 @@ private:
         calendarBook_->SetSelection(2);
         RefreshViewState();
         ClearForm();
+    }
+
+    void HandleMonthCellCreateEvent(const int index) {
+        if (index < 0 || index >= kMonthCellCount) {
+            return;
+        }
+
+        OpenNewAllDayEventDialog(monthCellEpochs_[index]);
     }
 
     void OnShowMonthView(wxCommandEvent&) {
