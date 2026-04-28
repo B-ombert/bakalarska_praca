@@ -90,75 +90,13 @@ C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.3520
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xpolymorphic_allocator.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cctype
 C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/ctype.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/algorithm
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_heap_algorithms.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_minmax.hpp
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/array
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/chrono
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_chrono.hpp
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ctime
 C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/time.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ratio
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xtimec.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/system_error
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_system_error_abi.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cerrno
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stdexcept
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xcall_once.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xerrc.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/atomic
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xatomic_wait.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xthreads.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_threads_core.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xfilesystem_abi.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_tzdb.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cmath
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/format
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_format_ucd_tables.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_formatter.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_print.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_ranges_tuple_formatter.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/bit
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_bit_utils.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/iterator
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocale
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/memory
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/typeinfo
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vcruntime_typeinfo.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xfacet
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocinfo
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_xlocinfo_types.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/clocale
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/locale.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/charconv
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xbit_ops.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xcharconv.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xcharconv_ryu.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xcharconv_ryu_tables.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xcharconv_tables.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/locale
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocbuf
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/streambuf
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xiosbase
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/share.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocmes
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocmon
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocnum
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xloctime
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/forward_list
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/iomanip
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/istream
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_ostream.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ios
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/optional
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xsmf_control.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/sstream
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vector
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/functional
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/unordered_map
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xhash
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/list
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xnode_handle.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_bit_utils.hpp
 C:/vcpkg/installed/x64-windows/include/wx/button.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/platform.h
@@ -201,8 +139,20 @@ C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/beforestd.h
 C:/vcpkg/installed/x64-windows/include/wx/afterstd.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/algorithm
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_heap_algorithms.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_minmax.hpp
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/string_view
 C:/vcpkg/installed/x64-windows/include/wx/stringops.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/functional
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/typeinfo
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vcruntime_typeinfo.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/unordered_map
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xhash
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cmath
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/list
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xbit_ops.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xnode_handle.h
 C:/vcpkg/installed/x64-windows/include/wx/iosfwrap.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/gdicmn.h
@@ -231,6 +181,7 @@ C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/meta/if.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/beforestd.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/iterator
 C:/vcpkg/installed/x64-windows/include/wx/afterstd.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/hashmap.h
@@ -358,23 +309,7 @@ C:/vcpkg/installed/x64-windows/include/wx/checkbox.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/checkbox.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/ownerdrawnbutton.h
-C:/vcpkg/installed/x64-windows/include/wx/dcbuffer.h
-C:/vcpkg/installed/x64-windows/include/wx/dcmemory.h
-C:/vcpkg/installed/x64-windows/include/wx/dc.h
-C:/vcpkg/installed/x64-windows/include/wx/brush.h
-C:/vcpkg/installed/x64-windows/include/wx/defs.h
-C:/vcpkg/installed/x64-windows/include/wx/msw/brush.h
-C:/vcpkg/installed/x64-windows/include/wx/pen.h
-C:/vcpkg/installed/x64-windows/include/wx/peninfobase.h
-C:/vcpkg/installed/x64-windows/include/wx/msw/pen.h
-C:/vcpkg/installed/x64-windows/include/wx/affinematrix2d.h
-C:/vcpkg/installed/x64-windows/include/wx/defs.h
-C:/vcpkg/installed/x64-windows/include/wx/affinematrix2dbase.h
-C:/vcpkg/installed/x64-windows/include/wx/defs.h
-C:/vcpkg/installed/x64-windows/include/wx/geometry.h
-C:/vcpkg/installed/x64-windows/include/wx/defs.h
-C:/vcpkg/installed/x64-windows/include/wx/dcclient.h
-C:/vcpkg/installed/x64-windows/include/wx/dialog.h
+C:/vcpkg/installed/x64-windows/include/wx/frame.h
 C:/vcpkg/installed/x64-windows/include/wx/toplevel.h
 C:/vcpkg/installed/x64-windows/include/wx/nonownedwnd.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/nonownedwnd.h
@@ -385,6 +320,16 @@ C:/vcpkg/installed/x64-windows/include/wx/msw/icon.h
 C:/vcpkg/installed/x64-windows/include/wx/weakref.h
 C:/vcpkg/installed/x64-windows/include/wx/meta/int2type.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/toplevel.h
+C:/vcpkg/installed/x64-windows/include/wx/statusbr.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/statusbar.h
+C:/vcpkg/installed/x64-windows/include/wx/tooltip.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/tooltip.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/frame.h
+C:/vcpkg/installed/x64-windows/include/wx/msgdlg.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/dialog.h
 C:/vcpkg/installed/x64-windows/include/wx/containr.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/sharedptr.h
@@ -611,29 +556,11 @@ C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/dialog.h
 C:/vcpkg/installed/x64-windows/include/wx/panel.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/panel.h
-C:/vcpkg/installed/x64-windows/include/wx/frame.h
-C:/vcpkg/installed/x64-windows/include/wx/statusbr.h
-C:/vcpkg/installed/x64-windows/include/wx/defs.h
-C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
-C:/vcpkg/installed/x64-windows/include/wx/msw/statusbar.h
-C:/vcpkg/installed/x64-windows/include/wx/tooltip.h
-C:/vcpkg/installed/x64-windows/include/wx/defs.h
-C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
-C:/vcpkg/installed/x64-windows/include/wx/msw/tooltip.h
-C:/vcpkg/installed/x64-windows/include/wx/msw/frame.h
-C:/vcpkg/installed/x64-windows/include/wx/msgdlg.h
-C:/vcpkg/installed/x64-windows/include/wx/defs.h
-C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/stockitem.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/generic/msgdlgg.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/msgdlg.h
-C:/vcpkg/installed/x64-windows/include/wx/scrolwin.h
-C:/vcpkg/installed/x64-windows/include/wx/generic/scrolwin.h
-C:/vcpkg/installed/x64-windows/include/wx/recguard.h
-C:/vcpkg/installed/x64-windows/include/wx/defs.h
-C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/simplebook.h
 C:/vcpkg/installed/x64-windows/include/wx/bookctrl.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
@@ -676,6 +603,31 @@ C:/vcpkg/installed/x64-windows/include/wx/msw/textentry.h
 C:/vcpkg/installed/x64-windows/include/wx/ioswrap.h
 C:/vcpkg/installed/x64-windows/include/wx/beforestd.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/iostream
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/istream
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_ostream.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ios
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocnum
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/streambuf
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xiosbase
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/share.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/system_error
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_system_error_abi.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cerrno
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stdexcept
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xcall_once.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xerrc.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/atomic
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xatomic_wait.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xthreads.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_threads_core.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xtimec.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocale
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/memory
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xfacet
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocinfo
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_xlocinfo_types.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/clocale
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/locale.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ostream
 C:/vcpkg/installed/x64-windows/include/wx/afterstd.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
@@ -713,6 +665,25 @@ C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/module.h
 C:/vcpkg/installed/x64-windows/include/wx/wxcrtvararg.h
+C:/vcpkg/installed/x64-windows/include/wx/dc.h
+C:/vcpkg/installed/x64-windows/include/wx/brush.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/brush.h
+C:/vcpkg/installed/x64-windows/include/wx/pen.h
+C:/vcpkg/installed/x64-windows/include/wx/peninfobase.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/pen.h
+C:/vcpkg/installed/x64-windows/include/wx/affinematrix2d.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/affinematrix2dbase.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/geometry.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/dcclient.h
+C:/vcpkg/installed/x64-windows/include/wx/dcmemory.h
 C:/vcpkg/installed/x64-windows/include/wx/dcprint.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
@@ -778,6 +749,11 @@ C:/vcpkg/installed/x64-windows/include/wx/gauge.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/gauge.h
+C:/vcpkg/installed/x64-windows/include/wx/scrolwin.h
+C:/vcpkg/installed/x64-windows/include/wx/generic/scrolwin.h
+C:/vcpkg/installed/x64-windows/include/wx/recguard.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/dirdlg.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
@@ -815,6 +791,7 @@ C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/mdi.h
 C:/uniba/projekt_kalendar/bc_test_app/include/models/calendar.h
 C:/uniba/projekt_kalendar/bc_test_app/include/utils/json.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/forward_list
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/map
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xtree
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/valarray
@@ -822,15 +799,35 @@ C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.3520
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cassert
 C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/assert.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/filesystem
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/chrono
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_chrono.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ratio
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xfilesystem_abi.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_tzdb.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/format
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_format_ucd_tables.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_formatter.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_print.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_ranges_tuple_formatter.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/bit
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/charconv
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xcharconv.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xcharconv_ryu.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xcharconv_ryu_tables.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xcharconv_tables.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/locale
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocbuf
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocmes
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocmon
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xloctime
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/iomanip
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/sstream
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ranges
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_int128.hpp
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_ranges_to.hpp
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/span
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/numeric
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/any
-C:/uniba/projekt_kalendar/bc_test_app/include/models/event.h
-C:/uniba/projekt_kalendar/bc_test_app/include/utils/datetime_utils.h
-C:/uniba/projekt_kalendar/bc_test_app/include/utils/types.h
 C:/uniba/projekt_kalendar/bc_test_app/include/repositories/calendar_repository.h
 C:/uniba/projekt_kalendar/bc_test_app/SQLiteCpp/include/SQLiteCpp/Backup.h
 C:/uniba/projekt_kalendar/bc_test_app/SQLiteCpp/include/SQLiteCpp/SQLiteCppExport.h
@@ -840,3 +837,10 @@ C:/uniba/projekt_kalendar/bc_test_app/SQLiteCpp/include/SQLiteCpp/Statement.h
 C:/uniba/projekt_kalendar/bc_test_app/SQLiteCpp/include/SQLiteCpp/Exception.h
 C:/uniba/projekt_kalendar/bc_test_app/SQLiteCpp/include/SQLiteCpp/Utils.h
 C:/uniba/projekt_kalendar/bc_test_app/include/repositories/event_repository.h
+C:/uniba/projekt_kalendar/bc_test_app/include/models/event.h
+C:/uniba/projekt_kalendar/bc_test_app/include/utils/datetime_utils.h
+C:/uniba/projekt_kalendar/bc_test_app/include/utils/types.h
+C:/uniba/projekt_kalendar/bc_test_app/include/ui/calendar_ui_shared.h
+C:/uniba/projekt_kalendar/bc_test_app/include/ui/event_editor_dialog.h
+C:/uniba/projekt_kalendar/bc_test_app/include/ui/month_cell_panel.h
+C:/uniba/projekt_kalendar/bc_test_app/include/ui/timeline_view_panel.h
