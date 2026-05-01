@@ -155,6 +155,7 @@ void ApplyAllDayToggleToInputs(wxTextCtrl* startCtrl, wxTextCtrl* endCtrl, const
         startCtrl->SetValue(FormatUtcDateTimeInput(startEpoch, allDay));
     }
     if (endEpoch >= 0) {
-        endCtrl->SetValue(FormatUtcDateTimeInput(endEpoch, allDay));
+        const long long displayEndEpoch = allDay && endEpoch > 0 ? endEpoch - kSecondsPerDay : endEpoch;
+        endCtrl->SetValue(FormatUtcDateTimeInput(displayEndEpoch, allDay));
     }
 }

@@ -410,23 +410,24 @@ private:
     }
 
     bool FetchAndStoreRemoteCalendars(const Account& account, const std::string& accessToken) {
-        std::vector<Calendar> remoteCalendars;
-
         if (account.provider == "GOOGLE") {
             GoogleCalendarSyncService service(calendarRepository_, eventRepository_);
-            remoteCalendars = service.fetchRemoteCalendars(accessToken);
+            auto remoteCalendars = service.fetchRemoteCalendars(accessToken);
+            for (auto& calendar : remoteCalendars) {
+                calendar.accountId = account.id;
+            }
+            service.syncCalendarsIncremental(remoteCalendars, accessToken);
         }
         else if (account.provider == "MICROSOFT") {
             OutlookCalendarSyncService service(calendarRepository_, eventRepository_);
-            remoteCalendars = service.fetchRemoteCalendars(accessToken);
+            auto remoteCalendars = service.fetchRemoteCalendars(accessToken);
+            for (auto& calendar : remoteCalendars) {
+                calendar.accountId = account.id;
+            }
+            service.syncCalendarsIncremental(remoteCalendars, accessToken);
         }
         else {
             return true;
-        }
-
-        for (auto& calendar : remoteCalendars) {
-            calendar.accountId = account.id;
-            calendarRepository_.upsert(calendar);
         }
 
         return true;

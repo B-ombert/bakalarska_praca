@@ -297,7 +297,7 @@ Event parseMicrosoftJsonEvent(const json& j) {
     if (j.contains("end") && j["end"].is_object() &&
         j["end"].contains("dateTime") && j["end"]["dateTime"].is_string()) {
         const std::string end = j["end"]["dateTime"].get<std::string>();
-        e.endDateTime = e.allDay ? iso8601ToEpochDate(end) - 86400 : iso8601ToEpoch(end);
+        e.endDateTime = e.allDay ? iso8601ToEpochDate(end) : iso8601ToEpoch(end);
     }
 
     e.status = "confirmed";
@@ -373,7 +373,7 @@ Event Event::fromIcal(const std::string& icalBody) {
         }
         else if (line.rfind("DTEND;VALUE=DATE:", 0) == 0) {
             event.allDay = true;
-            event.endDateTime = iso8601ToEpochDate(getIcalValue(line)) - 86400;
+            event.endDateTime = iso8601ToEpochDate(getIcalValue(line));
         }
         else if (line.rfind("DTSTART", 0) == 0) {
             event.startDateTime = iso8601ToEpoch(getIcalValue(line));
@@ -431,7 +431,7 @@ json Event::ExportToIcal() const {
 
     if (allDay) {
         ical << "DTSTART;VALUE=DATE:" << epochToIsoDate(startDateTime) << "\r\n";
-        ical << "DTEND;VALUE=DATE:" << epochToIsoDate(endDateTime + 86400) << "\r\n";
+        ical << "DTEND;VALUE=DATE:" << epochToIsoDate(endDateTime) << "\r\n";
     }
     else {
         ical << "DTSTART:" << epochToIso(startDateTime) << "\r\n";
@@ -462,7 +462,7 @@ json Event::exportToGoogleJson() {
 
     if (allDay) {
         j["start"]["date"] = epochToIsoDate(startDateTime);
-        j["end"]["date"] = epochToIsoDate(endDateTime + 86400);
+        j["end"]["date"] = epochToIsoDate(endDateTime);
     }
     else {
         j["start"]["dateTime"] = epochToIso(startDateTime);
@@ -507,7 +507,7 @@ json Event::exportToOutlookJson() {
             {"timeZone", "UTC"}
         };
         j["end"] = {
-            {"dateTime", epochToIsoDate(endDateTime+86400)},
+            {"dateTime", epochToIsoDate(endDateTime)},
             {"timeZone", "UTC"}
         };
     }
@@ -573,7 +573,7 @@ Event Event::ParseGoogleJsonEvent(const json& j) {
 
     if (j.contains("end")) {
         if (e.allDay && j["end"].contains("date")) {
-            e.endDateTime = iso8601ToEpoch(j["end"]["date"].get<std::string>()) - 86400;
+            e.endDateTime = iso8601ToEpoch(j["end"]["date"].get<std::string>());
         } else if (j["end"].contains("dateTime")) {
             e.endDateTime = iso8601ToEpoch(j["end"]["dateTime"].get<std::string>());
         }

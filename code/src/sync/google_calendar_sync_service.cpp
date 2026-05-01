@@ -32,7 +32,7 @@ std::vector<Event> FetchGoogleChangesImpl(const Calendar& calendar,
 
     do {
         std::string url = BuildGoogleEventsCollectionUrl(calendar) +
-                          "?showDeleted=true&singleEvents=true&maxResults=250";
+                          "?showDeleted=true&maxResults=250";
 
         if (!calendar.syncToken.empty() && pageToken.empty()) {
             url += "&syncToken=" + AccessToken::UrlEncode(calendar.syncToken);

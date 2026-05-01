@@ -229,7 +229,7 @@ void TimelineViewPanel::RebuildEventButtons() {
             const int x = kTimelineTimeLabelWidth + span.startDayIndex * dayColumnWidth + 4;
             const int width = std::max(44, (span.endDayIndex - span.startDayIndex + 1) * dayColumnWidth - 8);
             const int y = kTimelineHeaderHeight + kTimelineAllDayLanePadding + span.row * kTimelineAllDayRowHeight;
-            auto* button = new wxButton(canvas_, wxID_ANY, span.label,
+            auto* button = new wxButton(canvas_, wxID_ANY, wxString::FromUTF8(span.label),
                                         wxPoint(x, y),
                                         wxSize(width, kTimelineAllDayRowHeight - 4), wxBU_LEFT);
             button->SetBackgroundColour(wxColour(214, 234, 248));
@@ -328,7 +328,7 @@ void TimelineViewPanel::RebuildEventButtons() {
         const int dayX = kTimelineTimeLabelWidth + dayIndex * dayColumnWidth;
 
         for (size_t index = 0; index < allDaySegments.size(); ++index) {
-            auto* button = new wxButton(canvas_, wxID_ANY, allDaySegments[index].label,
+            auto* button = new wxButton(canvas_, wxID_ANY, wxString::FromUTF8(allDaySegments[index].label),
                                         wxPoint(dayX + 4,
                                                 kTimelineHeaderHeight + kTimelineAllDayLanePadding +
                                                 static_cast<int>(index) * kTimelineAllDayRowHeight),
@@ -350,7 +350,7 @@ void TimelineViewPanel::RebuildEventButtons() {
             const int height = std::max(24, ((segment.endMinute - segment.startMinute) * kTimelineHourHeight) / 60);
             const int width = std::max(44, columnWidth - 4);
 
-            auto* button = new wxButton(canvas_, wxID_ANY, segment.label,
+            auto* button = new wxButton(canvas_, wxID_ANY, wxString::FromUTF8(segment.label),
                                         wxPoint(x, y), wxSize(width, height), wxBU_LEFT);
             button->SetBackgroundColour(wxColour(187, 222, 251));
             button->SetForegroundColour(wxColour(16, 49, 80));

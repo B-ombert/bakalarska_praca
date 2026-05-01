@@ -141,6 +141,7 @@ int main() {
         InitializeSchema(db);
 
         //ResetApplicationData(db);
+
         EnsureLocalSeedData(db);
     }
     catch (const SQLite::Exception& ex) {

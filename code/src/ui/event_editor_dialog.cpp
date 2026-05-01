@@ -11,6 +11,17 @@
 
 #include "utils/datetime_utils.h"
 
+namespace {
+
+long long FormatDisplayEndEpoch(const long long epoch, const bool allDay) {
+    if (!allDay) {
+        return epoch;
+    }
+    return epoch > 0 ? epoch - kSecondsPerDay : epoch;
+}
+
+} // namespace
+
 EventEditorDialog::EventEditorDialog(wxWindow* parent,
                                      const std::optional<Event>& event,
                                      const long long defaultDayEpoch,
@@ -122,7 +133,7 @@ void EventEditorDialog::LoadInitialValues() {
         descriptionCtrl_->SetValue(event.description);
         allDayCtrl_->SetValue(event.allDay);
         startCtrl_->SetValue(FormatUtcDateTimeInput(event.startDateTime, event.allDay));
-        endCtrl_->SetValue(FormatUtcDateTimeInput(event.endDateTime, event.allDay));
+        endCtrl_->SetValue(FormatUtcDateTimeInput(FormatDisplayEndEpoch(event.endDateTime, event.allDay), event.allDay));
         return;
     }
 
@@ -133,7 +144,7 @@ void EventEditorDialog::LoadInitialValues() {
         EventDraftDefaults{defaultDayEpoch_ + 9 * 3600, defaultDayEpoch_ + 10 * 3600, false});
     allDayCtrl_->SetValue(defaults.allDay);
     startCtrl_->SetValue(FormatUtcDateTimeInput(defaults.startDateTime, defaults.allDay));
-    endCtrl_->SetValue(FormatUtcDateTimeInput(defaults.endDateTime, defaults.allDay));
+    endCtrl_->SetValue(FormatUtcDateTimeInput(FormatDisplayEndEpoch(defaults.endDateTime, defaults.allDay), defaults.allDay));
 }
 
 bool EventEditorDialog::ValidateEvent(const Event& event) const {
