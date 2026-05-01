@@ -197,6 +197,12 @@ C:/uniba/projekt_kalendar/bc_test_app/include/utils/access_token.h
 C:/uniba/projekt_kalendar/bc_test_app/include/oauth/oauth_google.h
 C:/uniba/projekt_kalendar/bc_test_app/include/utils/crypto.h
 C:/uniba/projekt_kalendar/bc_test_app/include/oauth/oauth_utils.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/thread
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/process.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/corecrt_startup.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/math.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vcruntime_startup.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stop_token
 C:/dev/cppLibs/boost_1_89_0/boost/asio.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/any_completion_executor.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/config.hpp
@@ -573,12 +579,6 @@ C:/dev/cppLibs/boost_1_89_0/boost/system/detail/mutex.hpp
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/shared_mutex
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/condition_variable
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/mutex
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/thread
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/process.h
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/corecrt_startup.h
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/math.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vcruntime_startup.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stop_token
 C:/dev/cppLibs/boost_1_89_0/boost/system/error_condition.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/system/errc.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/system/generic_category.hpp

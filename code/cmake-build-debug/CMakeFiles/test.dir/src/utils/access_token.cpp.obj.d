@@ -93,6 +93,33 @@ C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.3520
 C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/ctype.h
 C:/uniba/projekt_kalendar/bc_test_app/include/utils/crypto.h
 C:/uniba/projekt_kalendar/bc_test_app/include/oauth/oauth_utils.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/functional
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/typeinfo
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vcruntime_typeinfo.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/unordered_map
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xhash
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cmath
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/list
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vector
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_bit_utils.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xbit_ops.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xnode_handle.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/thread
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_chrono.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ctime
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/time.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ratio
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xtimec.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/memory
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/atomic
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xatomic_wait.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xthreads.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_threads_core.hpp
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/process.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/corecrt_startup.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/math.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vcruntime_startup.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stop_token
 C:/dev/cppLibs/boost_1_89_0/boost/asio.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/any_completion_executor.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/config.hpp
@@ -133,24 +160,14 @@ C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/push_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/execution/any_executor.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/typeinfo
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vcruntime_typeinfo.h
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/assert.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/assert.hpp
 C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/assert.h
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/atomic_count.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/atomic
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xatomic_wait.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xthreads.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_threads_core.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xtimec.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ctime
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/time.h
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/cstddef.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/executor_function.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/handler_alloc_helpers.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/memory.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/memory
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/cstdint.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/throw_exception.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/throw_exception.hpp
@@ -199,15 +216,6 @@ C:/dev/cppLibs/boost_1_89_0/boost/asio/associator.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/push_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/functional.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/functional
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/unordered_map
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xhash
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cmath
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/list
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vector
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_bit_utils.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xbit_ops.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xnode_handle.h
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/push_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/push_options.hpp
@@ -508,15 +516,7 @@ C:/dev/cppLibs/boost_1_89_0/boost/system/detail/std_category_impl.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/system/detail/mutex.hpp
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/shared_mutex
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/condition_variable
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_chrono.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ratio
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/mutex
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/thread
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/process.h
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/corecrt_startup.h
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/math.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vcruntime_startup.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stop_token
 C:/dev/cppLibs/boost_1_89_0/boost/system/error_condition.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/system/errc.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/system/generic_category.hpp

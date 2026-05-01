@@ -1,13 +1,8 @@
 #include "oauth/oauth_ms.h"
 #include "http.h"
 #include <sstream>
-#include <thread>
 #include <windows.h>
 #include <shellapi.h>
-#include <boost/asio.hpp>
-
-using namespace boost::asio;
-using tcp = ip::tcp;
 
 std::string GetMSAuthCode(const std::string& code_challenge){
     std::string auth_url =
@@ -22,17 +17,8 @@ std::string GetMSAuthCode(const std::string& code_challenge){
 
     std::cout << "\nOpening Microsoft login \n";
 
-    std::string code;
-
-    std::thread serverThread([&code](){
-        code = CatchRedirectedAuthCode();
-    });
-
     ShellExecuteA(0, "open", auth_url.c_str(), 0, 0, SW_SHOWNORMAL);
-
-    serverThread.join();
-
-    return code;
+    return CatchRedirectedAuthCode();
 }
 
 std::string GetAccessTokenFromMS(){

@@ -43,12 +43,39 @@ MonthCellPanel::MonthCellPanel(wxWindow* parent,
     SetSizer(rootSizer);
 }
 
+namespace {
+
+std::string BuildMonthSegmentLabel(const MonthCellEventSegment& segment) {
+    std::string label = segment.label;
+    if (label.empty()) {
+        if (segment.continuesBefore && segment.continuesAfter) {
+            return "< >";
+        }
+        if (segment.continuesBefore) {
+            return "<";
+        }
+        if (segment.continuesAfter) {
+            return ">";
+        }
+        return "";
+    }
+    if (segment.continuesBefore) {
+        label = "< " + label;
+    }
+    if (segment.continuesAfter) {
+        label += " >";
+    }
+    return label;
+}
+
+} // namespace
+
 void MonthCellPanel::UpdateCell(const long long dayEpoch,
                                 const int dayNumber,
                                 const bool inCurrentMonth,
                                 const bool isToday,
                                 const bool isSelected,
-                                const std::vector<Event>& dayEvents) {
+                                const std::vector<std::optional<MonthCellEventSegment>>& eventRows) {
     dayEpoch_ = dayEpoch;
 
     std::ostringstream header;
@@ -68,25 +95,34 @@ void MonthCellPanel::UpdateCell(const long long dayEpoch,
     headerButton_->SetForegroundColour(inCurrentMonth ? wxColour(34, 34, 34) : wxColour(140, 140, 140));
 
     eventsSizer_->Clear(true);
-    eventButtons_.clear();
+    eventWidgets_.clear();
 
     const wxColour cellColour = isSelected ? wxColour(239, 245, 255) : *wxWHITE;
     SetBackgroundColour(cellColour);
     bodyPanel_->SetBackgroundColour(cellColour);
 
-    for (const auto& event : dayEvents) {
-        auto* eventButton = new wxButton(bodyPanel_, wxID_ANY, BuildMonthEventLabel(event),
-                                         wxDefaultPosition, wxDefaultSize, wxBU_LEFT);
-        eventButton->SetMinSize(wxSize(-1, 24));
-        eventButton->SetBackgroundColour(wxColour(214, 234, 248));
-        eventButton->SetForegroundColour(wxColour(24, 52, 77));
-        eventButton->Bind(wxEVT_BUTTON, [handler = eventClicked_, id = event.id](wxCommandEvent&) {
-            if (handler) {
-                handler(id);
-            }
-        });
-        eventsSizer_->Add(eventButton, 0, wxEXPAND | wxBOTTOM, 3);
-        eventButtons_.push_back(eventButton);
+    for (const auto& row : eventRows) {
+        if (row.has_value()) {
+            auto* eventButton = new wxButton(bodyPanel_, wxID_ANY, BuildMonthSegmentLabel(*row),
+                                             wxDefaultPosition, wxDefaultSize, wxBU_LEFT);
+            eventButton->SetMinSize(wxSize(-1, 24));
+            eventButton->SetBackgroundColour(wxColour(214, 234, 248));
+            eventButton->SetForegroundColour(wxColour(24, 52, 77));
+            eventButton->Bind(wxEVT_BUTTON, [handler = eventClicked_, id = row->eventId](wxCommandEvent&) {
+                if (handler) {
+                    handler(id);
+                }
+            });
+            eventsSizer_->Add(eventButton, 0, wxEXPAND | wxBOTTOM, 3);
+            eventWidgets_.push_back(eventButton);
+        }
+        else {
+            auto* spacer = new wxPanel(bodyPanel_, wxID_ANY, wxDefaultPosition, wxSize(-1, 24));
+            spacer->SetMinSize(wxSize(-1, 24));
+            spacer->SetBackgroundColour(cellColour);
+            eventsSizer_->Add(spacer, 0, wxEXPAND | wxBOTTOM, 3);
+            eventWidgets_.push_back(spacer);
+        }
     }
 
     bodyPanel_->Layout();

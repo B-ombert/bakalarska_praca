@@ -8,6 +8,8 @@
 #include "models/event.h"
 
 constexpr int kMonthCellCount = 42;
+constexpr int kMinCalendarYear = 1970;
+constexpr long long kMinCalendarEpoch = 0;
 constexpr int kMinutesPerDay = 24 * 60;
 constexpr int kSecondsPerDay = 86400;
 constexpr int kTimelineHourHeight = 80;
@@ -30,6 +32,7 @@ struct EventDraftDefaults {
 };
 
 std::string FormatMonthTitle(int year, int month);
+std::string FormatMonthName(int month);
 std::string FormatDayHeader(long long dayEpoch);
 std::string FormatShortDayHeader(long long dayEpoch);
 std::string FormatWeekTitle(long long weekStartEpoch);
@@ -37,6 +40,8 @@ std::string FormatTimeLabel(long long epoch);
 std::string BuildTimelineEventLabel(const Event& event, long long dayEpoch);
 std::string BuildMonthEventLabel(const Event& event);
 void NormalizeAllDayEventRange(Event& event);
+long long EventDisplayEndDay(const Event& event);
+bool SpansMultipleDays(const Event& event);
 int DaysInMonth(int year, int month);
 int MonthGridOffset(int year, int month);
 bool IsSameUtcDay(long long lhs, long long rhs);

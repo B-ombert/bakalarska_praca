@@ -1,5 +1,6 @@
 #include "ui/local_calendar_app.h"
 
+#include <algorithm>
 #include <array>
 #include <ctime>
 #include <optional>
@@ -8,6 +9,7 @@
 
 #include <wx/button.h>
 #include <wx/checkbox.h>
+#include <wx/combobox.h>
 #include <wx/frame.h>
 #include <wx/msgdlg.h>
 #include <wx/panel.h>
@@ -28,6 +30,20 @@
 
 namespace {
 
+struct MonthCellMeta {
+    long long dayEpoch = 0;
+    int dayNumber = 0;
+    bool inCurrentMonth = true;
+};
+
+struct VisibleRange {
+    long long startEpoch = 0;
+    long long endEpoch = 0;
+};
+
+constexpr int kYearComboChunkSize = 120;
+constexpr int kYearComboBackwardPadding = 20;
+
 class LocalCalendarFrame final : public wxFrame {
 public:
     explicit LocalCalendarFrame(const std::string& dbPath)
@@ -45,7 +61,6 @@ public:
         ApplyLook();
         BindEvents();
         RefreshEvents();
-        ClearForm();
     }
 
 private:
@@ -87,6 +102,8 @@ private:
         previousButton_ = new wxButton(panel, wxID_ANY, "<");
         nextButton_ = new wxButton(panel, wxID_ANY, ">");
         monthTitleLabel_ = new wxStaticText(panel, wxID_ANY, "");
+        yearComboBox_ = new wxComboBox(panel, wxID_ANY, "", wxDefaultPosition, wxSize(110, -1), 0, nullptr, wxCB_READONLY);
+        PopulateYearComboWindow(visibleYear_);
 
         toolbarSizer->Add(titleBlock, 0, wxRIGHT | wxALIGN_CENTER_VERTICAL, 24);
         toolbarSizer->Add(monthViewButton_, 0, wxRIGHT, 6);
@@ -96,6 +113,7 @@ private:
         toolbarSizer->Add(previousButton_, 0, wxRIGHT, 6);
         toolbarSizer->Add(nextButton_, 0, wxRIGHT, 18);
         toolbarSizer->Add(monthTitleLabel_, 0, wxALIGN_CENTER_VERTICAL);
+        toolbarSizer->Add(yearComboBox_, 0, wxLEFT | wxALIGN_CENTER_VERTICAL, 8);
 
         auto* contentSizer = new wxBoxSizer(wxHORIZONTAL);
         auto* leftPane = new wxBoxSizer(wxVERTICAL);
@@ -140,33 +158,23 @@ private:
         calendarBook_->AddPage(dayPage, "Day");
         leftPane->Add(calendarBook_, 1, wxEXPAND);
 
-        auto* editorPane = new wxBoxSizer(wxVERTICAL);
-        editorPane->Add(new wxStaticText(panel, wxID_ANY, "Event Details"), 0, wxALL, 10);
+        auto* sidePane = new wxBoxSizer(wxVERTICAL);
+        sidePane->Add(new wxStaticText(panel, wxID_ANY, "Actions"), 0, wxALL, 10);
 
-        titleCtrl_ = AddLabeledTextField(panel, editorPane, "Title");
-        locationCtrl_ = AddLabeledTextField(panel, editorPane, "Location");
-        allDayCtrl_ = new wxCheckBox(panel, wxID_ANY, "All day");
-        editorPane->Add(allDayCtrl_, 0, wxLEFT | wxRIGHT | wxBOTTOM, 10);
-        startCtrl_ = AddLabeledTextField(panel, editorPane, "Start (UTC)");
-        endCtrl_ = AddLabeledTextField(panel, editorPane, "End (UTC)");
-        descriptionCtrl_ = AddLabeledTextField(panel, editorPane, "Description", wxTE_MULTILINE, 140);
-
-        auto* buttonSizer = new wxBoxSizer(wxHORIZONTAL);
+        auto* buttonSizer = new wxBoxSizer(wxVERTICAL);
         newButton_ = new wxButton(panel, wxID_ANY, "New Event");
-        saveButton_ = new wxButton(panel, wxID_ANY, "Save");
-        deleteButton_ = new wxButton(panel, wxID_ANY, "Delete");
         refreshButton_ = new wxButton(panel, wxID_ANY, "Refresh");
-        buttonSizer->Add(newButton_, 0, wxRIGHT, 8);
-        buttonSizer->Add(saveButton_, 0, wxRIGHT, 8);
-        buttonSizer->Add(deleteButton_, 0, wxRIGHT, 8);
-        buttonSizer->Add(refreshButton_, 0);
-        editorPane->Add(buttonSizer, 0, wxLEFT | wxRIGHT | wxBOTTOM, 10);
+        newButton_->SetMinSize(wxSize(140, 36));
+        buttonSizer->Add(newButton_, 0, wxEXPAND | wxBOTTOM, 8);
+        buttonSizer->Add(refreshButton_, 0, wxEXPAND);
+        sidePane->Add(buttonSizer, 0, wxLEFT | wxRIGHT | wxBOTTOM, 10);
 
         statusLabel_ = new wxStaticText(panel, wxID_ANY, "Ready");
-        editorPane->Add(statusLabel_, 0, wxLEFT | wxRIGHT | wxBOTTOM, 10);
+        sidePane->Add(statusLabel_, 0, wxLEFT | wxRIGHT | wxBOTTOM, 10);
+        sidePane->AddStretchSpacer();
 
         contentSizer->Add(leftPane, 5, wxEXPAND | wxALL, 12);
-        contentSizer->Add(editorPane, 2, wxEXPAND | wxTOP | wxRIGHT | wxBOTTOM, 12);
+        contentSizer->Add(sidePane, 1, wxEXPAND | wxTOP | wxRIGHT | wxBOTTOM, 12);
 
         rootSizer->Add(toolbarSizer, 0, wxEXPAND | wxLEFT | wxRIGHT | wxTOP, 12);
         rootSizer->Add(contentSizer, 1, wxEXPAND);
@@ -192,27 +200,13 @@ private:
         }
 
         const wxColour surfaceBg(255, 255, 255);
-        const wxColour accent(26, 115, 232);
-
         monthViewButton_->SetBackgroundColour(surfaceBg);
         weekViewButton_->SetBackgroundColour(surfaceBg);
         dayViewButton_->SetBackgroundColour(surfaceBg);
         todayButton_->SetBackgroundColour(surfaceBg);
         previousButton_->SetBackgroundColour(surfaceBg);
         nextButton_->SetBackgroundColour(surfaceBg);
-        saveButton_->SetBackgroundColour(accent);
-        saveButton_->SetForegroundColour(*wxWHITE);
-    }
-
-    wxTextCtrl* AddLabeledTextField(wxWindow* parent,
-                                    wxBoxSizer* sizer,
-                                    const wxString& label,
-                                    const long style = 0,
-                                    const int minHeight = -1) {
-        sizer->Add(new wxStaticText(parent, wxID_ANY, label), 0, wxLEFT | wxRIGHT | wxBOTTOM, 6);
-        auto* control = new wxTextCtrl(parent, wxID_ANY, "", wxDefaultPosition, wxSize(-1, minHeight), style);
-        sizer->Add(control, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 10);
-        return control;
+        yearComboBox_->SetBackgroundColour(surfaceBg);
     }
 
     void BindEvents() {
@@ -223,10 +217,8 @@ private:
         previousButton_->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) { ShiftCurrentPeriod(-1); });
         nextButton_->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) { ShiftCurrentPeriod(1); });
         newButton_->Bind(wxEVT_BUTTON, &LocalCalendarFrame::OnNew, this);
-        saveButton_->Bind(wxEVT_BUTTON, &LocalCalendarFrame::OnSave, this);
-        deleteButton_->Bind(wxEVT_BUTTON, &LocalCalendarFrame::OnDelete, this);
         refreshButton_->Bind(wxEVT_BUTTON, &LocalCalendarFrame::OnRefresh, this);
-        allDayCtrl_->Bind(wxEVT_CHECKBOX, &LocalCalendarFrame::OnAllDayChanged, this);
+        yearComboBox_->Bind(wxEVT_COMBOBOX, &LocalCalendarFrame::OnYearChanged, this);
     }
 
     std::vector<Event> EventsForDay(const long long dayEpoch) const {
@@ -245,10 +237,27 @@ private:
         return results;
     }
 
+    VisibleRange ComputeVisibleRange() const {
+        if (currentViewMode_ == CalendarViewMode::MONTH) {
+            const int firstOffset = MonthGridOffset(visibleYear_, visibleMonth_);
+            const long long firstDayOfMonth = MakeUtcEpoch(visibleYear_, visibleMonth_, 1);
+            const long long gridStart = firstDayOfMonth - static_cast<long long>(firstOffset) * kSecondsPerDay;
+            return VisibleRange{gridStart, gridStart + static_cast<long long>(kMonthCellCount) * kSecondsPerDay};
+        }
+
+        if (currentViewMode_ == CalendarViewMode::WEEK) {
+            const long long weekStart = StartOfUtcWeek(selectedDayEpoch_);
+            return VisibleRange{weekStart, weekStart + 7LL * kSecondsPerDay};
+        }
+
+        return VisibleRange{selectedDayEpoch_, selectedDayEpoch_ + kSecondsPerDay};
+    }
+
     void RefreshEvents() {
-        events_ = eventRepository_.getByCalendar(localCalendarId_);
+        const VisibleRange range = ComputeVisibleRange();
+        events_ = eventRepository_.getEventsInRange(localCalendarId_, range.startEpoch, range.endEpoch);
         RefreshViewState();
-        statusLabel_->SetLabel(wxString::Format("Loaded %zu event(s)", events_.size()));
+        statusLabel_->SetLabel(wxString::Format("Loaded %zu visible event(s)", events_.size()));
     }
 
     void RefreshViewState() {
@@ -259,7 +268,7 @@ private:
 
     void RefreshHeaderTitle() {
         if (currentViewMode_ == CalendarViewMode::MONTH) {
-            monthTitleLabel_->SetLabel(FormatMonthTitle(visibleYear_, visibleMonth_));
+            monthTitleLabel_->SetLabel(FormatMonthName(visibleMonth_));
         }
         else if (currentViewMode_ == CalendarViewMode::WEEK) {
             monthTitleLabel_->SetLabel(FormatWeekTitle(StartOfUtcWeek(selectedDayEpoch_)));
@@ -267,6 +276,8 @@ private:
         else {
             monthTitleLabel_->SetLabel(FormatDayHeader(selectedDayEpoch_));
         }
+        EnsureYearComboContains(visibleYear_);
+        yearComboBox_->Enable(currentViewMode_ == CalendarViewMode::MONTH);
     }
 
     void RefreshMonthGrid() {
@@ -278,6 +289,8 @@ private:
         const int nextYear = visibleMonth_ == 12 ? visibleYear_ + 1 : visibleYear_;
         const int daysPreviousMonth = DaysInMonth(previousYear, previousMonth);
         const long long today = StartOfUtcDay(std::time(nullptr));
+        std::array<MonthCellMeta, kMonthCellCount> cells{};
+        std::array<std::vector<std::optional<MonthCellEventSegment>>, kMonthCellCount> cellRows{};
 
         for (int cellIndex = 0; cellIndex < kMonthCellCount; ++cellIndex) {
             int dayNumber = 0;
@@ -303,13 +316,117 @@ private:
 
             const long long dayEpoch = MakeUtcEpoch(cellYear, cellMonth, dayNumber);
             monthCellEpochs_[cellIndex] = dayEpoch;
+            cells[cellIndex] = MonthCellMeta{dayEpoch, dayNumber, inCurrentMonth};
+        }
+
+        for (int weekIndex = 0; weekIndex < 6; ++weekIndex) {
+            const int weekCellStart = weekIndex * 7;
+            const long long weekStartEpoch = cells[weekCellStart].dayEpoch;
+            const long long weekEndEpoch = cells[weekCellStart + 6].dayEpoch + kSecondsPerDay;
+
+            std::vector<Event> spanningEvents;
+            for (const auto& event : events_) {
+                if (event.deletedAt != 0 || !SpansMultipleDays(event)) {
+                    continue;
+                }
+                if (event.startDateTime < weekEndEpoch && event.endDateTime > weekStartEpoch) {
+                    spanningEvents.push_back(event);
+                }
+            }
+
+            std::sort(spanningEvents.begin(), spanningEvents.end(), [](const Event& lhs, const Event& rhs) {
+                if (lhs.startDateTime != rhs.startDateTime) {
+                    return lhs.startDateTime < rhs.startDateTime;
+                }
+                return lhs.endDateTime < rhs.endDateTime;
+            });
+
+            struct WeekSpan {
+                long long eventId = -1;
+                int row = 0;
+                int startDayOffset = 0;
+                int endDayOffset = 0;
+                std::string label;
+                bool continuesBefore = false;
+                bool continuesAfter = false;
+            };
+
+            std::vector<std::vector<WeekSpan>> weekRows;
+            for (const auto& event : spanningEvents) {
+                const long long clippedStartDay = std::max(StartOfUtcDay(event.startDateTime), weekStartEpoch);
+                const long long clippedEndDay = std::min(EventDisplayEndDay(event), weekEndEpoch - kSecondsPerDay);
+
+                WeekSpan span;
+                span.eventId = event.id;
+                span.startDayOffset = static_cast<int>((clippedStartDay - weekStartEpoch) / kSecondsPerDay);
+                span.endDayOffset = static_cast<int>((clippedEndDay - weekStartEpoch) / kSecondsPerDay);
+                span.continuesBefore = event.startDateTime < weekStartEpoch;
+                span.continuesAfter = event.endDateTime > weekEndEpoch;
+                span.label = BuildMonthEventLabel(event);
+
+                int assignedRow = 0;
+                for (; assignedRow < static_cast<int>(weekRows.size()); ++assignedRow) {
+                    bool overlapsExisting = false;
+                    for (const auto& existing : weekRows[assignedRow]) {
+                        if (!(span.endDayOffset < existing.startDayOffset || span.startDayOffset > existing.endDayOffset)) {
+                            overlapsExisting = true;
+                            break;
+                        }
+                    }
+                    if (!overlapsExisting) {
+                        break;
+                    }
+                }
+
+                if (assignedRow == static_cast<int>(weekRows.size())) {
+                    weekRows.emplace_back();
+                }
+
+                span.row = assignedRow;
+                weekRows[assignedRow].push_back(span);
+
+                for (int offset = span.startDayOffset; offset <= span.endDayOffset; ++offset) {
+                    const int cellIndex = weekCellStart + offset;
+                    if (static_cast<int>(cellRows[cellIndex].size()) <= span.row) {
+                        cellRows[cellIndex].resize(span.row + 1);
+                    }
+
+                    MonthCellEventSegment segment;
+                    segment.eventId = event.id;
+                    segment.label = offset == span.startDayOffset ? span.label : "";
+                    segment.continuesBefore = span.continuesBefore || offset > span.startDayOffset;
+                    segment.continuesAfter = span.continuesAfter || offset < span.endDayOffset;
+                    cellRows[cellIndex][span.row] = segment;
+                }
+            }
+
+            for (int offset = 0; offset < 7; ++offset) {
+                cellRows[weekCellStart + offset].resize(weekRows.size());
+            }
+
+            for (int offset = 0; offset < 7; ++offset) {
+                const int cellIndex = weekCellStart + offset;
+                auto dayEvents = EventsForDay(cells[cellIndex].dayEpoch);
+                for (const auto& event : dayEvents) {
+                    if (SpansMultipleDays(event)) {
+                        continue;
+                    }
+                    MonthCellEventSegment segment;
+                    segment.eventId = event.id;
+                    segment.label = BuildMonthEventLabel(event);
+                    cellRows[cellIndex].push_back(segment);
+                }
+            }
+        }
+
+        for (int cellIndex = 0; cellIndex < kMonthCellCount; ++cellIndex) {
             monthCells_[cellIndex]->UpdateCell(
-                dayEpoch,
-                dayNumber,
-                inCurrentMonth,
-                IsSameUtcDay(dayEpoch, today),
-                IsSameUtcDay(dayEpoch, selectedDayEpoch_),
-                EventsForDay(dayEpoch));
+                cells[cellIndex].dayEpoch,
+                cells[cellIndex].dayNumber,
+                cells[cellIndex].inCurrentMonth,
+                IsSameUtcDay(cells[cellIndex].dayEpoch, today),
+                IsSameUtcDay(cells[cellIndex].dayEpoch, selectedDayEpoch_),
+                cellRows[cellIndex]);
         }
     }
 
@@ -325,90 +442,23 @@ private:
     }
 
     void SyncVisibleMonthToSelectedDay() {
+        if (selectedDayEpoch_ < kMinCalendarEpoch) {
+            selectedDayEpoch_ = kMinCalendarEpoch;
+        }
         const std::tm tm = EpochToUtcTm(selectedDayEpoch_);
-        visibleYear_ = tm.tm_year + 1900;
+        visibleYear_ = std::max(kMinCalendarYear, tm.tm_year + 1900);
         visibleMonth_ = tm.tm_mon + 1;
     }
 
-    void FocusDay(const long long dayEpoch, const bool refreshView = true, const bool clearForm = false) {
-        selectedDayEpoch_ = dayEpoch;
+    void FocusDay(const long long dayEpoch, const bool refreshView = true) {
+        selectedDayEpoch_ = std::max(kMinCalendarEpoch, dayEpoch);
         SyncVisibleMonthToSelectedDay();
+
         if (refreshView) {
-            RefreshViewState();
+            Freeze();
+            RefreshEvents();
+            Thaw();
         }
-        if (clearForm) {
-            ClearForm();
-        }
-    }
-
-    void ClearForm() {
-        selectedEventId_ = -1;
-        titleCtrl_->Clear();
-        locationCtrl_->Clear();
-        descriptionCtrl_->Clear();
-        allDayCtrl_->SetValue(false);
-        startCtrl_->SetValue(FormatUtcDateTimeInput(selectedDayEpoch_ + 9 * 3600, false));
-        endCtrl_->SetValue(FormatUtcDateTimeInput(selectedDayEpoch_ + 10 * 3600, false));
-        statusLabel_->SetLabel("Creating new event");
-    }
-
-    void LoadEventIntoForm(const Event& event) {
-        selectedEventId_ = event.id;
-        titleCtrl_->SetValue(event.title);
-        locationCtrl_->SetValue(event.location);
-        descriptionCtrl_->SetValue(event.description);
-        allDayCtrl_->SetValue(event.allDay);
-        startCtrl_->SetValue(FormatUtcDateTimeInput(event.startDateTime, event.allDay));
-        endCtrl_->SetValue(FormatUtcDateTimeInput(event.endDateTime, event.allDay));
-        FocusDay(StartOfUtcDay(event.startDateTime), true, false);
-        statusLabel_->SetLabel(wxString::Format("Editing event #%lld", event.id));
-    }
-
-    Event BuildEventFromForm() {
-        Event event{};
-        event.id = selectedEventId_;
-        event.calendarId = localCalendarId_;
-        event.title = titleCtrl_->GetValue().ToStdString();
-        event.location = locationCtrl_->GetValue().ToStdString();
-        event.description = descriptionCtrl_->GetValue().ToStdString();
-        event.allDay = allDayCtrl_->GetValue();
-        event.status = "confirmed";
-        event.type = EventType::SINGLE;
-        event.deletedAt = 0;
-        event.syncStatus = SYNCED;
-        event.lastModified = std::time(nullptr);
-        event.updatedAt = event.lastModified;
-        event.createdAt = event.lastModified;
-        event.startDateTime = ParseUtcDateTimeInput(startCtrl_->GetValue().ToStdString(), event.allDay);
-        event.endDateTime = ParseUtcDateTimeInput(endCtrl_->GetValue().ToStdString(), event.allDay);
-        NormalizeAllDayEventRange(event);
-
-        if (selectedEventId_ > 0) {
-            auto existing = eventRepository_.getById(selectedEventId_);
-            if (existing) {
-                event.createdAt = existing->createdAt;
-                event.providerEventId = existing->providerEventId;
-                event.providerMasterId = existing->providerMasterId;
-                event.instanceStart = existing->instanceStart;
-                event.recurrenceRule = existing->recurrenceRule;
-            }
-        }
-        else {
-            event.instanceStart = event.startDateTime;
-            event.providerEventId = MakeLocalProviderEventId(event.startDateTime);
-        }
-
-        return event;
-    }
-
-    bool ValidateEvent(const Event& event) {
-        const auto validationMessage = ValidateEventForUi(event);
-        if (!validationMessage.has_value()) {
-            return true;
-        }
-
-        wxMessageBox(*validationMessage, "Validation", wxOK | wxICON_WARNING, this);
-        return false;
     }
 
     void ShiftVisibleMonth(const int delta) {
@@ -421,12 +471,44 @@ private:
             visibleMonth_ -= 12;
             ++visibleYear_;
         }
+        if (visibleYear_ < kMinCalendarYear) {
+            visibleYear_ = kMinCalendarYear;
+            visibleMonth_ = 1;
+        }
+    }
+
+    void PopulateYearComboWindow(const int targetYear) {
+        const int clampedYear = std::max(kMinCalendarYear, targetYear);
+        yearComboWindowStart_ = std::max(kMinCalendarYear, clampedYear - kYearComboBackwardPadding);
+        yearComboWindowEnd_ = yearComboWindowStart_ + kYearComboChunkSize - 1;
+
+        yearComboBox_->Freeze();
+        yearComboBox_->Clear();
+        for (int year = yearComboWindowStart_; year <= yearComboWindowEnd_; ++year) {
+            yearComboBox_->Append(std::to_string(year));
+        }
+        yearComboBox_->SetValue(std::to_string(clampedYear));
+        yearComboBox_->Thaw();
+    }
+
+    void EnsureYearComboContains(const int year) {
+        const int clampedYear = std::max(kMinCalendarYear, year);
+        const bool outsideWindow = clampedYear < yearComboWindowStart_ || clampedYear > yearComboWindowEnd_;
+        const bool nearTop = clampedYear - yearComboWindowStart_ < 5 && yearComboWindowStart_ > kMinCalendarYear;
+        const bool nearBottom = yearComboWindowEnd_ - clampedYear < 5;
+
+        if (outsideWindow || nearTop || nearBottom) {
+            PopulateYearComboWindow(clampedYear);
+            return;
+        }
+
+        yearComboBox_->SetValue(std::to_string(clampedYear));
     }
 
     void SwitchView(const CalendarViewMode mode, const int pageIndex) {
         currentViewMode_ = mode;
         calendarBook_->SetSelection(pageIndex);
-        RefreshHeaderTitle();
+        RefreshEvents();
     }
 
     void ShiftCurrentPeriod(const int direction) {
@@ -434,23 +516,21 @@ private:
             ShiftVisibleMonth(direction);
         }
         else if (currentViewMode_ == CalendarViewMode::WEEK) {
-            FocusDay(selectedDayEpoch_ + direction * 7LL * kSecondsPerDay, true, true);
+            FocusDay(selectedDayEpoch_ + direction * 7LL * kSecondsPerDay, true);
             return;
         }
         else {
-            FocusDay(selectedDayEpoch_ + direction * 1LL * kSecondsPerDay, true, true);
+            FocusDay(selectedDayEpoch_ + direction * 1LL * kSecondsPerDay, true);
             return;
         }
 
-        RefreshViewState();
-        ClearForm();
+        RefreshEvents();
     }
 
     bool PersistEvent(const Event& event) {
         try {
             eventRepository_.upsert(event);
             RefreshEvents();
-            LoadEventIntoForm(eventRepository_.getByProviderInstance(event.providerEventId, event.instanceStart).value_or(event));
             statusLabel_->SetLabel("Event saved");
             return true;
         }
@@ -465,7 +545,6 @@ private:
         try {
             eventRepository_.deleteEvent(eventId);
             RefreshEvents();
-            ClearForm();
             statusLabel_->SetLabel("Event deleted");
             return true;
         }
@@ -504,12 +583,14 @@ private:
             return;
         }
 
-        LoadEventIntoForm(*selectedEvent);
+        FocusDay(StartOfUtcDay(selectedEvent->startDateTime), true);
+        statusLabel_->SetLabel(wxString::Format("Editing event #%lld", selectedEvent->id));
         OpenEventDialog(*selectedEvent);
     }
 
     void OpenNewEventDialog(const long long dayEpoch, const EventDraftDefaults& defaults) {
-        FocusDay(dayEpoch, true, true);
+        FocusDay(dayEpoch, true);
+        statusLabel_->SetLabel("Creating new event");
         OpenEventDialog(std::nullopt, defaults);
     }
 
@@ -536,7 +617,7 @@ private:
 
         currentViewMode_ = CalendarViewMode::DAY;
         calendarBook_->SetSelection(2);
-        FocusDay(monthCellEpochs_[index], true, true);
+        FocusDay(monthCellEpochs_[index], true);
     }
 
     void HandleMonthCellCreateEvent(const int index) {
@@ -548,38 +629,38 @@ private:
     }
 
     void OnToday(wxCommandEvent&) {
-        FocusDay(StartOfUtcDay(std::time(nullptr)), true, true);
+        FocusDay(StartOfUtcDay(std::time(nullptr)), true);
     }
 
     void OnNew(wxCommandEvent&) {
-        ClearForm();
-        OpenEventDialog();
-    }
-
-    void OnSave(wxCommandEvent&) {
-        Event event = BuildEventFromForm();
-        if (!ValidateEvent(event)) {
+        if (currentViewMode_ == CalendarViewMode::MONTH) {
+            OpenNewAllDayEventDialog(selectedDayEpoch_);
             return;
         }
 
-        PersistEvent(event);
-    }
-
-    void OnDelete(wxCommandEvent&) {
-        if (selectedEventId_ <= 0) {
-            wxMessageBox("Select an event first.", "Delete", wxOK | wxICON_INFORMATION, this);
-            return;
-        }
-
-        DeleteEventById(selectedEventId_);
+        const long long now = static_cast<long long>(std::time(nullptr));
+        const long long baseDay = currentViewMode_ == CalendarViewMode::DAY
+            ? selectedDayEpoch_
+            : std::max(selectedDayEpoch_, StartOfUtcDay(now));
+        const std::tm nowTm = EpochToUtcTm(std::max(now, kMinCalendarEpoch));
+        const int minuteOfDay = nowTm.tm_hour * 60;
+        OpenNewTimedEventDialog(baseDay, minuteOfDay);
     }
 
     void OnRefresh(wxCommandEvent&) {
         RefreshEvents();
     }
 
-    void OnAllDayChanged(wxCommandEvent&) {
-        ApplyAllDayToggleToInputs(startCtrl_, endCtrl_, allDayCtrl_->GetValue());
+    void OnYearChanged(wxCommandEvent& event) {
+        long selectedYear = visibleYear_;
+        if (!event.GetString().ToLong(&selectedYear)) {
+            return;
+        }
+        visibleYear_ = std::max(kMinCalendarYear, static_cast<int>(selectedYear));
+        EnsureYearComboContains(visibleYear_);
+        if (currentViewMode_ == CalendarViewMode::MONTH) {
+            RefreshViewState();
+        }
     }
 
     SQLite::Database db_;
@@ -587,7 +668,6 @@ private:
     CalendarRepository calendarRepository_;
     long long localCalendarId_ = 0;
     long long selectedDayEpoch_ = 0;
-    long long selectedEventId_ = -1;
     int visibleYear_ = 1970;
     int visibleMonth_ = 1;
     CalendarViewMode currentViewMode_ = CalendarViewMode::MONTH;
@@ -600,21 +680,16 @@ private:
     wxButton* previousButton_ = nullptr;
     wxButton* nextButton_ = nullptr;
     wxStaticText* monthTitleLabel_ = nullptr;
+    wxComboBox* yearComboBox_ = nullptr;
+    int yearComboWindowStart_ = kMinCalendarYear;
+    int yearComboWindowEnd_ = kMinCalendarYear + kYearComboChunkSize - 1;
     wxSimplebook* calendarBook_ = nullptr;
     TimelineViewPanel* weekTimeline_ = nullptr;
     TimelineViewPanel* dayTimeline_ = nullptr;
     std::array<MonthCellPanel*, kMonthCellCount> monthCells_{};
     std::array<long long, kMonthCellCount> monthCellEpochs_{};
 
-    wxTextCtrl* titleCtrl_ = nullptr;
-    wxTextCtrl* locationCtrl_ = nullptr;
-    wxTextCtrl* startCtrl_ = nullptr;
-    wxTextCtrl* endCtrl_ = nullptr;
-    wxTextCtrl* descriptionCtrl_ = nullptr;
-    wxCheckBox* allDayCtrl_ = nullptr;
     wxButton* newButton_ = nullptr;
-    wxButton* saveButton_ = nullptr;
-    wxButton* deleteButton_ = nullptr;
     wxButton* refreshButton_ = nullptr;
     wxStaticText* statusLabel_ = nullptr;
 };

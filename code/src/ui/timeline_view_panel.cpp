@@ -8,6 +8,25 @@
 #include <wx/panel.h>
 #include <wx/sizer.h>
 
+namespace {
+
+std::string BuildHeaderSpanLabel(const Event& event, const bool continuesBefore, const bool continuesAfter) {
+    std::string label = event.title.empty() ? "Event" : event.title;
+    if (continuesBefore) {
+        label = "< " + label;
+    }
+    if (continuesAfter) {
+        label += " >";
+    }
+    return label;
+}
+
+bool UsesWeekHeaderSpan(const CalendarViewMode mode, const Event& event) {
+    return mode == CalendarViewMode::WEEK && (event.allDay || SpansMultipleDays(event));
+}
+
+} // namespace
+
 TimelineViewPanel::TimelineViewPanel(wxWindow* parent)
     : wxScrolledWindow(parent, wxID_ANY, wxDefaultPosition, wxDefaultSize,
                        wxVSCROLL | wxHSCROLL | wxBORDER_NONE) {
@@ -62,24 +81,31 @@ int TimelineViewPanel::CurrentColumnWidth() const {
 }
 
 int TimelineViewPanel::CurrentAllDayLaneHeight() const {
-    int maxAllDayEvents = 0;
-    for (int dayIndex = 0; dayIndex < DayCount(); ++dayIndex) {
-        const long long dayEpoch = rangeStartEpoch_ + static_cast<long long>(dayIndex) * kSecondsPerDay;
-        int dayAllDayCount = 0;
+    int rowCount = kTimelineAllDayMinRows;
 
-        for (const auto& event : events_) {
-            if (event.deletedAt != 0 || !event.allDay) {
-                continue;
-            }
-            if (event.startDateTime < dayEpoch + kSecondsPerDay && event.endDateTime > dayEpoch) {
-                ++dayAllDayCount;
-            }
+    if (mode_ == CalendarViewMode::WEEK) {
+        for (const auto& span : BuildHeaderSpans()) {
+            rowCount = std::max(rowCount, span.row + 1);
         }
+    }
+    else {
+        for (int dayIndex = 0; dayIndex < DayCount(); ++dayIndex) {
+            const long long dayEpoch = rangeStartEpoch_ + static_cast<long long>(dayIndex) * kSecondsPerDay;
+            int dayAllDayCount = 0;
 
-        maxAllDayEvents = std::max(maxAllDayEvents, dayAllDayCount);
+            for (const auto& event : events_) {
+                if (event.deletedAt != 0 || !event.allDay) {
+                    continue;
+                }
+                if (event.startDateTime < dayEpoch + kSecondsPerDay && event.endDateTime > dayEpoch) {
+                    ++dayAllDayCount;
+                }
+            }
+
+            rowCount = std::max(rowCount, dayAllDayCount);
+        }
     }
 
-    const int rowCount = std::max(kTimelineAllDayMinRows, maxAllDayEvents);
     return kTimelineAllDayLanePadding * 2 + rowCount * kTimelineAllDayRowHeight;
 }
 
@@ -102,6 +128,7 @@ void TimelineViewPanel::RefreshView() {
 
     RebuildEventButtons();
     canvas_->Refresh();
+    canvas_->Update();
     Layout();
 }
 
@@ -121,6 +148,70 @@ std::vector<Event> TimelineViewPanel::EventsForDay(const long long dayEpoch) con
     return results;
 }
 
+std::vector<TimelineViewPanel::HeaderSpanSegment> TimelineViewPanel::BuildHeaderSpans() const {
+    std::vector<HeaderSpanSegment> spans;
+    if (mode_ != CalendarViewMode::WEEK) {
+        return spans;
+    }
+
+    const long long rangeEndEpoch = rangeStartEpoch_ + DayCount() * kSecondsPerDay;
+    std::vector<Event> spanEvents;
+    for (const auto& event : events_) {
+        if (event.deletedAt != 0 || !UsesWeekHeaderSpan(mode_, event)) {
+            continue;
+        }
+        if (event.startDateTime < rangeEndEpoch && event.endDateTime > rangeStartEpoch_) {
+            spanEvents.push_back(event);
+        }
+    }
+
+    std::sort(spanEvents.begin(), spanEvents.end(), [](const Event& lhs, const Event& rhs) {
+        if (lhs.startDateTime != rhs.startDateTime) {
+            return lhs.startDateTime < rhs.startDateTime;
+        }
+        return lhs.endDateTime < rhs.endDateTime;
+    });
+
+    std::vector<std::vector<HeaderSpanSegment>> rows;
+    for (const auto& event : spanEvents) {
+        const bool continuesBefore = event.startDateTime < rangeStartEpoch_;
+        const bool continuesAfter = event.endDateTime > rangeEndEpoch;
+        const long long clippedStartDay = std::max(StartOfUtcDay(event.startDateTime), rangeStartEpoch_);
+        const long long clippedEndDay = std::min(EventDisplayEndDay(event), rangeStartEpoch_ + (DayCount() - 1LL) * kSecondsPerDay);
+
+        HeaderSpanSegment span;
+        span.eventId = event.id;
+        span.startDayIndex = static_cast<int>((clippedStartDay - rangeStartEpoch_) / kSecondsPerDay);
+        span.endDayIndex = static_cast<int>((clippedEndDay - rangeStartEpoch_) / kSecondsPerDay);
+        span.continuesBefore = continuesBefore;
+        span.continuesAfter = continuesAfter;
+        span.label = BuildHeaderSpanLabel(event, continuesBefore, continuesAfter);
+
+        int assignedRow = 0;
+        for (; assignedRow < static_cast<int>(rows.size()); ++assignedRow) {
+            bool overlapsExisting = false;
+            for (const auto& existing : rows[assignedRow]) {
+                if (!(span.endDayIndex < existing.startDayIndex || span.startDayIndex > existing.endDayIndex)) {
+                    overlapsExisting = true;
+                    break;
+                }
+            }
+            if (!overlapsExisting) {
+                break;
+            }
+        }
+
+        if (assignedRow == static_cast<int>(rows.size())) {
+            rows.emplace_back();
+        }
+        span.row = assignedRow;
+        rows[assignedRow].push_back(span);
+        spans.push_back(span);
+    }
+
+    return spans;
+}
+
 void TimelineViewPanel::RebuildEventButtons() {
     for (auto* button : eventButtons_) {
         if (button != nullptr) {
@@ -132,6 +223,26 @@ void TimelineViewPanel::RebuildEventButtons() {
     const int dayColumnWidth = CurrentColumnWidth();
     const int usableWidth = dayColumnWidth - 8;
 
+    const auto headerSpans = BuildHeaderSpans();
+    if (mode_ == CalendarViewMode::WEEK) {
+        for (const auto& span : headerSpans) {
+            const int x = kTimelineTimeLabelWidth + span.startDayIndex * dayColumnWidth + 4;
+            const int width = std::max(44, (span.endDayIndex - span.startDayIndex + 1) * dayColumnWidth - 8);
+            const int y = kTimelineHeaderHeight + kTimelineAllDayLanePadding + span.row * kTimelineAllDayRowHeight;
+            auto* button = new wxButton(canvas_, wxID_ANY, span.label,
+                                        wxPoint(x, y),
+                                        wxSize(width, kTimelineAllDayRowHeight - 4), wxBU_LEFT);
+            button->SetBackgroundColour(wxColour(214, 234, 248));
+            button->SetForegroundColour(wxColour(24, 52, 77));
+            button->Bind(wxEVT_BUTTON, [handler = eventClickHandler_, id = span.eventId](wxCommandEvent&) {
+                if (handler) {
+                    handler(id);
+                }
+            });
+            eventButtons_.push_back(button);
+        }
+    }
+
     for (int dayIndex = 0; dayIndex < DayCount(); ++dayIndex) {
         const long long dayEpoch = rangeStartEpoch_ + static_cast<long long>(dayIndex) * kSecondsPerDay;
         auto dayEvents = EventsForDay(dayEpoch);
@@ -140,13 +251,16 @@ void TimelineViewPanel::RebuildEventButtons() {
         std::vector<TimelineSegment> allDaySegments;
 
         for (const auto& event : dayEvents) {
-            if (event.allDay) {
+            if (event.allDay && mode_ != CalendarViewMode::WEEK) {
                 TimelineSegment segment;
                 segment.eventId = event.id;
                 segment.dayEpoch = dayEpoch;
                 segment.allDay = true;
                 segment.label = BuildTimelineEventLabel(event, dayEpoch);
                 allDaySegments.push_back(segment);
+                continue;
+            }
+            if (UsesWeekHeaderSpan(mode_, event)) {
                 continue;
             }
 
@@ -267,6 +381,8 @@ void TimelineViewPanel::OnCanvasLeftUp(wxMouseEvent& event) {
         return;
     }
 
+    canvas_->Layout();
+    canvas_->Refresh();
     const int dayColumnWidth = CurrentColumnWidth();
     const int dayIndex = std::clamp((point.x - kTimelineTimeLabelWidth) / dayColumnWidth, 0, DayCount() - 1);
     const long long dayEpoch = rangeStartEpoch_ + static_cast<long long>(dayIndex) * kSecondsPerDay;
