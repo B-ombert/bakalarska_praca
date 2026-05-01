@@ -103,7 +103,7 @@ void MonthCellPanel::UpdateCell(const long long dayEpoch,
 
     for (const auto& row : eventRows) {
         if (row.has_value()) {
-            auto* eventButton = new wxButton(bodyPanel_, wxID_ANY, BuildMonthSegmentLabel(*row),
+            auto* eventButton = new wxButton(bodyPanel_, wxID_ANY, wxString::FromUTF8(BuildMonthSegmentLabel(*row)),
                                              wxDefaultPosition, wxDefaultSize, wxBU_LEFT);
             eventButton->SetMinSize(wxSize(-1, 24));
             eventButton->SetBackgroundColour(wxColour(214, 234, 248));
