@@ -409,7 +409,7 @@ void TimelineViewPanel::OnPaint(wxPaintEvent&) {
         const bool isToday = IsSameUtcDay(dayEpoch, today);
         const bool isSelected = mode_ == CalendarViewMode::DAY && IsSameUtcDay(dayEpoch, selectedDayEpoch_);
 
-        if (isToday || isSelected) {
+        if (mode_ != CalendarViewMode::DAY && (isToday || isSelected)) {
             dc.SetBrush(wxBrush(isSelected ? wxColour(232, 240, 254) : wxColour(244, 248, 255)));
             dc.SetPen(*wxTRANSPARENT_PEN);
             dc.DrawRectangle(x + 1, 1, dayColumnWidth - 2, canvasHeight - 2);

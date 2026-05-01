@@ -1,6 +1,10 @@
 #include <iostream>
 
 #include "SQLiteCpp/Backup.h"
+#include "models/account.h"
+#include "models/calendar.h"
+#include "repositories/account_repository.h"
+#include "repositories/calendar_repository.h"
 #include "ui/local_calendar_app.h"
 #include "utils/access_token.h"
 #include "utils/types.h"
@@ -80,16 +84,64 @@ bool InitializeSchema(SQLite::Database& db) {
     return true;
 }
 
+void ResetApplicationData(SQLite::Database& db) {
+    db.exec("BEGIN IMMEDIATE TRANSACTION");
+    try {
+        db.exec("DELETE FROM events");
+        db.exec("DELETE FROM calendars");
+        db.exec("DELETE FROM accounts");
+        db.exec("DELETE FROM sqlite_sequence WHERE name IN ('events', 'calendars', 'accounts')");
+        db.exec("COMMIT");
+    }
+    catch (...) {
+        db.exec("ROLLBACK");
+        throw;
+    }
+}
+
+void EnsureLocalSeedData(SQLite::Database& db) {
+    AccountRepository accountRepository(db);
+    CalendarRepository calendarRepository(db);
+
+    Account localAccount{};
+    localAccount.name = "Local account";
+    localAccount.provider = "LOCAL";
+    localAccount.providerUserId = "local-account";
+    localAccount.refreshToken.clear();
+    const long long localAccountId = accountRepository.Upsert(localAccount);
+
+    Calendar localCalendar{};
+    localCalendar.accountId = localAccountId;
+    localCalendar.providerCalendarId = "local-calendar";
+    localCalendar.name = "Local Calendar";
+    localCalendar.timezone = "UTC";
+    localCalendar.isPrimary = true;
+    localCalendar.isReadOnly = false;
+    localCalendar.syncEnabled = false;
+    localCalendar.lastSyncedAt = 0;
+    calendarRepository.upsert(localCalendar);
+
+    SQLite::Statement primaryOnly(
+        db,
+        "UPDATE calendars SET is_primary = CASE WHEN provider_calendar_id = ? THEN 1 ELSE 0 END WHERE account_id = ?");
+    primaryOnly.bind(1, "local-calendar");
+    primaryOnly.bind(2, localAccountId);
+    primaryOnly.exec();
+}
+
 } // namespace
 
 int main() {
-        
+
 
     const std::string dbPath = APP_DB_PATH;
 
     try {
         SQLite::Database db(dbPath, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
         InitializeSchema(db);
+
+        //ResetApplicationData(db);
+        EnsureLocalSeedData(db);
     }
     catch (const SQLite::Exception& ex) {
         std::cerr << "Database initialization failed: " << ex.what() << "\n";
