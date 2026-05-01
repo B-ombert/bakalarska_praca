@@ -1528,15 +1528,32 @@ CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022
 CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xsmf_control.h"
 CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\sstream"
 CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
+CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\models\account.h
+CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\models\calendar.h
+CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\json.hpp
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\array"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\valarray"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\version"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cassert"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ranges"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_int128.hpp"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_ranges_to.hpp"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\span"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\string_view"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\numeric"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\any"
+CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\repositories\account_repository.h
+CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\repositories\calendar_repository.h
 CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\ui\local_calendar_app.h
 CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\access_token.h
 CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_google.h
 CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\crypto.h
 CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_utils.h
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
 CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
 CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
 CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
@@ -1553,7 +1570,6 @@ CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\compi
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\pragma_message.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\helper_macros.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\detail\select_stdlib_config.hpp
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\version"
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\stdlib\dinkumware.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\detail\select_platform_config.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\platform\win32.hpp
@@ -1955,7 +1971,6 @@ CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\context.hpp
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\any"
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\context_as.hpp
@@ -2278,9 +2293,7 @@ CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\buffer_sequence_adapter.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\buffer.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\array_fwd.hpp
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\array"
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\string_view.hpp
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\string_view"
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\is_contiguous_iterator.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
@@ -3004,15 +3017,6 @@ CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\write_at.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
-CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\json.hpp
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\valarray"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cassert"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ranges"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_int128.hpp"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_ranges_to.hpp"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\span"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\numeric"
 CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\types.h
 CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_ms.h
 
@@ -14125,28 +14129,28 @@ CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\uniba\projekt_kalendar\bc_
 
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\src\repositories\account_repository.cpp
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\repositories\account_repository.h
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\string"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\optional"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\yvals.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\yvals_core.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\sal.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\concurrencysal.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vadefs.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xkeycheck.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_sanitizer_annotate_container.hpp"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_string_view.hpp"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iosfwd"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\yvals.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\crtdbg.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_new_debug.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_new.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\crtdefs.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\use_ansi.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdio"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stdio.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstdio.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_stdio_config.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\compare"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\concepts"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\type_traits"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstddef"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stddef.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtr1common"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdint"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdint.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstring"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\string.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_memory.h"
@@ -14154,7 +14158,30 @@ CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Fil
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\errno.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_string.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstring.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\exception"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdlib"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_math.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stdlib.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_malloc.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_search.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstdlib.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\limits.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\malloc.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_exception.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\eh.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_terminate.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\initializer_list"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xsmf_control.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xutility"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_iter_core.hpp"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\climits"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cwchar"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdio"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stdio.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstdio.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_stdio_config.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\wchar.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wconio.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wctype.h"
@@ -14162,7 +14189,6 @@ CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Fil
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wio.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_share.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wprocess.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstdlib.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wtime.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\sys\stat.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\sys\types.h"
@@ -14178,39 +14204,19 @@ CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Fil
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\emmintrin.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xmmintrin.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mmintrin.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\malloc.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_malloc.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\zmmintrin.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ammintrin.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtr1common"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xutility"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_iter_core.hpp"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\initializer_list"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstddef"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stddef.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\type_traits"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdint"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdint.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\compare"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\concepts"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\climits"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\limits.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdlib"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_math.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stdlib.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_search.h"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\string"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_sanitizer_annotate_container.hpp"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_string_view.hpp"
+CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iosfwd"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xmemory"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\limits"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cfloat"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\float.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\intrin0.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\new"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\exception"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_exception.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\eh.h"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_terminate.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\tuple"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xpolymorphic_allocator.h"
@@ -14287,8 +14293,6 @@ CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Fil
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\istream"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_ostream.hpp"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ios"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\optional"
-CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xsmf_control.h"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\sstream"
 CMakeFiles\test.dir\src\repositories\account_repository.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\models\account.h
 
@@ -20783,8 +20787,16 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microso
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\optional"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xsmf_control.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\set"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtree"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\button.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\platform.h
@@ -20832,12 +20844,6 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\iosfwrap.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\gdicmn.h
@@ -20994,53 +21000,10 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\checkbox.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\ownerdrawnbutton.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\combobox.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\choicdlg.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\textctrl.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\textentry.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\textentry.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\ioswrap.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\beforestd.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iostream"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\istream"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_ostream.hpp"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ios"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xlocnum"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\streambuf"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xiosbase"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\share.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\system_error"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_system_error_abi.hpp"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cerrno"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdexcept"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xcall_once.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xerrc.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xlocale"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xfacet"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xlocinfo"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_xlocinfo_types.hpp"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\clocale"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\locale.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ostream"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\afterstd.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\textctrl.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\ctrlsub.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\ctrlsub.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\combobox.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\choice.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\choice.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\frame.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\generic\choicdgg.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\dialog.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\toplevel.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\nonownedwnd.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\nonownedwnd.h
@@ -21051,16 +21014,6 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\weakref.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\meta\int2type.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\toplevel.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\statusbr.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\statusbar.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\tooltip.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\tooltip.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\frame.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msgdlg.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\dialog.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\containr.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\sharedptr.h
@@ -21287,11 +21240,79 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\dialog.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\panel.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\panel.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\combobox.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\textctrl.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\textentry.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\textentry.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\ioswrap.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\beforestd.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iostream"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\istream"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_ostream.hpp"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ios"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xlocnum"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\streambuf"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xiosbase"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\share.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\system_error"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_system_error_abi.hpp"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cerrno"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdexcept"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xcall_once.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xerrc.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xlocale"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xfacet"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xlocinfo"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_xlocinfo_types.hpp"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\clocale"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\locale.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ostream"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\afterstd.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\textctrl.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\ctrlsub.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\ctrlsub.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\combobox.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\choice.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\choice.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\frame.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\statusbr.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\statusbar.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\tooltip.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\tooltip.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\frame.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msgdlg.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\stockitem.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\generic\msgdlgg.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\msgdlg.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\scrolwin.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\generic\scrolwin.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\recguard.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\simplebook.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\bookctrl.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
@@ -21314,6 +21335,11 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\sizer.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\statbox.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\statbox.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\compositewin.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\stattext.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
@@ -21413,11 +21439,6 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\statbmp.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\statbox.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\statbox.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\compositewin.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\radiobox.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
@@ -21434,11 +21455,6 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\gauge.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\scrolwin.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\generic\scrolwin.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\recguard.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\dirdlg.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
@@ -21451,10 +21467,6 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\toolbar.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\layout.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\choicdlg.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\generic\choicdgg.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\textdlg.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\generic\textdlgg.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
@@ -21470,11 +21482,11 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\mdi.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\models\account.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\models\calendar.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\json.hpp
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\forward_list"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\map"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtree"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\valarray"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\version"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cassert"
@@ -21509,7 +21521,7 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microso
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\span"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\numeric"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\any"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\repositories\calendar_repository.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\repositories\account_repository.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\SQLiteCpp\include\SQLiteCpp\Backup.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\SQLiteCpp\include\SQLiteCpp\SQLiteCppExport.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\SQLiteCpp\include\SQLiteCpp\Database.h
@@ -21517,10 +21529,1371 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\SQLiteCpp\include\SQLiteCpp\Statement.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\SQLiteCpp\include\SQLiteCpp\Exception.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\SQLiteCpp\include\SQLiteCpp\Utils.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\repositories\calendar_repository.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\repositories\event_repository.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\models\event.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\datetime_utils.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\types.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\services\account_service.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\access_token.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_google.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\crypto.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_utils.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\config.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\user.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\detail\select_compiler_config.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\compiler\visualc.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\pragma_message.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\helper_macros.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\detail\select_stdlib_config.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\stdlib\dinkumware.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\detail\select_platform_config.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\platform\win32.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\detail\suffix.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\detail\cxx_composite.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\version.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\allocator.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\type_traits.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\invocable_archetype.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\equality_comparable.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\execute_member.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\is_applicable_property.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\query_static_constexpr_member.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\static_query.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\any_executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\assert.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\assert.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\atomic_count.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstddef.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\executor_function.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\handler_alloc_helpers.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\memory.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstdint.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\throw_exception.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\throw_exception.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\exception\exception.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\assert\source_location.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\cstdint.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\source_location"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\workaround.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\align\aligned_alloc.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\align\detail\aligned_alloc_msvc.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\align\detail\is_alignment.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\assert.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\recycling_allocator.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\thread_context.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\call_stack.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\noncopyable.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\tss_ptr.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\keyword_tss_ptr.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\thread_context.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\thread_info_base.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\multiple_exceptions.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\multiple_exceptions.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\associated_allocator.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\associator.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\functional.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\non_const_lvalue.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\scoped_ptr.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\bad_executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\impl\bad_executor.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\blocking.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\prefer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\prefer_free.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\prefer_member.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\require_free.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\require_member.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\static_require.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\query.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\query_member.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\query_free.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\require.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\blocking_adaptation.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\event.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_event.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\socket_types.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\ws2tcpip.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\ws2ipdef.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\in6addr.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\mswsock.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\mswsockdef.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\old_win_sdk_compat.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\win_event.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\throw_error.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_code.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\error_code.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\is_error_code_enum.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\error_category.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\config.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\cstdint.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\error_condition.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\generic_category.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\generic_category_message.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\enable_if.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\is_same.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\errc.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\is_error_condition_enum.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\cerrno.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\append_int.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\snprintf.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\system_category.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\system_category_impl.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\system_category_message.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\api_config.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\system_category_message_win32.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\error_handling.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\basic_types.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\config.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\version_number.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\android.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\detail\test.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\cloudabi.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\mingw.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\mingw32.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\mingw64.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_uwp.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\os\windows.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\detail\os_detected.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\ntverp.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\ntverp.ver"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\detail\platform_detected.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_desktop.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\os\windows.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_uwp.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_phone.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\os\windows.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_uwp.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_server.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\os\windows.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_uwp.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_store.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\os\windows.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_uwp.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_system.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\os\windows.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_uwp.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_runtime.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\os\windows.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_phone.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\windows_store.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\platform\ios.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\os\ios.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\predef\make.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\detail\header.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\detail\footer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\get_last_error.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\detail\header.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\detail\footer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\detail\header.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\detail\footer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\character_code_conversion.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\detail\header.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\detail\footer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\local_memory.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\detail\header.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\detail\footer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\system_category_condition_win32.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\error_codes.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\detail\header.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\winapi\detail\footer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\interop_category.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\std_category.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\cstdint.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_category.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\error_category_impl.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\std_category_impl.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\mutex.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\shared_mutex"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\condition_variable"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mutex"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_condition.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\errc.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\generic_category.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\system_category.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\throws.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\throw_error.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\system_error.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cassert"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\error.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\cerrno.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\error.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\mutex.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_mutex.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\scoped_lock.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\win_mutex.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\context.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\context_as.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\mapping.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\occupancy.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\outstanding_work.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\prefer_only.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\relationship.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\any_completion_executor.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_handler.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_io_executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution_context.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\execution_context.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\handler_type_requirements.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\async_result.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\default_completion_token.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\deferred.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\utility.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\deferred.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\service_registry.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\service_registry.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\service_registry.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\execution_context.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\any_io_executor.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\associated_cancellation_slot.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\cancellation_signal.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cassert"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\cancellation_type.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\cancellation_signal.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\associated_executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\is_executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\is_executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\system_executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\system_executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\executor_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\fenced_block.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\std_fenced_block.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\scheduler_operation.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\handler_tracking.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\handler_tracking.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\op_queue.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\global.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_global.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\static_mutex.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_static_mutex.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\win_static_mutex.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\system_context.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\scheduler.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\conditionally_enabled_event.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\conditionally_enabled_mutex.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\null_event.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\null_event.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\scheduler_task.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\thread.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_thread.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\win_thread.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\scheduler.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\config.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\config.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\config.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\concurrency_hint.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\limits.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\scheduler_thread_info.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\signal_blocker.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\null_signal_blocker.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\reactor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\null_reactor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\thread_group.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\system_context.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\system_context.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\associated_immediate_executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\cancellation_state.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cassert"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\recycling_allocator.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\append.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\append.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\handler_cont_helpers.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\handler_continuation_hook.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\initiation_base.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\as_tuple.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\as_tuple.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\awaitable.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\coroutine"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\awaitable.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\disposition.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\post.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\initiate_post.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\work_dispatcher.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\bind_handler.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\executor_work_guard.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\this_coro.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\awaitable.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_datagram_socket.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_socket.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\io_object_impl.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\io_context.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\chrono.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\wrapped_handler.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\initiate_dispatch.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\winsock_init.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\winsock_init.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_io_context.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\timer_queue_base.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\operation.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_operation.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\timer_queue_set.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\timer_queue_set.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\wait_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_thread_info.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\win_iocp_io_context.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\completion_handler.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\handler_work.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\win_iocp_io_context.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\io_context.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\io_context.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\socket_base.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\io_control.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\socket_option.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_socket_service.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\buffer_sequence_adapter.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\buffer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\array_fwd.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\string_view.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\is_contiguous_iterator.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\is_buffer_sequence.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\registered_buffer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\buffer_sequence_adapter.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\reactor_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\select_reactor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\fd_set_adapter.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\posix_fd_set_adapter.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_fd_set_adapter.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\reactor_op_queue.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\hash_map.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\select_interrupter.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\socket_select_interrupter.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\socket_select_interrupter.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\socket_holder.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\socket_ops.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\socket_ops.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\select_reactor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\select_reactor.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_null_buffers_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_socket_accept_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_socket_service_base.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_socket_connect_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_socket_send_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_socket_recv_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_socket_recvmsg_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_wait_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\win_iocp_socket_service_base.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_socket_recvfrom_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_file.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\file_base.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_file_service.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_handle_service.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_handle_read_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_handle_write_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\win_iocp_handle_service.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\win_iocp_file_service.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_io_object.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_random_access_file.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_raw_socket.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_readable_pipe.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_seq_packet_socket.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_serial_port.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\serial_port_base.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\serial_port_base.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\serial_port_base.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_serial_port_service.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\win_iocp_serial_port_service.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_signal_set.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\signal_set_service.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\signal.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\signal_set_base.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\signal_handler.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\signal_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\signal_set_service.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_socket_acceptor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_socket_iostream.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_socket_streambuf.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_stream_socket.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\steady_timer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_waitable_timer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\chrono_time_traits.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\deadline_timer_service.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\timer_queue.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\date_time_fwd.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\timer_scheduler.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\timer_scheduler_fwd.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\wait_handler.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\wait_traits.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_stream_file.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_streambuf.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_streambuf_fwd.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_writable_pipe.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\bind_allocator.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\bind_cancellation_slot.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\bind_executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\uses_executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\bind_immediate_executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\buffer_registration.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\buffered_read_stream_fwd.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\buffered_read_stream.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\buffer_resize_guard.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\buffered_stream_storage.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\buffered_read_stream.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\buffered_stream_fwd.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\buffered_stream.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\buffered_write_stream.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\buffered_write_stream_fwd.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\completion_condition.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\write.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\write.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\base_from_cancellation_state.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\base_from_completion_cond.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\consuming_buffers.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\dependent_type.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\buffered_write_stream.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\buffers_iterator.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\cancel_after.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\cancel_after.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\timed_cancel_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\completion_payload.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\completion_message.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\variant"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\completion_payload_handler.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\cancel_at.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\cancel_at.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\co_composed.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\composed_work.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\co_spawn.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\co_spawn.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\dispatch.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\use_awaitable.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\use_awaitable.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\compose.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\composed.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\connect.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\connect.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\connect_pipe.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\connect_pipe.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\connect_pipe.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\consign.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\consign.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\coroutine.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\defer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\initiate_defer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detached.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\detached.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\executor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\executor.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\generic\basic_endpoint.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\generic\detail\endpoint.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\generic\detail\impl\endpoint.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\generic\datagram_protocol.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\generic\raw_protocol.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\generic\seq_packet_protocol.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\generic\stream_protocol.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\high_resolution_timer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\immediate.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\io_context_strand.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\strand_service.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\strand_service.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\strand_service.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\address.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\address_v4.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\array.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\impl\address_v4.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\impl\address_v4.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\address_v6.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\impl\address_v6.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\impl\address_v6.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\bad_address_cast.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\impl\address.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\impl\address.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\address_v4_iterator.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\address_v4_range.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\address_v6_iterator.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\address_v6_range.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\network_v4.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\impl\network_v4.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\impl\network_v4.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\network_v6.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\impl\network_v6.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\impl\network_v6.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\basic_endpoint.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\detail\endpoint.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\detail\impl\endpoint.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\impl\basic_endpoint.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\basic_resolver.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\basic_resolver_iterator.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\basic_resolver_entry.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\basic_resolver_query.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\resolver_query_base.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\resolver_base.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\basic_resolver_results.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\resolver_service.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\resolve_endpoint_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\resolve_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\resolve_query_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\resolver_service_base.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\resolver_thread_pool.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\resolver_thread_pool.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\resolver_service_base.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\host_name.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\impl\host_name.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\icmp.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\multicast.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\detail\socket_option.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\tcp.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\udp.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\unicast.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\v6_only.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\is_read_buffered.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\is_write_buffered.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\local\basic_endpoint.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\local\detail\endpoint.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\local\detail\impl\endpoint.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\local\connect_pair.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\local\datagram_protocol.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\local\seq_packet_protocol.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\local\stream_protocol.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\packaged_task.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\future.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\future"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ppltasks.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\pplwin.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\pplinterface.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ppltaskscheduler.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\crtdefs.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\pplcancellation_token.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\placeholders.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\posix\basic_descriptor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\posix\basic_stream_descriptor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\posix\descriptor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\posix\descriptor_base.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\posix\stream_descriptor.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\prepend.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\prepend.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\random_access_file.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\read.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\read.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\read_at.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\read_at.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\read_until.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\regex_fwd.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\read_until.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\readable_pipe.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\redirect_error.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\redirect_error.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\require_concept.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\require_concept_member.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\require_concept_free.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\traits\static_require_concept.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\serial_port.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\signal_set.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\static_thread_pool.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\thread_pool.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\thread_pool.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\blocking_executor_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\thread_pool.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\strand.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\strand_executor_service.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\strand_executor_service.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\strand_executor_service.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\stream_file.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\streambuf.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\system_timer.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\use_future.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\use_future.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\version.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\windows\basic_object_handle.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_object_handle_service.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\win_object_handle_service.ipp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\windows\basic_overlapped_handle.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\windows\basic_random_access_handle.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\windows\basic_stream_handle.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\windows\object_handle.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\windows\overlapped_handle.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\windows\overlapped_ptr.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_overlapped_ptr.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_overlapped_op.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\windows\random_access_handle.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\windows\stream_handle.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\writable_pipe.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\write_at.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\write_at.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_ms.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\sync\google_calendar_sync_service.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\sync\calendar_sync_service.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\repositories\repository_holder.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\sync\outlook_calendar_sync_service.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\ui\calendar_ui_shared.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\ui\event_editor_dialog.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\ui\month_cell_panel.h
@@ -27084,6 +28457,10 @@ C:\dev\cppLibs\boost_1_89_0\boost\predef\os\ios.h:
 
 "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\immintrin.h":
 
+C:\vcpkg\installed\x64-windows\include\openssl\ecerr.h:
+
+C:\uniba\projekt_kalendar\bc_test_app\include\models\account.h:
+
 C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_streambuf_fwd.hpp:
 
 "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\minwindef.h":
@@ -27266,9 +28643,9 @@ C:\uniba\projekt_kalendar\bc_test_app\src\accounts\microsoft_account_service.cpp
 
 C:\vcpkg\installed\x64-windows\include\wx\imaglist.h:
 
-C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\occupancy.hpp:
-
 C:\uniba\projekt_kalendar\bc_test_app\SQLiteCpp\include\SQLiteCpp\Utils.h:
+
+C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\occupancy.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\as_tuple.hpp:
 
@@ -27309,6 +28686,8 @@ C:\dev\cppLibs\boost_1_89_0\boost\beast\core\detail\tuple.hpp:
 "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared\sdv_driverspecs.h":
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\posix\stream_descriptor.hpp:
+
+C:\uniba\projekt_kalendar\bc_test_app\include\utils\json.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\type_traits\is_abstract.hpp:
 
@@ -27398,12 +28777,6 @@ C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\io_object_impl.hpp:
 
 "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\ole2.h":
 
-C:\dev\cppLibs\boost_1_89_0\boost\beast\http\parser_fwd.hpp:
-
-C:\dev\cppLibs\boost_1_89_0\boost\intrusive\bstree.hpp:
-
-C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\outstanding_work.hpp:
-
 C:\dev\cppLibs\boost_1_89_0\boost\beast\core\impl\static_buffer.ipp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\type_traits\has_logical_or.hpp:
@@ -27412,17 +28785,17 @@ C:\dev\cppLibs\boost_1_89_0\boost\asio\generic\seq_packet_protocol.hpp:
 
 "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\errhandlingapi.h":
 
+C:\dev\cppLibs\boost_1_89_0\boost\intrusive\list.hpp:
+
+C:\dev\cppLibs\boost_1_89_0\boost\predef\detail\test.h:
+
 C:\dev\cppLibs\boost_1_89_0\boost\asio\ssl\detail\engine.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\system_executor.hpp:
 
-C:\dev\cppLibs\boost_1_89_0\boost\cerrno.hpp:
-
 "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\fibersapi.h":
 
-C:\dev\cppLibs\boost_1_89_0\boost\intrusive\list.hpp:
-
-C:\dev\cppLibs\boost_1_89_0\boost\predef\detail\test.h:
+C:\dev\cppLibs\boost_1_89_0\boost\cerrno.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\thread_context.hpp:
 
@@ -27592,15 +28965,23 @@ C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\detail\socket_option.hpp:
 
 "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\crtdefs.h":
 
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\valarray":
+
+C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\resolver_query_base.hpp:
+
+C:\dev\cppLibs\boost_1_89_0\boost\beast\core\file_base.hpp:
+
+C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_writable_pipe.hpp:
+
 "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\wincon.h":
-
-C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\context.hpp:
-
-"C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\wincontypes.h":
 
 "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iomanip":
 
 "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdlib":
+
+"C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\wincontypes.h":
+
+C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\context.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\beast\http\impl\verb.ipp:
 
@@ -27824,11 +29205,11 @@ C:\dev\cppLibs\boost_1_89_0\boost\asio\awaitable.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\fd_set_adapter.hpp:
 
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_int128.hpp":
+
 "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um\cguid.h":
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\signal_handler.hpp:
-
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_int128.hpp":
 
 "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\tchar.h":
 
@@ -28266,13 +29647,13 @@ C:\vcpkg\installed\x64-windows\include\wx\rtti.h:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\mapping.hpp:
 
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_system_error_abi.hpp":
+
 C:\uniba\projekt_kalendar\bc_test_app\src\ui\month_cell_panel.cpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\config.hpp:
 
 "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\array":
-
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_system_error_abi.hpp":
 
 "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cerrno":
 
@@ -28313,6 +29694,12 @@ C:\dev\cppLibs\boost_1_89_0\boost\optional\optional_fwd.hpp:
 C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\blocking_adaptation.hpp:
 
 "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp":
+
+C:\dev\cppLibs\boost_1_89_0\boost\beast\core\saved_handler.hpp:
+
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_ranges_to.hpp":
+
+C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\wait_op.hpp:
 
 C:\vcpkg\installed\x64-windows\include\openssl\engine.h:
 
@@ -28446,6 +29833,54 @@ C:\dev\cppLibs\boost_1_89_0\boost\type_traits\has_logical_not.hpp:
 
 C:\uniba\projekt_kalendar\bc_test_app\main.cpp:
 
+C:\dev\cppLibs\boost_1_89_0\boost\type_traits\has_pre_increment.hpp:
+
+C:\uniba\projekt_kalendar\bc_test_app\include\models\calendar.h:
+
+C:\vcpkg\installed\x64-windows\include\wx\control.h:
+
+C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\socket_types.hpp:
+
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list":
+
+C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\address_v6_range.hpp:
+
+C:\dev\cppLibs\boost_1_89_0\boost\beast\core\detail\string.hpp:
+
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread":
+
+C:\dev\cppLibs\boost_1_89_0\boost\type_traits\remove_reference.hpp:
+
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\version":
+
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ranges":
+
+C:\vcpkg\installed\x64-windows\include\wx\image.h:
+
+C:\dev\cppLibs\boost_1_89_0\boost\config\pragma_message.hpp:
+
+C:\dev\cppLibs\boost_1_89_0\boost\beast\ssl\ssl_stream.hpp:
+
+C:\dev\cppLibs\boost_1_89_0\boost\type_traits\has_less.hpp:
+
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\span":
+
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\string_view":
+
+C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\recycling_allocator.hpp:
+
+C:\dev\cppLibs\boost_1_89_0\boost\beast\http\error.hpp:
+
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\numeric":
+
+C:\dev\cppLibs\boost_1_89_0\boost\beast\core\impl\basic_stream.hpp:
+
+C:\uniba\projekt_kalendar\bc_test_app\include\repositories\account_repository.h:
+
+C:\dev\cppLibs\boost_1_89_0\boost\intrusive\detail\exception_disposer.hpp:
+
+C:\uniba\projekt_kalendar\bc_test_app\include\repositories\calendar_repository.h:
+
 C:\dev\cppLibs\boost_1_89_0\boost\type_traits\disjunction.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\io_context.hpp:
@@ -28470,18 +29905,6 @@ C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\impl\bad_executor.ipp:
 
 C:\uniba\projekt_kalendar\bc_test_app\include\utils\crypto.h:
 
-C:\vcpkg\installed\x64-windows\include\wx\control.h:
-
-C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\socket_types.hpp:
-
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list":
-
-C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\address_v6_range.hpp:
-
-C:\dev\cppLibs\boost_1_89_0\boost\beast\core\detail\string.hpp:
-
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread":
-
 "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token":
 
 C:\vcpkg\installed\x64-windows\include\wx\msw\radiobox.h:
@@ -28489,10 +29912,6 @@ C:\vcpkg\installed\x64-windows\include\wx\msw\radiobox.h:
 C:\dev\cppLibs\boost_1_89_0\boost\exception\exception.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\config\detail\select_compiler_config.hpp:
-
-C:\vcpkg\installed\x64-windows\include\wx\image.h:
-
-C:\dev\cppLibs\boost_1_89_0\boost\config\pragma_message.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\type_traits\is_enum.hpp:
 
@@ -28505,10 +29924,6 @@ C:\dev\cppLibs\boost_1_89_0\boost\config\helper_macros.hpp:
 C:\vcpkg\installed\x64-windows\include\wx\generic\scrolwin.h:
 
 C:\dev\cppLibs\boost_1_89_0\boost\config\detail\select_stdlib_config.hpp:
-
-C:\dev\cppLibs\boost_1_89_0\boost\type_traits\remove_reference.hpp:
-
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\version":
 
 C:\dev\cppLibs\boost_1_89_0\boost\config\stdlib\dinkumware.hpp:
 
@@ -28584,13 +29999,9 @@ C:\dev\cppLibs\boost_1_89_0\boost\asio\buffered_write_stream.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\align\detail\is_alignment.hpp:
 
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\string_view":
-
-C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\recycling_allocator.hpp:
+C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\tss_ptr.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\mutex.hpp:
-
-C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\tss_ptr.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\keyword_tss_ptr.hpp:
 
@@ -28708,10 +30119,6 @@ C:\dev\cppLibs\boost_1_89_0\boost\system\detail\system_category.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\winapi\error_handling.hpp:
 
-C:\vcpkg\installed\x64-windows\include\wx\wx.h:
-
-C:\dev\cppLibs\boost_1_89_0\boost\asio\error.hpp:
-
 C:\dev\cppLibs\boost_1_89_0\boost\winapi\config.hpp:
 
 C:\vcpkg\installed\x64-windows\include\wx\msw\scrolbar.h:
@@ -28776,8 +30183,6 @@ C:\dev\cppLibs\boost_1_89_0\boost\system\detail\system_category_condition_win32.
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\future.hpp:
 
-C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\context_as.hpp:
-
 C:\vcpkg\installed\x64-windows\include\openssl\configuration.h:
 
 C:\dev\cppLibs\boost_1_89_0\boost\system\detail\interop_category.hpp:
@@ -28812,13 +30217,17 @@ C:\dev\cppLibs\boost_1_89_0\boost\beast\http\detail\basic_parsed_list.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\system\system_category.hpp:
 
-C:\dev\cppLibs\boost_1_89_0\boost\system\detail\throws.hpp:
-
 C:\dev\cppLibs\boost_1_89_0\boost\optional\bad_optional_access.hpp:
+
+C:\dev\cppLibs\boost_1_89_0\boost\system\detail\throws.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\throw_error.ipp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\system\system_error.hpp:
+
+C:\vcpkg\installed\x64-windows\include\wx\wx.h:
+
+C:\dev\cppLibs\boost_1_89_0\boost\asio\error.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\error.ipp:
 
@@ -28829,6 +30238,14 @@ C:\dev\cppLibs\boost_1_89_0\boost\asio\deferred.hpp:
 C:\dev\cppLibs\boost_1_89_0\boost\intrusive\set_hook.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\scoped_lock.hpp:
+
+C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\context_as.hpp:
+
+C:\dev\cppLibs\boost_1_89_0\boost\beast\http\parser_fwd.hpp:
+
+C:\dev\cppLibs\boost_1_89_0\boost\intrusive\bstree.hpp:
+
+C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\outstanding_work.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\beast\http\vector_body_fwd.hpp:
 
@@ -28851,6 +30268,8 @@ C:\dev\cppLibs\boost_1_89_0\boost\asio\impl\any_completion_executor.ipp:
 C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_handler.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\any_io_executor.hpp:
+
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\set":
 
 C:\dev\cppLibs\boost_1_89_0\boost\beast\core\read_size.hpp:
 
@@ -29050,12 +30469,6 @@ C:\dev\cppLibs\boost_1_89_0\boost\asio\posix\basic_descriptor.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\impl\timer_queue_set.ipp:
 
-C:\dev\cppLibs\boost_1_89_0\boost\beast\core\saved_handler.hpp:
-
-C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\wait_op.hpp:
-
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_ranges_to.hpp":
-
 C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\buffer_sequence_adapter.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\win_iocp_thread_info.hpp:
@@ -29233,14 +30646,6 @@ C:\vcpkg\installed\x64-windows\include\wx\imagpcx.h:
 C:\dev\cppLibs\boost_1_89_0\boost\optional\detail\optional_config.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_streambuf.hpp:
-
-C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\resolver_query_base.hpp:
-
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\valarray":
-
-C:\dev\cppLibs\boost_1_89_0\boost\beast\core\file_base.hpp:
-
-C:\dev\cppLibs\boost_1_89_0\boost\asio\basic_writable_pipe.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\bind_allocator.hpp:
 
@@ -29510,29 +30915,9 @@ C:\dev\cppLibs\boost_1_89_0\boost\type_traits\add_lvalue_reference.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\write_at.hpp:
 
-C:\uniba\projekt_kalendar\bc_test_app\include\utils\json.hpp:
-
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ranges":
-
-C:\dev\cppLibs\boost_1_89_0\boost\beast\ssl\ssl_stream.hpp:
-
-C:\dev\cppLibs\boost_1_89_0\boost\type_traits\has_less.hpp:
-
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\span":
-
-C:\dev\cppLibs\boost_1_89_0\boost\beast\http\error.hpp:
-
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\numeric":
-
-C:\dev\cppLibs\boost_1_89_0\boost\beast\core\impl\basic_stream.hpp:
-
 C:\vcpkg\installed\x64-windows\include\wx\dirdlg.h:
 
 C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_ms.h:
-
-C:\vcpkg\installed\x64-windows\include\openssl\ecerr.h:
-
-C:\uniba\projekt_kalendar\bc_test_app\include\models\account.h:
 
 C:\uniba\projekt_kalendar\bc_test_app\include\services\microsoft_account_service.h:
 
@@ -29549,10 +30934,6 @@ C:\uniba\projekt_kalendar\bc_test_app\src\events\event_serialization.cpp:
 C:\dev\cppLibs\boost_1_89_0\boost\make_unique.hpp:
 
 C:\uniba\projekt_kalendar\bc_test_app\include\models\event.h:
-
-C:\dev\cppLibs\boost_1_89_0\boost\type_traits\has_pre_increment.hpp:
-
-C:\uniba\projekt_kalendar\bc_test_app\include\models\calendar.h:
 
 C:\uniba\projekt_kalendar\bc_test_app\src\oauth\oauth_google.cpp:
 
@@ -29873,10 +31254,6 @@ C:\dev\cppLibs\boost_1_89_0\boost\intrusive\detail\iterator.hpp:
 C:\vcpkg\installed\x64-windows\include\wx\msw\ole\access.h:
 
 C:\dev\cppLibs\boost_1_89_0\boost\move\detail\placement_new.hpp:
-
-C:\uniba\projekt_kalendar\bc_test_app\include\repositories\calendar_repository.h:
-
-C:\dev\cppLibs\boost_1_89_0\boost\intrusive\detail\exception_disposer.hpp:
 
 C:\uniba\projekt_kalendar\bc_test_app\include\ui\timeline_view_panel.h:
 
@@ -30284,8 +31661,6 @@ C:\dev\cppLibs\boost_1_89_0\boost\beast\http\string_body_fwd.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\beast\http\vector_body.hpp:
 
-C:\uniba\projekt_kalendar\bc_test_app\include\repositories\account_repository.h:
-
 C:\vcpkg\installed\x64-windows\include\wx\msw\app.h:
 
 C:\uniba\projekt_kalendar\bc_test_app\include\repositories\event_repository.h:
@@ -30466,6 +31841,8 @@ C:\vcpkg\installed\x64-windows\include\wx\msw\init.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\stattext.h:
 
+C:\vcpkg\installed\x64-windows\include\wx\choicdlg.h:
+
 C:\vcpkg\installed\x64-windows\include\openssl\objects.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\combobox.h:
@@ -30482,9 +31859,17 @@ C:\vcpkg\installed\x64-windows\include\wx\tooltip.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\msw\frame.h:
 
+C:\vcpkg\installed\x64-windows\include\wx\scrolwin.h:
+
+C:\vcpkg\installed\x64-windows\include\wx\recguard.h:
+
 C:\vcpkg\installed\x64-windows\include\wx\simplebook.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\notebook.h:
+
+C:\vcpkg\installed\x64-windows\include\wx\statbox.h:
+
+C:\vcpkg\installed\x64-windows\include\wx\msw\statbox.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\time.h:
 
@@ -30532,27 +31917,17 @@ C:\vcpkg\installed\x64-windows\include\openssl\srtp.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\msw\statbmp.h:
 
-C:\vcpkg\installed\x64-windows\include\wx\statbox.h:
-
-C:\vcpkg\installed\x64-windows\include\wx\msw\statbox.h:
-
 C:\vcpkg\installed\x64-windows\include\wx\slider.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\msw\slider.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\gauge.h:
 
-C:\vcpkg\installed\x64-windows\include\wx\scrolwin.h:
-
-C:\vcpkg\installed\x64-windows\include\wx\recguard.h:
-
 C:\vcpkg\installed\x64-windows\include\openssl\params.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\msw\dirdlg.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\tbarbase.h:
-
-C:\vcpkg\installed\x64-windows\include\wx\choicdlg.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\generic\textdlgg.h:
 

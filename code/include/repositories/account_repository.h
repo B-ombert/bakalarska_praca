@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -14,6 +15,9 @@ public:
     explicit AccountRepository(SQLite::Database& db) : db(db) {}
 
     long long Upsert(const Account& a);
+    std::vector<Account> GetAllAccounts();
+    std::optional<Account> GetById(long long id);
+    bool DeleteById(long long id);
     std::vector<Account> GetAllAccountsFromPlatform(const std::string& platform);
     std::string GetRefreshToken(const Account& a);
 };

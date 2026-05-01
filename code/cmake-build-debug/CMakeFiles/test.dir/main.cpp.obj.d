@@ -165,15 +165,32 @@ C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.3520
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xsmf_control.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/sstream
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vector
+C:/uniba/projekt_kalendar/bc_test_app/include/models/account.h
+C:/uniba/projekt_kalendar/bc_test_app/include/models/calendar.h
+C:/uniba/projekt_kalendar/bc_test_app/include/utils/json.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/functional
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/unordered_map
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xhash
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/list
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/array
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/valarray
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/version
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cassert
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/assert.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ranges
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_int128.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_ranges_to.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/span
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/string_view
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/numeric
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/any
+C:/uniba/projekt_kalendar/bc_test_app/include/repositories/account_repository.h
+C:/uniba/projekt_kalendar/bc_test_app/include/repositories/calendar_repository.h
 C:/uniba/projekt_kalendar/bc_test_app/include/ui/local_calendar_app.h
 C:/uniba/projekt_kalendar/bc_test_app/include/utils/access_token.h
 C:/uniba/projekt_kalendar/bc_test_app/include/oauth/oauth_google.h
 C:/uniba/projekt_kalendar/bc_test_app/include/utils/crypto.h
 C:/uniba/projekt_kalendar/bc_test_app/include/oauth/oauth_utils.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/functional
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/unordered_map
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xhash
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/list
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/thread
 C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/process.h
 C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/corecrt_startup.h
@@ -190,7 +207,6 @@ C:/dev/cppLibs/boost_1_89_0/boost/config/compiler/visualc.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/config/pragma_message.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/config/helper_macros.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/config/detail/select_stdlib_config.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/version
 C:/dev/cppLibs/boost_1_89_0/boost/config/stdlib/dinkumware.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/config/detail/select_platform_config.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/config/platform/win32.hpp
@@ -592,7 +608,6 @@ C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/push_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/execution/context.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/any
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/push_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/execution/context_as.hpp
@@ -915,9 +930,7 @@ C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/win_iocp_socket_service.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/buffer_sequence_adapter.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/buffer.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/array_fwd.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/array
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/string_view.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/string_view
 C:/dev/cppLibs/boost_1_89_0/boost/asio/is_contiguous_iterator.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/push_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
@@ -1641,14 +1654,5 @@ C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/impl/write_at.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/push_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
-C:/uniba/projekt_kalendar/bc_test_app/include/utils/json.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/valarray
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cassert
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/assert.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ranges
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_int128.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_ranges_to.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/span
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/numeric
 C:/uniba/projekt_kalendar/bc_test_app/include/utils/types.h
 C:/uniba/projekt_kalendar/bc_test_app/include/oauth/oauth_ms.h

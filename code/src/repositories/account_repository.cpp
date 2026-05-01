@@ -1,5 +1,19 @@
 #include "repositories/account_repository.h"
 
+namespace {
+
+Account MapAccountRow(SQLite::Statement& query) {
+    Account a;
+    a.id = query.getColumn(0).getInt64();
+    a.name = query.getColumn(1).getString();
+    a.provider = query.getColumn(2).getString();
+    a.providerUserId = query.getColumn(3).getString();
+    a.refreshToken = query.getColumn(4).getString();
+    return a;
+}
+
+} // namespace
+
 long long AccountRepository::Upsert(const Account &a) {
     SQLite::Statement find(db,
         "SELECT id FROM accounts WHERE provider = ? AND provider_user_id = ?"
@@ -11,10 +25,11 @@ long long AccountRepository::Upsert(const Account &a) {
     if (find.executeStep()) {
         long long id = find.getColumn(0).getInt64();
 
-        SQLite::Statement update(db, "UPDATE accounts SET refresh_token = ? WHERE id = ?");
+        SQLite::Statement update(db, "UPDATE accounts SET name = ?, refresh_token = ? WHERE id = ?");
 
-        update.bind(1, a.refreshToken);
-        update.bind(2, id);
+        update.bind(1, a.name);
+        update.bind(2, a.refreshToken);
+        update.bind(3, id);
         update.exec();
 
         return id;
@@ -30,6 +45,38 @@ long long AccountRepository::Upsert(const Account &a) {
     insert.exec();
 
     return db.getLastInsertRowid();
+}
+
+std::vector<Account> AccountRepository::GetAllAccounts() {
+    std::vector<Account> accounts;
+
+    SQLite::Statement query(
+        db,
+        "SELECT * FROM accounts "
+        "ORDER BY CASE WHEN provider = 'LOCAL' THEN 0 ELSE 1 END, name COLLATE NOCASE ASC, id ASC");
+
+    while (query.executeStep()) {
+        accounts.push_back(MapAccountRow(query));
+    }
+
+    return accounts;
+}
+
+std::optional<Account> AccountRepository::GetById(const long long id) {
+    SQLite::Statement query(db, "SELECT * FROM accounts WHERE id = ?");
+    query.bind(1, id);
+
+    if (!query.executeStep()) {
+        return std::nullopt;
+    }
+
+    return MapAccountRow(query);
+}
+
+bool AccountRepository::DeleteById(const long long id) {
+    SQLite::Statement query(db, "DELETE FROM accounts WHERE id = ?");
+    query.bind(1, id);
+    return query.exec() > 0;
 }
 
 std::string AccountRepository::GetRefreshToken(const Account &a) {
@@ -49,14 +96,7 @@ std::vector<Account> AccountRepository::GetAllAccountsFromPlatform(const std::st
     query.bind(1, platform);
 
     while (query.executeStep()) {
-        Account a;
-        a.id = query.getColumn(0).getInt64();
-        a.name = query.getColumn(1).getString();
-        a.provider = query.getColumn(2).getString();
-        a.providerUserId = query.getColumn(3).getString();
-        a.refreshToken = query.getColumn(4).getString();
-
-        accounts.push_back(std::move(a));
+        accounts.push_back(MapAccountRow(query));
     }
 
     return accounts;
