@@ -32,6 +32,16 @@ private:
         std::string label;
     };
 
+    struct HeaderSpanSegment {
+        long long eventId = -1;
+        int row = 0;
+        int startDayIndex = 0;
+        int endDayIndex = 0;
+        std::string label;
+        bool continuesBefore = false;
+        bool continuesAfter = false;
+    };
+
     int DayCount() const;
     int CurrentColumnWidth() const;
     int CurrentAllDayLaneHeight() const;
@@ -39,6 +49,7 @@ private:
     int TimelineTop() const;
     void RefreshView();
     std::vector<Event> EventsForDay(long long dayEpoch) const;
+    std::vector<HeaderSpanSegment> BuildHeaderSpans() const;
     void RebuildEventButtons();
     void OnHostResized(wxSizeEvent& event);
     void OnCanvasLeftUp(wxMouseEvent& event);

@@ -8,13 +8,24 @@
 
 #include "utils/datetime_utils.h"
 
-std::string FormatMonthTitle(const int year, const int month) {
+namespace {
+
+const std::array<const char*, 12>& MonthNames() {
     static const std::array<const char*, 12> months = {
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     };
+    return months;
+}
 
-    return std::string(months[month - 1]) + " " + std::to_string(year);
+} // namespace
+
+std::string FormatMonthTitle(const int year, const int month) {
+    return FormatMonthName(month) + " " + std::to_string(year);
+}
+
+std::string FormatMonthName(const int month) {
+    return MonthNames()[month - 1];
 }
 
 std::string FormatDayHeader(const long long dayEpoch) {
@@ -79,6 +90,15 @@ void NormalizeAllDayEventRange(Event& event) {
     }
 }
 
+long long EventDisplayEndDay(const Event& event) {
+    const long long safeEndEpoch = std::max(event.startDateTime, event.endDateTime - 1);
+    return StartOfUtcDay(safeEndEpoch);
+}
+
+bool SpansMultipleDays(const Event& event) {
+    return StartOfUtcDay(event.startDateTime) != EventDisplayEndDay(event);
+}
+
 int DaysInMonth(const int year, const int month) {
     static const std::array<int, 12> daysPerMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     if (month != 2) {
@@ -117,7 +137,7 @@ std::optional<std::string> ValidateEventForUi(const Event& event) {
     }
 
     if (event.startDateTime < 0 || event.endDateTime < 0) {
-        return "Use YYYY-MM-DD for all-day events or YYYY-MM-DD HH:MM for timed events.";
+        return "Use YYYY-MM-DD for all-day events or YYYY-MM-DD HH:MM for timed events. The earliest supported date is 1970-01-01.";
     }
 
     if (event.endDateTime < event.startDateTime) {

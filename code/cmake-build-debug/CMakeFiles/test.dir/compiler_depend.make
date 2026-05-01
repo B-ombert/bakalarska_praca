@@ -1533,6 +1533,16 @@ CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\
 CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_google.h
 CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\crypto.h
 CMakeFiles\test.dir\main.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_utils.h
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
+CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_executor.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\config.hpp
@@ -1629,10 +1639,6 @@ CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\associa
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\functional.hpp
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
@@ -1914,12 +1920,6 @@ CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detai
 CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\shared_mutex"
 CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\condition_variable"
 CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mutex"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
-CMakeFiles\test.dir\main.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_condition.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\errc.hpp
 CMakeFiles\test.dir\main.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\generic_category.hpp
@@ -3117,6 +3117,33 @@ CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\uniba\projekt_kalen
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_google.h
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\crypto.h
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_utils.h
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
+CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_executor.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\config.hpp
@@ -3157,24 +3184,14 @@ CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\any_executor.hpp
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\assert.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\assert.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\atomic_count.hpp
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstddef.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\executor_function.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\handler_alloc_helpers.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\memory.hpp
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstdint.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\throw_exception.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\throw_exception.hpp
@@ -3223,15 +3240,6 @@ CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\functional.hpp
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
@@ -3532,15 +3540,7 @@ CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\mutex.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\shared_mutex"
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\condition_variable"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mutex"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
-CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_condition.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\errc.hpp
 CMakeFiles\test.dir\src\accounts\account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\generic_category.hpp
@@ -4770,6 +4770,33 @@ CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\uniba\projek
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_google.h
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\crypto.h
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_utils.h
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
+CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_executor.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\config.hpp
@@ -4810,24 +4837,14 @@ CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\any_executor.hpp
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\assert.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\assert.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\atomic_count.hpp
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstddef.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\executor_function.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\handler_alloc_helpers.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\memory.hpp
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstdint.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\throw_exception.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\throw_exception.hpp
@@ -4876,15 +4893,6 @@ CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\functional.hpp
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
@@ -5185,15 +5193,7 @@ CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\mutex.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\shared_mutex"
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\condition_variable"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mutex"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
-CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_condition.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\errc.hpp
 CMakeFiles\test.dir\src\accounts\google_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\generic_category.hpp
@@ -6422,6 +6422,33 @@ CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\uniba\pro
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_google.h
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\crypto.h
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_utils.h
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
+CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_executor.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\config.hpp
@@ -6462,24 +6489,14 @@ CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLi
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\any_executor.hpp
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\assert.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\assert.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\atomic_count.hpp
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstddef.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\executor_function.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\handler_alloc_helpers.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\memory.hpp
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstdint.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\throw_exception.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\throw_exception.hpp
@@ -6528,15 +6545,6 @@ CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLi
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\functional.hpp
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
@@ -6837,15 +6845,7 @@ CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLi
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\mutex.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\shared_mutex"
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\condition_variable"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mutex"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
-CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_condition.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\errc.hpp
 CMakeFiles\test.dir\src\accounts\microsoft_account_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\generic_category.hpp
@@ -8566,6 +8566,33 @@ CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft 
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\ctype.h"
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\crypto.h
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_utils.h
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
+CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_executor.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\config.hpp
@@ -8606,24 +8633,14 @@ CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\any_executor.hpp
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\assert.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\assert.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\atomic_count.hpp
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstddef.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\executor_function.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\handler_alloc_helpers.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\memory.hpp
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstdint.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\throw_exception.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\throw_exception.hpp
@@ -8672,15 +8689,6 @@ CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\functional.hpp
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
@@ -8981,15 +8989,7 @@ CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\mutex.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\shared_mutex"
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\condition_variable"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mutex"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
-CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_condition.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\errc.hpp
 CMakeFiles\test.dir\src\oauth\oauth_google.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\generic_category.hpp
@@ -10214,6 +10214,33 @@ CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visu
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cctype"
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\ctype.h"
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_utils.h
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
+CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_executor.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\config.hpp
@@ -10254,24 +10281,14 @@ CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boos
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\any_executor.hpp
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\assert.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\assert.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\atomic_count.hpp
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstddef.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\executor_function.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\handler_alloc_helpers.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\memory.hpp
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstdint.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\throw_exception.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\throw_exception.hpp
@@ -10320,15 +10337,6 @@ CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boos
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\functional.hpp
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
@@ -10629,15 +10637,7 @@ CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boos
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\mutex.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\shared_mutex"
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\condition_variable"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mutex"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
-CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_condition.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\errc.hpp
 CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\generic_category.hpp
@@ -11771,6 +11771,119 @@ CMakeFiles\test.dir\src\oauth\oauth_ms.cpp.obj: "C:\Program Files (x86)\Windows 
 
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\src\oauth\oauth_utils.cpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_utils.h
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\yvals_core.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\sal.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\concurrencysal.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vadefs.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xkeycheck.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\exception"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\yvals.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\crtdbg.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_new_debug.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_new.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\crtdefs.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\use_ansi.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdlib"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_math.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stdlib.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_malloc.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_search.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stddef.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstdlib.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\limits.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\type_traits"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstddef"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtr1common"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdint"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdint.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstring"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\string.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_memory.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_memcpy_s.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\errno.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_string.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstring.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\malloc.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_exception.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\eh.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_terminate.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\tuple"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\compare"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\concepts"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_iter_core.hpp"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\initializer_list"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xmemory"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\limits"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cfloat"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\float.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\climits"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cwchar"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdio"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stdio.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstdio.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_stdio_config.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\wchar.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wconio.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wctype.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wdirect.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wio.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_share.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wprocess.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wtime.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\sys\stat.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\sys\types.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\intrin.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\intrin0.inl.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\setjmp.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\immintrin.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\wmmintrin.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\nmmintrin.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\smmintrin.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\tmmintrin.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\pmmintrin.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\emmintrin.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xmmintrin.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mmintrin.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\zmmintrin.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ammintrin.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\intrin0.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\new"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xutility"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xpolymorphic_allocator.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_sanitizer_annotate_container.hpp"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iosfwd"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
+CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_executor.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\config.hpp
@@ -11782,12 +11895,6 @@ CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\b
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\helper_macros.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\detail\select_stdlib_config.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\version"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\yvals_core.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\sal.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\concurrencysal.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vadefs.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xkeycheck.h"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\stdlib\dinkumware.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\detail\select_platform_config.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\config\platform\win32.hpp
@@ -11797,20 +11904,6 @@ CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\b
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\allocator.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\type_traits.hpp
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\type_traits"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstddef"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stddef.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtr1common"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdint"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdint.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstring"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\string.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_memory.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_memcpy_s.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\errno.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_string.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstring.h"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\executor.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\invocable_archetype.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
@@ -11831,88 +11924,14 @@ CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\b
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\any_executor.hpp
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\new"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\exception"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\yvals.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\crtdbg.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_new_debug.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_new.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\crtdefs.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\use_ansi.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdlib"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_math.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stdlib.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_malloc.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_search.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstdlib.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\limits.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\malloc.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_exception.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\eh.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_terminate.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\assert.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\assert.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\atomic_count.hpp
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\intrin0.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\intrin0.inl.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\climits"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wtime.h"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstddef.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\executor_function.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\handler_alloc_helpers.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\memory.hpp
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iosfwd"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdio"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stdio.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstdio.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_stdio_config.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cwchar"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\wchar.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wconio.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wctype.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wdirect.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wio.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_share.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wprocess.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\sys\stat.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\sys\types.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\intrin.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\setjmp.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\immintrin.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\wmmintrin.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\nmmintrin.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\smmintrin.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\tmmintrin.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\pmmintrin.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\emmintrin.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xmmintrin.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mmintrin.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\zmmintrin.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ammintrin.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xmemory"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\limits"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cfloat"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\float.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xutility"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_iter_core.hpp"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\initializer_list"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\compare"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\concepts"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\tuple"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstdint.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\throw_exception.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\throw_exception.hpp
@@ -11921,9 +11940,7 @@ CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\b
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\cstdint.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\string"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_sanitizer_annotate_container.hpp"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_string_view.hpp"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xpolymorphic_allocator.h"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cctype"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\ctype.h"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\source_location"
@@ -11968,15 +11985,6 @@ CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\b
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\functional.hpp
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
@@ -12277,15 +12285,7 @@ CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\b
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\mutex.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\shared_mutex"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\condition_variable"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mutex"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
-CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_condition.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\errc.hpp
 CMakeFiles\test.dir\src\oauth\oauth_utils.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\generic_category.hpp
@@ -14872,6 +14872,12 @@ CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: C:\uniba\projekt_kal
 CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_google.h
 CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\crypto.h
 CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_utils.h
+CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
+CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
+CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
+CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
+CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio.hpp
 CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_executor.hpp
 CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\config.hpp
@@ -15248,12 +15254,6 @@ CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost
 CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\shared_mutex"
 CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\condition_variable"
 CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mutex"
-CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
-CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
-CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
-CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
-CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_condition.hpp
 CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\errc.hpp
 CMakeFiles\test.dir\src\sync\calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\generic_category.hpp
@@ -16540,6 +16540,12 @@ CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: C:\uniba\proj
 CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_google.h
 CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\crypto.h
 CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_utils.h
+CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
+CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
+CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
+CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
+CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio.hpp
 CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_executor.hpp
 CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\config.hpp
@@ -16916,12 +16922,6 @@ CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: C:\dev\cppLib
 CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\shared_mutex"
 CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\condition_variable"
 CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mutex"
-CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
-CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
-CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
-CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
-CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_condition.hpp
 CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\errc.hpp
 CMakeFiles\test.dir\src\sync\google_calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\generic_category.hpp
@@ -18208,6 +18208,12 @@ CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: C:\uniba\pro
 CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_google.h
 CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\crypto.h
 CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_utils.h
+CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
+CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
+CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
+CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
+CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio.hpp
 CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_executor.hpp
 CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\config.hpp
@@ -18584,12 +18590,6 @@ CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: C:\dev\cppLi
 CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\shared_mutex"
 CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\condition_variable"
 CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mutex"
-CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
-CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
-CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
-CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
-CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_condition.hpp
 CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\errc.hpp
 CMakeFiles\test.dir\src\sync\outlook_calendar_sync_service.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\generic_category.hpp
@@ -20775,6 +20775,9 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microso
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xpolymorphic_allocator.h"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cctype"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\ctype.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\algorithm"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_heap_algorithms.hpp"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_minmax.hpp"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\array"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
@@ -20824,9 +20827,6 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\beforestd.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\afterstd.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\algorithm"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_heap_algorithms.hpp"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_minmax.hpp"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\string_view"
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\stringops.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
@@ -20994,6 +20994,52 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\checkbox.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\ownerdrawnbutton.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\combobox.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\textctrl.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\textentry.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\textentry.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\ioswrap.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\beforestd.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iostream"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\istream"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_ostream.hpp"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ios"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xlocnum"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\streambuf"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xiosbase"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\share.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\system_error"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_system_error_abi.hpp"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cerrno"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdexcept"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xcall_once.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xerrc.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xlocale"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xfacet"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xlocinfo"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_xlocinfo_types.hpp"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\clocale"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\locale.h"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ostream"
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\afterstd.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\textctrl.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\ctrlsub.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\ctrlsub.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\combobox.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\choice.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
+CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\choice.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\frame.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\toplevel.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\nonownedwnd.h
@@ -21265,14 +21311,6 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\choicebk.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\choice.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\ctrlsub.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\ctrlsub.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\choice.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\sizer.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
@@ -21280,44 +21318,6 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\stattext.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\textctrl.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\textentry.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\textentry.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\ioswrap.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\beforestd.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iostream"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\istream"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_ostream.hpp"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ios"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xlocnum"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\streambuf"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xiosbase"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\share.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\system_error"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_system_error_abi.hpp"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cerrno"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdexcept"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xcall_once.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xerrc.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xlocale"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xfacet"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xlocinfo"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_xlocinfo_types.hpp"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\clocale"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\locale.h"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ostream"
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\afterstd.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\textctrl.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\wx.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
@@ -21450,10 +21450,6 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-wi
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\toolbar.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\combobox.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
-CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\combobox.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\layout.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\choicdlg.h
 CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
@@ -21533,32 +21529,25 @@ CMakeFiles\test.dir\src\ui\local_calendar_app.cpp.obj: C:\uniba\projekt_kalendar
 
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\src\ui\month_cell_panel.cpp
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\ui\month_cell_panel.h
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\optional"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\yvals.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\yvals_core.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\sal.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\concurrencysal.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vadefs.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xkeycheck.h"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\exception"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\yvals.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\crtdbg.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_new_debug.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_new.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\crtdefs.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\use_ansi.h"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdlib"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_math.h"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stdlib.h"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_malloc.h"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_search.h"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stddef.h"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstdlib.h"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\limits.h"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\compare"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\concepts"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\type_traits"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstddef"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stddef.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtr1common"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdint"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdint.h"
@@ -21569,22 +21558,24 @@ CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Win
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\errno.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_string.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstring.h"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\exception"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdlib"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_math.h"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\stdlib.h"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_malloc.h"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_search.h"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_wstdlib.h"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\limits.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\malloc.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_exception.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\eh.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_terminate.h"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\tuple"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\compare"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\concepts"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_iter_core.hpp"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\initializer_list"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xmemory"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\limits"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cfloat"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\float.h"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\utility"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xsmf_control.h"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xutility"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_iter_core.hpp"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\climits"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cwchar"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cstdio"
@@ -21615,10 +21606,17 @@ CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mmintrin.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\zmmintrin.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ammintrin.h"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\tuple"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xmemory"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\limits"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cfloat"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\float.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\intrin0.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\new"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic.h"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xutility"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
@@ -21629,6 +21627,12 @@ CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_sanitizer_annotate_container.hpp"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\string"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_string_view.hpp"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iosfwd"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cctype"
+CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\ctype.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\panel.h
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\window.h
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\event.h
@@ -21656,7 +21660,6 @@ CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\vcpkg\installed\x64-wind
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stdarg.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\wxcrtbase.h
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\ctype.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\wctype.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\io.h"
@@ -21672,11 +21675,6 @@ CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\vcpkg\installed\x64-wind
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\stringimpl.h
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\defs.h
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\beforestd.h
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\string"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xstring"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_string_view.hpp"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\iosfwd"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cctype"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\afterstd.h
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: C:\vcpkg\installed\x64-windows\include\wx\msw\winundef.h
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\algorithm"
@@ -21860,8 +21858,6 @@ CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\istream"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_ostream.hpp"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ios"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\optional"
-CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xsmf_control.h"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\sstream"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ranges"
 CMakeFiles\test.dir\src\ui\month_cell_panel.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_int128.hpp"
@@ -22437,6 +22433,33 @@ CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft 
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\ctype.h"
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\utils\crypto.h
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\uniba\projekt_kalendar\bc_test_app\include\oauth\oauth_utils.h
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
+CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\any_completion_executor.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\config.hpp
@@ -22477,24 +22500,14 @@ CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\any_executor.hpp
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\typeinfo"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_typeinfo.h"
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\assert.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\assert.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\assert.h"
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\atomic_count.hpp
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\atomic"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xatomic_wait.h"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xthreads.h"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_threads_core.hpp"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xtimec.h"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ctime"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\time.h"
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstddef.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\executor_function.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\handler_alloc_helpers.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\memory.hpp
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\memory"
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\cstdint.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\throw_exception.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\throw_exception.hpp
@@ -22543,15 +22556,6 @@ CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\functional.hpp
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\functional"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\unordered_map"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xhash"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\cmath"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vector"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_bit_utils.hpp"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xbit_ops.h"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\xnode_handle.h"
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\pop_options.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\push_options.hpp
@@ -22852,15 +22856,7 @@ CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\detail\mutex.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\shared_mutex"
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\condition_variable"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\__msvc_chrono.hpp"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\ratio"
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\mutex"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\process.h"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\corecrt_startup.h"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt\math.h"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\vcruntime_startup.h"
-CMakeFiles\test.dir\src\utils\access_token.cpp.obj: "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token"
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\error_condition.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\errc.hpp
 CMakeFiles\test.dir\src\utils\access_token.cpp.obj: C:\dev\cppLibs\boost_1_89_0\boost\system\generic_category.hpp
@@ -28474,6 +28470,20 @@ C:\dev\cppLibs\boost_1_89_0\boost\asio\execution\impl\bad_executor.ipp:
 
 C:\uniba\projekt_kalendar\bc_test_app\include\utils\crypto.h:
 
+C:\vcpkg\installed\x64-windows\include\wx\control.h:
+
+C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\socket_types.hpp:
+
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list":
+
+C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\address_v6_range.hpp:
+
+C:\dev\cppLibs\boost_1_89_0\boost\beast\core\detail\string.hpp:
+
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread":
+
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token":
+
 C:\vcpkg\installed\x64-windows\include\wx\msw\radiobox.h:
 
 C:\dev\cppLibs\boost_1_89_0\boost\exception\exception.hpp:
@@ -28605,18 +28615,6 @@ C:\dev\cppLibs\boost_1_89_0\boost\asio\post.hpp:
 C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\functional.hpp:
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\impl\address.ipp:
-
-C:\vcpkg\installed\x64-windows\include\wx\control.h:
-
-C:\dev\cppLibs\boost_1_89_0\boost\asio\detail\socket_types.hpp:
-
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\list":
-
-C:\dev\cppLibs\boost_1_89_0\boost\asio\ip\address_v6_range.hpp:
-
-C:\dev\cppLibs\boost_1_89_0\boost\beast\core\detail\string.hpp:
-
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\thread":
 
 C:\dev\cppLibs\boost_1_89_0\boost\beast\http\empty_body_fwd.hpp:
 
@@ -28799,8 +28797,6 @@ C:\dev\cppLibs\boost_1_89_0\boost\system\detail\mutex.hpp:
 "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\condition_variable":
 
 C:\dev\cppLibs\boost_1_89_0\boost\asio\composed.hpp:
-
-"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\stop_token":
 
 C:\dev\cppLibs\boost_1_89_0\boost\type_traits\has_complement.hpp:
 
@@ -30470,6 +30466,14 @@ C:\vcpkg\installed\x64-windows\include\wx\msw\init.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\stattext.h:
 
+C:\vcpkg\installed\x64-windows\include\openssl\objects.h:
+
+C:\vcpkg\installed\x64-windows\include\wx\combobox.h:
+
+C:\vcpkg\installed\x64-windows\include\wx\msw\ctrlsub.h:
+
+C:\vcpkg\installed\x64-windows\include\wx\choice.h:
+
 C:\vcpkg\installed\x64-windows\include\wx\statusbr.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\msw\statusbar.h:
@@ -30481,10 +30485,6 @@ C:\vcpkg\installed\x64-windows\include\wx\msw\frame.h:
 C:\vcpkg\installed\x64-windows\include\wx\simplebook.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\notebook.h:
-
-C:\vcpkg\installed\x64-windows\include\wx\choice.h:
-
-C:\vcpkg\installed\x64-windows\include\wx\msw\ctrlsub.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\time.h:
 
@@ -30551,10 +30551,6 @@ C:\vcpkg\installed\x64-windows\include\openssl\params.h:
 C:\vcpkg\installed\x64-windows\include\wx\msw\dirdlg.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\tbarbase.h:
-
-C:\vcpkg\installed\x64-windows\include\openssl\objects.h:
-
-C:\vcpkg\installed\x64-windows\include\wx\combobox.h:
 
 C:\vcpkg\installed\x64-windows\include\wx\choicdlg.h:
 

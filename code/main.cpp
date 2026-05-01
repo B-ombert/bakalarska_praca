@@ -13,7 +13,8 @@ bool InitializeSchema(SQLite::Database& db) {
             "name TEXT NOT NULL, "
             "provider TEXT NOT NULL, "
             "provider_user_id TEXT NOT NULL, "
-            "refresh_token TEXT NOT NULL"
+            "refresh_token TEXT NOT NULL, "
+            "UNIQUE (provider, provider_user_id)"
             ")");
 
     db.exec("CREATE INDEX IF NOT EXISTS idx_accounts_provider "
@@ -82,6 +83,7 @@ bool InitializeSchema(SQLite::Database& db) {
 } // namespace
 
 int main() {
+        
 
     const std::string dbPath = APP_DB_PATH;
 

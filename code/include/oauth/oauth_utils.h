@@ -1,5 +1,8 @@
 #pragma once
+#include <functional>
+#include <thread>
 #include <boost/asio.hpp>
+#include <boost/asio/streambuf.hpp>
 #include <utils/json.hpp>
 #include "utils/crypto.h"
 #include "utils/types.h"
@@ -16,6 +19,37 @@ const std::string MS_CLIENT_ID = "de85f5c0-f11f-428b-9bdd-831e43c9ab1a";
 inline const char* MS_TOKEN_URL = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
 
 const std::string REDIRECT_URI = "http://localhost:8080";
+
+class OAuthRedirectServer {
+public:
+    using SuccessHandler = std::function<void(const std::string&)>;
+    using ErrorHandler = std::function<void(const std::string&)>;
+
+    OAuthRedirectServer();
+    ~OAuthRedirectServer();
+
+    void Start(SuccessHandler onSuccess, ErrorHandler onError);
+    void Stop();
+
+private:
+    void DoAccept();
+    void OnAccept(const boost::system::error_code& ec);
+    void DoRead();
+    void OnRead(const boost::system::error_code& ec, std::size_t bytesTransferred);
+    void FinishWithCode(const std::string& code);
+    void FinishWithError(const std::string& error);
+    void SendBrowserResponse();
+    void CloseSockets();
+
+    net::io_context ioContext_;
+    tcp::acceptor acceptor_;
+    tcp::socket socket_;
+    boost::asio::streambuf buffer_;
+    std::thread worker_;
+    SuccessHandler onSuccess_;
+    ErrorHandler onError_;
+    bool finished_ = false;
+};
 
 std::string CatchRedirectedAuthCode();
 std::string WritePostDataForGoogle(const tokenRequestParameters& params);

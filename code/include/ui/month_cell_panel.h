@@ -1,11 +1,20 @@
 #pragma once
 
+#include <optional>
 #include <functional>
+#include <string>
 #include <vector>
 
 #include <wx/panel.h>
 
 #include "models/event.h"
+
+struct MonthCellEventSegment {
+    long long eventId = -1;
+    std::string label;
+    bool continuesBefore = false;
+    bool continuesAfter = false;
+};
 
 class MonthCellPanel final : public wxPanel {
 public:
@@ -20,7 +29,7 @@ public:
                     bool inCurrentMonth,
                     bool isToday,
                     bool isSelected,
-                    const std::vector<Event>& dayEvents);
+                    const std::vector<std::optional<MonthCellEventSegment>>& eventRows);
 
 private:
     int index_ = -1;
@@ -31,5 +40,5 @@ private:
     class wxButton* headerButton_ = nullptr;
     wxPanel* bodyPanel_ = nullptr;
     class wxBoxSizer* eventsSizer_ = nullptr;
-    std::vector<class wxButton*> eventButtons_;
+    std::vector<class wxWindow*> eventWidgets_;
 };

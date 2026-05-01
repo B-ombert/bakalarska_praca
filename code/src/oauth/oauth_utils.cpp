@@ -1,11 +1,15 @@
 #include "oauth/oauth_utils.h"
 #include "http.h"
+
+#include <cstring>
 #include <cstdlib>
+#include <future>
+#include <sstream>
+
 #include <boost/asio.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
-#include <sstream>
-#include <utils/json.hpp>
+
 #include "utils/http.h"
 
 namespace beast = boost::beast;
@@ -43,7 +47,7 @@ std::string UrlDecodeValue(const std::string& value) {
     decoded.reserve(value.size());
 
     for (size_t index = 0; index < value.size(); ++index) {
-        if (value[index] == '+' ) {
+        if (value[index] == '+') {
             decoded.push_back(' ');
         }
         else if (value[index] == '%' && index + 2 < value.size()) {
@@ -85,66 +89,218 @@ std::string ExtractQueryParam(const std::string& target, const std::string& key)
 
 } // namespace
 
-std::string CatchRedirectedAuthCode(){
-    try{
-        net::io_context io_context;
+OAuthRedirectServer::OAuthRedirectServer()
+    : acceptor_(ioContext_),
+      socket_(ioContext_) {
+}
 
-        tcp::acceptor acceptor(
-                io_context, tcp::endpoint(tcp::v4(), 8080));
-        std::cout << "Waiting for redirect on http://localhost:8080\n";
+OAuthRedirectServer::~OAuthRedirectServer() {
+    Stop();
+}
 
-        tcp::socket socket(io_context);
-        acceptor.accept(socket);
+void OAuthRedirectServer::Start(SuccessHandler onSuccess, ErrorHandler onError) {
+    onSuccess_ = std::move(onSuccess);
+    onError_ = std::move(onError);
+    finished_ = false;
+    buffer_.consume(buffer_.size());
 
-        boost::asio::streambuf buf;
-        boost::asio::read_until(socket, buf, "\r\n\r\n");
-        std::string rawRequest(
-            boost::asio::buffers_begin(buf.data()),
-            boost::asio::buffers_end(buf.data())
-        );
+    boost::system::error_code ec;
+    const tcp::endpoint endpoint(tcp::v4(), 8080);
 
-        http::request_parser<http::empty_body> parser;
-        parser.eager(true);
-        beast::error_code ec;
-        parser.put(boost::asio::buffer(rawRequest), ec);
-        if (ec) {
-            throw std::runtime_error("Failed to parse OAuth redirect request");
-        }
+    acceptor_.open(endpoint.protocol(), ec);
+    if (ec) {
+        FinishWithError("Failed to open redirect server socket: " + ec.message());
+        return;
+    }
 
-        parser.put_eof(ec);
-        if (ec) {
-            throw std::runtime_error("OAuth redirect request ended unexpectedly");
-        }
+    acceptor_.set_option(tcp::acceptor::reuse_address(true), ec);
+    if (ec) {
+        FinishWithError("Failed to configure redirect server socket: " + ec.message());
+        return;
+    }
 
-        const auto request = parser.get();
+    acceptor_.bind(endpoint, ec);
+    if (ec) {
+        FinishWithError("Failed to bind redirect server to localhost:8080: " + ec.message());
+        return;
+    }
 
-        std::string code;
-        std::string errorMessage;
-        const std::string target = std::string(request.target());
-        code = ExtractQueryParam(target, "code");
-        errorMessage = ExtractQueryParam(target, "error");
+    acceptor_.listen(net::socket_base::max_listen_connections, ec);
+    if (ec) {
+        FinishWithError("Failed to listen for OAuth redirect: " + ec.message());
+        return;
+    }
 
-        std::string response =
-                "HTTP/1.1 200 OK\r\n"
-                "Content-Type: text/html\r\n\r\n"
-                "<html><body><h2>Login successful.</h2></body></html>";
+    std::cout << "Waiting for redirect on http://localhost:8080\n";
+    DoAccept();
 
-        boost::asio::write(socket, boost::asio::buffer(response));
+    worker_ = std::thread([this]() {
+        ioContext_.run();
+    });
+}
 
-        if (!errorMessage.empty()) {
-            std::cerr << "OAuth redirect returned error: " << errorMessage << "\n";
-            return "";
-        }
+void OAuthRedirectServer::Stop() {
+    CloseSockets();
+    ioContext_.stop();
 
-        return code;
+    if (worker_.joinable()) {
+        worker_.join();
+    }
 
-    }catch(std::exception& e){
+    ioContext_.restart();
+}
+
+void OAuthRedirectServer::DoAccept() {
+    acceptor_.async_accept(socket_, [this](const boost::system::error_code& ec) {
+        OnAccept(ec);
+    });
+}
+
+void OAuthRedirectServer::OnAccept(const boost::system::error_code& ec) {
+    if (finished_) {
+        return;
+    }
+
+    if (ec) {
+        FinishWithError("OAuth redirect accept failed: " + ec.message());
+        return;
+    }
+
+    DoRead();
+}
+
+void OAuthRedirectServer::DoRead() {
+    net::async_read_until(socket_, buffer_, "\r\n\r\n",
+        [this](const boost::system::error_code& ec, const std::size_t bytesTransferred) {
+            OnRead(ec, bytesTransferred);
+        });
+}
+
+void OAuthRedirectServer::OnRead(const boost::system::error_code& ec, const std::size_t bytesTransferred) {
+    if (finished_) {
+        return;
+    }
+
+    if (ec) {
+        FinishWithError("OAuth redirect read failed: " + ec.message());
+        return;
+    }
+
+    const std::string rawRequest(
+        boost::asio::buffers_begin(buffer_.data()),
+        boost::asio::buffers_begin(buffer_.data()) + static_cast<std::ptrdiff_t>(bytesTransferred));
+
+    http::request_parser<http::empty_body> parser;
+    parser.eager(true);
+    beast::error_code parseEc;
+    parser.put(boost::asio::buffer(rawRequest), parseEc);
+    if (parseEc) {
+        FinishWithError("Failed to parse OAuth redirect request");
+        return;
+    }
+
+    parser.put_eof(parseEc);
+    if (parseEc) {
+        FinishWithError("OAuth redirect request ended unexpectedly");
+        return;
+    }
+
+    const auto request = parser.get();
+    const std::string target = std::string(request.target());
+    const std::string code = ExtractQueryParam(target, "code");
+    const std::string errorMessage = ExtractQueryParam(target, "error");
+
+    SendBrowserResponse();
+
+    if (!errorMessage.empty()) {
+        FinishWithError("OAuth redirect returned error: " + errorMessage);
+        return;
+    }
+
+    if (code.empty()) {
+        FinishWithError("OAuth redirect did not contain an authorization code");
+        return;
+    }
+
+    FinishWithCode(code);
+}
+
+void OAuthRedirectServer::FinishWithCode(const std::string& code) {
+    if (finished_) {
+        return;
+    }
+
+    finished_ = true;
+    CloseSockets();
+    ioContext_.stop();
+
+    if (onSuccess_) {
+        onSuccess_(code);
+    }
+}
+
+void OAuthRedirectServer::FinishWithError(const std::string& error) {
+    if (finished_) {
+        return;
+    }
+
+    finished_ = true;
+    CloseSockets();
+    ioContext_.stop();
+
+    if (onError_) {
+        onError_(error);
+    }
+}
+
+void OAuthRedirectServer::SendBrowserResponse() {
+    static const char* kResponse =
+        "HTTP/1.1 200 OK\r\n"
+        "Content-Type: text/html\r\n\r\n"
+        "<html><body><h2>Login successful.</h2></body></html>";
+
+    boost::system::error_code ignoredEc;
+    boost::asio::write(socket_, boost::asio::buffer(kResponse, std::strlen(kResponse)), ignoredEc);
+}
+
+void OAuthRedirectServer::CloseSockets() {
+    boost::system::error_code ignoredEc;
+
+    if (socket_.is_open()) {
+        socket_.shutdown(tcp::socket::shutdown_both, ignoredEc);
+        socket_.close(ignoredEc);
+    }
+
+    if (acceptor_.is_open()) {
+        acceptor_.cancel(ignoredEc);
+        acceptor_.close(ignoredEc);
+    }
+}
+
+std::string CatchRedirectedAuthCode() {
+    try {
+        std::promise<std::string> resultPromise;
+        auto resultFuture = resultPromise.get_future();
+        OAuthRedirectServer server;
+
+        server.Start(
+            [&resultPromise](const std::string& code) mutable {
+                resultPromise.set_value(code);
+            },
+            [&resultPromise](const std::string& error) mutable {
+                std::cerr << error << "\n";
+                resultPromise.set_value("");
+            });
+
+        return resultFuture.get();
+    }
+    catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << "\n";
         return "";
     }
 }
 
-std::string WritePostDataForGoogle(const tokenRequestParameters& params){
+std::string WritePostDataForGoogle(const tokenRequestParameters& params) {
     std::ostringstream postData;
     postData << "code=" << UrlEncodeFormValue(params.code)
              << "&client_id=" << UrlEncodeFormValue(GOOGLE_CLIENT_ID)
@@ -156,7 +312,7 @@ std::string WritePostDataForGoogle(const tokenRequestParameters& params){
     return postData.str();
 }
 
-std::string WritePostDataForMS(const tokenRequestParameters& params){
+std::string WritePostDataForMS(const tokenRequestParameters& params) {
     std::ostringstream postData;
     postData << "client_id=" << UrlEncodeFormValue(MS_CLIENT_ID)
              << "&grant_type=authorization_code"
@@ -168,23 +324,22 @@ std::string WritePostDataForMS(const tokenRequestParameters& params){
     return postData.str();
 }
 
-std::string ExchangeCodeForToken(Platform platform, const tokenRequestParameters& params){
+std::string ExchangeCodeForToken(Platform platform, const tokenRequestParameters& params) {
     HttpRequest req;
 
-    if (platform==GOOGLE) {
+    if (platform == GOOGLE) {
         req.url = GOOGLE_TOKEN_URL;
         req.postData = WritePostDataForGoogle(params);
     }
-    else if (platform==MICROSOFT) {
+    else if (platform == MICROSOFT) {
         req.url = MS_TOKEN_URL;
         req.postData = WritePostDataForMS(params);
     }
     else {
         return "";
     }
+
     req.verb = POST;
-
-
     req.headers = {
         "Content-Type: application/x-www-form-urlencoded"
     };
