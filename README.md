@@ -25,6 +25,4 @@ Cieľom práce je navrhnúť a implementovať open-source desktopovú multiplat
 
 ## Denník
 
-- Oboznámenie sa so súborovým formátom iCalendar, knižnice pre prácu s týmito súbormi
-- Oboznámenie sa s protokolom CalDAV pre prácu s kalendárovými súbormi cez web
-- 
+TODO
