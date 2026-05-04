@@ -7,7 +7,7 @@
 
 #include "models/event.h"
 
-constexpr int kMonthCellCount = 42;
+constexpr int kMonthCellCount = 35;
 constexpr int kMinCalendarYear = 1970;
 constexpr long long kMinCalendarEpoch = 0;
 constexpr int kMinutesPerDay = 24 * 60;

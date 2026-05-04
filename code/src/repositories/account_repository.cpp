@@ -1,4 +1,5 @@
 #include "repositories/account_repository.h"
+#include "utils/sqlite_utils.h"
 
 namespace {
 
@@ -15,36 +16,38 @@ Account MapAccountRow(SQLite::Statement& query) {
 } // namespace
 
 long long AccountRepository::Upsert(const Account &a) {
-    SQLite::Statement find(db,
-        "SELECT id FROM accounts WHERE provider = ? AND provider_user_id = ?"
-        );
+    return RunInSavepoint(db, "account_upsert", [&]() -> long long {
+        SQLite::Statement find(db,
+            "SELECT id FROM accounts WHERE provider = ? AND provider_user_id = ?"
+            );
 
-    find.bind(1, a.provider);
-    find.bind(2, a.providerUserId);
+        find.bind(1, a.provider);
+        find.bind(2, a.providerUserId);
 
-    if (find.executeStep()) {
-        long long id = find.getColumn(0).getInt64();
+        if (find.executeStep()) {
+            long long id = find.getColumn(0).getInt64();
 
-        SQLite::Statement update(db, "UPDATE accounts SET name = ?, refresh_token = ? WHERE id = ?");
+            SQLite::Statement update(db, "UPDATE accounts SET name = ?, refresh_token = ? WHERE id = ?");
 
-        update.bind(1, a.name);
-        update.bind(2, a.refreshToken);
-        update.bind(3, id);
-        update.exec();
+            update.bind(1, a.name);
+            update.bind(2, a.refreshToken);
+            update.bind(3, id);
+            update.exec();
 
-        return id;
-    }
+            return id;
+        }
 
-    SQLite::Statement insert(db, "INSERT INTO accounts (name, provider, provider_user_id, refresh_token) "
-                                 "VALUES (?, ?, ?, ?)"
-                                 );
-    insert.bind(1, a.name);
-    insert.bind(2, a.provider);
-    insert.bind(3, a.providerUserId);
-    insert.bind(4, a.refreshToken);
-    insert.exec();
+        SQLite::Statement insert(db, "INSERT INTO accounts (name, provider, provider_user_id, refresh_token) "
+                                     "VALUES (?, ?, ?, ?)"
+                                     );
+        insert.bind(1, a.name);
+        insert.bind(2, a.provider);
+        insert.bind(3, a.providerUserId);
+        insert.bind(4, a.refreshToken);
+        insert.exec();
 
-    return db.getLastInsertRowid();
+        return db.getLastInsertRowid();
+    });
 }
 
 std::vector<Account> AccountRepository::GetAllAccounts() {
@@ -74,9 +77,11 @@ std::optional<Account> AccountRepository::GetById(const long long id) {
 }
 
 bool AccountRepository::DeleteById(const long long id) {
-    SQLite::Statement query(db, "DELETE FROM accounts WHERE id = ?");
-    query.bind(1, id);
-    return query.exec() > 0;
+    return RunInSavepoint(db, "account_delete", [&]() {
+        SQLite::Statement query(db, "DELETE FROM accounts WHERE id = ?");
+        query.bind(1, id);
+        return query.exec() > 0;
+    });
 }
 
 std::string AccountRepository::GetRefreshToken(const Account &a) {

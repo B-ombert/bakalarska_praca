@@ -3,12 +3,15 @@
 
 #include <cstring>
 #include <cstdlib>
+#include <atomic>
+#include <chrono>
 #include <future>
 #include <sstream>
 
 #include <boost/asio.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
+#include <wx/utils.h>
 
 #include "utils/http.h"
 
@@ -16,6 +19,13 @@ namespace beast = boost::beast;
 namespace http = beast::http;
 
 namespace {
+
+thread_local std::string g_lastOAuthErrorMessage;
+std::atomic_bool g_oauthCancelRequested = false;
+
+void SetLastOAuthErrorMessage(const std::string& message) {
+    g_lastOAuthErrorMessage = message;
+}
 
 std::string UrlEncodeFormValue(const std::string& value) {
     std::string encoded;
@@ -279,6 +289,8 @@ void OAuthRedirectServer::CloseSockets() {
 
 std::string CatchRedirectedAuthCode() {
     try {
+        ClearLastOAuthErrorMessage();
+        g_oauthCancelRequested = false;
         std::promise<std::string> resultPromise;
         auto resultFuture = resultPromise.get_future();
         OAuthRedirectServer server;
@@ -289,15 +301,55 @@ std::string CatchRedirectedAuthCode() {
             },
             [&resultPromise](const std::string& error) mutable {
                 std::cerr << error << "\n";
+                SetLastOAuthErrorMessage(error);
                 resultPromise.set_value("");
             });
 
+        const auto timeout = std::chrono::steady_clock::now() + std::chrono::minutes(3);
+        while (resultFuture.wait_for(std::chrono::milliseconds(250)) != std::future_status::ready) {
+            if (g_oauthCancelRequested.load()) {
+                SetLastOAuthErrorMessage("Sign-in was canceled.");
+                server.Stop();
+                g_oauthCancelRequested = false;
+                return "";
+            }
+
+            if (std::chrono::steady_clock::now() >= timeout) {
+                SetLastOAuthErrorMessage("Sign-in was not completed in time.");
+                server.Stop();
+                return "";
+            }
+        }
+
+        g_oauthCancelRequested = false;
         return resultFuture.get();
     }
     catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << "\n";
+        SetLastOAuthErrorMessage(e.what());
+        g_oauthCancelRequested = false;
         return "";
     }
+}
+
+void RequestOAuthCancellation() {
+    g_oauthCancelRequested = true;
+}
+
+bool OpenUrlInBrowser(const std::string& url) {
+    const bool opened = wxLaunchDefaultBrowser(wxString::FromUTF8(url));
+    if (!opened) {
+        SetLastOAuthErrorMessage("Failed to open the default browser.");
+    }
+    return opened;
+}
+
+std::string GetLastOAuthErrorMessage() {
+    return g_lastOAuthErrorMessage;
+}
+
+void ClearLastOAuthErrorMessage() {
+    g_lastOAuthErrorMessage.clear();
 }
 
 std::string WritePostDataForGoogle(const tokenRequestParameters& params) {

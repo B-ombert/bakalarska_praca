@@ -65,6 +65,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/test.dir/src/utils/datetime_utils.cpp.obj.d"
   "CMakeFiles/test.dir/src/utils/http.cpp.obj"
   "CMakeFiles/test.dir/src/utils/http.cpp.obj.d"
+  "CMakeFiles/test.dir/src/utils/timezone_utils.cpp.obj"
+  "CMakeFiles/test.dir/src/utils/timezone_utils.cpp.obj.d"
   "CMakeFiles/test.dir/src/utils/url_parser.cpp.obj"
   "CMakeFiles/test.dir/src/utils/url_parser.cpp.obj.d"
   "test.exe"

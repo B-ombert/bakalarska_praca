@@ -98,9 +98,26 @@ C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.3520
 C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/time.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/optional
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xsmf_control.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stdexcept
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/set
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xtree
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xnode_handle.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/thread
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_chrono.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ratio
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xtimec.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/memory
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/typeinfo
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vcruntime_typeinfo.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/atomic
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xatomic_wait.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xthreads.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_threads_core.hpp
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/process.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/corecrt_startup.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/math.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vcruntime_startup.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stop_token
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/unordered_map
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xhash
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cmath
@@ -153,8 +170,6 @@ C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/string_view
 C:/vcpkg/installed/x64-windows/include/wx/stringops.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/functional
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/typeinfo
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vcruntime_typeinfo.h
 C:/vcpkg/installed/x64-windows/include/wx/iosfwrap.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/gdicmn.h
@@ -572,16 +587,9 @@ C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/share.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/system_error
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_system_error_abi.hpp
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cerrno
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stdexcept
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xcall_once.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xerrc.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/atomic
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xatomic_wait.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xthreads.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_threads_core.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xtimec.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocale
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/memory
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xfacet
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xlocinfo
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_xlocinfo_types.hpp
@@ -601,6 +609,10 @@ C:/vcpkg/installed/x64-windows/include/wx/choice.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/choice.h
+C:/vcpkg/installed/x64-windows/include/wx/activityindicator.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/generic/activityindicator.h
 C:/vcpkg/installed/x64-windows/include/wx/frame.h
 C:/vcpkg/installed/x64-windows/include/wx/statusbr.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
@@ -646,11 +658,6 @@ C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/sizer.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
-C:/vcpkg/installed/x64-windows/include/wx/statbox.h
-C:/vcpkg/installed/x64-windows/include/wx/defs.h
-C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
-C:/vcpkg/installed/x64-windows/include/wx/msw/statbox.h
-C:/vcpkg/installed/x64-windows/include/wx/compositewin.h
 C:/vcpkg/installed/x64-windows/include/wx/stattext.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
@@ -750,6 +757,11 @@ C:/vcpkg/installed/x64-windows/include/wx/statbmp.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/statbmp.h
+C:/vcpkg/installed/x64-windows/include/wx/statbox.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/statbox.h
+C:/vcpkg/installed/x64-windows/include/wx/compositewin.h
 C:/vcpkg/installed/x64-windows/include/wx/radiobox.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
@@ -804,8 +816,6 @@ C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.3520
 C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/assert.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/filesystem
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/chrono
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_chrono.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ratio
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xfilesystem_abi.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_tzdb.hpp
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/format
@@ -832,6 +842,7 @@ C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.3520
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/span
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/numeric
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/any
+C:/uniba/projekt_kalendar/bc_test_app/include/events/rrule.h
 C:/uniba/projekt_kalendar/bc_test_app/include/repositories/account_repository.h
 C:/uniba/projekt_kalendar/bc_test_app/SQLiteCpp/include/SQLiteCpp/Backup.h
 C:/uniba/projekt_kalendar/bc_test_app/SQLiteCpp/include/SQLiteCpp/SQLiteCppExport.h
@@ -845,17 +856,7 @@ C:/uniba/projekt_kalendar/bc_test_app/include/repositories/event_repository.h
 C:/uniba/projekt_kalendar/bc_test_app/include/models/event.h
 C:/uniba/projekt_kalendar/bc_test_app/include/utils/datetime_utils.h
 C:/uniba/projekt_kalendar/bc_test_app/include/utils/types.h
-C:/uniba/projekt_kalendar/bc_test_app/include/services/account_service.h
-C:/uniba/projekt_kalendar/bc_test_app/include/utils/access_token.h
-C:/uniba/projekt_kalendar/bc_test_app/include/oauth/oauth_google.h
-C:/uniba/projekt_kalendar/bc_test_app/include/utils/crypto.h
 C:/uniba/projekt_kalendar/bc_test_app/include/oauth/oauth_utils.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/thread
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/process.h
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/corecrt_startup.h
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/math.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/vcruntime_startup.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/stop_token
 C:/dev/cppLibs/boost_1_89_0/boost/asio.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/any_completion_executor.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/config.hpp
@@ -2200,6 +2201,9 @@ C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/impl/write_at.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/push_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
+C:/uniba/projekt_kalendar/bc_test_app/include/services/account_service.h
+C:/uniba/projekt_kalendar/bc_test_app/include/utils/access_token.h
+C:/uniba/projekt_kalendar/bc_test_app/include/oauth/oauth_google.h
 C:/uniba/projekt_kalendar/bc_test_app/include/oauth/oauth_ms.h
 C:/uniba/projekt_kalendar/bc_test_app/include/sync/google_calendar_sync_service.h
 C:/uniba/projekt_kalendar/bc_test_app/include/sync/calendar_sync_service.h
@@ -2209,3 +2213,5 @@ C:/uniba/projekt_kalendar/bc_test_app/include/ui/calendar_ui_shared.h
 C:/uniba/projekt_kalendar/bc_test_app/include/ui/event_editor_dialog.h
 C:/uniba/projekt_kalendar/bc_test_app/include/ui/month_cell_panel.h
 C:/uniba/projekt_kalendar/bc_test_app/include/ui/timeline_view_panel.h
+C:/uniba/projekt_kalendar/bc_test_app/include/utils/sqlite_utils.h
+C:/uniba/projekt_kalendar/bc_test_app/include/utils/timezone_utils.h

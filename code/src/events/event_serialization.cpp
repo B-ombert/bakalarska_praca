@@ -1,5 +1,6 @@
 #include "events/rrule.h"
 #include "models/event.h"
+#include "utils/timezone_utils.h"
 
 #include <algorithm>
 #include <cctype>
@@ -130,11 +131,56 @@ std::string weekStartToMicrosoft(const int day) {
     return converted.empty() ? "monday" : converted;
 }
 
+std::string FormatTimeZoneLocalIsoDateTime(const long long utcEpoch, const std::string& timezone) {
+    const long long localEpoch = timezone.empty()
+        ? utcEpoch
+        : ConvertUtcEpochToTimeZoneDisplayEpoch(timezone, utcEpoch);
+    const std::tm tm = EpochToUtcTm(localEpoch);
+    std::ostringstream output;
+    output << std::put_time(&tm, "%Y-%m-%dT%H:%M:%S");
+    return output.str();
+}
+
+std::string FormatTimeZoneOffsetSuffix(const std::string& timezone, const long long utcEpoch) {
+    const auto offsetSeconds = GetUtcOffsetSeconds(timezone, utcEpoch);
+    if (!offsetSeconds.has_value()) {
+        return "Z";
+    }
+
+    const int totalSeconds = offsetSeconds.value();
+    if (totalSeconds == 0) {
+        return "Z";
+    }
+
+    const int absoluteSeconds = std::abs(totalSeconds);
+    const int hours = absoluteSeconds / 3600;
+    const int minutes = (absoluteSeconds % 3600) / 60;
+
+    std::ostringstream output;
+    output << (totalSeconds >= 0 ? '+' : '-')
+           << std::setw(2) << std::setfill('0') << hours
+           << ':'
+           << std::setw(2) << std::setfill('0') << minutes;
+    return output.str();
+}
+
+std::string FormatGoogleDateTime(const long long utcEpoch, const std::string& timezone) {
+    return FormatTimeZoneLocalIsoDateTime(utcEpoch, timezone) + FormatTimeZoneOffsetSuffix(timezone, utcEpoch);
+}
+
+long long EventEpochInOwnTimeZone(const Event& event, const long long utcEpoch) {
+    if (event.timezone.empty()) {
+        return utcEpoch;
+    }
+
+    return ConvertUtcEpochToTimeZoneDisplayEpoch(event.timezone, utcEpoch);
+}
+
 json buildOutlookRecurrencePattern(const Event& event, const RRule& rule) {
     json pattern;
     pattern["interval"] = std::max(1, rule.interval);
 
-    const std::tm startTm = EpochToUtcTm(event.startDateTime);
+    const std::tm startTm = EpochToUtcTm(EventEpochInOwnTimeZone(event, event.startDateTime));
 
     switch (rule.freq) {
         case Frequency::DAILY:
@@ -181,7 +227,7 @@ json buildOutlookRecurrencePattern(const Event& event, const RRule& rule) {
 
 json buildOutlookRecurrenceRange(const Event& event, const RRule& rule) {
     json range;
-    range["startDate"] = epochToIsoDate(event.startDateTime);
+    range["startDate"] = epochToIsoDate(EventEpochInOwnTimeZone(event, event.startDateTime));
 
     if (rule.hasCount) {
         range["type"] = "numbered";
@@ -189,7 +235,7 @@ json buildOutlookRecurrenceRange(const Event& event, const RRule& rule) {
     }
     else if (rule.hasUntil) {
         range["type"] = "endDate";
-        range["endDate"] = epochToIsoDate(rule.until);
+        range["endDate"] = epochToIsoDate(EventEpochInOwnTimeZone(event, rule.until));
     }
     else {
         range["type"] = "noEnd";
@@ -293,11 +339,20 @@ Event parseMicrosoftJsonEvent(const json& j) {
         const std::string start = j["start"]["dateTime"].get<std::string>();
         e.startDateTime = e.allDay ? iso8601ToEpochDate(start) : iso8601ToEpoch(start);
     }
+    if (j.contains("start") && j["start"].is_object() &&
+        j["start"].contains("timeZone") && j["start"]["timeZone"].is_string()) {
+        e.timezone = MicrosoftTimeZoneToIana(j["start"]["timeZone"].get<std::string>());
+    }
 
     if (j.contains("end") && j["end"].is_object() &&
         j["end"].contains("dateTime") && j["end"]["dateTime"].is_string()) {
         const std::string end = j["end"]["dateTime"].get<std::string>();
         e.endDateTime = e.allDay ? iso8601ToEpochDate(end) : iso8601ToEpoch(end);
+    }
+    if (e.timezone.empty() &&
+        j.contains("end") && j["end"].is_object() &&
+        j["end"].contains("timeZone") && j["end"]["timeZone"].is_string()) {
+        e.timezone = MicrosoftTimeZoneToIana(j["end"]["timeZone"].get<std::string>());
     }
 
     e.status = "confirmed";
@@ -386,6 +441,30 @@ Event Event::fromIcal(const std::string& icalBody) {
     return event;
 }
 
+long long Event::GetDisplayStartEpoch() const {
+    return GetDisplayStartEpoch(GetCurrentLocalTimeZoneName());
+}
+
+long long Event::GetDisplayEndEpoch() const {
+    return GetDisplayEndEpoch(GetCurrentLocalTimeZoneName());
+}
+
+long long Event::GetDisplayStartEpoch(const std::string& displayTimezone) const {
+    if (allDay) {
+        return startDateTime;
+    }
+
+    return ConvertUtcEpochToTimeZoneDisplayEpoch(displayTimezone, startDateTime);
+}
+
+long long Event::GetDisplayEndEpoch(const std::string& displayTimezone) const {
+    if (allDay) {
+        return endDateTime;
+    }
+
+    return ConvertUtcEpochToTimeZoneDisplayEpoch(displayTimezone, endDateTime);
+}
+
 Event Event::fromJson(const Platform platform, const std::string& jsonBody) {
     const json parsed = json::parse(jsonBody);
 
@@ -463,10 +542,18 @@ json Event::exportToGoogleJson() {
     if (allDay) {
         j["start"]["date"] = epochToIsoDate(startDateTime);
         j["end"]["date"] = epochToIsoDate(endDateTime);
+        if (!timezone.empty()) {
+            j["start"]["timeZone"] = timezone;
+            j["end"]["timeZone"] = timezone;
+        }
     }
     else {
-        j["start"]["dateTime"] = epochToIso(startDateTime);
-        j["end"]["dateTime"] = epochToIso(endDateTime);
+        j["start"]["dateTime"] = FormatGoogleDateTime(startDateTime, timezone);
+        j["end"]["dateTime"] = FormatGoogleDateTime(endDateTime, timezone);
+        if (!timezone.empty()) {
+            j["start"]["timeZone"] = timezone;
+            j["end"]["timeZone"] = timezone;
+        }
     }
 
     if (!status.empty()) j["status"] = status;
@@ -504,24 +591,24 @@ json Event::exportToOutlookJson() {
 
         j["start"] = {
             {"dateTime", epochToIsoDate(startDateTime)},
-            {"timeZone", "UTC"}
+            {"timeZone", IanaTimeZoneToMicrosoft(timezone.empty() ? "Etc/UTC" : timezone)}
         };
         j["end"] = {
             {"dateTime", epochToIsoDate(endDateTime)},
-            {"timeZone", "UTC"}
+            {"timeZone", IanaTimeZoneToMicrosoft(timezone.empty() ? "Etc/UTC" : timezone)}
         };
     }
     else {
         j["isAllDay"] = false;
 
         j["start"] = {
-            {"dateTime", epochToIso(startDateTime)},
-            {"timeZone", "UTC"}
+            {"dateTime", FormatTimeZoneLocalIsoDateTime(startDateTime, timezone)},
+            {"timeZone", IanaTimeZoneToMicrosoft(timezone.empty() ? "Etc/UTC" : timezone)}
         };
 
         j["end"] = {
-            {"dateTime", epochToIso(endDateTime)},
-            {"timeZone", "UTC"}
+            {"dateTime", FormatTimeZoneLocalIsoDateTime(endDateTime, timezone)},
+            {"timeZone", IanaTimeZoneToMicrosoft(timezone.empty() ? "Etc/UTC" : timezone)}
         };
     }
 
@@ -563,6 +650,9 @@ Event Event::ParseGoogleJsonEvent(const json& j) {
 
     if (j.contains("start")) {
         e.allDay = j["start"].contains("date");
+        if (j["start"].contains("timeZone") && !j["start"]["timeZone"].is_null()) {
+            e.timezone = j["start"]["timeZone"].get<std::string>();
+        }
 
         if (e.allDay) {
             e.startDateTime = iso8601ToEpoch(j["start"]["date"].get<std::string>());
@@ -572,6 +662,9 @@ Event Event::ParseGoogleJsonEvent(const json& j) {
     }
 
     if (j.contains("end")) {
+        if (e.timezone.empty() && j["end"].contains("timeZone") && !j["end"]["timeZone"].is_null()) {
+            e.timezone = j["end"]["timeZone"].get<std::string>();
+        }
         if (e.allDay && j["end"].contains("date")) {
             e.endDateTime = iso8601ToEpoch(j["end"]["date"].get<std::string>());
         } else if (j["end"].contains("dateTime")) {

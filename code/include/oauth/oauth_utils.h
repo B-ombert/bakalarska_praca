@@ -1,13 +1,11 @@
 #pragma once
 #include <functional>
+#include <string>
 #include <thread>
 #include <boost/asio.hpp>
 #include <boost/asio/streambuf.hpp>
-#include <utils/json.hpp>
-#include "utils/crypto.h"
 #include "utils/types.h"
 
-using json = nlohmann::json;
 using tcp = boost::asio::ip::tcp;
 namespace net = boost::asio;
 
@@ -52,6 +50,10 @@ private:
 };
 
 std::string CatchRedirectedAuthCode();
+bool OpenUrlInBrowser(const std::string& url);
+void RequestOAuthCancellation();
+std::string GetLastOAuthErrorMessage();
+void ClearLastOAuthErrorMessage();
 std::string WritePostDataForGoogle(const tokenRequestParameters& params);
 std::string WritePostDataForMS(const tokenRequestParameters& params);
 std::string ExchangeCodeForToken(Platform platform, const tokenRequestParameters& params);

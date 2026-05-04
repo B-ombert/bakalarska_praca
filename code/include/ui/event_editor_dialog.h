@@ -36,4 +36,5 @@ private:
     class wxTextCtrl* endCtrl_ = nullptr;
     class wxTextCtrl* descriptionCtrl_ = nullptr;
     class wxCheckBox* allDayCtrl_ = nullptr;
+    class wxComboBox* recurrenceCtrl_ = nullptr;
 };

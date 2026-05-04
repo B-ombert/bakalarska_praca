@@ -8,6 +8,8 @@
 #include <wx/panel.h>
 #include <wx/sizer.h>
 
+#include "utils/timezone_utils.h"
+
 namespace {
 
 std::string BuildHeaderSpanLabel(const Event& event, const bool continuesBefore, const bool continuesAfter) {
@@ -97,7 +99,8 @@ int TimelineViewPanel::CurrentAllDayLaneHeight() const {
                 if (event.deletedAt != 0 || !event.allDay) {
                     continue;
                 }
-                if (event.startDateTime < dayEpoch + kSecondsPerDay && event.endDateTime > dayEpoch) {
+                if (event.GetDisplayStartEpoch() < dayEpoch + kSecondsPerDay &&
+                    event.GetDisplayEndEpoch() > dayEpoch) {
                     ++dayAllDayCount;
                 }
             }
@@ -140,7 +143,7 @@ std::vector<Event> TimelineViewPanel::EventsForDay(const long long dayEpoch) con
         if (event.deletedAt != 0) {
             continue;
         }
-        if (event.startDateTime < dayEnd && event.endDateTime > dayEpoch) {
+        if (event.GetDisplayStartEpoch() < dayEnd && event.GetDisplayEndEpoch() > dayEpoch) {
             results.push_back(event);
         }
     }
@@ -160,24 +163,27 @@ std::vector<TimelineViewPanel::HeaderSpanSegment> TimelineViewPanel::BuildHeader
         if (event.deletedAt != 0 || !UsesWeekHeaderSpan(mode_, event)) {
             continue;
         }
-        if (event.startDateTime < rangeEndEpoch && event.endDateTime > rangeStartEpoch_) {
+        if (event.GetDisplayStartEpoch() < rangeEndEpoch && event.GetDisplayEndEpoch() > rangeStartEpoch_) {
             spanEvents.push_back(event);
         }
     }
 
     std::sort(spanEvents.begin(), spanEvents.end(), [](const Event& lhs, const Event& rhs) {
-        if (lhs.startDateTime != rhs.startDateTime) {
-            return lhs.startDateTime < rhs.startDateTime;
+        if (lhs.GetDisplayStartEpoch() != rhs.GetDisplayStartEpoch()) {
+            return lhs.GetDisplayStartEpoch() < rhs.GetDisplayStartEpoch();
         }
-        return lhs.endDateTime < rhs.endDateTime;
+        return lhs.GetDisplayEndEpoch() < rhs.GetDisplayEndEpoch();
     });
 
     std::vector<std::vector<HeaderSpanSegment>> rows;
     for (const auto& event : spanEvents) {
-        const bool continuesBefore = event.startDateTime < rangeStartEpoch_;
-        const bool continuesAfter = event.endDateTime > rangeEndEpoch;
-        const long long clippedStartDay = std::max(StartOfUtcDay(event.startDateTime), rangeStartEpoch_);
-        const long long clippedEndDay = std::min(EventDisplayEndDay(event), rangeStartEpoch_ + (DayCount() - 1LL) * kSecondsPerDay);
+        const long long eventStart = event.GetDisplayStartEpoch();
+        const long long eventEnd = event.GetDisplayEndEpoch();
+        const bool continuesBefore = eventStart < rangeStartEpoch_;
+        const bool continuesAfter = eventEnd > rangeEndEpoch;
+        const long long clippedStartDay = std::max(StartOfUtcDay(eventStart), rangeStartEpoch_);
+        const long long clippedEndDay = std::min(StartOfUtcDay(std::max(eventStart, eventEnd - 1)),
+                                                 rangeStartEpoch_ + (DayCount() - 1LL) * kSecondsPerDay);
 
         HeaderSpanSegment span;
         span.eventId = event.id;
@@ -267,8 +273,10 @@ void TimelineViewPanel::RebuildEventButtons() {
             TimelineSegment segment;
             segment.eventId = event.id;
             segment.dayEpoch = dayEpoch;
-            segment.startMinute = std::max(0, static_cast<int>((std::max(event.startDateTime, dayEpoch) - dayEpoch) / 60));
-            segment.endMinute = std::min(kMinutesPerDay, static_cast<int>((std::min(event.endDateTime, dayEpoch + kSecondsPerDay) - dayEpoch + 59) / 60));
+            const long long eventStart = event.GetDisplayStartEpoch();
+            const long long eventEnd = event.GetDisplayEndEpoch();
+            segment.startMinute = std::max(0, static_cast<int>((std::max(eventStart, dayEpoch) - dayEpoch) / 60));
+            segment.endMinute = std::min(kMinutesPerDay, static_cast<int>((std::min(eventEnd, dayEpoch + kSecondsPerDay) - dayEpoch + 59) / 60));
             segment.endMinute = std::max(segment.startMinute + 15, segment.endMinute);
             segment.label = BuildTimelineEventLabel(event, dayEpoch);
             timedSegments.push_back(segment);
@@ -401,7 +409,10 @@ void TimelineViewPanel::OnPaint(wxPaintEvent&) {
     const int canvasWidth = canvas_->GetSize().GetWidth();
     const int canvasHeight = canvas_->GetSize().GetHeight();
     const int timelineTop = TimelineTop();
-    const long long today = StartOfUtcDay(std::time(nullptr));
+    const long long today = StartOfUtcDay(
+        ConvertUtcEpochToTimeZoneDisplayEpoch(
+            GetCurrentLocalTimeZoneName(),
+            static_cast<long long>(std::time(nullptr))));
 
     for (int dayIndex = 0; dayIndex < DayCount(); ++dayIndex) {
         const int x = kTimelineTimeLabelWidth + dayIndex * dayColumnWidth;

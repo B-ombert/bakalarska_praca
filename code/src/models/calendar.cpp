@@ -4,6 +4,8 @@
 
 #include <utils/json.hpp>
 
+#include "utils/timezone_utils.h"
+
 json Calendar::toGoogleJson() {
     json j;
 
@@ -22,7 +24,7 @@ json Calendar::toOutlookJson() {
     j["name"] = name;
 
     if (!timezone.empty()) {
-        j["timeZone"] = timezone;
+        j["timeZone"] = IanaTimeZoneToMicrosoft(timezone);
     }
 
     return j;
@@ -52,7 +54,7 @@ Calendar Calendar::parseOutlookCalendarJson(const json& cal) {
 
     c.providerCalendarId = cal.value("id", "");
     c.name = cal.value("name", "");
-    c.timezone = cal.value("timeZone", "");
+    c.timezone = NormalizeTimeZoneForProvider(c.provider, cal.value("timeZone", ""));
     c.isPrimary = cal.value("isDefaultCalendar", false);
     c.isReadOnly = !cal.value("canEdit", true);
     c.syncEnabled = true;

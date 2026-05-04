@@ -1,6 +1,7 @@
 #include "services/microsoft_account_service.h"
 
 #include <utils/http.h>
+#include <utils/json.hpp>
 
 std::optional<Account> GetMicrosoftUserInfo(AccessToken& token) {
     HttpRequest req;

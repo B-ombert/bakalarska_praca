@@ -95,6 +95,12 @@ C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.3520
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_sanitizer_annotate_container.hpp
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xbit_ops.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xnode_handle.h
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/string
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xstring
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_string_view.hpp
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/iosfwd
+C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cctype
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/ctype.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/thread
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_chrono.hpp
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ctime
@@ -102,7 +108,6 @@ C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/time.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ratio
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xtimec.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/memory
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/iosfwd
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/atomic
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xatomic_wait.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xthreads.h
@@ -166,11 +171,6 @@ C:/dev/cppLibs/boost_1_89_0/boost/throw_exception.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/exception/exception.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/assert/source_location.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/cstdint.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/string
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xstring
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_string_view.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cctype
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/ctype.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/source_location
 C:/dev/cppLibs/boost_1_89_0/boost/config/workaround.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/align/aligned_alloc.hpp
@@ -1626,19 +1626,6 @@ C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/impl/write_at.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/push_options.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/asio/detail/pop_options.hpp
-C:/uniba/projekt_kalendar/bc_test_app/include/utils/json.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/map
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/xtree
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/valarray
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/cassert
-C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/assert.h
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/filesystem
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/ranges
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_int128.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/__msvc_ranges_to.hpp
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/span
-C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/numeric
-C:/uniba/projekt_kalendar/bc_test_app/include/utils/crypto.h
 C:/uniba/projekt_kalendar/bc_test_app/include/utils/types.h
 C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/include/iostream
 C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/um/http.h
@@ -2348,4 +2335,119 @@ C:/dev/cppLibs/boost_1_89_0/boost/beast/http/string_body.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/beast/http/string_body_fwd.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/beast/http/vector_body.hpp
 C:/dev/cppLibs/boost_1_89_0/boost/beast/http/vector_body_fwd.hpp
+C:/vcpkg/installed/x64-windows/include/wx/utils.h
+C:/vcpkg/installed/x64-windows/include/wx/object.h
+C:/vcpkg/installed/x64-windows/include/wx/memory.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/platform.h
+C:/vcpkg/installed/x64-windows/include/wx/compiler.h
+C:/vcpkg/installed/x64-windows/include/wx/setup.h
+C:/vcpkg/installed/x64-windows/include/wx/../../debug/lib/mswud/wx/setup.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/libraries.h
+C:/vcpkg/installed/x64-windows/include/wx/chkconf.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/chkconf.h
+C:/vcpkg/installed/x64-windows/include/wx/version.h
+C:/vcpkg/installed/x64-windows/include/wx/cpp.h
+C:/vcpkg/installed/x64-windows/include/wx/dlimpexp.h
+C:/vcpkg/installed/x64-windows/include/wx/types.h
+C:/vcpkg/installed/x64-windows/include/wx/debug.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/assert.h
+C:/vcpkg/installed/x64-windows/include/wx/chartype.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/tchar.h
+C:/vcpkg/installed/x64-windows/include/wx/features.h
+C:/vcpkg/installed/x64-windows/include/wx/string.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/wxcrtbase.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/wctype.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/io.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/corecrt_io.h
+C:/vcpkg/installed/x64-windows/include/wx/strvararg.h
+C:/vcpkg/installed/x64-windows/include/wx/strconv.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/buffer.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/fontenc.h
+C:/vcpkg/installed/x64-windows/include/wx/unichar.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/stringimpl.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/beforestd.h
+C:/vcpkg/installed/x64-windows/include/wx/afterstd.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/stringops.h
+C:/vcpkg/installed/x64-windows/include/wx/iosfwrap.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/msgout.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/xti.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/rtti.h
+C:/vcpkg/installed/x64-windows/include/wx/flags.h
+C:/vcpkg/installed/x64-windows/include/wx/xti2.h
+C:/vcpkg/installed/x64-windows/include/wx/list.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/vector.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/scopeguard.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/except.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/meta/movable.h
+C:/vcpkg/installed/x64-windows/include/wx/meta/pod.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/meta/if.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/beforestd.h
+C:/vcpkg/installed/x64-windows/include/wx/afterstd.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/filefn.h
+C:/vcpkg/installed/x64-windows/include/wx/arrstr.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/dynarray.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/beforestd.h
+C:/vcpkg/installed/x64-windows/include/wx/afterstd.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/direct.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/dos.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/fcntl.h
+C:/vcpkg/installed/x64-windows/include/wx/hashmap.h
+C:/vcpkg/installed/x64-windows/include/wx/wxcrt.h
+C:/vcpkg/installed/x64-windows/include/wx/versioninfo.h
+C:/vcpkg/installed/x64-windows/include/wx/meta/implicitconversion.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/gdicmn.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/math.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/Program Files (x86)/Windows Kits/10/include/10.0.26100.0/ucrt/math.h
+C:/vcpkg/installed/x64-windows/include/wx/mousestate.h
+C:/vcpkg/installed/x64-windows/include/wx/kbdstate.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/longlong.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/iosfwrap.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/platinfo.h
 C:/uniba/projekt_kalendar/bc_test_app/include/utils/http.h
