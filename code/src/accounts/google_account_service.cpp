@@ -1,6 +1,7 @@
 #include "services/google_account_service.h"
 
 #include <utils/http.h>
+#include <utils/json.hpp>
 
 std::optional<Account> GetGoogleUserInfo(AccessToken& token) {
     HttpRequest req;

@@ -15,6 +15,7 @@ public:
     std::vector<Calendar> getAll();
     std::vector<Calendar> getByAccount(long long accountId);
     std::optional<Calendar> getById(long long id);
+    bool deleteById(long long id);
 
     std::vector<Calendar> getByProvider(const std::string& provider);
     std::optional<Calendar> getByProviderId(long long accountId, const std::string& providerCalendarId);

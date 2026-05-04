@@ -1,8 +1,8 @@
 #include "oauth/oauth_google.h"
+#include "oauth/oauth_utils.h"
+#include "utils/crypto.h"
 #include "http.h"
 #include <sstream>
-#include <windows.h>
-#include <shellapi.h>
 
 std::string GetGoogleAuthCode(const std::string& code_challenge){
     std::ostringstream auth;
@@ -20,7 +20,10 @@ std::string GetGoogleAuthCode(const std::string& code_challenge){
 
     std::cout << "Opening google login";
 
-    ShellExecuteA(0, "open", auth_url.c_str(), 0, 0, SW_SHOWNORMAL);
+    if (!OpenUrlInBrowser(auth_url)) {
+        std::cerr << "Failed to open browser for Google login\n";
+        return "";
+    }
     return CatchRedirectedAuthCode();
 }
 

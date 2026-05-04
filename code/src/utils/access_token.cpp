@@ -1,27 +1,42 @@
 #include "utils/access_token.h"
+#include "oauth/oauth_utils.h"
 #include <iostream>
 #include <utils/json.hpp>
 #include "utils/http.h"
 
+using json = nlohmann::json;
+
 AccessToken::AccessToken(int platform) : Platform(platform) {
     if (!GetNewToken()) {
-        std::cerr << "Error in obtaining new access token";
+        if (LastErrorMessage.empty()) {
+            LastErrorMessage = "Error in obtaining new access token";
+        }
+        std::cerr << LastErrorMessage;
     }
+    InitialAcquisitionAttempted = true;
 }
 
-AccessToken::AccessToken(int platform, const std::string &refresh_token) :
-Platform(platform), RefreshTokenValue(refresh_token) {
+AccessToken::AccessToken(int platform, const std::string &refresh_token, const bool allowInteractiveFallback) :
+Platform(platform), RefreshTokenValue(refresh_token), AllowInteractiveFallback(allowInteractiveFallback) {
     if (refresh_token.empty()) {
+        LastErrorMessage = "Invalid refresh token";
         std::cerr << "Invalid refresh token\n";
     }
 
     if (!RefreshAccessToken()) {
+        if (LastErrorMessage.empty()) {
+            LastErrorMessage = "Token refresh failed, user needs to log in";
+        }
         std::cerr << "Token refresh failed, user needs to log in\n";
 
-        if (!GetNewToken()) {
-            std::cerr << "Error in obtaining new access token\n";
+        if (AllowInteractiveFallback && !GetNewToken()) {
+            if (LastErrorMessage.empty()) {
+                LastErrorMessage = "Error in obtaining new access token";
+            }
+            std::cerr << LastErrorMessage << "\n";
         }
     }
+    InitialAcquisitionAttempted = true;
 }
 
 const std::string AccessToken::GetToken() {
@@ -29,16 +44,23 @@ const std::string AccessToken::GetToken() {
         return AccessTokenValue;
     }
 
-    if (RefreshAccessToken()) {
+    if (!RefreshTokenValue.empty() && RefreshAccessToken()) {
         return AccessTokenValue;
     }
 
-    GetNewToken();
+    if (AllowInteractiveFallback && !InitialAcquisitionAttempted) {
+        GetNewToken();
+        InitialAcquisitionAttempted = true;
+    }
     return AccessTokenValue;
 }
 
 const std::string AccessToken::GetRefreshToken() {
     return this->RefreshTokenValue;
+}
+
+const std::string& AccessToken::GetLastError() const {
+    return LastErrorMessage;
 }
 
 
@@ -47,6 +69,7 @@ bool AccessToken::ParseJsonTokenResponse(const std::string &tokenResponse) {
         json j = json::parse(tokenResponse);
 
         if (!j.contains("access_token") || !j.contains("expires_in")) {
+            LastErrorMessage = "Invalid token response";
             std::cerr << "Invalid token response\n";
             return false;
         }
@@ -60,10 +83,12 @@ bool AccessToken::ParseJsonTokenResponse(const std::string &tokenResponse) {
         int expiresIn = j["expires_in"].get<int>();
         this->ExpiresAt = std::chrono::system_clock::now()
                   + std::chrono::seconds(expiresIn);
+        LastErrorMessage.clear();
 
         return true;
     }
     catch (std::exception& e) {
+        LastErrorMessage = std::string("JSON parse error: ") + e.what();
         std::cerr << "JSON parse error: " << e.what() << "\n";
         return false;
     }
@@ -81,6 +106,7 @@ bool AccessToken::IsAccessTokenValid() const {
 }
 
 bool AccessToken::GetNewToken() {
+    LastErrorMessage.clear();
     std::string token_response;
     switch (Platform) {
         case GOOGLE:
@@ -92,13 +118,27 @@ bool AccessToken::GetNewToken() {
             break;
     }
 
+    if (token_response.empty() && LastErrorMessage.empty()) {
+        LastErrorMessage = GetLastOAuthErrorMessage();
+        if (LastErrorMessage.empty()) {
+            LastErrorMessage = "Interactive sign-in did not complete successfully.";
+        }
+    }
+
+    if (token_response.empty()) {
+        return false;
+    }
+
     return this->ParseJsonTokenResponse(token_response);
 }
 
 bool AccessToken::RefreshAccessToken() {
     if (this->RefreshTokenValue.empty()) {
+        LastErrorMessage = "Refresh token is missing.";
         return false;
     }
+
+    LastErrorMessage.clear();
 
     HttpRequest req;
     req.headers = {
@@ -134,6 +174,7 @@ bool AccessToken::RefreshAccessToken() {
 
     std::string response = PerformHttpRequest(req);
     if (response.empty()) {
+        LastErrorMessage = "Empty response while refreshing the access token.";
         std::cerr << "Empty response\n";
         return false;
     }

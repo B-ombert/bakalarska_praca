@@ -1,8 +1,8 @@
 #include "oauth/oauth_ms.h"
+#include "oauth/oauth_utils.h"
+#include "utils/crypto.h"
 #include "http.h"
 #include <sstream>
-#include <windows.h>
-#include <shellapi.h>
 
 std::string GetMSAuthCode(const std::string& code_challenge){
     std::string auth_url =
@@ -17,7 +17,10 @@ std::string GetMSAuthCode(const std::string& code_challenge){
 
     std::cout << "\nOpening Microsoft login \n";
 
-    ShellExecuteA(0, "open", auth_url.c_str(), 0, 0, SW_SHOWNORMAL);
+    if (!OpenUrlInBrowser(auth_url)) {
+        std::cerr << "Failed to open browser for Microsoft login\n";
+        return "";
+    }
     return CatchRedirectedAuthCode();
 }
 

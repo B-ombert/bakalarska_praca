@@ -635,6 +635,18 @@ C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/checkbox.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/ownerdrawnbutton.h
+C:/vcpkg/installed/x64-windows/include/wx/combobox.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/ctrlsub.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/ctrlsub.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/combobox.h
+C:/vcpkg/installed/x64-windows/include/wx/choice.h
+C:/vcpkg/installed/x64-windows/include/wx/defs.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
+C:/vcpkg/installed/x64-windows/include/wx/msw/choice.h
 C:/vcpkg/installed/x64-windows/include/wx/msgdlg.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
@@ -650,3 +662,5 @@ C:/vcpkg/installed/x64-windows/include/wx/stattext.h
 C:/vcpkg/installed/x64-windows/include/wx/defs.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/winundef.h
 C:/vcpkg/installed/x64-windows/include/wx/msw/stattext.h
+C:/uniba/projekt_kalendar/bc_test_app/include/events/rrule.h
+C:/uniba/projekt_kalendar/bc_test_app/include/utils/timezone_utils.h

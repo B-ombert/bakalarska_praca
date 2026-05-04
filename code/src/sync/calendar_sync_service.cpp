@@ -7,10 +7,12 @@
 CalendarSyncService::CalendarSyncService(CalendarRepository& calendarRepo, EventRepository& eventRepo)
     : calendarRepo(calendarRepo), eventRepo(eventRepo) {}
 
-void CalendarSyncService::syncCalendarsIncremental(const std::vector<Calendar>& remoteCalendars,
+void CalendarSyncService::syncCalendarsIncremental(const long long accountId,
+                                                   const std::vector<Calendar>& remoteCalendars,
                                                    const std::string& accessToken) {
-    std::vector<Calendar> localCalendars = calendarRepo.getByProvider(providerName());
+    std::vector<Calendar> localCalendars = calendarRepo.getByAccount(accountId);
     std::unordered_map<std::string, Calendar*> localMap;
+    std::unordered_map<std::string, bool> remoteIds;
 
     for (auto& calendar : localCalendars) {
         localMap[calendar.providerCalendarId] = &calendar;
@@ -18,12 +20,13 @@ void CalendarSyncService::syncCalendarsIncremental(const std::vector<Calendar>& 
 
     for (const auto& remote : remoteCalendars) {
         Calendar merged = remote;
+        merged.accountId = accountId;
+        remoteIds[remote.providerCalendarId] = true;
 
         const auto existingIt = localMap.find(remote.providerCalendarId);
         if (existingIt != localMap.end()) {
             const Calendar& local = *existingIt->second;
             merged.id = local.id;
-            merged.accountId = merged.accountId == 0 ? local.accountId : merged.accountId;
             merged.syncToken = local.syncToken;
             merged.lastSyncedAt = local.lastSyncedAt;
             merged.createdAt = local.createdAt;
@@ -42,6 +45,14 @@ void CalendarSyncService::syncCalendarsIncremental(const std::vector<Calendar>& 
         for (const auto& event : changes) {
             sync_internal::PersistRemoteEvent(eventRepo, event);
         }
+    }
+
+    for (const auto& local : localCalendars) {
+        if (remoteIds.find(local.providerCalendarId) != remoteIds.end()) {
+            continue;
+        }
+
+        calendarRepo.deleteById(local.id);
     }
 }
 

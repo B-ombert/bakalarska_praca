@@ -1,17 +1,17 @@
 #include <iostream>
 
-#include "SQLiteCpp/Backup.h"
 #include "models/account.h"
 #include "models/calendar.h"
 #include "repositories/account_repository.h"
 #include "repositories/calendar_repository.h"
 #include "ui/local_calendar_app.h"
-#include "utils/access_token.h"
+#include "utils/sqlite_utils.h"
 #include "utils/types.h"
 
 namespace {
 
 bool InitializeSchema(SQLite::Database& db) {
+    ConfigureSqliteConnection(db);
     db.exec("CREATE TABLE IF NOT EXISTS accounts ("
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
             "name TEXT NOT NULL, "
@@ -35,12 +35,9 @@ bool InitializeSchema(SQLite::Database& db) {
             "sync_enabled INTEGER DEFAULT 1, "
             "sync_token TEXT, "
             "last_synced_at INTEGER, "
-            "FOREIGN KEY(account_id) REFERENCES accounts(id), "
+            "FOREIGN KEY(account_id) REFERENCES accounts(id) ON DELETE CASCADE, "
             "UNIQUE (account_id, provider_calendar_id)"
             ")");
-
-    db.exec("CREATE INDEX IF NOT EXISTS idx_calendars_account "
-            "ON calendars(account_id)");
 
     db.exec("CREATE TABLE IF NOT EXISTS events ("
             "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -52,6 +49,7 @@ bool InitializeSchema(SQLite::Database& db) {
             "title TEXT NOT NULL, "
             "description TEXT, "
             "location TEXT, "
+            "timezone TEXT, "
             "start_datetime INTEGER NOT NULL, "
             "end_datetime INTEGER NOT NULL, "
             "all_day INTEGER DEFAULT 0, "
@@ -62,9 +60,12 @@ bool InitializeSchema(SQLite::Database& db) {
             "last_modified INTEGER, "
             "created_at INTEGER NOT NULL, "
             "updated_at INTEGER, "
-            "FOREIGN KEY(calendar_id) REFERENCES calendars(id), "
+            "FOREIGN KEY(calendar_id) REFERENCES calendars(id) ON DELETE CASCADE, "
             "UNIQUE (calendar_id, provider_event_id, instance_start)"
             ")");
+
+    db.exec("CREATE INDEX IF NOT EXISTS idx_calendars_account "
+            "ON calendars(account_id)");
 
     db.exec("CREATE INDEX IF NOT EXISTS idx_events_calendar "
             "ON events(calendar_id)");
@@ -84,6 +85,7 @@ bool InitializeSchema(SQLite::Database& db) {
     return true;
 }
 
+    // DEBUG
 void ResetApplicationData(SQLite::Database& db) {
     db.exec("BEGIN IMMEDIATE TRANSACTION");
     try {
@@ -138,10 +140,10 @@ int main() {
 
     try {
         SQLite::Database db(dbPath, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
+        ConfigureSqliteConnection(db);
         InitializeSchema(db);
 
         //ResetApplicationData(db);
-
         EnsureLocalSeedData(db);
     }
     catch (const SQLite::Exception& ex) {

@@ -21,7 +21,9 @@ public:
         const std::string& accessToken,
         CalendarRepository& repository) = 0;
 
-    void syncCalendarsIncremental(const std::vector<Calendar>& remoteCalendars, const std::string& accessToken);
+    void syncCalendarsIncremental(long long accountId,
+                                  const std::vector<Calendar>& remoteCalendars,
+                                  const std::string& accessToken);
     void syncPendingEvents(const std::string& accessToken, const Calendar& calendar);
     void fetchAndStoreRemoteEvents(const Calendar& calendar, const std::string& accessToken, RepositoryHolder& repository);
 

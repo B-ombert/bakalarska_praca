@@ -41,6 +41,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "C:/uniba/projekt_kalendar/bc_test_app/src/utils/crypto.cpp" "CMakeFiles/test.dir/src/utils/crypto.cpp.obj" "msvc" "CMakeFiles/test.dir/src/utils/crypto.cpp.obj.d"
   "C:/uniba/projekt_kalendar/bc_test_app/src/utils/datetime_utils.cpp" "CMakeFiles/test.dir/src/utils/datetime_utils.cpp.obj" "msvc" "CMakeFiles/test.dir/src/utils/datetime_utils.cpp.obj.d"
   "C:/uniba/projekt_kalendar/bc_test_app/src/utils/http.cpp" "CMakeFiles/test.dir/src/utils/http.cpp.obj" "msvc" "CMakeFiles/test.dir/src/utils/http.cpp.obj.d"
+  "C:/uniba/projekt_kalendar/bc_test_app/src/utils/timezone_utils.cpp" "CMakeFiles/test.dir/src/utils/timezone_utils.cpp.obj" "msvc" "CMakeFiles/test.dir/src/utils/timezone_utils.cpp.obj.d"
   "C:/uniba/projekt_kalendar/bc_test_app/src/utils/url_parser.cpp" "CMakeFiles/test.dir/src/utils/url_parser.cpp.obj" "msvc" "CMakeFiles/test.dir/src/utils/url_parser.cpp.obj.d"
   )
 

@@ -33,6 +33,7 @@ set(PROJECT_SOURCES
 )
 
 file(GLOB_RECURSE PROJECT_SOURCES_EXTRA
+        CONFIGURE_DEPENDS
         "src/*.cpp"
 )
 
@@ -61,6 +62,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
         APP_DB_PATH="${CMAKE_CURRENT_SOURCE_DIR}/calendar_app.db"
+        WINDOWS_ZONES_XML_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources/windowsZones.xml"
 )
 
 # ----------------------------
@@ -70,6 +72,9 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
         OpenSSL::SSL
         OpenSSL::Crypto
-        ws2_32
         ${wxWidgets_LIBRARIES}
 )
+
+if (WIN32)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ws2_32)
+endif()

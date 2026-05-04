@@ -62,8 +62,8 @@ std::string BuildTimelineEventLabel(const Event& event, const long long dayEpoch
         return event.title.empty() ? "All day" : event.title;
     }
 
-    const long long clippedStart = std::max(event.startDateTime, dayEpoch);
-    const long long clippedEnd = std::min(event.endDateTime, dayEpoch + kSecondsPerDay);
+    const long long clippedStart = std::max(event.GetDisplayStartEpoch(), dayEpoch);
+    const long long clippedEnd = std::min(event.GetDisplayEndEpoch(), dayEpoch + kSecondsPerDay);
 
     std::ostringstream output;
     output << event.title << "\n" << FormatTimeLabel(clippedStart) << " - " << FormatTimeLabel(clippedEnd);
@@ -74,7 +74,7 @@ std::string BuildMonthEventLabel(const Event& event) {
     if (event.allDay) {
         return event.title;
     }
-    return event.title + " " + FormatTimeLabel(event.startDateTime);
+    return event.title + " " + FormatTimeLabel(event.GetDisplayStartEpoch());
 }
 
 void NormalizeAllDayEventRange(Event& event) {
@@ -91,12 +91,12 @@ void NormalizeAllDayEventRange(Event& event) {
 }
 
 long long EventDisplayEndDay(const Event& event) {
-    const long long safeEndEpoch = std::max(event.startDateTime, event.endDateTime - 1);
+    const long long safeEndEpoch = std::max(event.GetDisplayStartEpoch(), event.GetDisplayEndEpoch() - 1);
     return StartOfUtcDay(safeEndEpoch);
 }
 
 bool SpansMultipleDays(const Event& event) {
-    return StartOfUtcDay(event.startDateTime) != EventDisplayEndDay(event);
+    return StartOfUtcDay(event.GetDisplayStartEpoch()) != EventDisplayEndDay(event);
 }
 
 int DaysInMonth(const int year, const int month) {

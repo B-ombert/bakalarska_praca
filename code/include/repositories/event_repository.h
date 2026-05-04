@@ -20,6 +20,7 @@ public:
     std::optional<Event> getByProviderInstance(const std::string& providerId, long long instanceStart);
     std::vector<Event> getByCalendar(long long calendarId);
     std::vector<Event> getEventsInRange(long long calendarId, long long start, long long end);
+    std::vector<Event> getRecurringMasters(long long calendarId);
     std::vector<Event> getSyncedEvents();
     std::vector<Event> getPendingRemoteEvents(long long calendarId);
 
