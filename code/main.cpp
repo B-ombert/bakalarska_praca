@@ -61,7 +61,7 @@ bool InitializeSchema(SQLite::Database& db) {
             "created_at INTEGER NOT NULL, "
             "updated_at INTEGER, "
             "FOREIGN KEY(calendar_id) REFERENCES calendars(id) ON DELETE CASCADE, "
-            "UNIQUE (calendar_id, provider_event_id, instance_start)"
+            "UNIQUE (calendar_id, provider_event_id)"
             ")");
 
     db.exec("CREATE INDEX IF NOT EXISTS idx_calendars_account "

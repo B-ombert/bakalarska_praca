@@ -22,6 +22,11 @@ struct HttpRequest {
     int verb = GET;
 };
 
+struct HttpResponse {
+    int statusCode = 0;
+    std::string body;
+};
+
 struct ParsedUrl {
     std::string scheme;
     std::string host;

@@ -148,7 +148,6 @@ std::optional<Event> EventEditorDialog::BuildEvent(const long long calendarId) c
     event.status = "confirmed";
     event.type = EventType::SINGLE;
     event.deletedAt = 0;
-    event.syncStatus = SYNCED;
     event.lastModified = std::time(nullptr);
     event.updatedAt = event.lastModified;
     if (event.createdAt == 0) {
@@ -164,7 +163,6 @@ std::optional<Event> EventEditorDialog::BuildEvent(const long long calendarId) c
 
     if (!originalEvent_.has_value()) {
         event.instanceStart = event.recurrenceRule.empty() ? event.startDateTime : 0;
-        event.providerEventId = MakeLocalProviderEventId(event.startDateTime);
     }
     else if (event.recurrenceRule.empty() && event.instanceStart == 0) {
         event.instanceStart = event.startDateTime;

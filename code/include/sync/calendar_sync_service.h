@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include <string>
 #include <vector>
 
@@ -8,6 +9,24 @@
 #include "repositories/calendar_repository.h"
 #include "repositories/event_repository.h"
 #include "repositories/repository_holder.h"
+
+struct EventBatchUploadResult {
+    long long localEventId = 0;
+    int httpStatus = 0;
+    json responseBody;
+};
+
+struct EventBatchRequest {
+    HttpRequest request;
+    std::vector<long long> localEventIds;
+};
+
+struct SyncPendingEventsResult {
+    int pendingEventCount = 0;
+    int acceptedEventCount = 0;
+};
+
+using AccessTokenProvider = std::function<std::string()>;
 
 class CalendarSyncService {
 public:
@@ -24,7 +43,12 @@ public:
     void syncCalendarsIncremental(long long accountId,
                                   const std::vector<Calendar>& remoteCalendars,
                                   const std::string& accessToken);
-    void syncPendingEvents(const std::string& accessToken, const Calendar& calendar);
+    void syncCalendarsIncremental(long long accountId,
+                                  const std::vector<Calendar>& remoteCalendars,
+                                  const AccessTokenProvider& accessTokenProvider);
+    SyncPendingEventsResult syncPendingEventsForAccount(const std::string& accessToken, long long accountId);
+    SyncPendingEventsResult syncPendingEventsForAccount(const AccessTokenProvider& accessTokenProvider, long long accountId);
+    SyncPendingEventsResult syncPendingEvents(const std::string& accessToken, const Calendar& calendar);
     void fetchAndStoreRemoteEvents(const Calendar& calendar, const std::string& accessToken, RepositoryHolder& repository);
 
 protected:
@@ -33,6 +57,13 @@ protected:
     virtual Event parseRemoteEvent(const json& payload) = 0;
     virtual std::string buildEventsCollectionUrl(const Calendar& calendar) const = 0;
     virtual std::string buildEventItemUrl(const Calendar& calendar, const std::string& providerEventId) const = 0;
+    virtual std::vector<EventBatchRequest> buildEventBatchRequests(
+        const std::string& accessToken,
+        const Calendar& calendar,
+        const std::vector<Event>& events);
+    virtual std::vector<EventBatchUploadResult> parseEventBatchResponse(
+        const HttpResponse& response,
+        const std::vector<long long>& localEventIds);
 
     CalendarRepository& calendarRepo;
     EventRepository& eventRepo;

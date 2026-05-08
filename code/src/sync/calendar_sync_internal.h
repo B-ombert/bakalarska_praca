@@ -58,6 +58,10 @@ inline std::optional<Event> FindExistingEvent(EventRepository& repository, const
         }
     }
 
+    if (event.calendarId != 0) {
+        return repository.getByProviderId(event.calendarId, event.providerEventId);
+    }
+
     return repository.getByProviderId(event.providerEventId);
 }
 
@@ -65,9 +69,7 @@ inline void PersistRemoteEvent(EventRepository& repository, Event event) {
     const auto existing = FindExistingEvent(repository, event);
 
     if (event.deletedAt != 0) {
-        if (existing.has_value()) {
-            repository.softDelete(existing->id);
-        }
+        repository.deleteByProviderIdentity(event.calendarId, event.providerEventId);
         return;
     }
 
@@ -86,7 +88,7 @@ inline void PersistRemoteEvent(EventRepository& repository, Event event) {
     event.lastModified = now;
     event.syncStatus = SYNCED;
 
-    repository.upsert(event);
+    repository.upsertRemoteSnapshot(event);
 }
 
 inline std::vector<Calendar> ParseCalendarCollection(const json& payload, const bool microsoft) {

@@ -13,70 +13,157 @@ constexpr const char* kEventSelectColumns =
     "status, recurrence_rule, deleted_at, sync_status, "
     "last_modified, created_at, updated_at";
 
+void BindProviderEventId(SQLite::Statement& query, const int index, const std::string& providerEventId) {
+    if (providerEventId.empty()) {
+        query.bind(index);
+        return;
+    }
+
+    query.bind(index, providerEventId);
+}
+
+long long InsertEventRow(SQLite::Database& db, const Event& e) {
+    SQLite::Statement query(db,
+        "INSERT INTO events ("
+        "calendar_id, provider_event_id, provider_master_id, instance_start, type, "
+        "title, description, location, timezone, "
+        "start_datetime, end_datetime, all_day, "
+        "status, recurrence_rule, "
+        "deleted_at, sync_status, "
+        "last_modified, created_at, updated_at) "
+        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+    int i = 1;
+    query.bind(i++, e.calendarId);
+    BindProviderEventId(query, i++, e.providerEventId);
+    query.bind(i++, e.providerMasterId);
+    query.bind(i++, e.instanceStart);
+    query.bind(i++, static_cast<int>(e.type));
+
+    query.bind(i++, e.title);
+    query.bind(i++, e.description);
+    query.bind(i++, e.location);
+    query.bind(i++, e.timezone);
+
+    query.bind(i++, e.startDateTime);
+    query.bind(i++, e.endDateTime);
+    query.bind(i++, static_cast<int>(e.allDay));
+
+    query.bind(i++, e.status);
+    query.bind(i++, e.recurrenceRule);
+
+    query.bind(i++, e.deletedAt);
+    query.bind(i++, e.syncStatus);
+
+    query.bind(i++, e.lastModified);
+    query.bind(i++, e.createdAt);
+    query.bind(i++, e.updatedAt);
+
+    query.exec();
+    return db.getLastInsertRowid();
+}
+
 }
 
 EventRepository::EventRepository(SQLite::Database &db) : db(db) {}
 
 long long EventRepository::upsert(const Event &e) {
     return RunInSavepoint(db, "event_upsert", [&]() -> long long {
-        SQLite::Statement query(db,
-            "INSERT INTO events ("
-            "calendar_id, provider_event_id, provider_master_id, instance_start, type, "
-            "title, description, location, timezone, "
-            "start_datetime, end_datetime, all_day, "
-            "status, recurrence_rule, "
-            "deleted_at, sync_status, "
-            "last_modified, created_at, updated_at) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
+        if (e.id > 0 && getById(e.id).has_value()) {
+            updateById(e);
+            return e.id;
+        }
 
-            "ON CONFLICT(calendar_id, provider_event_id, instance_start) DO UPDATE SET "
-            "provider_master_id = excluded.provider_master_id, "
-            "title = excluded.title, "
-            "description = excluded.description, "
-            "location = excluded.location, "
-            "timezone = excluded.timezone, "
-            "start_datetime = excluded.start_datetime, "
-            "end_datetime = excluded.end_datetime, "
-            "all_day = excluded.all_day, "
-            "status = excluded.status, "
-            "recurrence_rule = excluded.recurrence_rule, "
-            "deleted_at = excluded.deleted_at, "
-            "sync_status = CASE "
-            "    WHEN events.sync_status = 0 THEN 2 "
-            "    ELSE events.sync_status "
-            "END, "
-            "last_modified = excluded.last_modified, "
-            "updated_at = excluded.updated_at;"
-        );
+        if (!e.providerEventId.empty()) {
+            const auto existing = getByProviderId(e.calendarId, e.providerEventId);
+            if (existing.has_value()) {
+                Event updated = e;
+                updated.id = existing->id;
+                if (updated.createdAt == 0) {
+                    updated.createdAt = existing->createdAt;
+                }
+                updateById(updated);
+                return updated.id;
+            }
+        }
+
+        return InsertEventRow(db, e);
+    });
+}
+
+long long EventRepository::upsertRemoteSnapshot(const Event& e) {
+    return RunInSavepoint(db, "event_upsert_remote_snapshot", [&]() -> long long {
+        if (e.id > 0 && getById(e.id).has_value()) {
+            updateById(e);
+            return e.id;
+        }
+
+        if (!e.providerEventId.empty()) {
+            const auto existing = getByProviderId(e.calendarId, e.providerEventId);
+            if (existing.has_value()) {
+                Event updated = e;
+                updated.id = existing->id;
+                if (updated.createdAt == 0) {
+                    updated.createdAt = existing->createdAt;
+                }
+                updateById(updated);
+                return updated.id;
+            }
+        }
+
+        return InsertEventRow(db, e);
+    });
+}
+
+bool EventRepository::updateById(const Event& e) {
+    return RunInSavepoint(db, "event_update_by_id", [&]() {
+        SQLite::Statement query(
+            db,
+            "UPDATE events SET "
+            "calendar_id = ?, "
+            "provider_event_id = ?, "
+            "provider_master_id = ?, "
+            "instance_start = ?, "
+            "type = ?, "
+            "title = ?, "
+            "description = ?, "
+            "location = ?, "
+            "timezone = ?, "
+            "start_datetime = ?, "
+            "end_datetime = ?, "
+            "all_day = ?, "
+            "status = ?, "
+            "recurrence_rule = ?, "
+            "deleted_at = ?, "
+            "sync_status = ?, "
+            "last_modified = ?, "
+            "created_at = ?, "
+            "updated_at = ? "
+            "WHERE id = ?");
 
         int i = 1;
         query.bind(i++, e.calendarId);
-        query.bind(i++, e.providerEventId);
+        BindProviderEventId(query, i++, e.providerEventId);
         query.bind(i++, e.providerMasterId);
         query.bind(i++, e.instanceStart);
-        query.bind(i++, (int)(e.type));
-
+        query.bind(i++, static_cast<int>(e.type));
         query.bind(i++, e.title);
         query.bind(i++, e.description);
         query.bind(i++, e.location);
         query.bind(i++, e.timezone);
-
         query.bind(i++, e.startDateTime);
         query.bind(i++, e.endDateTime);
-        query.bind(i++, (int)e.allDay);
-
+        query.bind(i++, static_cast<int>(e.allDay));
         query.bind(i++, e.status);
         query.bind(i++, e.recurrenceRule);
-
         query.bind(i++, e.deletedAt);
         query.bind(i++, e.syncStatus);
-
         query.bind(i++, e.lastModified);
         query.bind(i++, e.createdAt);
         query.bind(i++, e.updatedAt);
+        query.bind(i++, e.id);
 
-        query.exec();
-        return db.getLastInsertRowid();
+        return query.exec() > 0;
     });
 }
 
@@ -144,6 +231,22 @@ std::optional<Event> EventRepository::getByProviderId(const std::string &provide
     return mapRow(query);
 }
 
+std::optional<Event> EventRepository::getByProviderId(const long long calendarId, const std::string& providerId) {
+    SQLite::Statement query(
+        db,
+        std::string("SELECT ") + kEventSelectColumns + " FROM events "
+        "WHERE calendar_id = ? AND provider_event_id = ?");
+
+    query.bind(1, calendarId);
+    query.bind(2, providerId);
+
+    if (!query.executeStep()) {
+        return std::nullopt;
+    }
+
+    return mapRow(query);
+}
+
 bool EventRepository::softDelete(long long id) {
     return RunInSavepoint(db, "event_soft_delete", [&]() {
         SQLite::Statement query(db,
@@ -163,6 +266,25 @@ bool EventRepository::deleteEvent(long long id) {
         query.bind(1, id);
 
         return query.exec() > 0;
+    });
+}
+
+int EventRepository::deleteByProviderIdentity(const long long calendarId, const std::string& providerEventId) {
+    if (providerEventId.empty()) {
+        return 0;
+    }
+
+    return RunInSavepoint(db, "event_delete_by_provider_identity", [&]() {
+        SQLite::Statement query(
+            db,
+            "DELETE FROM events "
+            "WHERE calendar_id = ? "
+            "AND (provider_event_id = ? OR provider_master_id = ?)");
+        query.bind(1, calendarId);
+        query.bind(2, providerEventId);
+        query.bind(3, providerEventId);
+
+        return query.exec();
     });
 }
 
@@ -251,10 +373,13 @@ std::vector<Event> EventRepository::getSyncedEvents() {
 
 std::vector<Event> EventRepository::getPendingRemoteEvents(long long calendarId) {
     SQLite::Statement query(db, std::string("SELECT ") + kEventSelectColumns + " FROM events "
-                                "WHERE provider_event_id IS NOT NULL AND sync_status != ? AND calendar_id = ?"
+                                "WHERE calendar_id = ? "
+                                "AND sync_status != ? "
+                                "AND (provider_event_id IS NOT NULL OR sync_status = ?)"
         );
-    query.bind(1, SYNCED);
-    query.bind(2, calendarId);
+    query.bind(1, calendarId);
+    query.bind(2, SYNCED);
+    query.bind(3, PENDING_INSERT);
 
     std::vector<Event> pendingEvents;
     while (query.executeStep()) {
@@ -262,4 +387,19 @@ std::vector<Event> EventRepository::getPendingRemoteEvents(long long calendarId)
     }
 
     return pendingEvents;
+}
+
+bool EventRepository::hasPendingRemoteEvents(const long long calendarId) {
+    SQLite::Statement query(
+        db,
+        "SELECT 1 FROM events "
+        "WHERE calendar_id = ? "
+        "AND sync_status != ? "
+        "AND (provider_event_id IS NOT NULL OR sync_status = ?) "
+        "LIMIT 1");
+    query.bind(1, calendarId);
+    query.bind(2, SYNCED);
+    query.bind(3, PENDING_INSERT);
+
+    return query.executeStep();
 }

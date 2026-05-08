@@ -168,6 +168,30 @@ std::string FormatGoogleDateTime(const long long utcEpoch, const std::string& ti
     return FormatTimeZoneLocalIsoDateTime(utcEpoch, timezone) + FormatTimeZoneOffsetSuffix(timezone, utcEpoch);
 }
 
+bool HasExplicitTimeZoneOffset(const std::string& value) {
+    const size_t separator = value.find('T');
+    if (separator == std::string::npos) {
+        return false;
+    }
+
+    return value.find('Z', separator) != std::string::npos ||
+           value.find('+', separator) != std::string::npos ||
+           value.find('-', separator + 1) != std::string::npos;
+}
+
+long long ParseMicrosoftDateTime(const std::string& value, const bool allDay, const std::string& timezone) {
+    if (allDay) {
+        return iso8601ToEpochDate(value);
+    }
+
+    if (timezone.empty() || HasExplicitTimeZoneOffset(value)) {
+        return iso8601ToEpoch(value);
+    }
+
+    const long long displayEpoch = iso8601ToEpoch(value);
+    return ConvertTimeZoneDisplayEpochToUtcEpoch(timezone, displayEpoch).value_or(displayEpoch);
+}
+
 long long EventEpochInOwnTimeZone(const Event& event, const long long utcEpoch) {
     if (event.timezone.empty()) {
         return utcEpoch;
@@ -335,24 +359,25 @@ Event parseMicrosoftJsonEvent(const json& j) {
     }
 
     if (j.contains("start") && j["start"].is_object() &&
-        j["start"].contains("dateTime") && j["start"]["dateTime"].is_string()) {
-        const std::string start = j["start"]["dateTime"].get<std::string>();
-        e.startDateTime = e.allDay ? iso8601ToEpochDate(start) : iso8601ToEpoch(start);
-    }
-    if (j.contains("start") && j["start"].is_object() &&
         j["start"].contains("timeZone") && j["start"]["timeZone"].is_string()) {
         e.timezone = MicrosoftTimeZoneToIana(j["start"]["timeZone"].get<std::string>());
-    }
-
-    if (j.contains("end") && j["end"].is_object() &&
-        j["end"].contains("dateTime") && j["end"]["dateTime"].is_string()) {
-        const std::string end = j["end"]["dateTime"].get<std::string>();
-        e.endDateTime = e.allDay ? iso8601ToEpochDate(end) : iso8601ToEpoch(end);
     }
     if (e.timezone.empty() &&
         j.contains("end") && j["end"].is_object() &&
         j["end"].contains("timeZone") && j["end"]["timeZone"].is_string()) {
         e.timezone = MicrosoftTimeZoneToIana(j["end"]["timeZone"].get<std::string>());
+    }
+
+    if (j.contains("start") && j["start"].is_object() &&
+        j["start"].contains("dateTime") && j["start"]["dateTime"].is_string()) {
+        const std::string start = j["start"]["dateTime"].get<std::string>();
+        e.startDateTime = ParseMicrosoftDateTime(start, e.allDay, e.timezone);
+    }
+
+    if (j.contains("end") && j["end"].is_object() &&
+        j["end"].contains("dateTime") && j["end"]["dateTime"].is_string()) {
+        const std::string end = j["end"]["dateTime"].get<std::string>();
+        e.endDateTime = ParseMicrosoftDateTime(end, e.allDay, e.timezone);
     }
 
     e.status = "confirmed";
@@ -373,7 +398,7 @@ Event parseMicrosoftJsonEvent(const json& j) {
 
     if (j.contains("originalStart") && j["originalStart"].is_string()) {
         const std::string originalStart = j["originalStart"].get<std::string>();
-        e.instanceStart = e.allDay ? iso8601ToEpochDate(originalStart) : iso8601ToEpoch(originalStart);
+        e.instanceStart = ParseMicrosoftDateTime(originalStart, e.allDay, e.timezone);
     }
 
     if (j.contains("type") && j["type"].is_string()) {
@@ -655,7 +680,7 @@ Event Event::ParseGoogleJsonEvent(const json& j) {
         }
 
         if (e.allDay) {
-            e.startDateTime = iso8601ToEpoch(j["start"]["date"].get<std::string>());
+            e.startDateTime = iso8601ToEpochDate(j["start"]["date"].get<std::string>());
         } else if (j["start"].contains("dateTime")) {
             e.startDateTime = iso8601ToEpoch(j["start"]["dateTime"].get<std::string>());
         }
@@ -666,7 +691,7 @@ Event Event::ParseGoogleJsonEvent(const json& j) {
             e.timezone = j["end"]["timeZone"].get<std::string>();
         }
         if (e.allDay && j["end"].contains("date")) {
-            e.endDateTime = iso8601ToEpoch(j["end"]["date"].get<std::string>());
+            e.endDateTime = iso8601ToEpochDate(j["end"]["date"].get<std::string>());
         } else if (j["end"].contains("dateTime")) {
             e.endDateTime = iso8601ToEpoch(j["end"]["dateTime"].get<std::string>());
         }
@@ -688,7 +713,7 @@ Event Event::ParseGoogleJsonEvent(const json& j) {
                 e.instanceStart = iso8601ToEpoch(j["originalStartTime"]["dateTime"].get<std::string>());
             }
             else if (j["originalStartTime"].contains("date")) {
-                e.instanceStart = iso8601ToEpoch(j["originalStartTime"]["date"].get<std::string>());
+                e.instanceStart = iso8601ToEpochDate(j["originalStartTime"]["date"].get<std::string>());
             }
         }
 

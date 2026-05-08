@@ -16,11 +16,22 @@ AccessToken::AccessToken(int platform) : Platform(platform) {
     InitialAcquisitionAttempted = true;
 }
 
-AccessToken::AccessToken(int platform, const std::string &refresh_token, const bool allowInteractiveFallback) :
+AccessToken::AccessToken(int platform, const std::string &refresh_token, const bool allowInteractiveFallback)
+    : AccessToken(platform, refresh_token, allowInteractiveFallback, true) {}
+
+AccessToken::AccessToken(int platform,
+                         const std::string& refresh_token,
+                         const bool allowInteractiveFallback,
+                         const bool refreshImmediately) :
 Platform(platform), RefreshTokenValue(refresh_token), AllowInteractiveFallback(allowInteractiveFallback) {
     if (refresh_token.empty()) {
         LastErrorMessage = "Invalid refresh token";
         std::cerr << "Invalid refresh token\n";
+    }
+
+    if (!refreshImmediately) {
+        InitialAcquisitionAttempted = true;
+        return;
     }
 
     if (!RefreshAccessToken()) {
@@ -63,6 +74,9 @@ const std::string& AccessToken::GetLastError() const {
     return LastErrorMessage;
 }
 
+int AccessToken::GetPlatform() const {
+    return Platform;
+}
 
 bool AccessToken::ParseJsonTokenResponse(const std::string &tokenResponse) {
     try {

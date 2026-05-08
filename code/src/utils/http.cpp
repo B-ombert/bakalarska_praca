@@ -26,7 +26,7 @@ std::string TrimHeaderValue(const std::string& value) {
 }
 
 template <typename Stream>
-std::string ExecuteRequest(Stream& stream, const ParsedUrl& parsed, const HttpRequest& req) {
+HttpResponse ExecuteRequest(Stream& stream, const ParsedUrl& parsed, const HttpRequest& req) {
     http::request<http::string_body> request;
     request.version(11);
     request.target(parsed.target);
@@ -71,12 +71,12 @@ std::string ExecuteRequest(Stream& stream, const ParsedUrl& parsed, const HttpRe
     http::response<http::string_body> response;
     http::read(stream, buffer, response);
 
-    return response.body();
+    return HttpResponse{static_cast<int>(response.result_int()), response.body()};
 }
 
 } // namespace
 
-std::string PerformHttpRequest(const HttpRequest& req) {
+HttpResponse PerformHttpRequestWithResponse(const HttpRequest& req) {
     try {
         const ParsedUrl parsed = ParseUrl(req.url);
 
@@ -92,11 +92,11 @@ std::string PerformHttpRequest(const HttpRequest& req) {
             beast::get_lowest_layer(stream).connect(results);
             stream.handshake(net::ssl::stream_base::client);
 
-            std::string body = ExecuteRequest(stream, parsed, req);
+            HttpResponse response = ExecuteRequest(stream, parsed, req);
 
             beast::error_code ec;
             stream.shutdown(ec);
-            return body;
+            return response;
         }
 
         if (parsed.scheme == "http") {
@@ -106,11 +106,15 @@ std::string PerformHttpRequest(const HttpRequest& req) {
         }
 
         std::cerr << "Unsupported URL scheme: " << parsed.scheme << "\n";
-        return "";
+        return {};
     }
 
     catch (const std::exception& e) {
         std::cerr << "HTTP error (boost): " << e.what() << "\n";
-        return "";
+        return {};
     }
+}
+
+std::string PerformHttpRequest(const HttpRequest& req) {
+    return PerformHttpRequestWithResponse(req).body;
 }

@@ -4,7 +4,7 @@
 #include "services/microsoft_account_service.h"
 
 std::optional<Account> GetAccountUserInfo(AccessToken& token) {
-    switch (token.Platform) {
+    switch (token.GetPlatform()) {
         case GOOGLE:
             return GetGoogleUserInfo(token);
         case MICROSOFT:

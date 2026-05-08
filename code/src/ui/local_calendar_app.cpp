@@ -3,12 +3,14 @@
 #include <algorithm>
 #include <array>
 #include <ctime>
+#include <memory>
 #include <optional>
 #include <stdexcept>
 #include <set>
 #include <string>
 #include <thread>
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 #include <wx/button.h>
@@ -35,6 +37,7 @@
 #include "repositories/event_repository.h"
 #include "oauth/oauth_utils.h"
 #include "services/account_service.h"
+#include "sync/event_upload_scheduler.h"
 #include "sync/google_calendar_sync_service.h"
 #include "sync/outlook_calendar_sync_service.h"
 #include "ui/calendar_ui_shared.h"
@@ -57,6 +60,14 @@ struct MonthCellMeta {
 struct VisibleRange {
     long long startEpoch = 0;
     long long endEpoch = 0;
+};
+
+struct RemoteMasterMetadata {
+    std::string title;
+    std::string description;
+    std::string location;
+    std::string timezone;
+    bool allDay = false;
 };
 
 enum class AuthOperationKind {
@@ -128,24 +139,24 @@ wxString FormatCalendarLabel(const Calendar& calendar) {
 }
 
 bool FetchAndStoreRemoteCalendarsForAccount(const Account& account,
-                                            const std::string& accessToken,
+                                            AccessToken& token,
                                             CalendarRepository& calendarRepository,
                                             EventRepository& eventRepository) {
     if (account.provider == "GOOGLE") {
         GoogleCalendarSyncService service(calendarRepository, eventRepository);
-        auto remoteCalendars = service.fetchRemoteCalendars(accessToken);
+        auto remoteCalendars = service.fetchRemoteCalendars(token.GetToken());
         for (auto& calendar : remoteCalendars) {
             calendar.accountId = account.id;
         }
-        service.syncCalendarsIncremental(account.id, remoteCalendars, accessToken);
+        service.syncCalendarsIncremental(account.id, remoteCalendars, [&token]() { return token.GetToken(); });
     }
     else if (account.provider == "MICROSOFT") {
         OutlookCalendarSyncService service(calendarRepository, eventRepository);
-        auto remoteCalendars = service.fetchRemoteCalendars(accessToken);
+        auto remoteCalendars = service.fetchRemoteCalendars(token.GetToken());
         for (auto& calendar : remoteCalendars) {
             calendar.accountId = account.id;
         }
-        service.syncCalendarsIncremental(account.id, remoteCalendars, accessToken);
+        service.syncCalendarsIncremental(account.id, remoteCalendars, [&token]() { return token.GetToken(); });
     }
 
     return true;
@@ -164,6 +175,42 @@ VisibleRange ConvertDisplayRangeToUtc(const VisibleRange& displayRange) {
     const long long utcEnd = ConvertTimeZoneDisplayEpochToUtcEpoch(displayTimezone, displayRange.endEpoch)
         .value_or(displayRange.endEpoch);
     return VisibleRange{utcStart, utcEnd};
+}
+
+void HydrateFromRemoteMaster(Event& event,
+                             const std::unordered_map<std::string, RemoteMasterMetadata>& remoteMasterMetadata) {
+    if (event.providerMasterId.empty()) {
+        return;
+    }
+
+    const auto masterIt = remoteMasterMetadata.find(event.providerMasterId);
+    if (masterIt == remoteMasterMetadata.end()) {
+        return;
+    }
+
+    const RemoteMasterMetadata& metadata = masterIt->second;
+    if (event.title.empty()) {
+        event.title = metadata.title;
+    }
+    if (event.description.empty()) {
+        event.description = metadata.description;
+    }
+    if (event.location.empty()) {
+        event.location = metadata.location;
+    }
+    if (event.timezone.empty()) {
+        event.timezone = metadata.timezone;
+    }
+    if (metadata.allDay) {
+        event.allDay = true;
+    }
+}
+
+Event BuildEffectiveRemoteEvent(
+    Event event,
+    const std::unordered_map<std::string, RemoteMasterMetadata>& remoteMasterMetadata) {
+    HydrateFromRemoteMaster(event, remoteMasterMetadata);
+    return event;
 }
 
 AuthOperationResult RunAddAccountAuthOperation(const std::string& dbPath, const int platform) {
@@ -200,7 +247,7 @@ AuthOperationResult RunAddAccountAuthOperation(const std::string& dbPath, const 
     result.accountId = accountId;
 
     try {
-        FetchAndStoreRemoteCalendarsForAccount(*account, result.accessToken, calendarRepository, eventRepository);
+        FetchAndStoreRemoteCalendarsForAccount(*account, token, calendarRepository, eventRepository);
     }
     catch (const std::exception& ex) {
         result.warning = std::string("The account was added, but calendars could not be fetched from the server: ") + ex.what();
@@ -253,7 +300,7 @@ AuthOperationResult RunActivateAccountAuthOperation(const std::string& dbPath, A
     }
 
     try {
-        FetchAndStoreRemoteCalendarsForAccount(account, result.accessToken, calendarRepository, eventRepository);
+        FetchAndStoreRemoteCalendarsForAccount(account, token, calendarRepository, eventRepository);
     }
     catch (const std::exception& ex) {
         result.warning = std::string("The account session was restored, but calendars could not be fetched from the server: ") + ex.what();
@@ -357,8 +404,16 @@ std::vector<Event> ExpandRecurringEventForRange(const Event& event, const Visibl
         Event occurrence = event;
         const long long occurrenceDisplayStart = dayEpoch + TimeOffsetWithinDay(displayStartEpoch);
         const long long occurrenceDisplayEnd = occurrenceDisplayStart + duration;
-        occurrence.startDateTime = ConvertTimeZoneDisplayEpochToUtcEpoch(displayTimezone, occurrenceDisplayStart).value_or(occurrenceDisplayStart);
-        occurrence.endDateTime = ConvertTimeZoneDisplayEpochToUtcEpoch(displayTimezone, occurrenceDisplayEnd).value_or(occurrenceDisplayEnd);
+        if (event.allDay) {
+            occurrence.startDateTime = occurrenceDisplayStart;
+            occurrence.endDateTime = occurrenceDisplayEnd;
+        }
+        else {
+            occurrence.startDateTime =
+                ConvertTimeZoneDisplayEpochToUtcEpoch(displayTimezone, occurrenceDisplayStart).value_or(occurrenceDisplayStart);
+            occurrence.endDateTime =
+                ConvertTimeZoneDisplayEpochToUtcEpoch(displayTimezone, occurrenceDisplayEnd).value_or(occurrenceDisplayEnd);
+        }
         occurrence.instanceStart = occurrence.startDateTime;
         occurrence.type = EventType::OCCURRENCE;
 
@@ -438,10 +493,17 @@ public:
         BuildLayout();
         ApplyLook();
         BindEvents();
+        StartEventUploadScheduler();
 
         ReloadAccounts();
         SetCurrentAccount(localAccountId_, false);
         RefreshEvents();
+    }
+
+    ~LocalCalendarFrame() override {
+        if (eventUploadScheduler_) {
+            eventUploadScheduler_->Stop();
+        }
     }
 
 private:
@@ -832,6 +894,8 @@ private:
             statusLabel_->SetLabel("Account session restored");
         }
 
+        RegisterEventUploadSessionForAccount(result.accountId);
+
         if (!result.warning.empty()) {
             wxMessageBox(wxString::FromUTF8(result.warning), "Calendar sync warning", wxOK | wxICON_WARNING, this);
         }
@@ -1072,6 +1136,160 @@ private:
         StartAddRemoteAccountAsync(platform);
     }
 
+    void StartEventUploadScheduler() {
+        wxWeakRef<LocalCalendarFrame> weakThis(this);
+        eventUploadScheduler_ = std::make_unique<EventUploadScheduler>(
+            dbPath_,
+            [weakThis](const PendingEventUploadResult& result) {
+                wxTheApp->CallAfter([weakThis, result]() {
+                    if (!weakThis) {
+                        return;
+                    }
+
+                    weakThis->HandleEventUploadResult(result);
+                });
+            }
+        );
+        eventUploadScheduler_->Start();
+    }
+
+    bool RegisterEventUploadSessionForAccount(const long long accountId) {
+        const auto account = FindLoadedAccountById(accountId).has_value()
+            ? FindLoadedAccountById(accountId)
+            : accountRepository_.GetById(accountId);
+        if (!account.has_value() || IsLocalProvider(account->provider)) {
+            return false;
+        }
+
+        if (eventUploadScheduler_ == nullptr) {
+            return false;
+        }
+
+        const bool hasSessionToken = sessionAccessTokens_.count(account->id) > 0 &&
+            !sessionAccessTokens_[account->id].empty();
+        if (!hasSessionToken) {
+            return false;
+        }
+
+        const auto platform = PlatformForProvider(account->provider);
+        if (!platform.has_value()) {
+            return false;
+        }
+
+        std::string refreshToken = account->refreshToken.empty()
+            ? accountRepository_.GetRefreshToken(*account)
+            : account->refreshToken;
+        if (refreshToken.empty()) {
+            return false;
+        }
+
+        auto token = std::make_shared<AccessToken>(*platform, refreshToken, false, false);
+
+        eventUploadScheduler_->UpsertSession(PendingEventUploadSession{
+            account->id,
+            account->provider,
+            std::move(token)});
+        return true;
+    }
+
+    void ShowDebugUploadDialog(const int pendingCount) {
+        debugUploadPendingCount_ = pendingCount;
+        debugUploadAcceptedCount_ = 0;
+
+        if (debugUploadDialog_ == nullptr) {
+            debugUploadDialog_ = new wxDialog(this,
+                                              wxID_ANY,
+                                              "Debug event upload",
+                                              wxDefaultPosition,
+                                              wxDefaultSize,
+                                              wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
+            auto* sizer = new wxBoxSizer(wxVERTICAL);
+            debugUploadPendingLabel_ = new wxStaticText(debugUploadDialog_, wxID_ANY, "");
+            debugUploadAcceptedLabel_ = new wxStaticText(debugUploadDialog_, wxID_ANY, "");
+            auto* closeButton = new wxButton(debugUploadDialog_, wxID_CLOSE, "Close");
+
+            sizer->Add(debugUploadPendingLabel_, 0, wxEXPAND | wxALL, 12);
+            sizer->Add(debugUploadAcceptedLabel_, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 12);
+            sizer->Add(closeButton, 0, wxALIGN_RIGHT | wxLEFT | wxRIGHT | wxBOTTOM, 12);
+            debugUploadDialog_->SetSizerAndFit(sizer);
+            debugUploadDialog_->SetMinSize(wxSize(320, debugUploadDialog_->GetSize().GetHeight()));
+
+            closeButton->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) {
+                if (debugUploadDialog_ != nullptr) {
+                    debugUploadDialog_->Hide();
+                }
+            });
+            debugUploadDialog_->Bind(wxEVT_CLOSE_WINDOW, [this](wxCloseEvent& event) {
+                if (debugUploadDialog_ != nullptr) {
+                    debugUploadDialog_->Hide();
+                }
+                event.Veto();
+            });
+        }
+
+        UpdateDebugUploadDialog();
+        debugUploadDialog_->CentreOnParent();
+        debugUploadDialog_->Show();
+        debugUploadDialog_->Raise();
+    }
+
+    void UpdateDebugUploadDialog() {
+        if (debugUploadPendingLabel_ != nullptr) {
+            debugUploadPendingLabel_->SetLabel(
+                wxString::Format("Events queued for upload: %d", debugUploadPendingCount_));
+        }
+        if (debugUploadAcceptedLabel_ != nullptr) {
+            debugUploadAcceptedLabel_->SetLabel(
+                wxString::Format("Accepted by server: %d", debugUploadAcceptedCount_));
+        }
+        if (debugUploadDialog_ != nullptr) {
+            debugUploadDialog_->Layout();
+            debugUploadDialog_->Fit();
+        }
+    }
+
+    void StartDebugUploadForCurrentAccount() {
+        if (currentAccountId_ == 0 || eventUploadScheduler_ == nullptr) {
+            return;
+        }
+
+        if (!RegisterEventUploadSessionForAccount(currentAccountId_)) {
+            statusLabel_->SetLabel("Debug upload requires a signed-in remote account");
+            return;
+        }
+
+        debugUploadAccountId_ = currentAccountId_;
+        const int pendingCount = eventUploadScheduler_->CountPendingUploadEvents(currentAccountId_);
+        ShowDebugUploadDialog(pendingCount);
+        if (pendingCount <= 0) {
+            statusLabel_->SetLabel("No pending event changes to upload");
+            return;
+        }
+
+        eventUploadScheduler_->QueueAccount(currentAccountId_);
+        statusLabel_->SetLabel("Debug event upload queued");
+    }
+
+    void HandleEventUploadResult(const PendingEventUploadResult& result) {
+        if (!result.success) {
+            if (!result.message.empty()) {
+                statusLabel_->SetLabel(wxString::Format("Event upload failed: %s", wxString::FromUTF8(result.message)));
+            }
+            return;
+        }
+
+        if (result.accountId == currentAccountId_) {
+            RefreshEvents();
+        }
+        if (result.accountId == debugUploadAccountId_) {
+            debugUploadPendingCount_ = result.pendingEventCount;
+            debugUploadAcceptedCount_ = result.acceptedEventCount;
+            UpdateDebugUploadDialog();
+        }
+
+        statusLabel_->SetLabel(wxString::FromUTF8(result.message));
+    }
+
     void BuildLayout() {
         auto* panel = new wxPanel(this);
         auto* rootSizer = new wxBoxSizer(wxVERTICAL);
@@ -1273,6 +1491,11 @@ private:
         const VisibleRange bufferedRange = ExpandVisibleRangeForRecurrence(visibleRange, currentViewMode_);
         const VisibleRange bufferedUtcRange = ConvertDisplayRangeToUtc(bufferedRange);
         std::unordered_map<long long, Event> uniqueEvents;
+        std::unordered_map<std::string, RemoteMasterMetadata> remoteMasterMetadata;
+        const auto currentAccount = FindLoadedAccountById(currentAccountId_);
+        const bool isMicrosoftAccount =
+            currentAccount.has_value() && currentAccount->provider == "MICROSOFT";
+        std::unordered_set<std::string> remoteOccurrenceMasterIds;
 
         for (const auto& calendar : accountCalendars_) {
             if (visibleCalendarIds_.count(calendar.id) == 0) {
@@ -1283,24 +1506,44 @@ private:
             auto recurringMasters = eventRepository_.getRecurringMasters(calendar.id);
 
             for (auto& event : calendarEvents) {
+                if (!event.providerEventId.empty()) {
+                    remoteMasterMetadata[event.providerEventId] = RemoteMasterMetadata{
+                        event.title, event.description, event.location, event.timezone, event.allDay};
+                }
+                if (!event.providerMasterId.empty()) {
+                    remoteOccurrenceMasterIds.insert(event.providerMasterId);
+                }
                 uniqueEvents[event.id] = std::move(event);
             }
             for (auto& event : recurringMasters) {
+                if (!event.providerEventId.empty()) {
+                    remoteMasterMetadata[event.providerEventId] = RemoteMasterMetadata{
+                        event.title, event.description, event.location, event.timezone, event.allDay};
+                }
                 uniqueEvents[event.id] = std::move(event);
             }
         }
 
         events_.clear();
         for (const auto& [_, event] : uniqueEvents) {
-            if (!event.recurrenceRule.empty() && event.providerMasterId.empty()) {
-                auto occurrences = ExpandRecurringEventForRange(event, bufferedRange);
+            Event hydratedEvent = BuildEffectiveRemoteEvent(event, remoteMasterMetadata);
+
+            if (isMicrosoftAccount &&
+                hydratedEvent.type == EventType::MASTER &&
+                !hydratedEvent.recurrenceRule.empty() &&
+                remoteOccurrenceMasterIds.count(hydratedEvent.providerEventId) > 0) {
+                continue;
+            }
+
+            if (!hydratedEvent.recurrenceRule.empty() && hydratedEvent.providerMasterId.empty()) {
+                auto occurrences = ExpandRecurringEventForRange(hydratedEvent, bufferedRange);
                 events_.insert(events_.end(), occurrences.begin(), occurrences.end());
                 continue;
             }
 
-            if (event.GetDisplayStartEpoch() < bufferedRange.endEpoch &&
-                event.GetDisplayEndEpoch() > bufferedRange.startEpoch) {
-                events_.push_back(event);
+            if (hydratedEvent.GetDisplayStartEpoch() < bufferedRange.endEpoch &&
+                hydratedEvent.GetDisplayEndEpoch() > bufferedRange.startEpoch) {
+                events_.push_back(std::move(hydratedEvent));
             }
         }
 
@@ -1314,7 +1557,11 @@ private:
             return lhs.id < rhs.id;
         });
         RefreshViewState();
-        statusLabel_->SetLabel(wxString::Format("Loaded %zu visible event(s)", events_.size()));
+        const auto visibleCount = std::count_if(events_.begin(), events_.end(), [&](const Event& event) {
+            return event.GetDisplayStartEpoch() < visibleRange.endEpoch &&
+                   event.GetDisplayEndEpoch() > visibleRange.startEpoch;
+        });
+        statusLabel_->SetLabel(wxString::Format("Loaded %zu visible event(s)", visibleCount));
     }
 
     void RefreshViewState() {
@@ -1603,9 +1850,46 @@ private:
         }
     }
 
+    void PrepareEventForSelectedCalendarSync(Event& event, const bool isNewEvent) const {
+        const auto selectedCalendar = std::find_if(
+            accountCalendars_.begin(),
+            accountCalendars_.end(),
+            [&](const Calendar& calendar) {
+                return calendar.id == selectedCalendarId_;
+            });
+        const bool localCalendar = selectedCalendar != accountCalendars_.end() &&
+            selectedCalendar->providerCalendarId == kLocalCalendarProviderId;
+
+        if (localCalendar) {
+            if (isNewEvent && event.providerEventId.empty()) {
+                event.providerEventId = MakeLocalProviderEventId(event.startDateTime);
+            }
+            event.syncStatus = SYNCED;
+            return;
+        }
+
+        if (isNewEvent) {
+            event.providerEventId.clear();
+            event.syncStatus = PENDING_INSERT;
+            return;
+        }
+
+        event.syncStatus = event.providerEventId.empty() ? PENDING_INSERT : PENDING_UPDATE;
+    }
+
     bool DeleteEventById(const long long eventId) {
         try {
-            eventRepository_.deleteEvent(eventId);
+            const auto event = eventRepository_.getById(eventId);
+            if (!event.has_value()) {
+                return false;
+            }
+
+            if (event->syncStatus == PENDING_INSERT || event->providerEventId.empty()) {
+                eventRepository_.deleteEvent(eventId);
+            }
+            else {
+                eventRepository_.softDelete(eventId);
+            }
             RefreshEvents();
             statusLabel_->SetLabel("Event deleted");
             return true;
@@ -1648,6 +1932,7 @@ private:
                 : "UTC";
         }
 
+        PrepareEventForSelectedCalendarSync(*builtEvent, !event.has_value());
         PersistEvent(*builtEvent);
     }
 
@@ -1655,6 +1940,24 @@ private:
         auto selectedEvent = eventRepository_.getById(eventId);
         if (!selectedEvent.has_value()) {
             return;
+        }
+
+        if (!selectedEvent->providerMasterId.empty()) {
+            std::unordered_map<std::string, RemoteMasterMetadata> remoteMasterMetadata;
+            auto masterEvent = eventRepository_.getByProviderId(
+                selectedEvent->calendarId,
+                selectedEvent->providerMasterId);
+            if (masterEvent.has_value()) {
+                remoteMasterMetadata.emplace(
+                    masterEvent->providerEventId,
+                    RemoteMasterMetadata{
+                        masterEvent->title,
+                        masterEvent->description,
+                        masterEvent->location,
+                        masterEvent->timezone,
+                        masterEvent->allDay});
+                *selectedEvent = BuildEffectiveRemoteEvent(*selectedEvent, remoteMasterMetadata);
+            }
         }
 
         FocusDay(StartOfUtcDay(selectedEvent->GetDisplayStartEpoch()), true);
@@ -1734,6 +2037,7 @@ private:
 
     void OnRefresh(wxCommandEvent&) {
         RefreshEvents();
+        StartDebugUploadForCurrentAccount();
     }
 
     void OnNewCalendar(wxCommandEvent&) {
@@ -1806,6 +2110,10 @@ private:
                 return;
             }
 
+            if (eventUploadScheduler_ != nullptr) {
+                eventUploadScheduler_->RemoveSession(currentAccount->id);
+            }
+            sessionAccessTokens_.erase(currentAccount->id);
             ReloadAccounts();
             SetCurrentAccount(localAccountId_, true);
             statusLabel_->SetLabel("Account removed");
@@ -1831,6 +2139,7 @@ private:
     AccountRepository accountRepository_;
     EventRepository eventRepository_;
     CalendarRepository calendarRepository_;
+    std::unique_ptr<EventUploadScheduler> eventUploadScheduler_;
     long long localAccountId_ = 0;
     long long currentAccountId_ = 0;
     long long selectedCalendarId_ = 0;
@@ -1862,6 +2171,12 @@ private:
     wxDialog* authProgressDialog_ = nullptr;
     wxActivityIndicator* authActivityIndicator_ = nullptr;
     wxStaticText* authProgressLabel_ = nullptr;
+    wxDialog* debugUploadDialog_ = nullptr;
+    wxStaticText* debugUploadPendingLabel_ = nullptr;
+    wxStaticText* debugUploadAcceptedLabel_ = nullptr;
+    long long debugUploadAccountId_ = 0;
+    int debugUploadPendingCount_ = 0;
+    int debugUploadAcceptedCount_ = 0;
     wxSimplebook* calendarBook_ = nullptr;
     TimelineViewPanel* weekTimeline_ = nullptr;
     TimelineViewPanel* dayTimeline_ = nullptr;

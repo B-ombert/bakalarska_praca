@@ -7,7 +7,11 @@ std::optional<Account> GetGoogleUserInfo(AccessToken& token) {
     HttpRequest req;
 
     req.url = "https://www.googleapis.com/oauth2/v3/userinfo";
-    req.headers.push_back("Authorization: Bearer " + token.AccessTokenValue);
+    const std::string accessToken = token.GetToken();
+    if (accessToken.empty()) {
+        return std::nullopt;
+    }
+    req.headers.push_back("Authorization: Bearer " + accessToken);
 
     std::string response = PerformHttpRequest(req);
 

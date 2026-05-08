@@ -6,22 +6,29 @@
 
 class AccessToken {
 public:
-    std::string AccessTokenValue;
-    std::string RefreshTokenValue;
-
     AccessToken(int platform);
     AccessToken(int platform, const std::string& refresh_token, bool allowInteractiveFallback = true);
-    int Platform;
+    AccessToken(int platform,
+                const std::string& refresh_token,
+                bool allowInteractiveFallback,
+                bool refreshImmediately);
+    AccessToken(AccessToken&&) noexcept = default;
+    AccessToken& operator=(AccessToken&&) noexcept = default;
+    AccessToken(const AccessToken&) = delete;
+    AccessToken& operator=(const AccessToken&) = delete;
     const std::string GetToken();
     const std::string GetRefreshToken();
     const std::string& GetLastError() const;
-
-    std::chrono::system_clock::time_point ExpiresAt;
+    int GetPlatform() const;
 
     static std::string UrlEncode(const std::string& value);
 
 private:
+    std::string AccessTokenValue;
+    std::string RefreshTokenValue;
     std::string LastErrorMessage;
+    std::chrono::system_clock::time_point ExpiresAt{};
+    int Platform;
     bool AllowInteractiveFallback = true;
     bool InitialAcquisitionAttempted = false;
 
