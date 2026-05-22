@@ -8,6 +8,7 @@ struct Account {
 
     std::string provider;
     std::string providerUserId;
+    std::string email;
 
     std::string refreshToken;
 };

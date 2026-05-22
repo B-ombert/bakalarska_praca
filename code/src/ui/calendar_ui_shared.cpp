@@ -137,7 +137,7 @@ std::optional<std::string> ValidateEventForUi(const Event& event) {
     }
 
     if (event.startDateTime < 0 || event.endDateTime < 0) {
-        return "Use YYYY-MM-DD for all-day events or YYYY-MM-DD HH:MM for timed events. The earliest supported date is 1970-01-01.";
+        return "Choose a valid date and use HH:MM for timed events. The earliest supported date is 1970-01-01.";
     }
 
     if (event.endDateTime < event.startDateTime) {

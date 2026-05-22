@@ -4,7 +4,11 @@
 
 #include <algorithm>
 #include <cctype>
+#include <cstdlib>
+#include <ctime>
+#include <iomanip>
 #include <sstream>
+#include <vector>
 
 #include <utils/json.hpp>
 
@@ -27,6 +31,39 @@ std::string getIcalValue(const std::string& line) {
     }
 
     return line.substr(separator + 1);
+}
+
+std::vector<std::string> unfoldIcalLines(const std::string& body) {
+    std::vector<std::string> lines;
+    std::stringstream input(body);
+    std::string line;
+
+    while (std::getline(input, line)) {
+        if (!line.empty() && line.back() == '\r') {
+            line.pop_back();
+        }
+        if (!line.empty() && (line.front() == ' ' || line.front() == '\t') && !lines.empty()) {
+            lines.back() += line.substr(1);
+            continue;
+        }
+        lines.push_back(std::move(line));
+    }
+
+    return lines;
+}
+
+std::string getIcalParameter(const std::string& line, const std::string& name) {
+    const auto colon = line.find(':');
+    const std::string header = colon == std::string::npos ? line : line.substr(0, colon);
+    const std::string needle = name + "=";
+    const auto param = header.find(needle);
+    if (param == std::string::npos) {
+        return "";
+    }
+
+    const auto valueStart = param + needle.size();
+    const auto valueEnd = header.find(';', valueStart);
+    return header.substr(valueStart, valueEnd == std::string::npos ? std::string::npos : valueEnd - valueStart);
 }
 
 std::string unescapeIcalText(std::string value) {
@@ -92,6 +129,13 @@ std::string dateToBasicIso(const std::string& iso) {
     }
 
     return "";
+}
+
+std::string dateTimeToBasicIso(const long long epoch) {
+    const std::tm tm = EpochToUtcTm(epoch);
+    std::ostringstream output;
+    output << std::put_time(&tm, "%Y%m%dT%H%M%S");
+    return output.str();
 }
 
 std::string microsoftPatternTypeToFreq(const std::string& patternType) {
@@ -421,14 +465,65 @@ Event parseMicrosoftJsonEvent(const json& j) {
     return e;
 }
 
+bool parseBasicDateTimeParts(const std::string& value,
+                             int& year,
+                             int& month,
+                             int& day,
+                             int& hour,
+                             int& minute,
+                             int& second,
+                             bool& utc) {
+    std::string digits;
+    utc = !value.empty() && value.back() == 'Z';
+    for (const char ch : value) {
+        if (std::isdigit(static_cast<unsigned char>(ch))) {
+            digits.push_back(ch);
+        }
+    }
+
+    if (digits.size() < 8) {
+        return false;
+    }
+
+    year = std::atoi(digits.substr(0, 4).c_str());
+    month = std::atoi(digits.substr(4, 2).c_str());
+    day = std::atoi(digits.substr(6, 2).c_str());
+    hour = digits.size() >= 10 ? std::atoi(digits.substr(8, 2).c_str()) : 0;
+    minute = digits.size() >= 12 ? std::atoi(digits.substr(10, 2).c_str()) : 0;
+    second = digits.size() >= 14 ? std::atoi(digits.substr(12, 2).c_str()) : 0;
+    return true;
+}
+
+long long parseIcalDateTime(const std::string& value, const bool allDay, const std::string& timezone) {
+    if (allDay) {
+        return iso8601ToEpochDate(value);
+    }
+
+    int year = 0;
+    int month = 0;
+    int day = 0;
+    int hour = 0;
+    int minute = 0;
+    int second = 0;
+    bool utc = false;
+    if (!parseBasicDateTimeParts(value, year, month, day, hour, minute, second, utc)) {
+        return 0;
+    }
+
+    const long long displayOrUtcEpoch = MakeUtcEpoch(year, month, day, hour, minute, second);
+    if (utc || timezone.empty()) {
+        return displayOrUtcEpoch;
+    }
+
+    return ConvertTimeZoneDisplayEpochToUtcEpoch(timezone, displayOrUtcEpoch).value_or(displayOrUtcEpoch);
+}
+
 } // namespace
 
 Event Event::fromIcal(const std::string& icalBody) {
     Event event;
 
-    std::stringstream ss(icalBody);
-    std::string line;
-    while (std::getline(ss, line)) {
+    for (auto line : unfoldIcalLines(icalBody)) {
         line = trim(line);
 
         if (line.rfind("SUMMARY", 0) == 0) {
@@ -443,24 +538,39 @@ Event Event::fromIcal(const std::string& icalBody) {
         else if (line.rfind("STATUS", 0) == 0) {
             event.status = trim(getIcalValue(line));
         }
+        else if (line.rfind("UID", 0) == 0) {
+            event.providerEventId = trim(getIcalValue(line));
+        }
         else if (line.rfind("RRULE", 0) == 0) {
             event.recurrenceRule = trim(line);
             event.type = EventType::MASTER;
         }
         else if (line.rfind("DTSTART;VALUE=DATE:", 0) == 0) {
             event.allDay = true;
-            event.startDateTime = iso8601ToEpochDate(getIcalValue(line));
+            event.startDateTime = parseIcalDateTime(getIcalValue(line), true, "");
         }
         else if (line.rfind("DTEND;VALUE=DATE:", 0) == 0) {
             event.allDay = true;
-            event.endDateTime = iso8601ToEpochDate(getIcalValue(line));
+            event.endDateTime = parseIcalDateTime(getIcalValue(line), true, "");
         }
         else if (line.rfind("DTSTART", 0) == 0) {
-            event.startDateTime = iso8601ToEpoch(getIcalValue(line));
+            event.timezone = getIcalParameter(line, "TZID");
+            event.startDateTime = parseIcalDateTime(getIcalValue(line), false, event.timezone);
         }
         else if (line.rfind("DTEND", 0) == 0) {
-            event.endDateTime = iso8601ToEpoch(getIcalValue(line));
+            const std::string timezone = getIcalParameter(line, "TZID");
+            if (event.timezone.empty()) {
+                event.timezone = timezone;
+            }
+            event.endDateTime = parseIcalDateTime(getIcalValue(line), false, timezone.empty() ? event.timezone : timezone);
         }
+    }
+
+    if (event.endDateTime == 0 && event.startDateTime != 0) {
+        event.endDateTime = event.allDay ? event.startDateTime + 24LL * 60 * 60 : event.startDateTime;
+    }
+    if (event.recurrenceRule.empty()) {
+        event.instanceStart = event.startDateTime;
     }
 
     return event;
@@ -516,13 +626,17 @@ json Event::ExportToJson(const Platform platform) const {
     return json::object();
 }
 
-json Event::ExportToIcal() const {
+std::string Event::ExportToIcal() const {
     std::ostringstream ical;
 
     ical << "BEGIN:VEVENT\r\n";
 
     if (!title.empty()) {
         ical << "SUMMARY:" << escapeIcalText(title) << "\r\n";
+    }
+
+    if (!providerEventId.empty()) {
+        ical << "UID:" << escapeIcalText(providerEventId) << "\r\n";
     }
 
     if (!description.empty()) {
@@ -534,12 +648,18 @@ json Event::ExportToIcal() const {
     }
 
     if (allDay) {
-        ical << "DTSTART;VALUE=DATE:" << epochToIsoDate(startDateTime) << "\r\n";
-        ical << "DTEND;VALUE=DATE:" << epochToIsoDate(endDateTime) << "\r\n";
+        ical << "DTSTART;VALUE=DATE:" << dateToBasicIso(epochToIsoDate(startDateTime)) << "\r\n";
+        ical << "DTEND;VALUE=DATE:" << dateToBasicIso(epochToIsoDate(endDateTime)) << "\r\n";
+    }
+    else if (!timezone.empty()) {
+        const long long displayStart = ConvertUtcEpochToTimeZoneDisplayEpoch(timezone, startDateTime);
+        const long long displayEnd = ConvertUtcEpochToTimeZoneDisplayEpoch(timezone, endDateTime);
+        ical << "DTSTART;TZID=" << timezone << ":" << dateTimeToBasicIso(displayStart) << "\r\n";
+        ical << "DTEND;TZID=" << timezone << ":" << dateTimeToBasicIso(displayEnd) << "\r\n";
     }
     else {
-        ical << "DTSTART:" << epochToIso(startDateTime) << "\r\n";
-        ical << "DTEND:" << epochToIso(endDateTime) << "\r\n";
+        ical << "DTSTART:" << dateTimeToBasicIso(startDateTime) << "Z\r\n";
+        ical << "DTEND:" << dateTimeToBasicIso(endDateTime) << "Z\r\n";
     }
 
     if (!status.empty()) {
@@ -552,7 +672,7 @@ json Event::ExportToIcal() const {
 
     ical << "END:VEVENT\r\n";
 
-    return json{{"ical", ical.str()}};
+    return ical.str();
 }
 
 json Event::exportToGoogleJson() {

@@ -24,6 +24,10 @@ std::optional<Account> GetMicrosoftUserInfo(AccessToken& token) {
         Account account;
         account.providerUserId = json.value("id", "");
         account.name = json.value("displayName", "");
+        account.email = json.value("mail", "");
+        if (account.email.empty()) {
+            account.email = json.value("userPrincipalName", "");
+        }
         account.provider = "MICROSOFT";
         account.refreshToken = token.GetRefreshToken();
 

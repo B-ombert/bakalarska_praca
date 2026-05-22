@@ -1,10 +1,16 @@
 #include "ui/event_editor_dialog.h"
 
+#include <algorithm>
+#include <cctype>
 #include <ctime>
+#include <iomanip>
+#include <sstream>
 
 #include <wx/button.h>
 #include <wx/checkbox.h>
+#include <wx/choice.h>
 #include <wx/combobox.h>
+#include <wx/arrstr.h>
 #include <wx/msgdlg.h>
 #include <wx/sizer.h>
 #include <wx/stattext.h>
@@ -21,24 +27,6 @@ std::string WxStringToUtf8(const wxString& value) {
     return utf8 ? std::string(utf8.data()) : std::string();
 }
 
-long long ParseDisplayDateTimeInput(const std::string& value, const bool allDay) {
-    const long long displayEpoch = ParseUtcDateTimeInput(value, allDay);
-    if (displayEpoch < 0 || allDay) {
-        return displayEpoch;
-    }
-
-    const auto utcEpoch = ConvertTimeZoneDisplayEpochToUtcEpoch(GetCurrentLocalTimeZoneName(), displayEpoch);
-    return utcEpoch.has_value() ? *utcEpoch : displayEpoch;
-}
-
-std::string FormatDisplayDateTimeInput(const long long epoch, const bool allDay) {
-    if (allDay) {
-        return FormatUtcDateTimeInput(epoch, true);
-    }
-
-    return FormatUtcDateTimeInput(ConvertUtcEpochToTimeZoneDisplayEpoch(GetCurrentLocalTimeZoneName(), epoch), false);
-}
-
 EventDraftDefaults BuildDefaultTimedDraft(const long long defaultDayEpoch) {
     const std::string displayTimezone = GetCurrentLocalTimeZoneName();
     const long long displayStartEpoch = defaultDayEpoch + 9 * 3600;
@@ -47,19 +35,6 @@ EventDraftDefaults BuildDefaultTimedDraft(const long long defaultDayEpoch) {
         ConvertTimeZoneDisplayEpochToUtcEpoch(displayTimezone, displayStartEpoch).value_or(displayStartEpoch),
         ConvertTimeZoneDisplayEpochToUtcEpoch(displayTimezone, displayEndEpoch).value_or(displayEndEpoch),
         false};
-}
-
-void ApplyDisplayAllDayToggleToInputs(wxTextCtrl* startCtrl, wxTextCtrl* endCtrl, const bool allDay) {
-    const long long startEpoch = ParseDisplayDateTimeInput(startCtrl->GetValue().ToStdString(), false);
-    const long long endEpoch = ParseDisplayDateTimeInput(endCtrl->GetValue().ToStdString(), false);
-
-    if (startEpoch >= 0) {
-        startCtrl->SetValue(FormatDisplayDateTimeInput(startEpoch, allDay));
-    }
-    if (endEpoch >= 0) {
-        const long long displayEndEpoch = allDay && endEpoch > 0 ? endEpoch - kSecondsPerDay : endEpoch;
-        endCtrl->SetValue(FormatDisplayDateTimeInput(displayEndEpoch, allDay));
-    }
 }
 
 long long FormatDisplayEndEpoch(const long long epoch, const bool allDay) {
@@ -112,6 +87,104 @@ int RecurrenceSelectionFromRule(const std::string& recurrenceRule) {
     return 0;
 }
 
+int SelectedYear(const wxComboBox* choice) {
+    if (choice == nullptr || choice->GetSelection() == wxNOT_FOUND) {
+        return kMinCalendarYear;
+    }
+    return std::max(kMinCalendarYear, std::stoi(choice->GetStringSelection().ToStdString()));
+}
+
+int SelectedMonth(const wxComboBox* choice) {
+    if (choice == nullptr || choice->GetSelection() == wxNOT_FOUND) {
+        return 1;
+    }
+    return choice->GetSelection() + 1;
+}
+
+long long DisplayDayFromChoice(const wxComboBox* yearChoice, const wxComboBox* monthChoice, const wxComboBox* dayChoice) {
+    if (dayChoice == nullptr || dayChoice->GetSelection() == wxNOT_FOUND) {
+        return -1;
+    }
+    const int year = SelectedYear(yearChoice);
+    const int month = SelectedMonth(monthChoice);
+    return MakeUtcEpoch(year, month, dayChoice->GetSelection() + 1);
+}
+
+int MinuteOfDayFromDisplayEpoch(const long long displayEpoch) {
+    const long long secondsIntoDay = ((displayEpoch % kSecondsPerDay) + kSecondsPerDay) % kSecondsPerDay;
+    return static_cast<int>(secondsIntoDay / 60);
+}
+
+std::string FormatTimeInput(const int minuteOfDay) {
+    const int normalizedMinute = std::clamp(minuteOfDay, 0, kMinutesPerDay - 1);
+    const int hour = normalizedMinute / 60;
+    const int minute = normalizedMinute % 60;
+    std::ostringstream output;
+    output << std::setw(2) << std::setfill('0') << hour
+           << ':' << std::setw(2) << std::setfill('0') << minute;
+    return output.str();
+}
+
+std::optional<int> MinutesFromTimeInput(const wxComboBox* choice) {
+    if (choice == nullptr) {
+        return 0;
+    }
+
+    std::string value = choice->GetValue().ToStdString();
+    value.erase(std::remove_if(value.begin(), value.end(),
+                               [](const unsigned char ch) { return std::isspace(ch) != 0; }),
+                value.end());
+
+    const std::size_t separator = value.find(':');
+    if (separator == std::string::npos || value.find(':', separator + 1) != std::string::npos) {
+        return std::nullopt;
+    }
+
+    const std::string hourText = value.substr(0, separator);
+    const std::string minuteText = value.substr(separator + 1);
+    const auto allDigits = [](const std::string& text) {
+        return !text.empty() &&
+               std::all_of(text.begin(), text.end(),
+                           [](const unsigned char ch) { return std::isdigit(ch) != 0; });
+    };
+    if (!allDigits(hourText) || !allDigits(minuteText)) {
+        return std::nullopt;
+    }
+
+    const int hour = std::stoi(hourText);
+    const int minute = std::stoi(minuteText);
+    if (hour < 0 || hour > 23 || minute < 0 || minute > 59) {
+        return std::nullopt;
+    }
+
+    return hour * 60 + minute;
+}
+
+wxArrayString BuildTimeLabels() {
+    wxArrayString labels;
+    labels.Alloc(kMinutesPerDay / 15);
+    for (int minute = 0; minute < kMinutesPerDay; minute += 15) {
+        const int hour = minute / 60;
+        const int min = minute % 60;
+        labels.Add(wxString::Format("%02d:%02d", hour, min));
+    }
+    return labels;
+}
+
+wxArrayString BuildMonthLabels() {
+    static const std::array<const char*, 12> months = {
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    };
+
+    wxArrayString labels;
+    labels.Alloc(months.size());
+    for (const char* month : months) {
+        labels.Add(month);
+    }
+    return labels;
+}
+
 } // namespace
 
 EventEditorDialog::EventEditorDialog(wxWindow* parent,
@@ -119,7 +192,7 @@ EventEditorDialog::EventEditorDialog(wxWindow* parent,
                                      const long long defaultDayEpoch,
                                      const std::optional<EventDraftDefaults>& defaults)
     : wxDialog(parent, wxID_ANY, event.has_value() ? "Edit Event" : "New Event",
-               wxDefaultPosition, wxSize(580, 620),
+               wxDefaultPosition, wxSize(720, 620),
                wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
       originalEvent_(event),
       defaultDayEpoch_(defaultDayEpoch),
@@ -130,6 +203,21 @@ EventEditorDialog::EventEditorDialog(wxWindow* parent,
 
 bool EventEditorDialog::IsDeleteRequested() const {
     return deleteRequested_;
+}
+
+RecurrenceEditScope EventEditorDialog::GetRecurrenceEditScope() const {
+    if (recurrenceScopeCtrl_ == nullptr) {
+        return RecurrenceEditScope::ENTIRE_SERIES;
+    }
+
+    switch (recurrenceScopeCtrl_->GetSelection()) {
+        case 0:
+            return RecurrenceEditScope::THIS_INSTANCE;
+        case 1:
+            return RecurrenceEditScope::THIS_AND_FOLLOWING;
+        default:
+            return RecurrenceEditScope::ENTIRE_SERIES;
+    }
 }
 
 std::optional<Event> EventEditorDialog::BuildEvent(const long long calendarId) const {
@@ -148,14 +236,13 @@ std::optional<Event> EventEditorDialog::BuildEvent(const long long calendarId) c
     event.status = "confirmed";
     event.type = EventType::SINGLE;
     event.deletedAt = 0;
-    event.lastModified = std::time(nullptr);
-    event.updatedAt = event.lastModified;
+    event.updatedAt = std::time(nullptr);
     if (event.createdAt == 0) {
-        event.createdAt = event.lastModified;
+        event.createdAt = event.updatedAt;
     }
 
-    event.startDateTime = ParseDisplayDateTimeInput(startCtrl_->GetValue().ToStdString(), event.allDay);
-    event.endDateTime = ParseDisplayDateTimeInput(endCtrl_->GetValue().ToStdString(), event.allDay);
+    event.startDateTime = ReadDateTimeControls(true, event.allDay);
+    event.endDateTime = ReadDateTimeControls(false, event.allDay);
     NormalizeAllDayEventRange(event);
     event.recurrenceRule = BuildRecurrenceRule(event.startDateTime, recurrenceCtrl_->GetSelection());
     event.type = event.recurrenceRule.empty() ? EventType::SINGLE : EventType::MASTER;
@@ -202,13 +289,47 @@ void EventEditorDialog::BuildLayout() {
     recurrenceCtrl_->SetSelection(0);
     rootSizer->Add(recurrenceCtrl_, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 12);
 
-    rootSizer->Add(new wxStaticText(this, wxID_ANY, "Start"), 0, wxLEFT | wxRIGHT, 12);
-    startCtrl_ = new wxTextCtrl(this, wxID_ANY);
-    rootSizer->Add(startCtrl_, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 12);
+    const bool recurringContext = originalEvent_.has_value() &&
+        (originalEvent_->type == EventType::MASTER ||
+         originalEvent_->type == EventType::OCCURRENCE ||
+         !originalEvent_->recurrenceRule.empty() ||
+         !originalEvent_->providerMasterId.empty());
+    if (recurringContext) {
+        rootSizer->Add(new wxStaticText(this, wxID_ANY, "Apply changes to"), 0, wxLEFT | wxRIGHT, 12);
+        recurrenceScopeCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, nullptr, wxCB_READONLY);
+        recurrenceScopeCtrl_->Append("Only this instance");
+        recurrenceScopeCtrl_->Append("This and following instances");
+        recurrenceScopeCtrl_->Append("Entire series");
+        recurrenceScopeCtrl_->SetSelection(originalEvent_->type == EventType::MASTER ? 2 : 0);
+        rootSizer->Add(recurrenceScopeCtrl_, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 12);
+    }
 
-    rootSizer->Add(new wxStaticText(this, wxID_ANY, "End"), 0, wxLEFT | wxRIGHT, 12);
-    endCtrl_ = new wxTextCtrl(this, wxID_ANY);
-    rootSizer->Add(endCtrl_, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 12);
+    auto* dateTimeSizer = new wxFlexGridSizer(2, 5, 8, 10);
+    dateTimeSizer->AddGrowableCol(3, 1);
+    const wxArrayString emptyChoices;
+    static const wxArrayString monthLabels = BuildMonthLabels();
+    static const wxArrayString timeLabels = BuildTimeLabels();
+
+    dateTimeSizer->Add(new wxStaticText(this, wxID_ANY, "Start"), 0, wxALIGN_CENTER_VERTICAL);
+    startYearCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, emptyChoices, wxCB_READONLY);
+    startMonthCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, monthLabels, wxCB_READONLY);
+    startDateCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, emptyChoices, wxCB_READONLY);
+    startTimeCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, timeLabels, wxCB_DROPDOWN);
+    dateTimeSizer->Add(startYearCtrl_, 0, wxEXPAND);
+    dateTimeSizer->Add(startMonthCtrl_, 0, wxEXPAND);
+    dateTimeSizer->Add(startDateCtrl_, 1, wxEXPAND);
+    dateTimeSizer->Add(startTimeCtrl_, 0, wxEXPAND);
+
+    dateTimeSizer->Add(new wxStaticText(this, wxID_ANY, "End"), 0, wxALIGN_CENTER_VERTICAL);
+    endYearCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, emptyChoices, wxCB_READONLY);
+    endMonthCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, monthLabels, wxCB_READONLY);
+    endDateCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, emptyChoices, wxCB_READONLY);
+    endTimeCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, timeLabels, wxCB_DROPDOWN);
+    dateTimeSizer->Add(endYearCtrl_, 0, wxEXPAND);
+    dateTimeSizer->Add(endMonthCtrl_, 0, wxEXPAND);
+    dateTimeSizer->Add(endDateCtrl_, 1, wxEXPAND);
+    dateTimeSizer->Add(endTimeCtrl_, 0, wxEXPAND);
+    rootSizer->Add(dateTimeSizer, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 12);
 
     rootSizer->Add(new wxStaticText(this, wxID_ANY, "Description"), 0, wxLEFT | wxRIGHT, 12);
     descriptionCtrl_ = new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxSize(-1, 180), wxTE_MULTILINE);
@@ -230,9 +351,14 @@ void EventEditorDialog::BuildLayout() {
     buttonSizer->Add(saveButton, 0);
 
     rootSizer->Add(buttonSizer, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 12);
-    SetSizerAndFit(rootSizer);
+    SetSizer(rootSizer);
+    Layout();
 
     allDayCtrl_->Bind(wxEVT_CHECKBOX, &EventEditorDialog::OnAllDayChanged, this);
+    startYearCtrl_->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent&) { RefreshDayChoicesForSelectedDateParts(); });
+    endYearCtrl_->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent&) { RefreshDayChoicesForSelectedDateParts(); });
+    startMonthCtrl_->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent&) { RefreshDayChoicesForSelectedDateParts(); });
+    endMonthCtrl_->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent&) { RefreshDayChoicesForSelectedDateParts(); });
 }
 
 void EventEditorDialog::LoadInitialValues() {
@@ -243,8 +369,13 @@ void EventEditorDialog::LoadInitialValues() {
         descriptionCtrl_->SetValue(wxString::FromUTF8(event.description));
         allDayCtrl_->SetValue(event.allDay);
         recurrenceCtrl_->SetSelection(RecurrenceSelectionFromRule(event.recurrenceRule));
-        startCtrl_->SetValue(FormatDisplayDateTimeInput(event.startDateTime, event.allDay));
-        endCtrl_->SetValue(FormatDisplayDateTimeInput(FormatDisplayEndEpoch(event.endDateTime, event.allDay), event.allDay));
+        const long long centerEpoch = event.allDay
+            ? event.startDateTime
+            : ConvertUtcEpochToTimeZoneDisplayEpoch(GetCurrentLocalTimeZoneName(), event.startDateTime);
+        PopulateDateChoices(centerEpoch);
+        WriteDateTimeControls(true, event.startDateTime, event.allDay);
+        WriteDateTimeControls(false, FormatDisplayEndEpoch(event.endDateTime, event.allDay), event.allDay);
+        UpdateTimeControlsEnabled();
         return;
     }
 
@@ -254,8 +385,13 @@ void EventEditorDialog::LoadInitialValues() {
     const EventDraftDefaults defaults = defaults_.value_or(BuildDefaultTimedDraft(defaultDayEpoch_));
     allDayCtrl_->SetValue(defaults.allDay);
     recurrenceCtrl_->SetSelection(0);
-    startCtrl_->SetValue(FormatDisplayDateTimeInput(defaults.startDateTime, defaults.allDay));
-    endCtrl_->SetValue(FormatDisplayDateTimeInput(FormatDisplayEndEpoch(defaults.endDateTime, defaults.allDay), defaults.allDay));
+    const long long centerEpoch = defaults.allDay
+        ? defaults.startDateTime
+        : ConvertUtcEpochToTimeZoneDisplayEpoch(GetCurrentLocalTimeZoneName(), defaults.startDateTime);
+    PopulateDateChoices(centerEpoch);
+    WriteDateTimeControls(true, defaults.startDateTime, defaults.allDay);
+    WriteDateTimeControls(false, FormatDisplayEndEpoch(defaults.endDateTime, defaults.allDay), defaults.allDay);
+    UpdateTimeControlsEnabled();
 }
 
 bool EventEditorDialog::ValidateEvent(const Event& event) const {
@@ -268,8 +404,166 @@ bool EventEditorDialog::ValidateEvent(const Event& event) const {
     return false;
 }
 
+long long EventEditorDialog::ReadDateTimeControls(const bool start, const bool allDay) const {
+    const auto* dateCtrl = start ? startDateCtrl_ : endDateCtrl_;
+    const auto* yearCtrl = start ? startYearCtrl_ : endYearCtrl_;
+    const auto* monthCtrl = start ? startMonthCtrl_ : endMonthCtrl_;
+    const auto* timeCtrl = start ? startTimeCtrl_ : endTimeCtrl_;
+    const long long displayDay = DisplayDayFromChoice(yearCtrl, monthCtrl, dateCtrl);
+    if (displayDay < 0) {
+        return -1;
+    }
+
+    if (allDay) {
+        return start ? displayDay : displayDay + kSecondsPerDay;
+    }
+
+    const std::optional<int> minuteOfDay = MinutesFromTimeInput(timeCtrl);
+    if (!minuteOfDay.has_value()) {
+        return -1;
+    }
+
+    const long long displayEpoch = displayDay + static_cast<long long>(*minuteOfDay) * 60;
+    const auto utcEpoch = ConvertTimeZoneDisplayEpochToUtcEpoch(GetCurrentLocalTimeZoneName(), displayEpoch);
+    return utcEpoch.value_or(displayEpoch);
+}
+
+void EventEditorDialog::WriteDateTimeControls(const bool start, const long long epoch, const bool allDay) {
+    auto* dateCtrl = start ? startDateCtrl_ : endDateCtrl_;
+    auto* yearCtrl = start ? startYearCtrl_ : endYearCtrl_;
+    auto* monthCtrl = start ? startMonthCtrl_ : endMonthCtrl_;
+    auto* timeCtrl = start ? startTimeCtrl_ : endTimeCtrl_;
+    const long long displayEpoch = allDay
+        ? epoch
+        : ConvertUtcEpochToTimeZoneDisplayEpoch(GetCurrentLocalTimeZoneName(), epoch);
+    const long long displayDay = StartOfUtcDay(displayEpoch);
+    const std::tm tm = EpochToUtcTm(displayDay);
+    const int year = tm.tm_year + 1900;
+    const int yearSelection = year - yearChoiceStart_;
+    if (yearSelection >= 0 && yearSelection < static_cast<int>(yearCtrl->GetCount())) {
+        yearCtrl->SetSelection(yearSelection);
+    }
+    monthCtrl->SetSelection(tm.tm_mon);
+    RefreshDayChoicesForRow(yearCtrl, monthCtrl, dateCtrl);
+
+    const int daySelection = tm.tm_mday - 1;
+    if (daySelection >= 0 && daySelection < static_cast<int>(dateCtrl->GetCount())) {
+        dateCtrl->SetSelection(daySelection);
+    }
+    timeCtrl->SetValue(FormatTimeInput(MinuteOfDayFromDisplayEpoch(displayEpoch)));
+}
+
+void EventEditorDialog::PopulateDateChoices(const long long centerDisplayDay) {
+    PopulateYearChoices(centerDisplayDay);
+    const std::tm tm = EpochToUtcTm(StartOfUtcDay(centerDisplayDay));
+    if (startMonthCtrl_ != nullptr) {
+        startMonthCtrl_->SetSelection(tm.tm_mon);
+    }
+    if (endMonthCtrl_ != nullptr) {
+        endMonthCtrl_->SetSelection(tm.tm_mon);
+    }
+    RefreshDayChoicesForSelectedDateParts();
+}
+
+void EventEditorDialog::PopulateYearChoices(const long long centerDisplayDay) {
+    const int centerYear = std::max(kMinCalendarYear, EpochToUtcTm(StartOfUtcDay(centerDisplayDay)).tm_year + 1900);
+    constexpr int kYearsBeforeCenter = 20;
+    constexpr int kYearsAfterCenter = 80;
+    yearChoiceStart_ = std::max(kMinCalendarYear, centerYear - kYearsBeforeCenter);
+    const int yearChoiceEnd = centerYear + kYearsAfterCenter;
+
+    wxArrayString labels;
+    labels.Alloc(yearChoiceEnd - yearChoiceStart_ + 1);
+    for (int year = yearChoiceStart_; year <= yearChoiceEnd; ++year) {
+        labels.Add(std::to_string(year));
+    }
+
+    auto appendChoices = [this, centerYear, &labels](wxComboBox* choice) {
+        choice->Clear();
+        choice->Append(labels);
+        choice->SetSelection(std::clamp(centerYear - yearChoiceStart_, 0, static_cast<int>(labels.GetCount()) - 1));
+    };
+
+    if (startYearCtrl_ != nullptr) {
+        appendChoices(startYearCtrl_);
+    }
+    if (endYearCtrl_ != nullptr) {
+        appendChoices(endYearCtrl_);
+    }
+}
+
+void EventEditorDialog::PopulateMonthChoices() {
+    static const wxArrayString labels = BuildMonthLabels();
+
+    auto appendChoices = [](wxComboBox* choice) {
+        if (choice == nullptr) {
+            return;
+        }
+        choice->Clear();
+        choice->Append(BuildMonthLabels());
+        choice->SetSelection(0);
+    };
+    appendChoices(startMonthCtrl_);
+    appendChoices(endMonthCtrl_);
+}
+
+void EventEditorDialog::RefreshDayChoicesForSelectedDateParts() {
+    if (startDateCtrl_ != nullptr) {
+        RefreshDayChoicesForRow(startYearCtrl_, startMonthCtrl_, startDateCtrl_);
+    }
+    if (endDateCtrl_ != nullptr) {
+        RefreshDayChoicesForRow(endYearCtrl_, endMonthCtrl_, endDateCtrl_);
+    }
+}
+
+void EventEditorDialog::RefreshDayChoicesForRow(wxComboBox* yearChoice,
+                                                wxComboBox* monthChoice,
+                                                wxComboBox* dayChoice) {
+    if (yearChoice == nullptr || monthChoice == nullptr || dayChoice == nullptr) {
+        return;
+    }
+    const int previousSelection = std::max(0, dayChoice->GetSelection());
+    const int year = SelectedYear(yearChoice);
+    const int month = SelectedMonth(monthChoice);
+    wxArrayString labels;
+    const int dayCount = DaysInMonth(year, month);
+    labels.Alloc(dayCount);
+    for (int day = 1; day <= dayCount; ++day) {
+        labels.Add(std::to_string(day));
+    }
+    dayChoice->Clear();
+    dayChoice->Append(labels);
+    dayChoice->SetSelection(std::min(previousSelection, dayCount - 1));
+}
+
+void EventEditorDialog::PopulateTimeChoices() {
+    static const wxArrayString labels = BuildTimeLabels();
+    auto appendChoices = [](wxComboBox* choice) {
+        choice->Clear();
+        choice->Append(BuildTimeLabels());
+        choice->SetSelection(0);
+    };
+
+    if (startTimeCtrl_ != nullptr) {
+        appendChoices(startTimeCtrl_);
+    }
+    if (endTimeCtrl_ != nullptr) {
+        appendChoices(endTimeCtrl_);
+    }
+}
+
+void EventEditorDialog::UpdateTimeControlsEnabled() {
+    const bool enabled = !allDayCtrl_->GetValue();
+    if (startTimeCtrl_ != nullptr) {
+        startTimeCtrl_->Enable(enabled);
+    }
+    if (endTimeCtrl_ != nullptr) {
+        endTimeCtrl_->Enable(enabled);
+    }
+}
+
 void EventEditorDialog::OnAllDayChanged(wxCommandEvent&) {
-    ApplyDisplayAllDayToggleToInputs(startCtrl_, endCtrl_, allDayCtrl_->GetValue());
+    UpdateTimeControlsEnabled();
 }
 
 void EventEditorDialog::OnSave(wxCommandEvent&) {

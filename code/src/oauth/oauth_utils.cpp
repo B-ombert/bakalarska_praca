@@ -113,9 +113,11 @@ void OAuthRedirectServer::Start(SuccessHandler onSuccess, ErrorHandler onError) 
     onError_ = std::move(onError);
     finished_ = false;
     buffer_.consume(buffer_.size());
+    ioContext_.restart();
+    port_ = 0;
 
     boost::system::error_code ec;
-    const tcp::endpoint endpoint(tcp::v4(), 8080);
+    const tcp::endpoint endpoint(net::ip::make_address("127.0.0.1"), 0);
 
     acceptor_.open(endpoint.protocol(), ec);
     if (ec) {
@@ -131,7 +133,13 @@ void OAuthRedirectServer::Start(SuccessHandler onSuccess, ErrorHandler onError) 
 
     acceptor_.bind(endpoint, ec);
     if (ec) {
-        FinishWithError("Failed to bind redirect server to localhost:8080: " + ec.message());
+        FinishWithError("Failed to bind redirect server to a local dynamic port: " + ec.message());
+        return;
+    }
+
+    port_ = acceptor_.local_endpoint(ec).port();
+    if (ec || port_ == 0) {
+        FinishWithError("Failed to read the dynamic OAuth redirect port: " + ec.message());
         return;
     }
 
@@ -141,12 +149,16 @@ void OAuthRedirectServer::Start(SuccessHandler onSuccess, ErrorHandler onError) 
         return;
     }
 
-    std::cout << "Waiting for redirect on http://localhost:8080\n";
+    std::cout << "Waiting for redirect on " << GetRedirectUri() << "\n";
     DoAccept();
 
     worker_ = std::thread([this]() {
         ioContext_.run();
     });
+}
+
+std::string OAuthRedirectServer::GetRedirectUri() const {
+    return "http://localhost:" + std::to_string(port_);
 }
 
 void OAuthRedirectServer::Stop() {
@@ -266,8 +278,28 @@ void OAuthRedirectServer::FinishWithError(const std::string& error) {
 void OAuthRedirectServer::SendBrowserResponse() {
     static const char* kResponse =
         "HTTP/1.1 200 OK\r\n"
-        "Content-Type: text/html\r\n\r\n"
-        "<html><body><h2>Login successful.</h2></body></html>";
+        "Content-Type: text/html; charset=utf-8\r\n"
+        "Connection: close\r\n\r\n"
+        "<!doctype html>"
+        "<html lang=\"en\">"
+        "<head>"
+        "<meta charset=\"utf-8\">"
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+        "<title>Sign-in complete</title>"
+        "<style>"
+        "body{margin:0;min-height:100vh;display:grid;place-items:center;"
+        "font-family:Segoe UI,Roboto,Arial,sans-serif;background:#eef5f1;color:#1f2a24;}"
+        ".card{max-width:420px;margin:24px;padding:34px 38px;border-radius:22px;"
+        "background:white;box-shadow:0 22px 60px rgba(28,64,45,.16);text-align:center;}"
+        ".mark{width:58px;height:58px;margin:0 auto 18px;border-radius:50%;"
+        "display:grid;place-items:center;background:#dff5e8;color:#137a3d;font-size:34px;font-weight:700;}"
+        "h1{font-size:24px;margin:0 0 10px;}p{margin:0;color:#58655e;line-height:1.5;}"
+        "</style>"
+        "</head>"
+        "<body><main class=\"card\"><div class=\"mark\">✓</div>"
+        "<h1>Sign-in complete</h1>"
+        "<p>You can close this browser tab and return to the calendar app.</p>"
+        "</main></body></html>";
 
     boost::system::error_code ignoredEc;
     boost::asio::write(socket_, boost::asio::buffer(kResponse, std::strlen(kResponse)), ignoredEc);
@@ -287,7 +319,7 @@ void OAuthRedirectServer::CloseSockets() {
     }
 }
 
-std::string CatchRedirectedAuthCode() {
+OAuthAuthorizationResult RunOAuthAuthorization(const std::function<std::string(const std::string&)>& buildAuthorizationUrl) {
     try {
         ClearLastOAuthErrorMessage();
         g_oauthCancelRequested = false;
@@ -305,30 +337,43 @@ std::string CatchRedirectedAuthCode() {
                 resultPromise.set_value("");
             });
 
+        const std::string redirectUri = server.GetRedirectUri();
+        if (redirectUri == "http://localhost:0") {
+            SetLastOAuthErrorMessage("OAuth redirect server did not start correctly.");
+            server.Stop();
+            return {};
+        }
+
+        const std::string authUrl = buildAuthorizationUrl(redirectUri);
+        if (authUrl.empty() || !OpenUrlInBrowser(authUrl)) {
+            server.Stop();
+            return {};
+        }
+
         const auto timeout = std::chrono::steady_clock::now() + std::chrono::minutes(3);
         while (resultFuture.wait_for(std::chrono::milliseconds(250)) != std::future_status::ready) {
             if (g_oauthCancelRequested.load()) {
                 SetLastOAuthErrorMessage("Sign-in was canceled.");
                 server.Stop();
                 g_oauthCancelRequested = false;
-                return "";
+                return {};
             }
 
             if (std::chrono::steady_clock::now() >= timeout) {
                 SetLastOAuthErrorMessage("Sign-in was not completed in time.");
                 server.Stop();
-                return "";
+                return {};
             }
         }
 
         g_oauthCancelRequested = false;
-        return resultFuture.get();
+        return OAuthAuthorizationResult{resultFuture.get(), redirectUri};
     }
     catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << "\n";
         SetLastOAuthErrorMessage(e.what());
         g_oauthCancelRequested = false;
-        return "";
+        return {};
     }
 }
 
@@ -344,6 +389,10 @@ bool OpenUrlInBrowser(const std::string& url) {
     return opened;
 }
 
+std::string UrlEncodeOAuthValue(const std::string& value) {
+    return UrlEncodeFormValue(value);
+}
+
 std::string GetLastOAuthErrorMessage() {
     return g_lastOAuthErrorMessage;
 }
@@ -357,7 +406,7 @@ std::string WritePostDataForGoogle(const tokenRequestParameters& params) {
     postData << "code=" << UrlEncodeFormValue(params.code)
              << "&client_id=" << UrlEncodeFormValue(GOOGLE_CLIENT_ID)
              << "&client_secret=" << UrlEncodeFormValue(GOOGLE_CLIENT_SECRET)
-             << "&redirect_uri=" << UrlEncodeFormValue(REDIRECT_URI)
+             << "&redirect_uri=" << UrlEncodeFormValue(params.redirect_uri)
              << "&grant_type=authorization_code"
              << "&code_verifier=" << UrlEncodeFormValue(params.code_verifier);
 
@@ -369,7 +418,7 @@ std::string WritePostDataForMS(const tokenRequestParameters& params) {
     postData << "client_id=" << UrlEncodeFormValue(MS_CLIENT_ID)
              << "&grant_type=authorization_code"
              << "&code=" << UrlEncodeFormValue(params.code)
-             << "&redirect_uri=" << UrlEncodeFormValue(REDIRECT_URI)
+             << "&redirect_uri=" << UrlEncodeFormValue(params.redirect_uri)
              << "&code_verifier=" << UrlEncodeFormValue(params.code_verifier)
              << "&scope=" << UrlEncodeFormValue("offline_access Calendars.ReadWrite");
 

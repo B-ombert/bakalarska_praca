@@ -1,7 +1,9 @@
 #include "ui/timeline_view_panel.h"
 
 #include <algorithm>
+#include <cstdint>
 #include <ctime>
+#include <functional>
 
 #include <wx/button.h>
 #include <wx/dcbuffer.h>
@@ -9,8 +11,12 @@
 #include <wx/sizer.h>
 
 #include "utils/timezone_utils.h"
+#include "utils/calendar_colors.h"
 
 namespace {
+
+constexpr size_t kMaxTimelineButtonsPerDay = 300;
+constexpr size_t kMaxTimelineHeaderSpans = 200;
 
 std::string BuildHeaderSpanLabel(const Event& event, const bool continuesBefore, const bool continuesAfter) {
     std::string label = event.title.empty() ? "Event" : event.title;
@@ -25,6 +31,25 @@ std::string BuildHeaderSpanLabel(const Event& event, const bool continuesBefore,
 
 bool UsesWeekHeaderSpan(const CalendarViewMode mode, const Event& event) {
     return mode == CalendarViewMode::WEEK && (event.allDay || SpansMultipleDays(event));
+}
+
+void HashCombine(std::uint64_t& seed, const std::uint64_t value) {
+    seed ^= value + 0x9e3779b97f4a7c15ULL + (seed << 6) + (seed >> 2);
+}
+
+std::uint64_t ComputeTimelineEventsFingerprint(const std::vector<Event>& events) {
+    std::uint64_t seed = events.size();
+    for (const auto& event : events) {
+        HashCombine(seed, static_cast<std::uint64_t>(event.id));
+        HashCombine(seed, static_cast<std::uint64_t>(event.calendarId));
+        HashCombine(seed, static_cast<std::uint64_t>(event.GetDisplayStartEpoch()));
+        HashCombine(seed, static_cast<std::uint64_t>(event.GetDisplayEndEpoch()));
+        HashCombine(seed, static_cast<std::uint64_t>(event.deletedAt));
+        HashCombine(seed, static_cast<std::uint64_t>(event.allDay ? 1 : 0));
+        HashCombine(seed, static_cast<std::uint64_t>(std::hash<std::string>{}(event.title)));
+        HashCombine(seed, static_cast<std::uint64_t>(std::hash<std::string>{}(event.colorHex)));
+    }
+    return seed;
 }
 
 } // namespace
@@ -46,21 +71,35 @@ TimelineViewPanel::TimelineViewPanel(wxWindow* parent)
 }
 
 void TimelineViewPanel::SetMode(const CalendarViewMode mode) {
+    if (mode_ == mode) {
+        return;
+    }
     mode_ = mode;
     RefreshView();
 }
 
 void TimelineViewPanel::SetRangeStart(const long long rangeStartEpoch) {
+    if (rangeStartEpoch_ == rangeStartEpoch) {
+        return;
+    }
     rangeStartEpoch_ = rangeStartEpoch;
     RefreshView();
 }
 
 void TimelineViewPanel::SetSelectedDay(const long long selectedDayEpoch) {
+    if (selectedDayEpoch_ == selectedDayEpoch) {
+        return;
+    }
     selectedDayEpoch_ = selectedDayEpoch;
     RefreshView();
 }
 
 void TimelineViewPanel::SetEvents(const std::vector<Event>& events) {
+    const std::uint64_t fingerprint = ComputeTimelineEventsFingerprint(events);
+    if (eventsFingerprint_ == fingerprint) {
+        return;
+    }
+    eventsFingerprint_ = fingerprint;
     events_ = events;
     RefreshView();
 }
@@ -130,9 +169,8 @@ void TimelineViewPanel::RefreshView() {
     SetVirtualSize(canvasWidth, canvasHeight);
 
     RebuildEventButtons();
-    canvas_->Refresh();
-    canvas_->Update();
     Layout();
+    canvas_->Refresh();
 }
 
 std::vector<Event> TimelineViewPanel::EventsForDay(const long long dayEpoch) const {
@@ -177,6 +215,10 @@ std::vector<TimelineViewPanel::HeaderSpanSegment> TimelineViewPanel::BuildHeader
 
     std::vector<std::vector<HeaderSpanSegment>> rows;
     for (const auto& event : spanEvents) {
+        if (spans.size() >= kMaxTimelineHeaderSpans) {
+            break;
+        }
+
         const long long eventStart = event.GetDisplayStartEpoch();
         const long long eventEnd = event.GetDisplayEndEpoch();
         const bool continuesBefore = eventStart < rangeStartEpoch_;
@@ -192,6 +234,7 @@ std::vector<TimelineViewPanel::HeaderSpanSegment> TimelineViewPanel::BuildHeader
         span.continuesBefore = continuesBefore;
         span.continuesAfter = continuesAfter;
         span.label = BuildHeaderSpanLabel(event, continuesBefore, continuesAfter);
+        span.colorHex = event.colorHex;
 
         int assignedRow = 0;
         for (; assignedRow < static_cast<int>(rows.size()); ++assignedRow) {
@@ -238,8 +281,8 @@ void TimelineViewPanel::RebuildEventButtons() {
             auto* button = new wxButton(canvas_, wxID_ANY, wxString::FromUTF8(span.label),
                                         wxPoint(x, y),
                                         wxSize(width, kTimelineAllDayRowHeight - 4), wxBU_LEFT);
-            button->SetBackgroundColour(wxColour(214, 234, 248));
-            button->SetForegroundColour(wxColour(24, 52, 77));
+            button->SetBackgroundColour(wxColour(wxString::FromUTF8(NormalizeCalendarColor(span.colorHex))));
+            button->SetForegroundColour(*wxWHITE);
             button->Bind(wxEVT_BUTTON, [handler = eventClickHandler_, id = span.eventId](wxCommandEvent&) {
                 if (handler) {
                     handler(id);
@@ -249,36 +292,64 @@ void TimelineViewPanel::RebuildEventButtons() {
         }
     }
 
+    std::vector<std::vector<const Event*>> dayEventBuckets(static_cast<size_t>(DayCount()));
+    const long long rangeEndEpoch = rangeStartEpoch_ + static_cast<long long>(DayCount()) * kSecondsPerDay;
+    for (const auto& event : events_) {
+        if (event.deletedAt != 0 ||
+            event.GetDisplayStartEpoch() >= rangeEndEpoch ||
+            event.GetDisplayEndEpoch() <= rangeStartEpoch_) {
+            continue;
+        }
+
+        const long long clippedStartDay = std::max(StartOfUtcDay(event.GetDisplayStartEpoch()), rangeStartEpoch_);
+        const long long clippedEndDay = std::min(
+            StartOfUtcDay(std::max(event.GetDisplayStartEpoch(), event.GetDisplayEndEpoch() - 1)),
+            rangeStartEpoch_ + static_cast<long long>(DayCount() - 1) * kSecondsPerDay);
+        const int startDayIndex = static_cast<int>((clippedStartDay - rangeStartEpoch_) / kSecondsPerDay);
+        const int endDayIndex = static_cast<int>((clippedEndDay - rangeStartEpoch_) / kSecondsPerDay);
+
+        for (int dayIndex = std::max(0, startDayIndex);
+             dayIndex <= std::min(DayCount() - 1, endDayIndex);
+             ++dayIndex) {
+            dayEventBuckets[static_cast<size_t>(dayIndex)].push_back(&event);
+        }
+    }
+
     for (int dayIndex = 0; dayIndex < DayCount(); ++dayIndex) {
         const long long dayEpoch = rangeStartEpoch_ + static_cast<long long>(dayIndex) * kSecondsPerDay;
-        auto dayEvents = EventsForDay(dayEpoch);
+        auto dayEvents = dayEventBuckets[static_cast<size_t>(dayIndex)];
+        if (dayEvents.size() > kMaxTimelineButtonsPerDay) {
+            dayEvents.resize(kMaxTimelineButtonsPerDay);
+        }
 
         std::vector<TimelineSegment> timedSegments;
         std::vector<TimelineSegment> allDaySegments;
 
-        for (const auto& event : dayEvents) {
-            if (event.allDay && mode_ != CalendarViewMode::WEEK) {
+        for (const auto* event : dayEvents) {
+            if (event->allDay && mode_ != CalendarViewMode::WEEK) {
                 TimelineSegment segment;
-                segment.eventId = event.id;
+                segment.eventId = event->id;
                 segment.dayEpoch = dayEpoch;
                 segment.allDay = true;
-                segment.label = BuildTimelineEventLabel(event, dayEpoch);
+                segment.label = BuildTimelineEventLabel(*event, dayEpoch);
+                segment.colorHex = event->colorHex;
                 allDaySegments.push_back(segment);
                 continue;
             }
-            if (UsesWeekHeaderSpan(mode_, event)) {
+            if (UsesWeekHeaderSpan(mode_, *event)) {
                 continue;
             }
 
             TimelineSegment segment;
-            segment.eventId = event.id;
+            segment.eventId = event->id;
             segment.dayEpoch = dayEpoch;
-            const long long eventStart = event.GetDisplayStartEpoch();
-            const long long eventEnd = event.GetDisplayEndEpoch();
+            const long long eventStart = event->GetDisplayStartEpoch();
+            const long long eventEnd = event->GetDisplayEndEpoch();
             segment.startMinute = std::max(0, static_cast<int>((std::max(eventStart, dayEpoch) - dayEpoch) / 60));
             segment.endMinute = std::min(kMinutesPerDay, static_cast<int>((std::min(eventEnd, dayEpoch + kSecondsPerDay) - dayEpoch + 59) / 60));
             segment.endMinute = std::max(segment.startMinute + 15, segment.endMinute);
-            segment.label = BuildTimelineEventLabel(event, dayEpoch);
+            segment.label = BuildTimelineEventLabel(*event, dayEpoch);
+            segment.colorHex = event->colorHex;
             timedSegments.push_back(segment);
         }
 
@@ -341,8 +412,8 @@ void TimelineViewPanel::RebuildEventButtons() {
                                                 kTimelineHeaderHeight + kTimelineAllDayLanePadding +
                                                 static_cast<int>(index) * kTimelineAllDayRowHeight),
                                         wxSize(usableWidth, kTimelineAllDayRowHeight - 4), wxBU_LEFT);
-            button->SetBackgroundColour(wxColour(214, 234, 248));
-            button->SetForegroundColour(wxColour(24, 52, 77));
+            button->SetBackgroundColour(wxColour(wxString::FromUTF8(NormalizeCalendarColor(allDaySegments[index].colorHex))));
+            button->SetForegroundColour(*wxWHITE);
             button->Bind(wxEVT_BUTTON, [handler = eventClickHandler_, id = allDaySegments[index].eventId](wxCommandEvent&) {
                 if (handler) {
                     handler(id);
@@ -360,8 +431,8 @@ void TimelineViewPanel::RebuildEventButtons() {
 
             auto* button = new wxButton(canvas_, wxID_ANY, wxString::FromUTF8(segment.label),
                                         wxPoint(x, y), wxSize(width, height), wxBU_LEFT);
-            button->SetBackgroundColour(wxColour(187, 222, 251));
-            button->SetForegroundColour(wxColour(16, 49, 80));
+            button->SetBackgroundColour(wxColour(wxString::FromUTF8(NormalizeCalendarColor(segment.colorHex))));
+            button->SetForegroundColour(*wxWHITE);
             button->Bind(wxEVT_BUTTON, [handler = eventClickHandler_, id = segment.eventId](wxCommandEvent&) {
                 if (handler) {
                     handler(id);
@@ -389,7 +460,6 @@ void TimelineViewPanel::OnCanvasLeftUp(wxMouseEvent& event) {
         return;
     }
 
-    canvas_->Layout();
     canvas_->Refresh();
     const int dayColumnWidth = CurrentColumnWidth();
     const int dayIndex = std::clamp((point.x - kTimelineTimeLabelWidth) / dayColumnWidth, 0, DayCount() - 1);

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <functional>
 #include <string>
 #include <vector>
@@ -30,6 +31,7 @@ private:
         int columnCount = 1;
         bool allDay = false;
         std::string label;
+        std::string colorHex;
     };
 
     struct HeaderSpanSegment {
@@ -38,6 +40,7 @@ private:
         int startDayIndex = 0;
         int endDayIndex = 0;
         std::string label;
+        std::string colorHex;
         bool continuesBefore = false;
         bool continuesAfter = false;
     };
@@ -58,6 +61,7 @@ private:
     CalendarViewMode mode_ = CalendarViewMode::DAY;
     long long rangeStartEpoch_ = 0;
     long long selectedDayEpoch_ = 0;
+    std::uint64_t eventsFingerprint_ = 0;
     std::vector<Event> events_;
     std::function<void(long long)> eventClickHandler_;
     std::function<void(long long, int)> emptySlotClickHandler_;

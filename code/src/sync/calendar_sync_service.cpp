@@ -3,15 +3,21 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <ctime>
+#include <cstddef>
+#include <utility>
 
 #include "calendar_sync_internal.h"
 
 namespace {
 
+constexpr std::size_t kMaxPendingEventsPerCalendarPass = 500;
+constexpr std::size_t kRemotePersistChunkSize = 250;
+
 bool IsSamePendingUploadSnapshot(const Event& current, const Event& pending) {
     return current.syncStatus == pending.syncStatus &&
            current.providerEventId == pending.providerEventId &&
            current.providerMasterId == pending.providerMasterId &&
+           current.recurrenceGroupId == pending.recurrenceGroupId &&
            current.instanceStart == pending.instanceStart &&
            current.type == pending.type &&
            current.title == pending.title &&
@@ -31,53 +37,17 @@ bool CanCompletePendingUpload(EventRepository& eventRepo, const Event& pending) 
     return current.has_value() && IsSamePendingUploadSnapshot(*current, pending);
 }
 
-struct SnapshotRange {
-    long long startEpoch = 0;
-    long long endEpoch = 0;
-};
-
-SnapshotRange OutlookSnapshotRange() {
-    const long long now = std::time(nullptr);
-    return SnapshotRange{
-        now - (365LL * 24 * 60 * 60),
-        now + (730LL * 24 * 60 * 60)
-    };
-}
-
-void ReconcileMicrosoftFullSnapshot(EventRepository& eventRepo,
-                                    const Calendar& calendar,
-                                    const std::vector<Event>& snapshotEvents) {
-    std::unordered_set<std::string> seenProviderIds;
-    for (const auto& event : snapshotEvents) {
-        if (!event.providerEventId.empty()) {
-            seenProviderIds.insert(event.providerEventId);
-        }
-        if (!event.providerMasterId.empty()) {
-            seenProviderIds.insert(event.providerMasterId);
-        }
+void FlushRemoteEventBuffer(EventRepository& eventRepo, std::vector<Event>& buffer) {
+    if (buffer.empty()) {
+        return;
     }
 
-    const SnapshotRange range = OutlookSnapshotRange();
-    std::unordered_map<long long, Event> localEvents;
-    for (auto& event : eventRepo.getEventsInRange(calendar.id, range.startEpoch, range.endEpoch)) {
-        localEvents[event.id] = std::move(event);
-    }
-    for (auto& event : eventRepo.getRecurringMasters(calendar.id)) {
-        localEvents[event.id] = std::move(event);
-    }
-
-    for (const auto& [_, event] : localEvents) {
-        if (event.syncStatus != SYNCED || event.providerEventId.empty()) {
-            continue;
+    eventRepo.runBulkSavepoint("remote_event_chunk", [&]() {
+        for (auto& event : buffer) {
+            sync_internal::PersistRemoteEvent(eventRepo, std::move(event));
         }
-
-        const bool eventSeen = seenProviderIds.count(event.providerEventId) > 0;
-        const bool masterSeen = !event.providerMasterId.empty() &&
-            seenProviderIds.count(event.providerMasterId) > 0;
-        if (!eventSeen && !masterSeen) {
-            eventRepo.deleteByProviderIdentity(calendar.id, event.providerEventId);
-        }
-    }
+    });
+    buffer.clear();
 }
 
 } // namespace
@@ -87,22 +57,45 @@ CalendarSyncService::CalendarSyncService(CalendarRepository& calendarRepo, Event
 
 void CalendarSyncService::syncCalendarsIncremental(const long long accountId,
                                                    const std::vector<Calendar>& remoteCalendars,
-                                                   const std::string& accessToken) {
-    syncCalendarsIncremental(accountId, remoteCalendars, [&accessToken]() { return accessToken; });
+                                                   const std::string& accessToken,
+                                                   const bool allowInitialEventBootstrap) {
+    syncCalendarsIncremental(
+        accountId,
+        remoteCalendars,
+        [&accessToken]() { return accessToken; },
+        allowInitialEventBootstrap);
 }
 
 void CalendarSyncService::syncCalendarsIncremental(const long long accountId,
                                                    const std::vector<Calendar>& remoteCalendars,
-                                                   const AccessTokenProvider& accessTokenProvider) {
+                                                   const AccessTokenProvider& accessTokenProvider,
+                                                   const bool allowInitialEventBootstrap) {
     std::vector<Calendar> localCalendars = calendarRepo.getByAccount(accountId);
     std::unordered_map<std::string, Calendar*> localMap;
     std::unordered_map<std::string, bool> remoteIds;
+    std::unordered_set<std::string> pendingDeletedCalendarIds;
+
+    for (const auto& calendar : calendarRepo.getPendingRemoteCalendars(accountId)) {
+        if (calendar.syncStatus == PENDING_DELETE && !calendar.providerCalendarId.empty()) {
+            pendingDeletedCalendarIds.insert(calendar.providerCalendarId);
+        }
+    }
 
     for (auto& calendar : localCalendars) {
-        localMap[calendar.providerCalendarId] = &calendar;
+        if (!calendar.providerCalendarId.empty()) {
+            localMap[calendar.providerCalendarId] = &calendar;
+        }
     }
 
     for (const auto& remote : remoteCalendars) {
+        if (remote.deletedAt != 0 || !remote.syncEnabled) {
+            continue;
+        }
+
+        if (pendingDeletedCalendarIds.count(remote.providerCalendarId) > 0) {
+            continue;
+        }
+
         Calendar merged = remote;
         merged.accountId = accountId;
         remoteIds[remote.providerCalendarId] = true;
@@ -111,36 +104,40 @@ void CalendarSyncService::syncCalendarsIncremental(const long long accountId,
         if (existingIt != localMap.end()) {
             const Calendar& local = *existingIt->second;
             merged.id = local.id;
-            merged.syncToken = local.syncToken;
-            merged.lastSyncedAt = local.lastSyncedAt;
-            merged.createdAt = local.createdAt;
+            merged.colorHex = local.colorHex;
+            if (local.syncStatus == PENDING_UPDATE) {
+                merged.name = local.name;
+                merged.description = local.description;
+                merged.timezone = local.timezone;
+                merged.syncStatus = local.syncStatus;
+            }
         }
 
         calendarRepo.upsert(merged);
 
-        if (merged.id == 0) {
+        if (merged.id == 0 || merged.colorHex.empty()) {
             const auto persisted = calendarRepo.getByProviderId(merged.accountId, merged.providerCalendarId);
             if (persisted.has_value()) {
                 merged = *persisted;
             }
         }
 
-        const std::string accessToken = accessTokenProvider ? accessTokenProvider() : "";
-        if (accessToken.empty()) {
+        if (!allowInitialEventBootstrap) {
             continue;
         }
 
-        const bool fullSnapshot = providerName() == "MICROSOFT" && merged.syncToken.empty();
-        const std::vector<Event> changes = fetchRemoteChanges(merged, accessToken, calendarRepo);
-        for (const auto& event : changes) {
-            sync_internal::PersistRemoteEvent(eventRepo, event);
-        }
-        if (fullSnapshot) {
-            const auto persistedCalendar = calendarRepo.getById(merged.id);
-            if (persistedCalendar.has_value() && !persistedCalendar->syncToken.empty()) {
-                ReconcileMicrosoftFullSnapshot(eventRepo, merged, changes);
-            }
-        }
+        std::vector<Event> remoteEventBuffer;
+        fetchRemoteChangesStreaming(
+            merged,
+            accessTokenProvider,
+            calendarRepo,
+            [&](Event event) {
+                remoteEventBuffer.push_back(std::move(event));
+                if (remoteEventBuffer.size() >= kRemotePersistChunkSize) {
+                    FlushRemoteEventBuffer(eventRepo, remoteEventBuffer);
+                }
+            });
+        FlushRemoteEventBuffer(eventRepo, remoteEventBuffer);
     }
 
     for (const auto& local : localCalendars) {
@@ -150,6 +147,40 @@ void CalendarSyncService::syncCalendarsIncremental(const long long accountId,
 
         calendarRepo.deleteById(local.id);
     }
+}
+
+SyncPendingEventsResult CalendarSyncService::syncPendingCalendarsForAccount(
+    const AccessTokenProvider& accessTokenProvider,
+    const long long accountId) {
+    SyncPendingEventsResult result;
+    RepositoryHolder repository{calendarRepo, eventRepo};
+
+    const std::vector<Calendar> pendingCalendars = calendarRepo.getPendingRemoteCalendars(accountId);
+    for (auto calendar : pendingCalendars) {
+        if (calendar.isReadOnly) {
+            continue;
+        }
+
+        ++result.pendingEventCount;
+        const std::string accessToken = accessTokenProvider ? accessTokenProvider() : "";
+        if (accessToken.empty()) {
+            continue;
+        }
+
+        bool accepted = false;
+        if (calendar.syncStatus == PENDING_INSERT || calendar.syncStatus == PENDING_UPDATE) {
+            accepted = uploadCalendar(calendar, accessToken, repository);
+        }
+        else if (calendar.syncStatus == PENDING_DELETE) {
+            accepted = deleteRemoteCalendar(calendar, accessToken, repository);
+        }
+
+        if (accepted) {
+            ++result.acceptedEventCount;
+        }
+    }
+
+    return result;
 }
 
 SyncPendingEventsResult CalendarSyncService::syncPendingEventsForAccount(const std::string& accessToken, const long long accountId) {
@@ -164,12 +195,7 @@ SyncPendingEventsResult CalendarSyncService::syncPendingEventsForAccount(const A
             continue;
         }
 
-        const std::string accessToken = accessTokenProvider ? accessTokenProvider() : "";
-        if (accessToken.empty()) {
-            continue;
-        }
-
-        const SyncPendingEventsResult calendarResult = syncPendingEvents(accessToken, calendar);
+        const SyncPendingEventsResult calendarResult = syncPendingEvents(accessTokenProvider, calendar);
         result.pendingEventCount += calendarResult.pendingEventCount;
         result.acceptedEventCount += calendarResult.acceptedEventCount;
     }
@@ -177,7 +203,21 @@ SyncPendingEventsResult CalendarSyncService::syncPendingEventsForAccount(const A
 }
 
 SyncPendingEventsResult CalendarSyncService::syncPendingEvents(const std::string& accessToken, const Calendar& calendar) {
-    const std::vector<Event> pendingEvents = eventRepo.getPendingRemoteEvents(calendar.id);
+    return syncPendingEvents([&accessToken]() { return accessToken; }, calendar);
+}
+
+SyncPendingEventsResult CalendarSyncService::syncPendingEvents(const AccessTokenProvider& accessTokenProvider, const Calendar& calendar) {
+    if (calendar.isReadOnly || !calendar.syncEnabled || calendar.providerCalendarId.empty()) {
+        return {};
+    }
+
+    if (!eventRepo.hasPendingRemoteEvents(calendar.id) &&
+        !eventRepo.hasPendingRecurrenceOverrides(calendar.id)) {
+        return {};
+    }
+
+    const std::vector<Event> pendingEvents =
+        eventRepo.getPendingRemoteEvents(calendar.id, kMaxPendingEventsPerCalendarPass);
     SyncPendingEventsResult result;
     std::vector<Event> batchEvents;
 
@@ -198,6 +238,10 @@ SyncPendingEventsResult CalendarSyncService::syncPendingEvents(const std::string
                 continue;
             }
             ++result.pendingEventCount;
+            const std::string accessToken = accessTokenProvider ? accessTokenProvider() : "";
+            if (accessToken.empty()) {
+                continue;
+            }
             req = sync_internal::BuildAuthorizedRequest(
                 buildEventItemUrl(calendar, pending.providerEventId), accessToken, DELETE_);
         }
@@ -226,7 +270,6 @@ SyncPendingEventsResult CalendarSyncService::syncPendingEvents(const std::string
         synced.calendarId = calendar.id;
         synced.createdAt = pending.createdAt == 0 ? std::time(nullptr) : pending.createdAt;
         synced.updatedAt = std::time(nullptr);
-        synced.lastModified = synced.updatedAt;
         synced.deletedAt = 0;
         synced.syncStatus = SYNCED;
 
@@ -239,14 +282,7 @@ SyncPendingEventsResult CalendarSyncService::syncPendingEvents(const std::string
         }
     }
 
-    auto resetMicrosoftSyncTokenAfterUpload = [&]() {
-        if (result.acceptedEventCount > 0 && providerName() == "MICROSOFT") {
-            Calendar updatedCalendar = calendar;
-            updatedCalendar.syncToken.clear();
-            updatedCalendar.lastSyncedAt = 0;
-            calendarRepo.upsert(updatedCalendar);
-        }
-    };
+    auto resetMicrosoftSyncTokenAfterUpload = [&]() {};
 
     if (batchEvents.empty()) {
         resetMicrosoftSyncTokenAfterUpload();
@@ -259,7 +295,7 @@ SyncPendingEventsResult CalendarSyncService::syncPendingEvents(const std::string
     }
 
     std::vector<EventBatchUploadResult> results;
-    const std::vector<EventBatchRequest> batchRequests = buildEventBatchRequests(accessToken, calendar, batchEvents);
+    const std::vector<EventBatchRequest> batchRequests = buildEventBatchRequests(accessTokenProvider, calendar, batchEvents);
     for (const auto& batchRequest : batchRequests) {
         const HttpResponse response = PerformHttpRequestWithResponse(batchRequest.request);
         auto parsedResults = parseEventBatchResponse(response, batchRequest.localEventIds);
@@ -278,6 +314,12 @@ SyncPendingEventsResult CalendarSyncService::syncPendingEvents(const std::string
 
         const Event& pending = pendingIt->second;
         if (!CanCompletePendingUpload(eventRepo, pending)) {
+            continue;
+        }
+
+        if (pending.syncStatus == PENDING_DELETE) {
+            eventRepo.deleteEvent(pending.id);
+            ++result.acceptedEventCount;
             continue;
         }
 
@@ -302,19 +344,29 @@ SyncPendingEventsResult CalendarSyncService::syncPendingEvents(const std::string
         }
 
         synced.updatedAt = std::time(nullptr);
-        synced.lastModified = synced.updatedAt;
         synced.syncStatus = SYNCED;
         if (!eventRepo.updateById(synced)) {
             eventRepo.upsert(synced);
         }
         ++result.acceptedEventCount;
     }
+
+    resetMicrosoftSyncTokenAfterUpload();
+
+    for (const auto& overrideEntry : eventRepo.getPendingRecurrenceOverrides(calendar.id)) {
+        ++result.pendingEventCount;
+        if (uploadRecurrenceOverride(accessTokenProvider, calendar, overrideEntry)) {
+            eventRepo.markRecurrenceOverrideSynced(overrideEntry.id);
+            ++result.acceptedEventCount;
+        }
+    }
+
     resetMicrosoftSyncTokenAfterUpload();
     return result;
 }
 
 std::vector<EventBatchRequest> CalendarSyncService::buildEventBatchRequests(
-    const std::string& accessToken,
+    const AccessTokenProvider& accessTokenProvider,
     const Calendar& calendar,
     const std::vector<Event>& events) {
     std::vector<EventBatchRequest> requests;
@@ -322,6 +374,10 @@ std::vector<EventBatchRequest> CalendarSyncService::buildEventBatchRequests(
     for (const auto& pending : events) {
         std::optional<json> payload = exportEventPayload(pending);
         HttpRequest req;
+        const std::string accessToken = accessTokenProvider ? accessTokenProvider() : "";
+        if (accessToken.empty()) {
+            continue;
+        }
         if (pending.syncStatus == PENDING_INSERT) {
             req = sync_internal::BuildAuthorizedRequest(buildEventsCollectionUrl(calendar), accessToken, POST, payload);
         }
@@ -358,11 +414,42 @@ std::vector<EventBatchUploadResult> CalendarSyncService::parseEventBatchResponse
     return results;
 }
 
-void CalendarSyncService::fetchAndStoreRemoteEvents(const Calendar& calendar,
-                                                    const std::string& accessToken,
-                                                    RepositoryHolder& repository) {
-    const std::vector<Event> changes = fetchRemoteChanges(calendar, accessToken, repository.calendarRepository);
-    for (const auto& event : changes) {
-        sync_internal::PersistRemoteEvent(repository.eventRepository, event);
-    }
+bool CalendarSyncService::uploadRecurrenceOverride(
+    const AccessTokenProvider&,
+    const Calendar&,
+    const RecurrenceOverride&) {
+    return false;
+}
+
+bool CalendarSyncService::fetchRemoteRangeStreaming(
+    const Calendar&,
+    const long long,
+    const long long,
+    const AccessTokenProvider&,
+    CalendarRepository&,
+    const std::function<void(Event)>&) {
+    return false;
+}
+
+bool CalendarSyncService::fetchAndStoreRemoteEventsInRange(
+    const Calendar& calendar,
+    const long long startEpoch,
+    const long long endEpoch,
+    const AccessTokenProvider& accessTokenProvider,
+    RepositoryHolder& repository) {
+    std::vector<Event> remoteEventBuffer;
+    const bool success = fetchRemoteRangeStreaming(
+        calendar,
+        startEpoch,
+        endEpoch,
+        accessTokenProvider,
+        repository.calendarRepository,
+        [&](Event event) {
+            remoteEventBuffer.push_back(std::move(event));
+            if (remoteEventBuffer.size() >= kRemotePersistChunkSize) {
+                FlushRemoteEventBuffer(repository.eventRepository, remoteEventBuffer);
+            }
+        });
+    FlushRemoteEventBuffer(repository.eventRepository, remoteEventBuffer);
+    return success;
 }

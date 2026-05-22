@@ -3,6 +3,7 @@
 #include "oauth/oauth_ms.h"
 #include "utils/types.h"
 #include <chrono>
+#include <mutex>
 
 class AccessToken {
 public:
@@ -12,8 +13,8 @@ public:
                 const std::string& refresh_token,
                 bool allowInteractiveFallback,
                 bool refreshImmediately);
-    AccessToken(AccessToken&&) noexcept = default;
-    AccessToken& operator=(AccessToken&&) noexcept = default;
+    AccessToken(AccessToken&& other) noexcept;
+    AccessToken& operator=(AccessToken&& other) noexcept;
     AccessToken(const AccessToken&) = delete;
     AccessToken& operator=(const AccessToken&) = delete;
     const std::string GetToken();
@@ -31,6 +32,7 @@ private:
     int Platform;
     bool AllowInteractiveFallback = true;
     bool InitialAcquisitionAttempted = false;
+    mutable std::mutex TokenMutex;
 
     bool IsAccessTokenValid() const;
     bool RefreshAccessToken();

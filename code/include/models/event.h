@@ -14,6 +14,7 @@ struct Event {
 
     std::string providerEventId;
     std::string providerMasterId;
+    std::string recurrenceGroupId;
 
     long long instanceStart = 0;
 
@@ -23,6 +24,7 @@ struct Event {
     std::string description;
     std::string location;
     std::string timezone;
+    std::string colorHex;
 
     long long startDateTime = 0;
     long long endDateTime = 0;
@@ -34,7 +36,6 @@ struct Event {
     long long deletedAt = 0;
     int syncStatus = PENDING_INSERT;
 
-    long long lastModified = 0;
     long long createdAt = 0;
     long long updatedAt = 0;
 
@@ -50,5 +51,5 @@ struct Event {
     json ExportToJson(Platform platform) const;
     json exportToGoogleJson();
     json exportToOutlookJson();
-    json ExportToIcal() const;
+    std::string ExportToIcal() const;
 };

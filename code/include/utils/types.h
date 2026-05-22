@@ -10,9 +10,12 @@ enum SyncStatus {SYNCED, PENDING_INSERT, PENDING_UPDATE, PENDING_DELETE};
 
 enum class EventType {SINGLE, MASTER, OCCURRENCE, EXCEPTION, CANCELLED_INSTANCE};
 
+enum class RecurrenceOverrideType {CANCELLED = 0, MODIFIED = 1};
+
 struct tokenRequestParameters{
     std::string code;
     std::string code_verifier;
+    std::string redirect_uri;
 };
 
 struct HttpRequest {

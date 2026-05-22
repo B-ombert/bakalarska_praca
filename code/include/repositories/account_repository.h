@@ -18,6 +18,5 @@ public:
     std::vector<Account> GetAllAccounts();
     std::optional<Account> GetById(long long id);
     bool DeleteById(long long id);
-    std::vector<Account> GetAllAccountsFromPlatform(const std::string& platform);
     std::string GetRefreshToken(const Account& a);
 };

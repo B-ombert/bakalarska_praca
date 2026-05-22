@@ -16,6 +16,33 @@ AccessToken::AccessToken(int platform) : Platform(platform) {
     InitialAcquisitionAttempted = true;
 }
 
+AccessToken::AccessToken(AccessToken&& other) noexcept {
+    std::lock_guard<std::mutex> lock(other.TokenMutex);
+    AccessTokenValue = std::move(other.AccessTokenValue);
+    RefreshTokenValue = std::move(other.RefreshTokenValue);
+    LastErrorMessage = std::move(other.LastErrorMessage);
+    ExpiresAt = other.ExpiresAt;
+    Platform = other.Platform;
+    AllowInteractiveFallback = other.AllowInteractiveFallback;
+    InitialAcquisitionAttempted = other.InitialAcquisitionAttempted;
+}
+
+AccessToken& AccessToken::operator=(AccessToken&& other) noexcept {
+    if (this == &other) {
+        return *this;
+    }
+
+    std::scoped_lock lock(TokenMutex, other.TokenMutex);
+    AccessTokenValue = std::move(other.AccessTokenValue);
+    RefreshTokenValue = std::move(other.RefreshTokenValue);
+    LastErrorMessage = std::move(other.LastErrorMessage);
+    ExpiresAt = other.ExpiresAt;
+    Platform = other.Platform;
+    AllowInteractiveFallback = other.AllowInteractiveFallback;
+    InitialAcquisitionAttempted = other.InitialAcquisitionAttempted;
+    return *this;
+}
+
 AccessToken::AccessToken(int platform, const std::string &refresh_token, const bool allowInteractiveFallback)
     : AccessToken(platform, refresh_token, allowInteractiveFallback, true) {}
 
@@ -51,6 +78,7 @@ Platform(platform), RefreshTokenValue(refresh_token), AllowInteractiveFallback(a
 }
 
 const std::string AccessToken::GetToken() {
+    std::lock_guard<std::mutex> lock(TokenMutex);
     if (IsAccessTokenValid()) {
         return AccessTokenValue;
     }
@@ -67,6 +95,7 @@ const std::string AccessToken::GetToken() {
 }
 
 const std::string AccessToken::GetRefreshToken() {
+    std::lock_guard<std::mutex> lock(TokenMutex);
     return this->RefreshTokenValue;
 }
 

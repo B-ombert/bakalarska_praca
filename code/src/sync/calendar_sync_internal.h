@@ -65,10 +65,98 @@ inline std::optional<Event> FindExistingEvent(EventRepository& repository, const
     return repository.getByProviderId(event.providerEventId);
 }
 
+inline RecurrenceOverride MakeRemoteOverride(const Event& master,
+                                             const Event& occurrence,
+                                             const RecurrenceOverrideType type,
+                                             const long long replacementEventId = 0) {
+    const long long now = std::time(nullptr);
+    RecurrenceOverride overrideEntry;
+    overrideEntry.masterEventId = master.id;
+    overrideEntry.originalStart = occurrence.instanceStart;
+    overrideEntry.type = type;
+    overrideEntry.replacementEventId = replacementEventId;
+    overrideEntry.syncStatus = SYNCED;
+    overrideEntry.deletedAt = 0;
+    overrideEntry.createdAt = now;
+    overrideEntry.updatedAt = now;
+    return overrideEntry;
+}
+
 inline void PersistRemoteEvent(EventRepository& repository, Event event) {
     const auto existing = FindExistingEvent(repository, event);
+    const bool remoteDelete =
+        event.deletedAt != 0 ||
+        event.type == EventType::CANCELLED_INSTANCE ||
+        event.status == "cancelled";
 
-    if (event.deletedAt != 0) {
+    if (existing.has_value() && existing->syncStatus != SYNCED) {
+        return;
+    }
+
+    if (!event.providerMasterId.empty() && event.instanceStart != 0) {
+        const auto master = repository.getByProviderId(event.calendarId, event.providerMasterId);
+        if (master.has_value()) {
+            if (master->syncStatus != SYNCED) {
+                return;
+            }
+
+            if (remoteDelete) {
+                if (!event.providerEventId.empty()) {
+                    repository.deleteByProviderIdentity(event.calendarId, event.providerEventId);
+                }
+                repository.upsertRecurrenceOverride(
+                    MakeRemoteOverride(*master, event, RecurrenceOverrideType::CANCELLED));
+                return;
+            }
+
+            if (event.type == EventType::EXCEPTION) {
+                if (existing.has_value()) {
+                    event.id = existing->id;
+                    if (event.createdAt == 0) {
+                        event.createdAt = existing->createdAt;
+                    }
+                }
+                else if (event.instanceStart != 0) {
+                    for (const auto& overrideEntry : repository.getRecurrenceOverridesForMaster(
+                             master->id,
+                             event.instanceStart,
+                             event.instanceStart + 1)) {
+                        if (overrideEntry.type != RecurrenceOverrideType::MODIFIED ||
+                            overrideEntry.replacementEventId == 0) {
+                            continue;
+                        }
+
+                        const auto replacement = repository.getById(overrideEntry.replacementEventId);
+                        if (!replacement.has_value() || replacement->syncStatus != SYNCED) {
+                            continue;
+                        }
+
+                        event.id = replacement->id;
+                        if (event.createdAt == 0) {
+                            event.createdAt = replacement->createdAt;
+                        }
+                        break;
+                    }
+                }
+
+                const long long now = std::time(nullptr);
+                if (event.createdAt == 0) {
+                    event.createdAt = now;
+                }
+                event.updatedAt = now;
+                event.syncStatus = SYNCED;
+                event.deletedAt = 0;
+                event.recurrenceRule.clear();
+
+                const long long replacementId = repository.upsertRemoteSnapshot(event);
+                repository.upsertRecurrenceOverride(
+                    MakeRemoteOverride(*master, event, RecurrenceOverrideType::MODIFIED, replacementId));
+                return;
+            }
+        }
+    }
+
+    if (remoteDelete) {
         repository.deleteByProviderIdentity(event.calendarId, event.providerEventId);
         return;
     }
@@ -85,8 +173,10 @@ inline void PersistRemoteEvent(EventRepository& repository, Event event) {
         event.createdAt = now;
     }
     event.updatedAt = now;
-    event.lastModified = now;
     event.syncStatus = SYNCED;
+    if (!event.recurrenceRule.empty() && event.providerMasterId.empty() && event.recurrenceGroupId.empty()) {
+        event.recurrenceGroupId = event.providerEventId;
+    }
 
     repository.upsertRemoteSnapshot(event);
 }
@@ -134,8 +224,11 @@ inline bool UploadCalendarImpl(Calendar& calendar,
 
     if (calendar.providerCalendarId.empty() && payload->contains("id") && (*payload)["id"].is_string()) {
         calendar.providerCalendarId = (*payload)["id"].get<std::string>();
-        repository.calendarRepository.upsert(calendar);
     }
+
+    calendar.syncStatus = SYNCED;
+    calendar.deletedAt = 0;
+    repository.calendarRepository.upsert(calendar);
 
     return true;
 }

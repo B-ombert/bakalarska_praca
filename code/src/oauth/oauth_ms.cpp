@@ -4,31 +4,21 @@
 #include "http.h"
 #include <sstream>
 
-std::string GetMSAuthCode(const std::string& code_challenge){
-    std::string auth_url =
-            "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?"
-            "client_id=" + MS_CLIENT_ID +
-            "&response_type=code" +
-            "&redirect_uri=" + REDIRECT_URI +
-            "&response_mode=query" +
-            "&scope=offline_access%20Calendars.ReadWrite%20User.Read" +
-            "&code_challenge=" + code_challenge +
-            "&code_challenge_method=S256";
-
-    std::cout << "\nOpening Microsoft login \n";
-
-    if (!OpenUrlInBrowser(auth_url)) {
-        std::cerr << "Failed to open browser for Microsoft login\n";
-        return "";
-    }
-    return CatchRedirectedAuthCode();
-}
-
 std::string GetAccessTokenFromMS(){
     std::string code_verifier = GenerateCodeVerifier();
     std::string code_challenge = GenerateCodeChallenge(code_verifier);
 
-    std::string code = GetMSAuthCode(code_challenge);
+    const OAuthAuthorizationResult authorization = RunOAuthAuthorization([&](const std::string& redirectUri) {
+        return "https://login.microsoftonline.com/common/oauth2/v2.0/authorize?"
+               "client_id=" + MS_CLIENT_ID +
+               "&response_type=code" +
+               "&redirect_uri=" + UrlEncodeOAuthValue(redirectUri) +
+               "&response_mode=query" +
+               "&scope=offline_access%20Calendars.ReadWrite%20User.Read" +
+               "&code_challenge=" + code_challenge +
+               "&code_challenge_method=S256";
+    });
+    std::string code = authorization.code;
 
     if (code.empty()){
         std::cerr << "Couldn't get auth code";
@@ -37,7 +27,7 @@ std::string GetAccessTokenFromMS(){
 
     std::cout << "Auth code: " << code << "\n";
 
-    tokenRequestParameters params {code, code_verifier};
+    tokenRequestParameters params {code, code_verifier, authorization.redirectUri};
 
     std::string tokenResponse = ExchangeCodeForToken(MICROSOFT, params);
     std::cout << "\n Token response: \n" << tokenResponse << "\n";

@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.29)
 project(test)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ----------------------------
 # External libraries
@@ -48,6 +49,12 @@ set(ALL_SOURCES
 # ----------------------------
 
 add_executable(${PROJECT_NAME} ${ALL_SOURCES})
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "CalendarApp")
+
+if (WIN32)
+    set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
+    target_link_options(${PROJECT_NAME} PRIVATE /ENTRY:mainCRTStartup)
+endif()
 
 # ----------------------------
 # Include directories (IMPORTANT FIX)
@@ -61,8 +68,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE
-        APP_DB_PATH="${CMAKE_CURRENT_SOURCE_DIR}/calendar_app.db"
-        WINDOWS_ZONES_XML_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources/windowsZones.xml"
+        _WIN32_WINNT=0x0601
 )
 
 # ----------------------------
@@ -77,4 +83,44 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 
 if (WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE ws2_32)
+endif()
+
+# ----------------------------
+# Distribution install layout
+# ----------------------------
+
+install(TARGETS ${PROJECT_NAME}
+        RUNTIME DESTINATION .
+)
+
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/resources"
+        DESTINATION .
+)
+
+if (WIN32)
+    install(CODE [[
+        file(GET_RUNTIME_DEPENDENCIES
+            EXECUTABLES "$<TARGET_FILE:test>"
+            RESOLVED_DEPENDENCIES_VAR runtime_deps
+            UNRESOLVED_DEPENDENCIES_VAR unresolved_deps
+            PRE_EXCLUDE_REGEXES
+                "api-ms-.*"
+                "ext-ms-.*"
+            POST_EXCLUDE_REGEXES
+                ".*[Ww]indows[\\/].*"
+                ".*[Ss]ystem32[\\/].*"
+        )
+
+        if(runtime_deps)
+            file(INSTALL
+                DESTINATION "${CMAKE_INSTALL_PREFIX}"
+                TYPE FILE
+                FILES ${runtime_deps}
+            )
+        endif()
+
+        if(unresolved_deps)
+            message(WARNING "Unresolved runtime dependencies: ${unresolved_deps}")
+        endif()
+    ]])
 endif()

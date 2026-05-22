@@ -26,6 +26,7 @@ std::optional<Account> GetGoogleUserInfo(AccessToken& token) {
 
         account.providerUserId = json.value("sub", "");
         account.name = json.value("name", "");
+        account.email = json.value("email", "");
         account.provider = "GOOGLE";
         account.refreshToken = token.GetRefreshToken();
 

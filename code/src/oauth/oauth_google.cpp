@@ -4,34 +4,24 @@
 #include "http.h"
 #include <sstream>
 
-std::string GetGoogleAuthCode(const std::string& code_challenge){
-    std::ostringstream auth;
-    auth << "https://accounts.google.com/o/oauth2/v2/auth?"
-         << "client_id=" << GOOGLE_CLIENT_ID
-         << "&redirect_uri=" << REDIRECT_URI
-         << "&response_type=code"
-         << "&scope=https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.profile"
-         << "&access_type=offline"
-         << "&prompt=consent"
-         << "&code_challenge=" << code_challenge
-         << "&code_challenge_method=S256";
-
-    std::string auth_url = auth.str();
-
-    std::cout << "Opening google login";
-
-    if (!OpenUrlInBrowser(auth_url)) {
-        std::cerr << "Failed to open browser for Google login\n";
-        return "";
-    }
-    return CatchRedirectedAuthCode();
-}
-
 std::string GetAccessTokenFromGoogle(){
     std::string code_verifier = GenerateCodeVerifier();
     std::string code_challenge = GenerateCodeChallenge(code_verifier);
 
-    std::string code = GetGoogleAuthCode(code_challenge);
+    const OAuthAuthorizationResult authorization = RunOAuthAuthorization([&](const std::string& redirectUri) {
+        std::ostringstream auth;
+        auth << "https://accounts.google.com/o/oauth2/v2/auth?"
+             << "client_id=" << GOOGLE_CLIENT_ID
+             << "&redirect_uri=" << UrlEncodeOAuthValue(redirectUri)
+             << "&response_type=code"
+             << "&scope=https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"
+             << "&access_type=offline"
+             << "&prompt=consent"
+             << "&code_challenge=" << code_challenge
+             << "&code_challenge_method=S256";
+        return auth.str();
+    });
+    std::string code = authorization.code;
 
     if (code.empty()){
         std::cerr << "Couldn't get auth code";
@@ -40,7 +30,7 @@ std::string GetAccessTokenFromGoogle(){
 
     std::cout << "Auth code: " << code << "\n";
 
-    tokenRequestParameters params {code, code_verifier};
+    tokenRequestParameters params {code, code_verifier, authorization.redirectUri};
 
     std::string tokenResponse = ExchangeCodeForToken(GOOGLE, params);
     std::cout << "\n Token response: \n" << tokenResponse << "\n";

@@ -2,10 +2,12 @@
 
 #include <chrono>
 #include <fstream>
+#include <mutex>
 #include <regex>
 #include <sstream>
 #include <unordered_map>
 
+#include "utils/app_paths.h"
 #include "utils/datetime_utils.h"
 
 namespace {
@@ -23,7 +25,7 @@ struct TimeZoneMaps {
 TimeZoneMaps BuildMapsFromWindowsZonesXml() {
     TimeZoneMaps maps;
 
-    std::ifstream input(WINDOWS_ZONES_XML_PATH);
+    std::ifstream input(GetWindowsZonesXmlPath());
     if (!input) {
         return maps;
     }
@@ -96,22 +98,49 @@ const std::unordered_map<std::string, std::string>& IanaToWindowsMap() {
     return GetTimeZoneMaps().ianaToWindows;
 }
 
+const std::chrono::time_zone* LocateTimeZoneCached(const std::string& timezone) {
+    static std::mutex cacheMutex;
+    static std::unordered_map<std::string, const std::chrono::time_zone*> cache;
+
+    {
+        const std::lock_guard<std::mutex> lock(cacheMutex);
+        if (const auto it = cache.find(timezone); it != cache.end()) {
+            return it->second;
+        }
+    }
+
+    const std::chrono::time_zone* zone = nullptr;
+    try {
+        zone = std::chrono::get_tzdb().locate_zone(timezone);
+    }
+    catch (const std::runtime_error&) {
+        zone = nullptr;
+    }
+
+    const std::lock_guard<std::mutex> lock(cacheMutex);
+    cache.emplace(timezone, zone);
+    return zone;
+}
+
 } // namespace
 
 std::string GetWindowsZonesXmlPath() {
-    return WINDOWS_ZONES_XML_PATH;
+    return GetBundledResourcePath("windowsZones.xml").string();
 }
 
 std::string GetCurrentLocalTimeZoneName() {
-    try {
-        if (const auto* zone = std::chrono::current_zone(); zone != nullptr) {
-            return std::string(zone->name());
+    static const std::string zoneName = [] {
+        try {
+            if (const auto* zone = std::chrono::current_zone(); zone != nullptr) {
+                return std::string(zone->name());
+            }
         }
-    }
-    catch (const std::runtime_error&) {
-    }
+        catch (const std::runtime_error&) {
+        }
 
-    return "Etc/UTC";
+        return std::string("Etc/UTC");
+    }();
+    return zoneName;
 }
 
 std::string MicrosoftTimeZoneToIana(const std::string& timezone) {
@@ -154,8 +183,7 @@ std::optional<int> GetUtcOffsetSeconds(const std::string& timezone, const long l
     try {
         using namespace std::chrono;
 
-        const auto& db = get_tzdb();
-        const time_zone* zone = db.locate_zone(timezone);
+        const time_zone* zone = LocateTimeZoneCached(timezone);
         if (zone == nullptr) {
             return std::nullopt;
         }
@@ -182,8 +210,7 @@ std::optional<long long> ConvertTimeZoneDisplayEpochToUtcEpoch(const std::string
     try {
         using namespace std::chrono;
 
-        const auto& db = get_tzdb();
-        const time_zone* zone = db.locate_zone(timezone);
+        const time_zone* zone = LocateTimeZoneCached(timezone);
         if (zone == nullptr) {
             return std::nullopt;
         }

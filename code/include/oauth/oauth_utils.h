@@ -16,7 +16,10 @@ inline const char* GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token";
 const std::string MS_CLIENT_ID = "de85f5c0-f11f-428b-9bdd-831e43c9ab1a";
 inline const char* MS_TOKEN_URL = "https://login.microsoftonline.com/common/oauth2/v2.0/token";
 
-const std::string REDIRECT_URI = "http://localhost:8080";
+struct OAuthAuthorizationResult {
+    std::string code;
+    std::string redirectUri;
+};
 
 class OAuthRedirectServer {
 public:
@@ -28,6 +31,7 @@ public:
 
     void Start(SuccessHandler onSuccess, ErrorHandler onError);
     void Stop();
+    std::string GetRedirectUri() const;
 
 private:
     void DoAccept();
@@ -46,11 +50,13 @@ private:
     std::thread worker_;
     SuccessHandler onSuccess_;
     ErrorHandler onError_;
+    unsigned short port_ = 0;
     bool finished_ = false;
 };
 
-std::string CatchRedirectedAuthCode();
+OAuthAuthorizationResult RunOAuthAuthorization(const std::function<std::string(const std::string&)>& buildAuthorizationUrl);
 bool OpenUrlInBrowser(const std::string& url);
+std::string UrlEncodeOAuthValue(const std::string& value);
 void RequestOAuthCancellation();
 std::string GetLastOAuthErrorMessage();
 void ClearLastOAuthErrorMessage();

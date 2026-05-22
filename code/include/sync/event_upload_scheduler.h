@@ -16,6 +16,8 @@ struct PendingEventUploadSession {
     long long accountId = 0;
     std::string provider;
     std::shared_ptr<AccessToken> token;
+    long long rangeStartEpoch = 0;
+    long long rangeEndEpoch = 0;
 };
 
 struct PendingEventUploadResult {
@@ -44,6 +46,7 @@ public:
     void QueueAccount(long long accountId);
     void QueueAllSignedInAccounts();
     int CountPendingUploadEvents(long long accountId) const;
+    int CountPendingUploadEventsForAllSignedInAccounts() const;
 
 private:
     struct Job {
@@ -53,12 +56,12 @@ private:
     PendingEventUploadResult RunJob(const Job& job);
     void WorkerLoop();
     void QueueAccountLocked(long long accountId);
-    void QueueAccountsWithPendingEvents();
+    void QueueAllSignedInAccountsLocked();
 
     std::string dbPath_;
     ResultCallback onResult_;
     std::thread worker_;
-    std::mutex mutex_;
+    mutable std::mutex mutex_;
     std::condition_variable cv_;
     std::deque<Job> jobs_;
     std::unordered_map<long long, PendingEventUploadSession> sessions_;
