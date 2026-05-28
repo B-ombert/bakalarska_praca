@@ -46,6 +46,7 @@ private:
                                  class wxComboBox* monthChoice,
                                  class wxComboBox* dayChoice);
     void PopulateTimeChoices();
+    void EnsureTimeChoicesPopulated();
     void UpdateTimeControlsEnabled();
     void ApplyReadOnlyState();
     void OnAllDayChanged(wxCommandEvent& event);
@@ -62,6 +63,7 @@ private:
     std::vector<long long> calendarChoiceIds_;
     bool deleteRequested_ = false;
     bool readOnly_ = false;
+    bool timeChoicesPopulated_ = false;
 
     class wxComboBox* calendarCtrl_ = nullptr;
     class wxTextCtrl* titleCtrl_ = nullptr;
