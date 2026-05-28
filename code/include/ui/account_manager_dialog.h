@@ -14,6 +14,7 @@ public:
         Account account;
         bool signedIn = false;
         bool loginFailed = false;
+        bool signingIn = false;
     };
 
     using AccountCallback = std::function<void(long long)>;

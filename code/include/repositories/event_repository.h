@@ -19,6 +19,7 @@ public:
     long long upsertRecurrenceOverride(const RecurrenceOverride& overrideEntry);
     long long upsertRemoteSnapshot(const Event& e);
     bool updateById(const Event& e);
+    std::optional<long long> moveEventToCalendar(const Event& movedEvent, long long targetCalendarId);
     bool softDelete(long long id);
     bool deleteEvent(long long id);
     int deleteByProviderIdentity(long long calendarId, const std::string& providerEventId);

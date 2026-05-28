@@ -2,6 +2,7 @@
 
 #include <cctype>
 #include <cstdlib>
+#include <ctime>
 #include <iomanip>
 #include <sstream>
 
@@ -112,6 +113,14 @@ wxDateTime UtcDateTimeFromEpoch(const long long epoch) {
     );
 }
 
+std::time_t TimegmPortable(std::tm* tm) {
+#ifdef _WIN32
+    return _mkgmtime(tm);
+#else
+    return timegm(tm);
+#endif
+}
+
 } // namespace
 
 long long MakeUtcEpoch(const int year, const int month, const int day, const int hour, const int minute, const int second) {
@@ -122,7 +131,7 @@ long long MakeUtcEpoch(const int year, const int month, const int day, const int
     tm.tm_hour = hour;
     tm.tm_min = minute;
     tm.tm_sec = second;
-    return static_cast<long long>(_mkgmtime(&tm));
+    return static_cast<long long>(TimegmPortable(&tm));
 }
 
 std::tm EpochToUtcTm(const long long epoch) {

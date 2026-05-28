@@ -185,20 +185,50 @@ wxArrayString BuildMonthLabels() {
     return labels;
 }
 
+wxString FormatCalendarChoiceLabel(const Calendar& calendar,
+                                   const std::unordered_map<long long, wxString>& accountLabels) {
+    wxString label = wxString::FromUTF8(calendar.name);
+    if (calendar.isPrimary) {
+        label += " (Primary)";
+    }
+    if (calendar.isShared) {
+        label += " (Shared)";
+    }
+    if (calendar.isReadOnly) {
+        label += " (Read-only)";
+    }
+
+    const auto accountIt = accountLabels.find(calendar.accountId);
+    if (accountIt != accountLabels.end() && !accountIt->second.empty()) {
+        label += " - ";
+        label += accountIt->second;
+    }
+    return label;
+}
+
 } // namespace
 
 EventEditorDialog::EventEditorDialog(wxWindow* parent,
                                      const std::optional<Event>& event,
                                      const long long defaultDayEpoch,
-                                     const std::optional<EventDraftDefaults>& defaults)
+                                     const std::vector<Calendar>& calendars,
+                                     const std::unordered_map<long long, wxString>& accountLabels,
+                                     const long long defaultCalendarId,
+                                     const std::optional<EventDraftDefaults>& defaults,
+                                     const bool readOnly)
     : wxDialog(parent, wxID_ANY, event.has_value() ? "Edit Event" : "New Event",
                wxDefaultPosition, wxSize(720, 620),
                wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
       originalEvent_(event),
       defaultDayEpoch_(defaultDayEpoch),
-      defaults_(defaults) {
+      calendars_(calendars),
+      accountLabels_(accountLabels),
+      defaultCalendarId_(defaultCalendarId),
+      defaults_(defaults),
+      readOnly_(readOnly) {
     BuildLayout();
     LoadInitialValues();
+    ApplyReadOnlyState();
 }
 
 bool EventEditorDialog::IsDeleteRequested() const {
@@ -227,7 +257,7 @@ std::optional<Event> EventEditorDialog::BuildEvent(const long long calendarId) c
         event = *originalEvent_;
     }
 
-    event.calendarId = calendarId;
+    event.calendarId = SelectedCalendarId(calendarId);
     event.title = WxStringToUtf8(titleCtrl_->GetValue());
     event.location = WxStringToUtf8(locationCtrl_->GetValue());
     event.description = WxStringToUtf8(descriptionCtrl_->GetValue());
@@ -267,6 +297,31 @@ std::optional<Event> EventEditorDialog::BuildEvent(const long long calendarId) c
 
 void EventEditorDialog::BuildLayout() {
     auto* rootSizer = new wxBoxSizer(wxVERTICAL);
+
+    if (!originalEvent_.has_value()) {
+        rootSizer->Add(new wxStaticText(this, wxID_ANY, "Calendar"), 0, wxLEFT | wxRIGHT | wxTOP, 12);
+        calendarCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, nullptr, wxCB_READONLY);
+        const long long preferredCalendarId = defaultCalendarId_;
+        int selectedCalendarIndex = wxNOT_FOUND;
+        for (const auto& calendar : calendars_) {
+            if (!readOnly_ && calendar.isReadOnly) {
+                continue;
+            }
+
+            calendarChoiceIds_.push_back(calendar.id);
+            calendarCtrl_->Append(FormatCalendarChoiceLabel(calendar, accountLabels_));
+            if (calendar.id == preferredCalendarId) {
+                selectedCalendarIndex = static_cast<int>(calendarChoiceIds_.size()) - 1;
+            }
+        }
+        if (selectedCalendarIndex == wxNOT_FOUND && !calendarChoiceIds_.empty()) {
+            selectedCalendarIndex = 0;
+        }
+        if (selectedCalendarIndex != wxNOT_FOUND) {
+            calendarCtrl_->SetSelection(selectedCalendarIndex);
+        }
+        rootSizer->Add(calendarCtrl_, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 12);
+    }
 
     rootSizer->Add(new wxStaticText(this, wxID_ANY, "Title"), 0, wxLEFT | wxRIGHT | wxTOP, 12);
     titleCtrl_ = new wxTextCtrl(this, wxID_ANY);
@@ -337,18 +392,18 @@ void EventEditorDialog::BuildLayout() {
 
     auto* buttonSizer = new wxBoxSizer(wxHORIZONTAL);
     if (originalEvent_.has_value()) {
-        auto* deleteButton = new wxButton(this, wxID_ANY, "Delete");
-        deleteButton->Bind(wxEVT_BUTTON, &EventEditorDialog::OnDelete, this);
-        buttonSizer->Add(deleteButton, 0, wxRIGHT, 8);
+        deleteButton_ = new wxButton(this, wxID_ANY, "Delete");
+        deleteButton_->Bind(wxEVT_BUTTON, &EventEditorDialog::OnDelete, this);
+        buttonSizer->Add(deleteButton_, 0, wxRIGHT, 8);
     }
 
-    auto* cancelButton = new wxButton(this, wxID_CANCEL, "Cancel");
-    auto* saveButton = new wxButton(this, wxID_OK, originalEvent_.has_value() ? "Save changes" : "Create event");
-    saveButton->Bind(wxEVT_BUTTON, &EventEditorDialog::OnSave, this);
+    cancelButton_ = new wxButton(this, wxID_CANCEL, "Cancel");
+    saveButton_ = new wxButton(this, wxID_OK, originalEvent_.has_value() ? "Save changes" : "Create event");
+    saveButton_->Bind(wxEVT_BUTTON, &EventEditorDialog::OnSave, this);
 
     buttonSizer->AddStretchSpacer();
-    buttonSizer->Add(cancelButton, 0, wxRIGHT, 8);
-    buttonSizer->Add(saveButton, 0);
+    buttonSizer->Add(cancelButton_, 0, wxRIGHT, 8);
+    buttonSizer->Add(saveButton_, 0);
 
     rootSizer->Add(buttonSizer, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 12);
     SetSizer(rootSizer);
@@ -402,6 +457,19 @@ bool EventEditorDialog::ValidateEvent(const Event& event) const {
 
     wxMessageBox(*validationMessage, "Validation", wxOK | wxICON_WARNING, const_cast<EventEditorDialog*>(this));
     return false;
+}
+
+long long EventEditorDialog::SelectedCalendarId(const long long fallbackCalendarId) const {
+    if (calendarCtrl_ == nullptr) {
+        return fallbackCalendarId;
+    }
+
+    const int selection = calendarCtrl_->GetSelection();
+    if (selection >= 0 && selection < static_cast<int>(calendarChoiceIds_.size())) {
+        return calendarChoiceIds_[selection];
+    }
+
+    return fallbackCalendarId;
 }
 
 long long EventEditorDialog::ReadDateTimeControls(const bool start, const bool allDay) const {
@@ -553,12 +621,74 @@ void EventEditorDialog::PopulateTimeChoices() {
 }
 
 void EventEditorDialog::UpdateTimeControlsEnabled() {
-    const bool enabled = !allDayCtrl_->GetValue();
+    const bool enabled = !readOnly_ && !allDayCtrl_->GetValue();
     if (startTimeCtrl_ != nullptr) {
         startTimeCtrl_->Enable(enabled);
     }
     if (endTimeCtrl_ != nullptr) {
         endTimeCtrl_->Enable(enabled);
+    }
+}
+
+void EventEditorDialog::ApplyReadOnlyState() {
+    if (!readOnly_) {
+        return;
+    }
+
+    if (titleCtrl_ != nullptr) {
+        titleCtrl_->SetEditable(false);
+    }
+    if (locationCtrl_ != nullptr) {
+        locationCtrl_->SetEditable(false);
+    }
+    if (descriptionCtrl_ != nullptr) {
+        descriptionCtrl_->SetEditable(false);
+    }
+
+    if (allDayCtrl_ != nullptr) {
+        allDayCtrl_->Enable(false);
+    }
+    if (recurrenceCtrl_ != nullptr) {
+        recurrenceCtrl_->Enable(false);
+    }
+    if (recurrenceScopeCtrl_ != nullptr) {
+        recurrenceScopeCtrl_->Enable(false);
+    }
+    if (calendarCtrl_ != nullptr) {
+        calendarCtrl_->Enable(false);
+    }
+    if (startYearCtrl_ != nullptr) {
+        startYearCtrl_->Enable(false);
+    }
+    if (startMonthCtrl_ != nullptr) {
+        startMonthCtrl_->Enable(false);
+    }
+    if (startDateCtrl_ != nullptr) {
+        startDateCtrl_->Enable(false);
+    }
+    if (startTimeCtrl_ != nullptr) {
+        startTimeCtrl_->Enable(false);
+    }
+    if (endYearCtrl_ != nullptr) {
+        endYearCtrl_->Enable(false);
+    }
+    if (endMonthCtrl_ != nullptr) {
+        endMonthCtrl_->Enable(false);
+    }
+    if (endDateCtrl_ != nullptr) {
+        endDateCtrl_->Enable(false);
+    }
+    if (endTimeCtrl_ != nullptr) {
+        endTimeCtrl_->Enable(false);
+    }
+    if (deleteButton_ != nullptr) {
+        deleteButton_->Enable(false);
+    }
+    if (saveButton_ != nullptr) {
+        saveButton_->Enable(false);
+    }
+    if (cancelButton_ != nullptr) {
+        cancelButton_->SetLabel("Close");
     }
 }
 

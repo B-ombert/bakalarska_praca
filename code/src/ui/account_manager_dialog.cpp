@@ -124,6 +124,11 @@ void AccountManagerDialog::Build(const std::vector<AccountState>& accounts) {
             signedStatus->SetForegroundColour(wxColour(34, 128, 70));
             row->Add(signedStatus, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 8);
         }
+        else if (state.signingIn) {
+            auto* signingInStatus = new wxStaticText(card, wxID_ANY, "Signing in...");
+            signingInStatus->SetForegroundColour(wxColour(80, 100, 140));
+            row->Add(signingInStatus, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 8);
+        }
         else {
             auto* loginButton = new wxButton(card, wxID_ANY, "Log in");
             loginButton->SetForegroundColour(wxColour(180, 40, 40));

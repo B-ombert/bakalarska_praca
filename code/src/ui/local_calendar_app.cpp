@@ -10,7 +10,6 @@
 #include <stdexcept>
 #include <set>
 #include <cstdint>
-#include <functional>
 #include <string>
 #include <thread>
 #include <unordered_map>
@@ -19,7 +18,6 @@
 
 #include <wx/button.h>
 #include <wx/checkbox.h>
-#include <wx/bmpcbox.h>
 #include <wx/choicdlg.h>
 #include <wx/combobox.h>
 #include <wx/activityindicator.h>
@@ -38,19 +36,22 @@
 
 #include "models/account.h"
 #include "models/calendar.h"
-#include "events/rrule.h"
+#include "events/event_load_operations.h"
+#include "events/event_occurrence_utils.h"
 #include "repositories/account_repository.h"
 #include "repositories/calendar_repository.h"
 #include "repositories/calendar_sync_range_repository.h"
 #include "repositories/event_repository.h"
 #include "oauth/oauth_utils.h"
-#include "services/account_service.h"
+#include "sync/account_auth_operations.h"
 #include "sync/event_upload_scheduler.h"
 #include "sync/google_calendar_sync_service.h"
 #include "sync/outlook_calendar_sync_service.h"
 #include "ui/calendar_ui_shared.h"
 #include "ui/account_manager_dialog.h"
+#include "ui/calendar_editor_dialog.h"
 #include "ui/event_editor_dialog.h"
+#include "ui/event_move_dialog.h"
 #include "ui/month_cell_panel.h"
 #include "ui/timeline_view_panel.h"
 #include "utils/access_token.h"
@@ -67,45 +68,6 @@ struct MonthCellMeta {
     bool inCurrentMonth = true;
 };
 
-struct VisibleRange {
-    long long startEpoch = 0;
-    long long endEpoch = 0;
-};
-
-struct EventLoadResult {
-    std::vector<Event> events;
-    std::unordered_map<long long, Event> projectedOccurrences;
-    std::unordered_map<long long, long long> projectedOccurrenceMasterIds;
-    std::uint64_t fingerprint = 0;
-    size_t visibleCount = 0;
-    std::string error;
-};
-
-struct RemoteMasterMetadata {
-    std::string title;
-    std::string description;
-    std::string location;
-    std::string timezone;
-    std::string recurrenceRule;
-    bool allDay = false;
-};
-
-enum class AuthOperationKind {
-    ADD_ACCOUNT,
-    ACTIVATE_ACCOUNT
-};
-
-struct AuthOperationResult {
-    AuthOperationKind kind = AuthOperationKind::ADD_ACCOUNT;
-    bool success = false;
-    long long accountId = 0;
-    int platform = GOOGLE;
-    std::shared_ptr<AccessToken> token;
-    std::string error;
-    std::string warning;
-    Account account{};
-};
-
 constexpr int kYearComboChunkSize = 120;
 constexpr int kYearComboBackwardPadding = 20;
 constexpr size_t kMaxMonthCellRenderedRows = 4;
@@ -120,26 +82,6 @@ constexpr const char* kDefaultAccountCalendarProviderId = "default-calendar";
 
 bool IsSignedInProvider(const Account& account) {
     return !IsLocalProvider(account.provider);
-}
-
-void HashCombine(std::uint64_t& seed, const std::uint64_t value) {
-    seed ^= value + 0x9e3779b97f4a7c15ULL + (seed << 6) + (seed >> 2);
-}
-
-std::uint64_t ComputeEventListFingerprint(const std::vector<Event>& events) {
-    std::uint64_t seed = events.size();
-    for (const auto& event : events) {
-        HashCombine(seed, static_cast<std::uint64_t>(event.id));
-        HashCombine(seed, static_cast<std::uint64_t>(event.calendarId));
-        HashCombine(seed, static_cast<std::uint64_t>(event.GetDisplayStartEpoch()));
-        HashCombine(seed, static_cast<std::uint64_t>(event.GetDisplayEndEpoch()));
-        HashCombine(seed, static_cast<std::uint64_t>(event.deletedAt));
-        HashCombine(seed, static_cast<std::uint64_t>(event.syncStatus));
-        HashCombine(seed, static_cast<std::uint64_t>(std::hash<std::string>{}(event.title)));
-        HashCombine(seed, static_cast<std::uint64_t>(std::hash<std::string>{}(event.recurrenceRule)));
-        HashCombine(seed, static_cast<std::uint64_t>(std::hash<std::string>{}(event.colorHex)));
-    }
-    return seed;
 }
 
 std::optional<int> PlatformForProvider(const std::string& provider) {
@@ -239,581 +181,6 @@ std::string SafeIcsFileName(std::string value) {
 
     return value + ".ics";
 }
-
-bool FetchAndStoreRemoteCalendarsForAccount(const Account& account,
-                                            AccessToken& token,
-                                            CalendarRepository& calendarRepository,
-                                            EventRepository& eventRepository) {
-    if (account.provider == "GOOGLE") {
-        GoogleCalendarSyncService service(calendarRepository, eventRepository);
-        auto remoteCalendars = service.fetchRemoteCalendars(token.GetToken());
-        for (auto& calendar : remoteCalendars) {
-            calendar.accountId = account.id;
-        }
-        service.syncCalendarsIncremental(
-            account.id,
-            remoteCalendars,
-            [&token]() { return token.GetToken(); },
-            true);
-    }
-    else if (account.provider == "MICROSOFT") {
-        OutlookCalendarSyncService service(calendarRepository, eventRepository);
-        auto remoteCalendars = service.fetchRemoteCalendars(token.GetToken());
-        for (auto& calendar : remoteCalendars) {
-            calendar.accountId = account.id;
-        }
-        service.syncCalendarsIncremental(
-            account.id,
-            remoteCalendars,
-            [&token]() { return token.GetToken(); },
-            true);
-    }
-
-    return true;
-}
-
-long long CurrentLocalDisplayEpoch() {
-    return ConvertUtcEpochToTimeZoneDisplayEpoch(
-        GetCurrentLocalTimeZoneName(),
-        static_cast<long long>(std::time(nullptr)));
-}
-
-VisibleRange ConvertDisplayRangeToUtc(const VisibleRange& displayRange) {
-    const std::string displayTimezone = GetCurrentLocalTimeZoneName();
-    const long long utcStart = ConvertTimeZoneDisplayEpochToUtcEpoch(displayTimezone, displayRange.startEpoch)
-        .value_or(displayRange.startEpoch);
-    const long long utcEnd = ConvertTimeZoneDisplayEpochToUtcEpoch(displayTimezone, displayRange.endEpoch)
-        .value_or(displayRange.endEpoch);
-    return VisibleRange{utcStart, utcEnd};
-}
-
-void HydrateFromRemoteMaster(Event& event,
-                             const std::unordered_map<std::string, RemoteMasterMetadata>& remoteMasterMetadata) {
-    if (event.providerMasterId.empty()) {
-        return;
-    }
-
-    const auto masterIt = remoteMasterMetadata.find(event.providerMasterId);
-    if (masterIt == remoteMasterMetadata.end()) {
-        return;
-    }
-
-    const RemoteMasterMetadata& metadata = masterIt->second;
-    if (event.title.empty()) {
-        event.title = metadata.title;
-    }
-    if (event.description.empty()) {
-        event.description = metadata.description;
-    }
-    if (event.location.empty()) {
-        event.location = metadata.location;
-    }
-    if (event.timezone.empty()) {
-        event.timezone = metadata.timezone;
-    }
-    if (metadata.allDay) {
-        event.allDay = true;
-    }
-    if (event.recurrenceRule.empty()) {
-        event.recurrenceRule = metadata.recurrenceRule;
-    }
-}
-
-Event BuildEffectiveRemoteEvent(
-    Event event,
-    const std::unordered_map<std::string, RemoteMasterMetadata>& remoteMasterMetadata) {
-    HydrateFromRemoteMaster(event, remoteMasterMetadata);
-    return event;
-}
-
-AuthOperationResult RunAddAccountAuthOperation(const std::string& dbPath, const int platform) {
-    AuthOperationResult result;
-    result.kind = AuthOperationKind::ADD_ACCOUNT;
-    result.platform = platform;
-
-    auto token = std::make_shared<AccessToken>(platform);
-    const std::string accessToken = token->GetToken();
-    if (accessToken.empty()) {
-        result.error = token->GetLastError().empty()
-            ? "Could not obtain an access token for the selected account."
-            : token->GetLastError();
-        return result;
-    }
-
-    auto account = GetAccountUserInfo(*token);
-    if (!account.has_value()) {
-        result.error = "Login succeeded, but account details could not be loaded from the server.";
-        return result;
-    }
-
-    account->refreshToken = token->GetRefreshToken();
-
-    SQLite::Database db(dbPath, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
-    ConfigureSqliteConnection(db);
-    AccountRepository accountRepository(db);
-    EventRepository eventRepository(db);
-    CalendarRepository calendarRepository(db);
-
-    const long long accountId = accountRepository.Upsert(*account);
-    account->id = accountId;
-    result.account = *account;
-    result.accountId = accountId;
-
-    try {
-        FetchAndStoreRemoteCalendarsForAccount(*account, *token, calendarRepository, eventRepository);
-    }
-    catch (const std::exception& ex) {
-        result.warning = std::string("The account was added, but calendars could not be fetched from the server: ") + ex.what();
-    }
-
-    result.token = std::move(token);
-    result.success = true;
-    return result;
-}
-
-AuthOperationResult RunActivateAccountAuthOperation(const std::string& dbPath, Account account) {
-    AuthOperationResult result;
-    result.kind = AuthOperationKind::ACTIVATE_ACCOUNT;
-    result.accountId = account.id;
-    result.account = account;
-
-    const auto platform = PlatformForProvider(account.provider);
-    if (!platform.has_value()) {
-        result.error = "This account provider is not supported for sign-in.";
-        return result;
-    }
-
-    SQLite::Database db(dbPath, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
-    ConfigureSqliteConnection(db);
-    AccountRepository accountRepository(db);
-    EventRepository eventRepository(db);
-    CalendarRepository calendarRepository(db);
-
-    if (account.refreshToken.empty()) {
-        account.refreshToken = accountRepository.GetRefreshToken(account);
-    }
-
-    if (account.refreshToken.empty()) {
-        result.error = "The saved account session could not be restored because no refresh token is available.";
-        return result;
-    }
-
-    auto token = std::make_shared<AccessToken>(*platform, account.refreshToken, false);
-    const std::string accessToken = token->GetToken();
-    if (accessToken.empty()) {
-        result.error = token->GetLastError().empty()
-            ? "Could not restore the saved account session."
-            : token->GetLastError();
-        return result;
-    }
-
-    const std::string updatedRefreshToken = token->GetRefreshToken();
-    if (!updatedRefreshToken.empty() && updatedRefreshToken != account.refreshToken) {
-        account.refreshToken = updatedRefreshToken;
-        accountRepository.Upsert(account);
-    }
-
-    if (auto refreshedAccount = GetAccountUserInfo(*token); refreshedAccount.has_value()) {
-        refreshedAccount->id = account.id;
-        refreshedAccount->refreshToken = account.refreshToken;
-        if (refreshedAccount->providerUserId.empty()) {
-            refreshedAccount->providerUserId = account.providerUserId;
-        }
-        accountRepository.Upsert(*refreshedAccount);
-        account = *refreshedAccount;
-        account.id = result.accountId;
-    }
-
-    try {
-        FetchAndStoreRemoteCalendarsForAccount(account, *token, calendarRepository, eventRepository);
-    }
-    catch (const std::exception& ex) {
-        result.warning = std::string("The account session was restored, but calendars could not be fetched from the server: ") + ex.what();
-    }
-
-    result.account = account;
-    result.token = std::move(token);
-    result.success = true;
-    return result;
-}
-
-VisibleRange ExpandVisibleRangeForRecurrence(const VisibleRange& range, const CalendarViewMode mode) {
-    int reserveDays = 2;
-    if (mode == CalendarViewMode::MONTH) {
-        reserveDays = 14;
-    }
-    else if (mode == CalendarViewMode::WEEK) {
-        reserveDays = 7;
-    }
-
-    return VisibleRange{
-        std::max(kMinCalendarEpoch, range.startEpoch - static_cast<long long>(reserveDays) * kSecondsPerDay),
-        range.endEpoch + static_cast<long long>(reserveDays) * kSecondsPerDay};
-}
-
-int MondayWeekday(const long long epoch) {
-    const std::tm tm = EpochToUtcTm(epoch);
-    return tm.tm_wday == 0 ? 7 : tm.tm_wday;
-}
-
-long long TimeOffsetWithinDay(const long long epoch) {
-    return epoch - StartOfUtcDay(epoch);
-}
-
-std::string LimitedRecurrenceRule(const std::string& recurrenceRule, const long long untilEpoch) {
-    if (recurrenceRule.empty()) {
-        return "";
-    }
-
-    RRule rule = RRule().parseRRule(recurrenceRule);
-    if (rule.freq == Frequency::UNKNOWN) {
-        return recurrenceRule;
-    }
-
-    rule.hasCount = false;
-    rule.count = 0;
-    rule.hasUntil = true;
-    rule.until = std::max(0LL, untilEpoch);
-    return rule.toGoogleRRule();
-}
-
-std::string PreserveRecurrenceEndBoundary(
-    const std::string& newRecurrenceRule,
-    const std::string& previousRecurrenceRule) {
-    if (newRecurrenceRule.empty() || previousRecurrenceRule.empty()) {
-        return newRecurrenceRule;
-    }
-
-    RRule newRule = RRule().parseRRule(newRecurrenceRule);
-    const RRule previousRule = RRule().parseRRule(previousRecurrenceRule);
-    if (newRule.freq == Frequency::UNKNOWN || previousRule.freq == Frequency::UNKNOWN) {
-        return newRecurrenceRule;
-    }
-
-    if (previousRule.hasUntil) {
-        newRule.hasCount = false;
-        newRule.count = 0;
-        newRule.hasUntil = true;
-        newRule.until = previousRule.until;
-    }
-    else if (previousRule.hasCount) {
-        newRule.hasCount = true;
-        newRule.count = previousRule.count;
-    }
-
-    return newRule.toGoogleRRule();
-}
-
-Event PreserveSeriesAnchorDate(const Event& master, const Event& editedEvent) {
-    Event updated = editedEvent;
-    const std::string displayTimezone = !updated.timezone.empty()
-        ? updated.timezone
-        : (!master.timezone.empty() ? master.timezone : GetCurrentLocalTimeZoneName());
-
-    const long long masterDisplayStart = master.GetDisplayStartEpoch(displayTimezone);
-    const long long masterDisplayDay = StartOfUtcDay(masterDisplayStart);
-
-    if (updated.allDay) {
-        const long long editedDisplayStart = updated.GetDisplayStartEpoch(displayTimezone);
-        const long long editedDisplayEnd = updated.GetDisplayEndEpoch(displayTimezone);
-        const long long durationDays = std::max(
-            static_cast<long long>(kSecondsPerDay),
-            StartOfUtcDay(std::max(editedDisplayStart, editedDisplayEnd - 1)) -
-                StartOfUtcDay(editedDisplayStart) + kSecondsPerDay);
-        updated.startDateTime = masterDisplayDay;
-        updated.endDateTime = masterDisplayDay + durationDays;
-        NormalizeAllDayEventRange(updated);
-        return updated;
-    }
-
-    const long long editedDisplayStart = updated.GetDisplayStartEpoch(displayTimezone);
-    const long long editedDisplayEnd = updated.GetDisplayEndEpoch(displayTimezone);
-    const long long displayDuration = std::max(0LL, editedDisplayEnd - editedDisplayStart);
-    const long long anchoredDisplayStart = masterDisplayDay + TimeOffsetWithinDay(editedDisplayStart);
-    const long long anchoredDisplayEnd = anchoredDisplayStart + displayDuration;
-    updated.startDateTime = ConvertTimeZoneDisplayEpochToUtcEpoch(displayTimezone, anchoredDisplayStart)
-        .value_or(anchoredDisplayStart);
-    updated.endDateTime = ConvertTimeZoneDisplayEpochToUtcEpoch(displayTimezone, anchoredDisplayEnd)
-        .value_or(anchoredDisplayEnd);
-    return updated;
-}
-
-bool MatchesRecurringDay(const Event& event, const RRule& rule, const long long dayEpoch) {
-    const long long startDay = StartOfUtcDay(event.GetDisplayStartEpoch());
-    if (dayEpoch < startDay) {
-        return false;
-    }
-
-    const std::tm startTm = EpochToUtcTm(startDay);
-    const std::tm dayTm = EpochToUtcTm(dayEpoch);
-    switch (rule.freq) {
-        case Frequency::DAILY: {
-            const long long diffDays = (dayEpoch - startDay) / kSecondsPerDay;
-            return diffDays % std::max(1, rule.interval) == 0;
-        }
-        case Frequency::WEEKLY: {
-            const auto& days = rule.byDay.empty() ? std::vector<int>{MondayWeekday(startDay)} : rule.byDay;
-            const long long diffWeeks = (StartOfUtcWeek(dayEpoch) - StartOfUtcWeek(startDay)) / (7LL * kSecondsPerDay);
-            return diffWeeks >= 0 &&
-                   diffWeeks % std::max(1, rule.interval) == 0 &&
-                   std::find(days.begin(), days.end(), MondayWeekday(dayEpoch)) != days.end();
-        }
-        case Frequency::MONTHLY: {
-            const int targetDay = !rule.byMonthDay.empty() ? rule.byMonthDay.front() : startTm.tm_mday;
-            const int monthDiff = (dayTm.tm_year - startTm.tm_year) * 12 + (dayTm.tm_mon - startTm.tm_mon);
-            return monthDiff >= 0 &&
-                   monthDiff % std::max(1, rule.interval) == 0 &&
-                   dayTm.tm_mday == targetDay;
-        }
-        case Frequency::YEARLY: {
-            const int targetDay = !rule.byMonthDay.empty() ? rule.byMonthDay.front() : startTm.tm_mday;
-            const int yearDiff = dayTm.tm_year - startTm.tm_year;
-            return yearDiff >= 0 &&
-                   yearDiff % std::max(1, rule.interval) == 0 &&
-                   dayTm.tm_mon == startTm.tm_mon &&
-                   dayTm.tm_mday == targetDay;
-        }
-        case Frequency::UNKNOWN:
-            return false;
-    }
-
-    return false;
-}
-
-std::vector<Event> ExpandRecurringEventForRange(
-    const Event& event,
-    const VisibleRange& range,
-    const std::unordered_set<long long>& suppressedInstanceStarts = {},
-    const std::unordered_set<long long>& suppressedDisplayDays = {}) {
-    std::vector<Event> occurrences;
-    if (event.recurrenceRule.empty()) {
-        return occurrences;
-    }
-
-    const RRule rule = RRule().parseRRule(event.recurrenceRule);
-    if (rule.freq == Frequency::UNKNOWN) {
-        return occurrences;
-    }
-
-    const std::string displayTimezone = event.timezone.empty()
-        ? GetCurrentLocalTimeZoneName()
-        : event.timezone;
-    const long long displayStartEpoch = event.GetDisplayStartEpoch(displayTimezone);
-    const long long duration = std::max(0LL, event.endDateTime - event.startDateTime);
-    const long long startDay = StartOfUtcDay(displayStartEpoch);
-    const long long scanStartDay = std::max(startDay, StartOfUtcDay(range.startEpoch));
-    const long long scanEndDay = StartOfUtcDay(std::max(range.startEpoch, range.endEpoch - 1));
-
-    for (long long dayEpoch = scanStartDay; dayEpoch <= scanEndDay; dayEpoch += kSecondsPerDay) {
-        if (!MatchesRecurringDay(event, rule, dayEpoch)) {
-            continue;
-        }
-
-        Event occurrence = event;
-        const long long occurrenceDisplayStart = dayEpoch + TimeOffsetWithinDay(displayStartEpoch);
-        const long long occurrenceDisplayEnd = occurrenceDisplayStart + duration;
-        if (event.allDay) {
-            occurrence.startDateTime = occurrenceDisplayStart;
-            occurrence.endDateTime = occurrenceDisplayEnd;
-        }
-        else {
-            occurrence.startDateTime =
-                ConvertTimeZoneDisplayEpochToUtcEpoch(displayTimezone, occurrenceDisplayStart).value_or(occurrenceDisplayStart);
-            occurrence.endDateTime =
-                ConvertTimeZoneDisplayEpochToUtcEpoch(displayTimezone, occurrenceDisplayEnd).value_or(occurrenceDisplayEnd);
-        }
-        occurrence.instanceStart = occurrence.startDateTime;
-        occurrence.type = EventType::OCCURRENCE;
-
-        const long long occurrenceDisplayDay = StartOfUtcDay(occurrenceDisplayStart);
-        const long long occurrenceStoredDay = StartOfUtcDay(occurrence.instanceStart);
-        if (suppressedInstanceStarts.count(occurrence.instanceStart) > 0 ||
-            suppressedDisplayDays.count(occurrenceDisplayDay) > 0 ||
-            suppressedDisplayDays.count(occurrenceStoredDay) > 0) {
-            continue;
-        }
-
-        if (rule.hasUntil && occurrence.startDateTime > rule.until) {
-            continue;
-        }
-
-        if (occurrence.startDateTime < range.endEpoch && occurrence.endDateTime > range.startEpoch) {
-            occurrences.push_back(std::move(occurrence));
-        }
-    }
-
-    return occurrences;
-}
-
-class CalendarEditorDialog final : public wxDialog {
-public:
-    explicit CalendarEditorDialog(wxWindow* parent, const std::optional<Calendar>& calendar = std::nullopt)
-        : wxDialog(parent,
-                   wxID_ANY,
-                   calendar.has_value() ? "Edit Calendar" : "New Calendar",
-                   wxDefaultPosition,
-                   wxDefaultSize,
-                   wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER),
-          calendar_(calendar) {
-        auto* rootSizer = new wxBoxSizer(wxVERTICAL);
-
-        auto* formSizer = new wxFlexGridSizer(0, 2, 10, 10);
-        formSizer->AddGrowableCol(1, 1);
-
-        formSizer->Add(new wxStaticText(this, wxID_ANY, "Name"), 0, wxALIGN_CENTER_VERTICAL);
-        nameCtrl_ = new wxTextCtrl(this, wxID_ANY);
-        formSizer->Add(nameCtrl_, 1, wxEXPAND);
-
-        formSizer->Add(new wxStaticText(this, wxID_ANY, "Description"), 0, wxALIGN_TOP);
-        descriptionCtrl_ = new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxSize(-1, 90), wxTE_MULTILINE);
-        formSizer->Add(descriptionCtrl_, 1, wxEXPAND);
-
-        formSizer->Add(new wxStaticText(this, wxID_ANY, "Color"), 0, wxALIGN_CENTER_VERTICAL);
-        colorComboBox_ = new wxBitmapComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, nullptr, wxCB_READONLY);
-        for (const auto& [name, hex] : CalendarColorPalette()) {
-            colorComboBox_->Append(wxString::FromUTF8(name), MakeColorSwatchBitmap(CalendarColour(hex)));
-        }
-        colorComboBox_->SetSelection(0);
-        formSizer->Add(colorComboBox_, 1, wxEXPAND);
-
-        rootSizer->Add(formSizer, 1, wxEXPAND | wxALL, 14);
-
-        if (!calendar_.has_value()) {
-            auto* importButton = new wxButton(this, wxID_ANY, "Import .ics file...");
-            importButton->Bind(wxEVT_BUTTON, &CalendarEditorDialog::OnImportIcal, this);
-            rootSizer->Add(importButton, 0, wxLEFT | wxRIGHT | wxBOTTOM, 14);
-        }
-
-        if (calendar_.has_value()) {
-            wxString flags;
-            if (calendar_->isPrimary) {
-                flags += "Primary calendar";
-            }
-            if (calendar_->isShared) {
-                flags += flags.empty() ? "Shared calendar" : ", shared calendar";
-            }
-            if (calendar_->isReadOnly) {
-                flags += flags.empty() ? "Read-only calendar" : ", read-only calendar";
-            }
-            if (!flags.empty()) {
-                rootSizer->Add(new wxStaticText(this, wxID_ANY, flags), 0, wxLEFT | wxRIGHT | wxBOTTOM, 14);
-            }
-
-            if (calendar_->isReadOnly) {
-                nameCtrl_->Enable(false);
-                descriptionCtrl_->Enable(false);
-                colorComboBox_->Enable(false);
-            }
-        }
-
-        auto* buttonSizer = CreateSeparatedButtonSizer(wxOK | wxCANCEL);
-        if (buttonSizer != nullptr) {
-            rootSizer->Add(buttonSizer, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 14);
-        }
-
-        SetSizerAndFit(rootSizer);
-        SetMinSize(wxSize(420, GetSize().GetHeight()));
-        CentreOnParent();
-
-        if (calendar_.has_value()) {
-            nameCtrl_->SetValue(wxString::FromUTF8(calendar_->name));
-            descriptionCtrl_->SetValue(wxString::FromUTF8(calendar_->description));
-            colorComboBox_->SetSelection(CalendarColorIndex(calendar_->colorHex));
-        }
-
-        Bind(wxEVT_BUTTON, &CalendarEditorDialog::OnOk, this, wxID_OK);
-    }
-
-    std::string GetCalendarName() const {
-        return savedName_;
-    }
-
-    std::string GetCalendarDescription() const {
-        return savedDescription_;
-    }
-
-    std::string GetCalendarColor() const {
-        return savedColor_;
-    }
-
-    bool HasIcalImport() const {
-        return importedIcal_.has_value();
-    }
-
-    Calendar::IcalImportResult GetIcalImportResult() const {
-        Calendar::IcalImportResult result = *importedIcal_;
-        result.name = savedName_;
-        result.description = savedDescription_;
-        return result;
-    }
-
-private:
-    static std::string ToUtf8String(const wxString& value) {
-        const wxScopedCharBuffer utf8 = value.ToUTF8();
-        return utf8 ? std::string(utf8.data()) : std::string();
-    }
-
-    void OnOk(wxCommandEvent& event) {
-        if (calendar_.has_value() && calendar_->isReadOnly) {
-            event.Skip();
-            return;
-        }
-
-        if (nameCtrl_->GetValue().Trim(true).Trim(false).IsEmpty()) {
-            wxMessageBox("Calendar name is required.", "Validation", wxOK | wxICON_WARNING, this);
-            return;
-        }
-
-        savedName_ = ToUtf8String(nameCtrl_->GetValue());
-        savedDescription_ = ToUtf8String(descriptionCtrl_->GetValue());
-        const int selection = std::max(0, colorComboBox_->GetSelection());
-        savedColor_ = CalendarColorPalette()[static_cast<size_t>(selection)].second;
-        EndModal(wxID_OK);
-    }
-
-    void OnImportIcal(wxCommandEvent&) {
-        wxFileDialog dialog(
-            this,
-            "Open iCalendar file",
-            "",
-            "",
-            "iCalendar files (*.ics)|*.ics|All files (*.*)|*.*",
-            wxFD_OPEN | wxFD_FILE_MUST_EXIST);
-        if (dialog.ShowModal() != wxID_OK) {
-            return;
-        }
-
-        std::ifstream input(dialog.GetPath().ToStdString(), std::ios::binary);
-        if (!input) {
-            wxMessageBox("The selected file could not be opened.", "Import failed", wxOK | wxICON_ERROR, this);
-            return;
-        }
-
-        const std::string body((std::istreambuf_iterator<char>(input)), std::istreambuf_iterator<char>());
-        std::string error;
-        auto parsed = Calendar::fromIcal(body, &error);
-        if (!parsed.has_value()) {
-            wxMessageBox(wxString::FromUTF8(error.empty() ? "Invalid iCalendar file." : error),
-                         "Invalid iCalendar file",
-                         wxOK | wxICON_WARNING,
-                         this);
-            return;
-        }
-
-        importedIcal_ = std::move(parsed);
-        nameCtrl_->SetValue(wxString::FromUTF8(importedIcal_->name));
-        descriptionCtrl_->SetValue(wxString::FromUTF8(importedIcal_->description));
-    }
-
-    std::optional<Calendar> calendar_;
-    std::optional<Calendar::IcalImportResult> importedIcal_;
-    std::string savedName_;
-    std::string savedDescription_;
-    std::string savedColor_ = DefaultCalendarColor();
-    wxTextCtrl* nameCtrl_ = nullptr;
-    wxTextCtrl* descriptionCtrl_ = nullptr;
-    wxBitmapComboBox* colorComboBox_ = nullptr;
-};
 
 class LocalCalendarFrame final : public wxFrame {
 public:
@@ -1120,7 +487,7 @@ private:
                     if (selectedCalendarId_ == calendarId) {
                         const auto allCalendars = AllLoadedCalendars();
                         const auto visibleIt = std::find_if(allCalendars.begin(), allCalendars.end(), [this](const Calendar& candidate) {
-                            return visibleCalendarIds_.count(candidate.id) > 0;
+                            return !candidate.isReadOnly && visibleCalendarIds_.count(candidate.id) > 0;
                         });
                         if (visibleIt != allCalendars.end()) {
                             selectedCalendarId_ = visibleIt->id;
@@ -1143,6 +510,10 @@ private:
             }
             selectButton->Bind(wxEVT_BUTTON, [this, calendarId = calendar.id](wxCommandEvent&) {
                 if (const auto calendar = FindLoadedCalendarById(calendarId); calendar.has_value()) {
+                    if (calendar->isReadOnly) {
+                        statusLabel_->SetLabel("Read-only calendars cannot be selected for new events");
+                        return;
+                    }
                     currentAccountId_ = calendar->accountId;
                     accountCalendars_ = accountCalendarCache_[calendar->accountId];
                 }
@@ -1156,8 +527,13 @@ private:
             rowSizer->Add(visibility, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 6);
             rowSizer->Add(selectButton, 1, wxEXPAND);
             auto* addEventButton = new wxButton(calendarListPanel_, wxID_ANY, "+", wxDefaultPosition, wxSize(28, 24));
+            addEventButton->Enable(!calendar.isReadOnly);
             addEventButton->Bind(wxEVT_BUTTON, [this, calendarId = calendar.id](wxCommandEvent&) {
                 if (const auto calendar = FindLoadedCalendarById(calendarId); calendar.has_value()) {
+                    if (calendar->isReadOnly) {
+                        statusLabel_->SetLabel("Read-only calendars cannot be used for new events");
+                        return;
+                    }
                     currentAccountId_ = calendar->accountId;
                     accountCalendars_ = accountCalendarCache_[calendar->accountId];
                     selectedCalendarId_ = calendarId;
@@ -1198,7 +574,6 @@ private:
         const int exportId = wxWindow::NewControlId();
 
         menu.Append(editId, "Edit");
-        menu.Enable(editId, !calendar->isReadOnly);
         menu.Append(deleteId, "Delete");
         menu.Enable(deleteId, !calendar->isPrimary && !calendar->isReadOnly);
         menu.AppendSeparator();
@@ -1386,6 +761,7 @@ private:
         if (!result.success) {
             RefreshAccountControls();
             if (result.accountId != 0) {
+                accountLoginInProgressIds_.erase(result.accountId);
                 signedInAccountIds_.erase(result.accountId);
                 accountLoginFailedIds_.insert(result.accountId);
             }
@@ -1422,6 +798,10 @@ private:
                 statusLabel_->SetLabel("Account sign-in did not complete");
             }
             return;
+        }
+
+        if (result.accountId != 0) {
+            accountLoginInProgressIds_.erase(result.accountId);
         }
 
         if (result.token != nullptr) {
@@ -1465,6 +845,10 @@ private:
     }
 
     void HandleSilentAuthOperationResult(const AuthOperationResult& result) {
+        if (result.accountId != 0) {
+            accountLoginInProgressIds_.erase(result.accountId);
+        }
+
         if (!result.success) {
             if (result.accountId != 0) {
                 signedInAccountIds_.erase(result.accountId);
@@ -1514,6 +898,11 @@ private:
             return;
         }
 
+        accountLoginInProgressIds_.insert(account.id);
+        accountLoginFailedIds_.erase(account.id);
+        RefreshAccountControls();
+        RefreshCalendarControls();
+
         wxWeakRef<LocalCalendarFrame> weakThis(this);
         const std::string dbPath = dbPath_;
         std::thread([weakThis, dbPath, account]() {
@@ -1535,7 +924,8 @@ private:
                 continue;
             }
 
-            accountLoginFailedIds_.insert(account.id);
+            accountLoginInProgressIds_.insert(account.id);
+            accountLoginFailedIds_.erase(account.id);
             accountsToRestore.push_back(account);
         }
 
@@ -1683,15 +1073,12 @@ private:
                         const std::string& name,
                         const std::string& description,
                         const std::string& colorHex) {
-        if (calendar.isReadOnly) {
-            wxMessageBox("This calendar is read-only and cannot be edited.",
-                         "Read-only calendar", wxOK | wxICON_WARNING, this);
-            return false;
+        const bool remoteFieldsChanged = !calendar.isReadOnly &&
+            (calendar.name != name || calendar.description != description);
+        if (!calendar.isReadOnly) {
+            calendar.name = name;
+            calendar.description = description;
         }
-
-        const bool remoteFieldsChanged = calendar.name != name || calendar.description != description;
-        calendar.name = name;
-        calendar.description = description;
         calendar.colorHex = NormalizeCalendarColor(colorHex);
         if (remoteFieldsChanged && calendar.syncEnabled && !calendar.providerCalendarId.empty()) {
             calendar.syncStatus = PENDING_UPDATE;
@@ -1778,11 +1165,6 @@ private:
     void OpenEditCalendarDialog(const long long calendarId) {
         const auto calendar = FindLoadedCalendarById(calendarId);
         if (!calendar.has_value()) {
-            return;
-        }
-        if (calendar->isReadOnly) {
-            wxMessageBox("This calendar is read-only and cannot be edited.",
-                         "Read-only calendar", wxOK | wxICON_INFORMATION, this);
             return;
         }
 
@@ -1901,6 +1283,7 @@ private:
             sessionTokens_.erase(account->id);
             signedInAccountIds_.erase(account->id);
             accountLoginFailedIds_.erase(account->id);
+            accountLoginInProgressIds_.erase(account->id);
             accountCalendarCache_.erase(account->id);
             ReloadAccounts();
             RefreshAllAccountCalendarCache();
@@ -1937,7 +1320,8 @@ private:
             accountStates.push_back(AccountManagerDialog::AccountState{
                 account,
                 IsLocalProvider(account.provider) || signedInAccountIds_.count(account.id) > 0,
-                accountLoginFailedIds_.count(account.id) > 0});
+                accountLoginFailedIds_.count(account.id) > 0,
+                accountLoginInProgressIds_.count(account.id) > 0});
         }
 
         AccountManagerDialog dialog(
@@ -2145,8 +1529,9 @@ private:
         toolbarSizer->Add(todayButton_, 0, wxRIGHT | wxALIGN_CENTER_VERTICAL, 12);
         toolbarSizer->Add(previousButton_, 0, wxRIGHT | wxALIGN_CENTER_VERTICAL, 6);
         toolbarSizer->Add(nextButton_, 0, wxRIGHT | wxALIGN_CENTER_VERTICAL, 18);
-        toolbarSizer->AddStretchSpacer();
+        toolbarSizer->AddStretchSpacer(1);
         toolbarSizer->Add(periodSizer, 0, wxRIGHT | wxALIGN_CENTER_VERTICAL, 16);
+        toolbarSizer->AddStretchSpacer(1);
         toolbarSizer->Add(manageAccountsButton_, 0, wxALIGN_CENTER_VERTICAL);
 
         auto* contentSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -2483,10 +1868,14 @@ private:
         UpdateEventUploadSessionsForVisibleRange();
         const std::vector<Calendar> calendarSnapshot = allCalendars;
         const std::set<long long> visibleCalendarIds = visibleCalendarIds_;
+        std::unordered_map<long long, std::string> calendarProviders;
+        for (const auto& calendar : calendarSnapshot) {
+            const auto account = FindLoadedAccountById(calendar.accountId);
+            if (account.has_value()) {
+                calendarProviders[calendar.id] = account->provider;
+            }
+        }
         const std::string dbPath = dbPath_;
-        const auto currentAccount = FindLoadedAccountById(currentAccountId_);
-        const bool isMicrosoftAccount =
-            currentAccount.has_value() && currentAccount->provider == "MICROSOFT";
         statusLabel_->SetLabel("Loading events...");
 
         wxWeakRef<LocalCalendarFrame> weakThis(this);
@@ -2495,150 +1884,20 @@ private:
             dbPath,
             calendarSnapshot,
             visibleCalendarIds,
+            calendarProviders,
             visibleRange,
             bufferedRange,
             bufferedUtcRange,
-            isMicrosoftAccount,
             forceRemoteRangeReload,
             loadGeneration]() {
-            EventLoadResult result;
-
-            try {
-                SQLite::Database db(dbPath, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
-                ConfigureSqliteConnection(db);
-                EventRepository eventRepository(db);
-                std::unordered_map<long long, Event> uniqueEvents;
-                std::unordered_map<long long, std::string> calendarColors;
-                std::unordered_map<std::string, RemoteMasterMetadata> remoteMasterMetadata;
-                std::unordered_set<std::string> remoteOccurrenceMasterIds;
-
-                for (const auto& calendar : calendarSnapshot) {
-                    if (visibleCalendarIds.count(calendar.id) == 0) {
-                        continue;
-                    }
-                    calendarColors[calendar.id] = NormalizeCalendarColor(calendar.colorHex);
-
-                    auto calendarEvents = eventRepository.getEventsInRange(
-                        calendar.id,
-                        bufferedUtcRange.startEpoch,
-                        bufferedUtcRange.endEpoch);
-                    auto recurringMasters = eventRepository.getRecurringMastersStartingBefore(
-                        calendar.id,
-                        bufferedUtcRange.endEpoch);
-
-                    for (auto& event : calendarEvents) {
-                        event.colorHex = calendarColors[calendar.id];
-                        if (!event.providerEventId.empty()) {
-                            remoteMasterMetadata[event.providerEventId] = RemoteMasterMetadata{
-                                event.title,
-                                event.description,
-                                event.location,
-                                event.timezone,
-                                event.recurrenceRule,
-                                event.allDay};
-                        }
-                        if (!event.providerMasterId.empty()) {
-                            remoteOccurrenceMasterIds.insert(event.providerMasterId);
-                        }
-                        uniqueEvents[event.id] = std::move(event);
-                    }
-                    for (auto& event : recurringMasters) {
-                        event.colorHex = calendarColors[calendar.id];
-                        if (!event.providerEventId.empty()) {
-                            remoteMasterMetadata[event.providerEventId] = RemoteMasterMetadata{
-                                event.title,
-                                event.description,
-                                event.location,
-                                event.timezone,
-                                event.recurrenceRule,
-                                event.allDay};
-                        }
-                        uniqueEvents[event.id] = std::move(event);
-                    }
-                }
-
-                long long nextProjectedOccurrenceId = -1;
-                for (const auto& [_, event] : uniqueEvents) {
-                    Event hydratedEvent = BuildEffectiveRemoteEvent(event, remoteMasterMetadata);
-
-                    if (isMicrosoftAccount &&
-                        hydratedEvent.type == EventType::MASTER &&
-                        !hydratedEvent.recurrenceRule.empty() &&
-                        remoteOccurrenceMasterIds.count(hydratedEvent.providerEventId) > 0) {
-                        continue;
-                    }
-
-                    if (!hydratedEvent.recurrenceRule.empty() && hydratedEvent.providerMasterId.empty()) {
-                        std::unordered_set<long long> suppressedInstanceStarts;
-                        std::unordered_set<long long> suppressedDisplayDays;
-                        const std::string displayTimezone = hydratedEvent.timezone.empty()
-                            ? GetCurrentLocalTimeZoneName()
-                            : hydratedEvent.timezone;
-                        const long long overrideRangeStart =
-                            std::min(bufferedRange.startEpoch, bufferedUtcRange.startEpoch) - kSecondsPerDay;
-                        const long long overrideRangeEnd =
-                            std::max(bufferedRange.endEpoch, bufferedUtcRange.endEpoch) + kSecondsPerDay;
-                        for (const auto& overrideEntry : eventRepository.getRecurrenceOverridesForMaster(
-                                 hydratedEvent.id,
-                                 overrideRangeStart,
-                                 overrideRangeEnd)) {
-                            if (overrideEntry.type == RecurrenceOverrideType::CANCELLED ||
-                                overrideEntry.type == RecurrenceOverrideType::MODIFIED) {
-                                suppressedInstanceStarts.insert(overrideEntry.originalStart);
-                                suppressedDisplayDays.insert(StartOfUtcDay(overrideEntry.originalStart));
-                                suppressedDisplayDays.insert(StartOfUtcDay(
-                                    ConvertUtcEpochToTimeZoneDisplayEpoch(displayTimezone, overrideEntry.originalStart)));
-                            }
-                        }
-
-                        auto occurrences = ExpandRecurringEventForRange(
-                            hydratedEvent,
-                            bufferedRange,
-                            suppressedInstanceStarts,
-                            suppressedDisplayDays);
-                        for (auto& occurrence : occurrences) {
-                            const long long projectedId = nextProjectedOccurrenceId--;
-                            occurrence.id = projectedId;
-                            result.projectedOccurrenceMasterIds[projectedId] = hydratedEvent.id;
-                            result.projectedOccurrences[projectedId] = occurrence;
-                        }
-                        result.events.insert(
-                            result.events.end(),
-                            std::make_move_iterator(occurrences.begin()),
-                            std::make_move_iterator(occurrences.end()));
-                        continue;
-                    }
-
-                    if (hydratedEvent.GetDisplayStartEpoch() < bufferedRange.endEpoch &&
-                        hydratedEvent.GetDisplayEndEpoch() > bufferedRange.startEpoch) {
-                        result.events.push_back(std::move(hydratedEvent));
-                    }
-                }
-
-                std::sort(result.events.begin(), result.events.end(), [](const Event& lhs, const Event& rhs) {
-                    if (lhs.GetDisplayStartEpoch() != rhs.GetDisplayStartEpoch()) {
-                        return lhs.GetDisplayStartEpoch() < rhs.GetDisplayStartEpoch();
-                    }
-                    if (lhs.GetDisplayEndEpoch() != rhs.GetDisplayEndEpoch()) {
-                        return lhs.GetDisplayEndEpoch() < rhs.GetDisplayEndEpoch();
-                    }
-                    return lhs.id < rhs.id;
-                });
-                result.fingerprint = ComputeEventListFingerprint(result.events);
-
-                result.visibleCount = static_cast<size_t>(std::count_if(
-                    result.events.begin(),
-                    result.events.end(),
-                    [&](const Event& event) {
-                        return event.GetDisplayStartEpoch() < visibleRange.endEpoch &&
-                               event.GetDisplayEndEpoch() > visibleRange.startEpoch;
-                    }));
-                HashCombine(result.fingerprint, static_cast<std::uint64_t>(visibleRange.startEpoch));
-                HashCombine(result.fingerprint, static_cast<std::uint64_t>(visibleRange.endEpoch));
-            }
-            catch (const std::exception& ex) {
-                result.error = ex.what();
-            }
+            const EventLoadResult result = LoadEventsForVisibleRange(EventLoadRequest{
+                dbPath,
+                calendarSnapshot,
+                visibleCalendarIds,
+                calendarProviders,
+                visibleRange,
+                bufferedRange,
+                bufferedUtcRange});
 
             wxTheApp->CallAfter([weakThis, loadGeneration, bufferedUtcRange, forceRemoteRangeReload, result = std::move(result)]() mutable {
                 if (!weakThis || weakThis->eventLoadGeneration_ != loadGeneration) {
@@ -3133,6 +2392,109 @@ private:
                 !event.providerMasterId.empty());
     }
 
+    void ApplyEntireSeriesEdit(const Event& originalEvent,
+                               const Event& editedEvent,
+                               const Event& master) {
+        const bool editingProjectedOrStoredOccurrence =
+            originalEvent.id != master.id ||
+            originalEvent.type == EventType::OCCURRENCE ||
+            originalEvent.type == EventType::EXCEPTION ||
+            !originalEvent.providerMasterId.empty();
+        Event updatedMaster = editingProjectedOrStoredOccurrence
+            ? PreserveSeriesAnchorDate(master, editedEvent)
+            : editedEvent;
+        updatedMaster.id = master.id;
+        updatedMaster.calendarId = master.calendarId;
+        updatedMaster.providerEventId = master.providerEventId;
+        updatedMaster.providerMasterId.clear();
+        updatedMaster.recurrenceGroupId = LocalSeriesGroupKey(master);
+        updatedMaster.instanceStart = 0;
+        updatedMaster.type = updatedMaster.recurrenceRule.empty() ? EventType::SINGLE : EventType::MASTER;
+        PrepareEventForCalendarSync(updatedMaster, false, updatedMaster.calendarId);
+        eventRepository_.upsert(updatedMaster);
+        eventRepository_.deleteStoredInstancesForMaster(
+            updatedMaster.calendarId,
+            updatedMaster.id,
+            updatedMaster.providerEventId,
+            updatedMaster.recurrenceGroupId);
+    }
+
+    void ApplySingleInstanceEdit(const Event& originalEvent,
+                                 const Event& editedEvent,
+                                 const Event& master,
+                                 const int overrideSyncStatus,
+                                 const bool deleteRequested) {
+        if (deleteRequested) {
+            if (IsStoredRecurrenceInstance(originalEvent)) {
+                eventRepository_.deleteEvent(originalEvent.id);
+            }
+            eventRepository_.upsertRecurrenceOverride(
+                MakeOverride(master, originalEvent, RecurrenceOverrideType::CANCELLED, overrideSyncStatus));
+            return;
+        }
+
+        Event replacement = editedEvent;
+        const bool reuseStoredInstance = IsStoredRecurrenceInstance(originalEvent);
+        replacement.id = reuseStoredInstance ? originalEvent.id : -1;
+        replacement.calendarId = master.calendarId;
+        replacement.providerEventId = reuseStoredInstance ? originalEvent.providerEventId : "";
+        replacement.providerMasterId = reuseStoredInstance ? originalEvent.providerMasterId : "";
+        replacement.recurrenceGroupId = reuseStoredInstance ? originalEvent.recurrenceGroupId : "";
+        replacement.instanceStart = originalEvent.instanceStart != 0
+            ? originalEvent.instanceStart
+            : originalEvent.startDateTime;
+        replacement.recurrenceRule.clear();
+        replacement.type = reuseStoredInstance && !replacement.providerMasterId.empty()
+            ? EventType::EXCEPTION
+            : EventType::SINGLE;
+        if (IsLocalCalendar(master.calendarId)) {
+            PrepareLocalEvent(replacement, !reuseStoredInstance);
+        }
+        else {
+            replacement.syncStatus = SYNCED;
+            replacement.deletedAt = 0;
+        }
+        const long long replacementId = eventRepository_.upsert(replacement);
+        eventRepository_.upsertRecurrenceOverride(
+            MakeOverride(master, originalEvent, RecurrenceOverrideType::MODIFIED, overrideSyncStatus, replacementId));
+    }
+
+    void ApplyThisAndFollowingEdit(const Event& originalEvent,
+                                   const Event& editedEvent,
+                                   const Event& master,
+                                   const bool deleteRequested) {
+        const long long splitStart = originalEvent.instanceStart != 0
+            ? originalEvent.instanceStart
+            : originalEvent.startDateTime;
+        Event truncatedMaster = master;
+        truncatedMaster.recurrenceRule = LimitedRecurrenceRule(
+            master.recurrenceRule,
+            std::max(0LL, splitStart - 1));
+        truncatedMaster.type = truncatedMaster.recurrenceRule.empty() ? EventType::SINGLE : EventType::MASTER;
+        truncatedMaster.recurrenceGroupId = LocalSeriesGroupKey(master);
+        PrepareEventForCalendarSync(truncatedMaster, false, truncatedMaster.calendarId);
+        eventRepository_.upsert(truncatedMaster);
+        DeleteFutureLocalSeriesSegments(master, splitStart);
+
+        if (deleteRequested) {
+            return;
+        }
+
+        Event followingMaster = editedEvent;
+        followingMaster.id = -1;
+        followingMaster.calendarId = master.calendarId;
+        followingMaster.providerEventId.clear();
+        followingMaster.providerMasterId.clear();
+        followingMaster.recurrenceGroupId = LocalSeriesGroupKey(master);
+        followingMaster.instanceStart = 0;
+        followingMaster.recurrenceRule = PreserveRecurrenceEndBoundary(
+            followingMaster.recurrenceRule,
+            master.recurrenceRule);
+        followingMaster.type = followingMaster.recurrenceRule.empty() ? EventType::SINGLE : EventType::MASTER;
+        PrepareEventForCalendarSync(followingMaster, true, followingMaster.calendarId);
+        eventRepository_.upsert(followingMaster);
+    }
+
     bool ApplyRecurringEdit(
         const Event& originalEvent,
         const Event& editedEvent,
@@ -3142,102 +2504,20 @@ private:
         if (!master.has_value()) {
             return false;
         }
-        const bool localCalendar = IsLocalCalendar(master->calendarId);
-        const int overrideSyncStatus = localCalendar ? SYNCED : PENDING_INSERT;
+        const int overrideSyncStatus = IsLocalCalendar(master->calendarId) ? SYNCED : PENDING_INSERT;
 
         try {
             if (scope == RecurrenceEditScope::ENTIRE_SERIES) {
                 if (deleteRequested) {
                     return DeleteEventById(master->id);
                 }
-
-                const bool editingProjectedOrStoredOccurrence =
-                    originalEvent.id != master->id ||
-                    originalEvent.type == EventType::OCCURRENCE ||
-                    originalEvent.type == EventType::EXCEPTION ||
-                    !originalEvent.providerMasterId.empty();
-                Event updatedMaster = editingProjectedOrStoredOccurrence
-                    ? PreserveSeriesAnchorDate(*master, editedEvent)
-                    : editedEvent;
-                updatedMaster.id = master->id;
-                updatedMaster.calendarId = master->calendarId;
-                updatedMaster.providerEventId = master->providerEventId;
-                updatedMaster.providerMasterId.clear();
-                updatedMaster.recurrenceGroupId = LocalSeriesGroupKey(*master);
-                updatedMaster.instanceStart = 0;
-                updatedMaster.type = updatedMaster.recurrenceRule.empty() ? EventType::SINGLE : EventType::MASTER;
-                PrepareEventForCalendarSync(updatedMaster, false, updatedMaster.calendarId);
-                eventRepository_.upsert(updatedMaster);
-                eventRepository_.deleteStoredInstancesForMaster(
-                    updatedMaster.calendarId,
-                    updatedMaster.id,
-                    updatedMaster.providerEventId,
-                    updatedMaster.recurrenceGroupId);
+                ApplyEntireSeriesEdit(originalEvent, editedEvent, *master);
             }
             else if (scope == RecurrenceEditScope::THIS_INSTANCE) {
-                if (deleteRequested) {
-                    if (IsStoredRecurrenceInstance(originalEvent)) {
-                        eventRepository_.deleteEvent(originalEvent.id);
-                    }
-                    eventRepository_.upsertRecurrenceOverride(
-                        MakeOverride(*master, originalEvent, RecurrenceOverrideType::CANCELLED, overrideSyncStatus));
-                }
-                else {
-                    Event replacement = editedEvent;
-                    const bool reuseStoredInstance = IsStoredRecurrenceInstance(originalEvent);
-                    replacement.id = reuseStoredInstance ? originalEvent.id : -1;
-                    replacement.calendarId = master->calendarId;
-                    replacement.providerEventId = reuseStoredInstance ? originalEvent.providerEventId : "";
-                    replacement.providerMasterId = reuseStoredInstance ? originalEvent.providerMasterId : "";
-                    replacement.recurrenceGroupId = reuseStoredInstance ? originalEvent.recurrenceGroupId : "";
-                    replacement.instanceStart = originalEvent.instanceStart != 0
-                        ? originalEvent.instanceStart
-                        : originalEvent.startDateTime;
-                    replacement.recurrenceRule.clear();
-                    replacement.type = reuseStoredInstance && !replacement.providerMasterId.empty()
-                        ? EventType::EXCEPTION
-                        : EventType::SINGLE;
-                    if (localCalendar) {
-                        PrepareLocalEvent(replacement, !reuseStoredInstance);
-                    }
-                    else {
-                        replacement.syncStatus = SYNCED;
-                        replacement.deletedAt = 0;
-                    }
-                    const long long replacementId = eventRepository_.upsert(replacement);
-                    eventRepository_.upsertRecurrenceOverride(
-                        MakeOverride(*master, originalEvent, RecurrenceOverrideType::MODIFIED, overrideSyncStatus, replacementId));
-                }
+                ApplySingleInstanceEdit(originalEvent, editedEvent, *master, overrideSyncStatus, deleteRequested);
             }
             else {
-                const long long splitStart = originalEvent.instanceStart != 0
-                    ? originalEvent.instanceStart
-                    : originalEvent.startDateTime;
-                Event truncatedMaster = *master;
-                truncatedMaster.recurrenceRule = LimitedRecurrenceRule(
-                    master->recurrenceRule,
-                    std::max(0LL, splitStart - 1));
-                truncatedMaster.type = truncatedMaster.recurrenceRule.empty() ? EventType::SINGLE : EventType::MASTER;
-                truncatedMaster.recurrenceGroupId = LocalSeriesGroupKey(*master);
-                PrepareEventForCalendarSync(truncatedMaster, false, truncatedMaster.calendarId);
-                eventRepository_.upsert(truncatedMaster);
-                DeleteFutureLocalSeriesSegments(*master, splitStart);
-
-                if (!deleteRequested) {
-                    Event followingMaster = editedEvent;
-                    followingMaster.id = -1;
-                    followingMaster.calendarId = master->calendarId;
-                    followingMaster.providerEventId.clear();
-                    followingMaster.providerMasterId.clear();
-                    followingMaster.recurrenceGroupId = LocalSeriesGroupKey(*master);
-                    followingMaster.instanceStart = 0;
-                    followingMaster.recurrenceRule = PreserveRecurrenceEndBoundary(
-                        followingMaster.recurrenceRule,
-                        master->recurrenceRule);
-                    followingMaster.type = followingMaster.recurrenceRule.empty() ? EventType::SINGLE : EventType::MASTER;
-                    PrepareEventForCalendarSync(followingMaster, true, followingMaster.calendarId);
-                    eventRepository_.upsert(followingMaster);
-                }
+                ApplyThisAndFollowingEdit(originalEvent, editedEvent, *master, deleteRequested);
             }
 
             RefreshEvents();
@@ -3275,9 +2555,141 @@ private:
         }
     }
 
+    std::unordered_map<long long, wxString> BuildAccountLabelsById() const {
+        std::unordered_map<long long, wxString> accountLabels;
+        for (const auto& account : availableAccounts_) {
+            accountLabels[account.id] = FormatAccountLabel(account);
+        }
+        return accountLabels;
+    }
+
+    bool MoveEventToCalendarFromUi(const Event& event, const long long targetCalendarId) {
+        if (targetCalendarId == 0 || targetCalendarId == event.calendarId) {
+            return false;
+        }
+
+        const auto targetCalendar = FindLoadedCalendarById(targetCalendarId);
+        if (!targetCalendar.has_value()) {
+            wxMessageBox("The destination calendar could not be found.",
+                         "Move event", wxOK | wxICON_WARNING, this);
+            return false;
+        }
+        if (targetCalendar->isReadOnly) {
+            wxMessageBox("The destination calendar is read-only.",
+                         "Move event", wxOK | wxICON_WARNING, this);
+            return false;
+        }
+
+        const bool recurringContext =
+            event.type == EventType::MASTER ||
+            event.type == EventType::OCCURRENCE ||
+            !event.recurrenceRule.empty() ||
+            !event.providerMasterId.empty();
+
+        try {
+            if (recurringContext) {
+                auto master = FindMasterForProjectedOccurrence(event);
+                if (!master.has_value()) {
+                    wxMessageBox("The recurring event master could not be found.",
+                                 "Move recurring event", wxOK | wxICON_WARNING, this);
+                    return false;
+                }
+
+                Event movedSeries = *master;
+                movedSeries.calendarId = targetCalendarId;
+                movedSeries.providerMasterId.clear();
+                movedSeries.recurrenceGroupId = LocalSeriesGroupKey(*master);
+                movedSeries.instanceStart = 0;
+                movedSeries.type = movedSeries.recurrenceRule.empty() ? EventType::SINGLE : EventType::MASTER;
+                if (!eventRepository_.moveEventToCalendar(movedSeries, targetCalendarId).has_value()) {
+                    wxMessageBox("The event could not be moved.",
+                                 "Move event", wxOK | wxICON_WARNING, this);
+                    return false;
+                }
+            }
+            else {
+                if (event.id <= 0) {
+                    wxMessageBox("The selected event cannot be moved because it is not stored as a database event.",
+                                 "Move event", wxOK | wxICON_WARNING, this);
+                    return false;
+                }
+                if (!eventRepository_.moveEventToCalendar(event, targetCalendarId).has_value()) {
+                    wxMessageBox("The event could not be moved.",
+                                 "Move event", wxOK | wxICON_WARNING, this);
+                    return false;
+                }
+            }
+
+            currentAccountId_ = targetCalendar->accountId;
+            accountCalendars_ = accountCalendarCache_[targetCalendar->accountId];
+            selectedCalendarId_ = targetCalendarId;
+            visibleCalendarIds_.insert(targetCalendarId);
+            SaveCurrentCalendarSessionState();
+            RefreshEvents();
+            RefreshCalendarControls();
+            statusLabel_->SetLabel(recurringContext ? "Recurring event moved" : "Event moved");
+            return true;
+        }
+        catch (const SQLite::Exception& ex) {
+            wxMessageBox(wxString::Format("Move failed: %s", ex.what()),
+                         "Database error", wxOK | wxICON_ERROR, this);
+            return false;
+        }
+    }
+
+    void OpenMoveEventDialog(const Event& event) {
+        EventMoveDialog dialog(this, event, AllLoadedCalendars(), BuildAccountLabelsById());
+        if (!dialog.HasDestination()) {
+            wxMessageBox("There is no writable destination calendar available.",
+                         "Move event", wxOK | wxICON_INFORMATION, this);
+            return;
+        }
+        if (dialog.ShowModal() != wxID_OK) {
+            return;
+        }
+
+        MoveEventToCalendarFromUi(event, dialog.SelectedCalendarId());
+    }
+
+    void OpenEventActionDialog(const Event& event, const bool readOnly) {
+        if (readOnly) {
+            OpenEventDialog(event, std::nullopt, true);
+            return;
+        }
+
+        wxArrayString actions;
+        actions.Add("Edit");
+        actions.Add("Move to calendar");
+        wxSingleChoiceDialog dialog(this,
+                                    "Choose what you want to do with this event.",
+                                    "Event",
+                                    actions);
+        dialog.SetSelection(0);
+        if (dialog.ShowModal() != wxID_OK) {
+            return;
+        }
+
+        if (dialog.GetSelection() == 1) {
+            OpenMoveEventDialog(event);
+            return;
+        }
+
+        OpenEventDialog(event, std::nullopt, false);
+    }
+
     void OpenEventDialog(const std::optional<Event>& event = std::nullopt,
-                         const std::optional<EventDraftDefaults>& defaults = std::nullopt) {
-        EventEditorDialog dialog(this, event, selectedDayEpoch_, defaults);
+                         const std::optional<EventDraftDefaults>& defaults = std::nullopt,
+                         const bool readOnly = false) {
+        const long long defaultCalendarId = event.has_value() ? event->calendarId : selectedCalendarId_;
+        const auto accountLabels = BuildAccountLabelsById();
+        EventEditorDialog dialog(this,
+                                 event,
+                                 selectedDayEpoch_,
+                                 AllLoadedCalendars(),
+                                 accountLabels,
+                                 defaultCalendarId,
+                                 defaults,
+                                 readOnly);
         if (dialog.ShowModal() != wxID_OK) {
             return;
         }
@@ -3298,11 +2710,12 @@ private:
             return;
         }
 
-        const long long targetCalendarId = event.has_value() ? event->calendarId : selectedCalendarId_;
-        auto builtEvent = dialog.BuildEvent(targetCalendarId);
+        const long long fallbackCalendarId = event.has_value() ? event->calendarId : selectedCalendarId_;
+        auto builtEvent = dialog.BuildEvent(fallbackCalendarId);
         if (!builtEvent.has_value()) {
             return;
         }
+        const long long targetCalendarId = builtEvent->calendarId;
 
         if (builtEvent->timezone.empty()) {
             const auto selectedCalendar = FindLoadedCalendarById(targetCalendarId);
@@ -3323,7 +2736,7 @@ private:
             }
         }
 
-        PrepareEventForSelectedCalendarSync(*builtEvent, !event.has_value());
+        PrepareEventForCalendarSync(*builtEvent, !event.has_value(), targetCalendarId);
         PersistEvent(*builtEvent);
     }
 
@@ -3343,11 +2756,7 @@ private:
         }
 
         const auto eventCalendar = FindLoadedCalendarById(selectedEvent->calendarId);
-        if (eventCalendar.has_value() && eventCalendar->isReadOnly) {
-            wxMessageBox("This calendar is read-only and its events cannot be changed.",
-                         "Read-only calendar", wxOK | wxICON_INFORMATION, this);
-            return;
-        }
+        const bool readOnly = eventCalendar.has_value() && eventCalendar->isReadOnly;
 
         if (!selectedEvent->providerMasterId.empty()) {
             std::unordered_map<std::string, RemoteMasterMetadata> remoteMasterMetadata;
@@ -3369,8 +2778,10 @@ private:
         }
 
         FocusDay(StartOfUtcDay(selectedEvent->GetDisplayStartEpoch()), false);
-        statusLabel_->SetLabel(wxString::Format("Editing event #%lld", selectedEvent->id));
-        OpenEventDialog(*selectedEvent);
+        statusLabel_->SetLabel(readOnly
+            ? wxString::Format("Viewing event #%lld", selectedEvent->id)
+            : wxString::Format("Editing event #%lld", selectedEvent->id));
+        OpenEventActionDialog(*selectedEvent, readOnly);
     }
 
     void OpenNewEventDialog(const long long dayEpoch, const EventDraftDefaults& defaults) {
@@ -3531,6 +2942,7 @@ private:
     std::unordered_map<long long, std::shared_ptr<AccessToken>> sessionTokens_;
     std::set<long long> signedInAccountIds_;
     std::set<long long> accountLoginFailedIds_;
+    std::set<long long> accountLoginInProgressIds_;
     std::set<long long> collapsedAccountIds_;
     std::set<std::string> coverageFetchKeys_;
     std::set<std::string> coveredRangeKeys_;

@@ -21,6 +21,18 @@ bool SupportsEventUploadProvider(const std::string& provider) {
     return provider == "GOOGLE" || provider == "MICROSOFT";
 }
 
+void ApplyGooglePrimaryCalendarDisplayName(const Account& account, std::vector<Calendar>& calendars) {
+    if (account.provider != "GOOGLE" || account.name.empty()) {
+        return;
+    }
+
+    for (auto& calendar : calendars) {
+        if (calendar.isPrimary) {
+            calendar.name = account.name;
+        }
+    }
+}
+
 int CountPendingUploadEvents(const std::string& dbPath, const long long accountId) {
     SQLite::Database db(dbPath, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
     ConfigureSqliteConnection(db);
@@ -217,6 +229,10 @@ PendingEventUploadResult EventUploadScheduler::RunJob(const Job& job) {
             }
 
             auto remoteCalendars = service.fetchRemoteCalendars(currentAccessToken);
+            const auto account = accountRepository.GetById(job.accountId);
+            if (account.has_value()) {
+                ApplyGooglePrimaryCalendarDisplayName(*account, remoteCalendars);
+            }
             for (auto& calendar : remoteCalendars) {
                 calendar.accountId = job.accountId;
             }

@@ -63,6 +63,24 @@ long long InsertEventRow(SQLite::Database& db, const Event& e) {
     return db.getLastInsertRowid();
 }
 
+bool CalendarUploadsToProvider(SQLite::Database& db, const long long calendarId) {
+    SQLite::Statement query(
+        db,
+        "SELECT provider_calendar_id, sync_enabled "
+        "FROM calendars "
+        "WHERE id = ?");
+    query.bind(1, calendarId);
+    if (!query.executeStep()) {
+        return false;
+    }
+
+    const std::string providerCalendarId = query.getColumn(0).isNull()
+        ? ""
+        : query.getColumn(0).getString();
+    const bool syncEnabled = !query.getColumn(1).isNull() && query.getColumn(1).getInt() != 0;
+    return syncEnabled && !providerCalendarId.empty();
+}
+
 }
 
 EventRepository::EventRepository(SQLite::Database &db) : db(db) {}
@@ -245,6 +263,89 @@ bool EventRepository::updateById(const Event& e) {
         query.bind(i++, e.id);
 
         return query.exec() > 0;
+    });
+}
+
+std::optional<long long> EventRepository::moveEventToCalendar(
+    const Event& movedEvent,
+    const long long targetCalendarId) {
+    if (movedEvent.id <= 0 || targetCalendarId <= 0) {
+        return std::nullopt;
+    }
+
+    return RunInSavepoint(db, "event_move_to_calendar", [&]() -> std::optional<long long> {
+        const auto original = getById(movedEvent.id);
+        if (!original.has_value()) {
+            return std::nullopt;
+        }
+
+        const long long now = static_cast<long long>(std::time(nullptr));
+        const bool sourceUploads = CalendarUploadsToProvider(db, original->calendarId);
+        const bool targetUploads = CalendarUploadsToProvider(db, targetCalendarId);
+        const int movedSyncStatus = targetUploads ? PENDING_INSERT : SYNCED;
+
+        Event copy = movedEvent;
+        copy.id = -1;
+        copy.calendarId = targetCalendarId;
+        copy.providerEventId.clear();
+        copy.providerMasterId.clear();
+        copy.deletedAt = 0;
+        copy.syncStatus = movedSyncStatus;
+        copy.createdAt = now;
+        copy.updatedAt = now;
+
+        if (copy.recurrenceRule.empty()) {
+            copy.type = EventType::SINGLE;
+            copy.instanceStart = copy.startDateTime;
+        }
+        else {
+            copy.type = EventType::MASTER;
+            copy.instanceStart = 0;
+        }
+
+        const long long newEventId = InsertEventRow(db, copy);
+
+        SQLite::Statement updateMasterOverrides(
+            db,
+            "UPDATE recurrence_overrides "
+            "SET master_event_id = ?, sync_status = ?, deleted_at = 0, updated_at = ? "
+            "WHERE master_event_id = ?");
+        updateMasterOverrides.bind(1, newEventId);
+        updateMasterOverrides.bind(2, movedSyncStatus);
+        updateMasterOverrides.bind(3, now);
+        updateMasterOverrides.bind(4, original->id);
+        updateMasterOverrides.exec();
+
+        SQLite::Statement updateReplacementOverrides(
+            db,
+            "UPDATE recurrence_overrides "
+            "SET replacement_event_id = ?, sync_status = ?, deleted_at = 0, updated_at = ? "
+            "WHERE replacement_event_id = ?");
+        updateReplacementOverrides.bind(1, newEventId);
+        updateReplacementOverrides.bind(2, movedSyncStatus);
+        updateReplacementOverrides.bind(3, now);
+        updateReplacementOverrides.bind(4, original->id);
+        updateReplacementOverrides.exec();
+
+        if (sourceUploads && !original->providerEventId.empty() && original->syncStatus != PENDING_INSERT) {
+            SQLite::Statement markOriginalDeleted(
+                db,
+                "UPDATE events "
+                "SET deleted_at = ?, sync_status = ?, updated_at = ? "
+                "WHERE id = ?");
+            markOriginalDeleted.bind(1, now);
+            markOriginalDeleted.bind(2, PENDING_DELETE);
+            markOriginalDeleted.bind(3, now);
+            markOriginalDeleted.bind(4, original->id);
+            markOriginalDeleted.exec();
+        }
+        else {
+            SQLite::Statement deleteOriginal(db, "DELETE FROM events WHERE id = ?");
+            deleteOriginal.bind(1, original->id);
+            deleteOriginal.exec();
+        }
+
+        return newEventId;
     });
 }
 
