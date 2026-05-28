@@ -1,5 +1,5 @@
 #include "oauth/oauth_utils.h"
-#include "http.h"
+#include "utils/http.h"
 
 #include <cstring>
 #include <cstdlib>
@@ -12,8 +12,6 @@
 #include <boost/beast/core.hpp>
 #include <boost/beast/http.hpp>
 #include <wx/utils.h>
-
-#include "utils/http.h"
 
 namespace beast = boost::beast;
 namespace http = beast::http;
