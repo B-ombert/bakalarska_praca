@@ -1662,6 +1662,33 @@ private:
         return results;
     }
 
+    void RebuildEventIndex() {
+        eventIndexById_.clear();
+        eventIndexById_.reserve(events_.size());
+        for (size_t index = 0; index < events_.size(); ++index) {
+            if (events_[index].id > 0) {
+                eventIndexById_[events_[index].id] = index;
+            }
+        }
+    }
+
+    std::optional<Event> FindLoadedEventById(const long long eventId) const {
+        if (eventId < 0) {
+            const auto projectedIt = projectedOccurrences_.find(eventId);
+            if (projectedIt != projectedOccurrences_.end()) {
+                return projectedIt->second;
+            }
+            return std::nullopt;
+        }
+
+        const auto indexIt = eventIndexById_.find(eventId);
+        if (indexIt != eventIndexById_.end() && indexIt->second < events_.size()) {
+            return events_[indexIt->second];
+        }
+
+        return std::nullopt;
+    }
+
     VisibleRange ComputeVisibleRange() const {
         if (currentViewMode_ == CalendarViewMode::MONTH) {
             const int firstOffset = MonthGridOffset(visibleYear_, visibleMonth_);
@@ -1854,6 +1881,7 @@ private:
         const std::vector<Calendar> allCalendars = AllLoadedCalendars();
         if (allCalendars.empty()) {
             events_.clear();
+            eventIndexById_.clear();
             projectedOccurrences_.clear();
             projectedOccurrenceMasterIds_.clear();
             eventListFingerprint_ = 0;
@@ -1914,6 +1942,7 @@ private:
                 weakThis->events_ = std::move(result.events);
                 weakThis->projectedOccurrences_ = std::move(result.projectedOccurrences);
                 weakThis->projectedOccurrenceMasterIds_ = std::move(result.projectedOccurrenceMasterIds);
+                weakThis->RebuildEventIndex();
                 weakThis->eventListFingerprint_ = result.fingerprint;
                 weakThis->RefreshViewState();
                 weakThis->statusLabel_->SetLabel(wxString::Format(
@@ -2741,14 +2770,8 @@ private:
     }
 
     void OpenEventById(const long long eventId) {
-        std::optional<Event> selectedEvent;
-        if (eventId < 0) {
-            const auto projectedIt = projectedOccurrences_.find(eventId);
-            if (projectedIt != projectedOccurrences_.end()) {
-                selectedEvent = projectedIt->second;
-            }
-        }
-        else {
+        std::optional<Event> selectedEvent = FindLoadedEventById(eventId);
+        if (!selectedEvent.has_value() && eventId > 0) {
             selectedEvent = eventRepository_.getById(eventId);
         }
         if (!selectedEvent.has_value()) {
@@ -2947,6 +2970,7 @@ private:
     std::set<std::string> coverageFetchKeys_;
     std::set<std::string> coveredRangeKeys_;
     std::vector<Event> events_;
+    std::unordered_map<long long, size_t> eventIndexById_;
     std::unordered_map<long long, Event> projectedOccurrences_;
     std::unordered_map<long long, long long> projectedOccurrenceMasterIds_;
     long long nextProjectedOccurrenceId_ = -1;
