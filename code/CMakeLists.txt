@@ -8,10 +8,22 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # External libraries
 # ----------------------------
 
+if (NOT WIN32)
+    set(CMAKE_FIND_USE_PACKAGE_REGISTRY FALSE)
+    set(CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY FALSE)
+    set(Boost_NO_BOOST_CMAKE ON)
+endif()
+
 find_package(Boost REQUIRED)
 find_package(OpenSSL REQUIRED)
-find_package(wxWidgets CONFIG QUIET COMPONENTS core base)
-if (NOT wxWidgets_FOUND)
+
+if (WIN32)
+    find_package(wxWidgets CONFIG QUIET COMPONENTS core base)
+    if (NOT wxWidgets_FOUND)
+        find_package(wxWidgets REQUIRED COMPONENTS core base)
+        include(${wxWidgets_USE_FILE})
+    endif()
+else()
     find_package(wxWidgets REQUIRED COMPONENTS core base)
     include(${wxWidgets_USE_FILE})
 endif()
