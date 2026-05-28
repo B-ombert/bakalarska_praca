@@ -415,6 +415,12 @@ private:
 
         RefreshAllAccountCalendarCache();
 
+        const auto makeSidebarActionButton = [this](const wxString& label) {
+            auto* button = new wxButton(calendarListPanel_, wxID_ANY, label, wxDefaultPosition, wxSize(42, 28));
+            button->SetMinSize(wxSize(42, 28));
+            return button;
+        };
+
         for (const auto& account : availableAccounts_) {
             const auto calendarsIt = accountCalendarCache_.find(account.id);
             const std::vector<Calendar> calendars = calendarsIt != accountCalendarCache_.end()
@@ -450,11 +456,11 @@ private:
             wxFont accountFont = accountName->GetFont();
             accountFont.SetWeight(wxFONTWEIGHT_BOLD);
             accountName->SetFont(accountFont);
-            auto* addCalendarButton = new wxButton(calendarListPanel_, wxID_ANY, "+", wxDefaultPosition, wxSize(28, 24));
+            auto* addCalendarButton = makeSidebarActionButton("+");
             addCalendarButton->Bind(wxEVT_BUTTON, [this, accountId = account.id](wxCommandEvent&) {
                 OpenCreateCalendarDialog(accountId);
             });
-            auto* collapseButton = new wxButton(calendarListPanel_, wxID_ANY, collapsed ? "v" : "^", wxDefaultPosition, wxSize(28, 24));
+            auto* collapseButton = makeSidebarActionButton(collapsed ? "v" : "^");
             collapseButton->Bind(wxEVT_BUTTON, [this, accountId = account.id](wxCommandEvent&) {
                 if (collapsedAccountIds_.count(accountId) > 0) {
                     collapsedAccountIds_.erase(accountId);
@@ -526,7 +532,7 @@ private:
             rowSizer->AddSpacer(18);
             rowSizer->Add(visibility, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 6);
             rowSizer->Add(selectButton, 1, wxEXPAND);
-            auto* addEventButton = new wxButton(calendarListPanel_, wxID_ANY, "+", wxDefaultPosition, wxSize(28, 24));
+            auto* addEventButton = makeSidebarActionButton("+");
             addEventButton->Enable(!calendar.isReadOnly);
             addEventButton->Bind(wxEVT_BUTTON, [this, calendarId = calendar.id](wxCommandEvent&) {
                 if (const auto calendar = FindLoadedCalendarById(calendarId); calendar.has_value()) {
@@ -542,7 +548,7 @@ private:
                 }
             });
             rowSizer->Add(addEventButton, 0, wxLEFT, 4);
-            auto* actionsButton = new wxButton(calendarListPanel_, wxID_ANY, "v", wxDefaultPosition, wxSize(28, 24));
+            auto* actionsButton = makeSidebarActionButton("v");
             actionsButton->Bind(wxEVT_BUTTON, [this, calendarId = calendar.id, actionsButton](wxCommandEvent&) {
                 ShowCalendarActionMenu(calendarId, actionsButton);
             });
