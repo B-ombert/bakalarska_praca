@@ -1394,63 +1394,7 @@ private:
         }
     }
 
-    void ShowDebugUploadDialog(const int pendingCount) {
-        debugUploadPendingCount_ = pendingCount;
-        debugUploadAcceptedCount_ = 0;
-
-        if (debugUploadDialog_ == nullptr) {
-            debugUploadDialog_ = new wxDialog(this,
-                                              wxID_ANY,
-                                              "Debug event upload",
-                                              wxDefaultPosition,
-                                              wxDefaultSize,
-                                              wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER);
-            auto* sizer = new wxBoxSizer(wxVERTICAL);
-            debugUploadPendingLabel_ = new wxStaticText(debugUploadDialog_, wxID_ANY, "");
-            debugUploadAcceptedLabel_ = new wxStaticText(debugUploadDialog_, wxID_ANY, "");
-            auto* closeButton = new wxButton(debugUploadDialog_, wxID_CLOSE, "Close");
-
-            sizer->Add(debugUploadPendingLabel_, 0, wxEXPAND | wxALL, 12);
-            sizer->Add(debugUploadAcceptedLabel_, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 12);
-            sizer->Add(closeButton, 0, wxALIGN_RIGHT | wxLEFT | wxRIGHT | wxBOTTOM, 12);
-            debugUploadDialog_->SetSizerAndFit(sizer);
-            debugUploadDialog_->SetMinSize(wxSize(320, debugUploadDialog_->GetSize().GetHeight()));
-
-            closeButton->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) {
-                if (debugUploadDialog_ != nullptr) {
-                    debugUploadDialog_->Hide();
-                }
-            });
-            debugUploadDialog_->Bind(wxEVT_CLOSE_WINDOW, [this](wxCloseEvent& event) {
-                if (debugUploadDialog_ != nullptr) {
-                    debugUploadDialog_->Hide();
-                }
-                event.Veto();
-            });
-        }
-
-        UpdateDebugUploadDialog();
-        debugUploadDialog_->CentreOnParent();
-        debugUploadDialog_->Show();
-        debugUploadDialog_->Raise();
-    }
-
-    void UpdateDebugUploadDialog() {
-        if (debugUploadPendingLabel_ != nullptr) {
-            debugUploadPendingLabel_->SetLabel(
-                wxString::Format("Events queued for upload: %d", debugUploadPendingCount_));
-        }
-        if (debugUploadAcceptedLabel_ != nullptr) {
-            debugUploadAcceptedLabel_->SetLabel(
-                wxString::Format("Accepted by server: %d", debugUploadAcceptedCount_));
-        }
-        if (debugUploadDialog_ != nullptr) {
-            debugUploadDialog_->Layout();
-            debugUploadDialog_->Fit();
-        }
-    }
-
-    void StartDebugSyncForAllAccounts() {
+    void StartManualSyncForAllAccounts() {
         if (eventUploadScheduler_ == nullptr) {
             return;
         }
@@ -1460,11 +1404,6 @@ private:
             statusLabel_->SetLabel("Sync requires at least one signed-in remote account");
             return;
         }
-
-        debugUploadAllAccounts_ = true;
-        debugUploadAccountId_ = 0;
-        const int pendingCount = eventUploadScheduler_->CountPendingUploadEventsForAllSignedInAccounts();
-        ShowDebugUploadDialog(pendingCount);
 
         eventUploadScheduler_->QueueAllSignedInAccounts();
         statusLabel_->SetLabel("Sync for all signed-in accounts queued");
@@ -1486,16 +1425,6 @@ private:
             RefreshCalendarControls();
             RefreshEvents();
         }
-        if (debugUploadAllAccounts_) {
-            debugUploadAcceptedCount_ += result.acceptedEventCount;
-            UpdateDebugUploadDialog();
-        }
-        else if (result.accountId == debugUploadAccountId_) {
-            debugUploadPendingCount_ = result.pendingEventCount;
-            debugUploadAcceptedCount_ = result.acceptedEventCount;
-            UpdateDebugUploadDialog();
-        }
-
         statusLabel_->SetLabel(wxString::FromUTF8(result.message));
     }
 
@@ -2885,7 +2814,7 @@ private:
     }
 
     void OnRefresh(wxCommandEvent&) {
-        StartDebugSyncForAllAccounts();
+        StartManualSyncForAllAccounts();
     }
 
     void OnNewCalendar(wxCommandEvent&) {
@@ -2991,13 +2920,6 @@ private:
     wxDialog* authProgressDialog_ = nullptr;
     wxActivityIndicator* authActivityIndicator_ = nullptr;
     wxStaticText* authProgressLabel_ = nullptr;
-    wxDialog* debugUploadDialog_ = nullptr;
-    wxStaticText* debugUploadPendingLabel_ = nullptr;
-    wxStaticText* debugUploadAcceptedLabel_ = nullptr;
-    long long debugUploadAccountId_ = 0;
-    bool debugUploadAllAccounts_ = false;
-    int debugUploadPendingCount_ = 0;
-    int debugUploadAcceptedCount_ = 0;
     wxSimplebook* calendarBook_ = nullptr;
     TimelineViewPanel* weekTimeline_ = nullptr;
     TimelineViewPanel* dayTimeline_ = nullptr;
