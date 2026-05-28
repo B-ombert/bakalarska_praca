@@ -58,10 +58,20 @@ set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "CalendarApp")
 if (WIN32)
     set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
     target_link_options(${PROJECT_NAME} PRIVATE /ENTRY:mainCRTStartup)
+elseif (APPLE)
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+            INSTALL_RPATH "@executable_path"
+            BUILD_WITH_INSTALL_RPATH FALSE
+    )
+elseif (UNIX)
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+            INSTALL_RPATH "$ORIGIN"
+            BUILD_WITH_INSTALL_RPATH FALSE
+    )
 endif()
 
 # ----------------------------
-# Include directories (IMPORTANT FIX)
+# Include directories
 # ----------------------------
 
 target_include_directories(${PROJECT_NAME} PRIVATE
@@ -111,30 +121,51 @@ install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/resources"
         DESTINATION .
 )
 
-if (WIN32)
-    install(CODE [[
-        file(GET_RUNTIME_DEPENDENCIES
-            EXECUTABLES "$<TARGET_FILE:test>"
-            RESOLVED_DEPENDENCIES_VAR runtime_deps
-            UNRESOLVED_DEPENDENCIES_VAR unresolved_deps
-            PRE_EXCLUDE_REGEXES
-                "api-ms-.*"
-                "ext-ms-.*"
-            POST_EXCLUDE_REGEXES
-                ".*[Ww]indows[\\/].*"
-                ".*[Ss]ystem32[\\/].*"
+install(CODE [[
+    if(WIN32)
+        set(runtime_pre_exclude_regexes
+            "api-ms-.*"
+            "ext-ms-.*"
         )
+        set(runtime_post_exclude_regexes
+            ".*[Ww]indows[\\/].*"
+            ".*[Ss]ystem32[\\/].*"
+        )
+    elseif(APPLE)
+        set(runtime_pre_exclude_regexes)
+        set(runtime_post_exclude_regexes
+            "^/System/.*"
+            "^/usr/lib/.*"
+        )
+    elseif(UNIX)
+        set(runtime_pre_exclude_regexes)
+        set(runtime_post_exclude_regexes
+            "^/lib/.*"
+            "^/lib64/.*"
+            "^/usr/lib/.*"
+            "^/usr/lib64/.*"
+        )
+    endif()
 
-        if(runtime_deps)
-            file(INSTALL
-                DESTINATION "${CMAKE_INSTALL_PREFIX}"
-                TYPE FILE
-                FILES ${runtime_deps}
-            )
-        endif()
+    file(GET_RUNTIME_DEPENDENCIES
+        EXECUTABLES "$<TARGET_FILE:test>"
+        RESOLVED_DEPENDENCIES_VAR runtime_deps
+        UNRESOLVED_DEPENDENCIES_VAR unresolved_deps
+        PRE_EXCLUDE_REGEXES
+            ${runtime_pre_exclude_regexes}
+        POST_EXCLUDE_REGEXES
+            ${runtime_post_exclude_regexes}
+    )
 
-        if(unresolved_deps)
-            message(WARNING "Unresolved runtime dependencies: ${unresolved_deps}")
-        endif()
-    ]])
-endif()
+    if(runtime_deps)
+        file(INSTALL
+            DESTINATION "${CMAKE_INSTALL_PREFIX}"
+            TYPE FILE
+            FILES ${runtime_deps}
+        )
+    endif()
+
+    if(unresolved_deps)
+        message(WARNING "Unresolved runtime dependencies: ${unresolved_deps}")
+    endif()
+]])
