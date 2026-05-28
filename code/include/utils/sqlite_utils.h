@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -11,6 +12,10 @@ inline void ConfigureSqliteConnection(SQLite::Database& db) {
     db.exec("PRAGMA journal_mode = WAL");
     db.exec("PRAGMA busy_timeout = 5000");
     db.exec("PRAGMA synchronous = NORMAL");
+}
+
+inline void BindInt64(SQLite::Statement& statement, const int index, const long long value) {
+    statement.bind(index, static_cast<std::int64_t>(value));
 }
 
 template <typename Func>

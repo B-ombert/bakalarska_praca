@@ -20,9 +20,9 @@ bool CalendarSyncRangeRepository::isRangeCovered(const long long calendarId,
         "FROM calendar_sync_ranges "
         "WHERE calendar_id = ? AND end_epoch > ? AND start_epoch < ? "
         "ORDER BY start_epoch ASC");
-    query.bind(1, calendarId);
-    query.bind(2, startEpoch);
-    query.bind(3, endEpoch);
+    BindInt64(query, 1, calendarId);
+    BindInt64(query, 2, startEpoch);
+    BindInt64(query, 3, endEpoch);
 
     long long coveredUntil = startEpoch;
     while (query.executeStep()) {
@@ -61,9 +61,9 @@ void CalendarSyncRangeRepository::markRangeCovered(const long long calendarId,
             "FROM calendar_sync_ranges "
             "WHERE calendar_id = ? AND end_epoch >= ? AND start_epoch <= ? "
             "ORDER BY start_epoch ASC");
-        overlapping.bind(1, calendarId);
-        overlapping.bind(2, startEpoch);
-        overlapping.bind(3, endEpoch);
+        BindInt64(overlapping, 1, calendarId);
+        BindInt64(overlapping, 2, startEpoch);
+        BindInt64(overlapping, 3, endEpoch);
 
         std::vector<long long> idsToDelete;
         while (overlapping.executeStep()) {
@@ -75,7 +75,7 @@ void CalendarSyncRangeRepository::markRangeCovered(const long long calendarId,
 
         for (const long long id : idsToDelete) {
             SQLite::Statement deleteQuery(db, "DELETE FROM calendar_sync_ranges WHERE id = ?");
-            deleteQuery.bind(1, id);
+            BindInt64(deleteQuery, 1, id);
             deleteQuery.exec();
         }
 
@@ -83,11 +83,11 @@ void CalendarSyncRangeRepository::markRangeCovered(const long long calendarId,
             db,
             "INSERT INTO calendar_sync_ranges(calendar_id, start_epoch, end_epoch, synced_at, last_viewed_at, sync_token) "
             "VALUES(?, ?, ?, ?, ?, '')");
-        insert.bind(1, calendarId);
-        insert.bind(2, startEpoch);
-        insert.bind(3, endEpoch);
-        insert.bind(4, static_cast<long long>(std::time(nullptr)));
-        insert.bind(5, static_cast<long long>(std::time(nullptr)));
+        BindInt64(insert, 1, calendarId);
+        BindInt64(insert, 2, startEpoch);
+        BindInt64(insert, 3, endEpoch);
+        BindInt64(insert, 4, static_cast<long long>(std::time(nullptr)));
+        BindInt64(insert, 5, static_cast<long long>(std::time(nullptr)));
         insert.exec();
     });
 }
@@ -101,9 +101,9 @@ std::optional<CalendarSyncRange> CalendarSyncRangeRepository::getExactRange(
         "SELECT id, calendar_id, start_epoch, end_epoch, synced_at, last_viewed_at, sync_token "
         "FROM calendar_sync_ranges "
         "WHERE calendar_id = ? AND start_epoch = ? AND end_epoch = ?");
-    query.bind(1, calendarId);
-    query.bind(2, startEpoch);
-    query.bind(3, endEpoch);
+    BindInt64(query, 1, calendarId);
+    BindInt64(query, 2, startEpoch);
+    BindInt64(query, 3, endEpoch);
 
     if (!query.executeStep()) {
         return std::nullopt;
@@ -119,7 +119,7 @@ std::vector<CalendarSyncRange> CalendarSyncRangeRepository::getRangesForCalendar
         "FROM calendar_sync_ranges "
         "WHERE calendar_id = ? "
         "ORDER BY start_epoch ASC");
-    query.bind(1, calendarId);
+    BindInt64(query, 1, calendarId);
 
     std::vector<CalendarSyncRange> ranges;
     while (query.executeStep()) {
@@ -138,7 +138,7 @@ std::vector<CalendarSyncRange> CalendarSyncRangeRepository::getMostRecentlyViewe
         "WHERE calendar_id = ? "
         "ORDER BY last_viewed_at DESC, synced_at DESC "
         "LIMIT ?");
-    query.bind(1, calendarId);
+    BindInt64(query, 1, calendarId);
     query.bind(2, limit);
 
     std::vector<CalendarSyncRange> ranges;
@@ -158,11 +158,11 @@ void CalendarSyncRangeRepository::upsertRange(const CalendarSyncRange& range) {
             "synced_at = excluded.synced_at, "
             "last_viewed_at = excluded.last_viewed_at, "
             "sync_token = excluded.sync_token");
-        query.bind(1, range.calendarId);
-        query.bind(2, range.startEpoch);
-        query.bind(3, range.endEpoch);
-        query.bind(4, range.syncedAt);
-        query.bind(5, range.lastViewedAt);
+        BindInt64(query, 1, range.calendarId);
+        BindInt64(query, 2, range.startEpoch);
+        BindInt64(query, 3, range.endEpoch);
+        BindInt64(query, 4, range.syncedAt);
+        BindInt64(query, 5, range.lastViewedAt);
         query.bind(6, range.syncToken);
         query.exec();
     });

@@ -59,7 +59,7 @@ long long CalendarRepository::upsert(const Calendar &c) {
             "deleted_at = excluded.deleted_at"
             );
 
-        query.bind(1, c.accountId);
+        BindInt64(query, 1, c.accountId);
         BindProviderCalendarId(query, 2, c.providerCalendarId);
         query.bind(3, c.name);
         query.bind(4, c.description);
@@ -70,7 +70,7 @@ long long CalendarRepository::upsert(const Calendar &c) {
         query.bind(9, (int)c.isShared);
         query.bind(10, (int)c.syncEnabled);
         query.bind(11, c.syncStatus);
-        query.bind(12, c.deletedAt);
+        BindInt64(query, 12, c.deletedAt);
 
         query.exec();
 
@@ -88,7 +88,7 @@ bool CalendarRepository::updateById(const Calendar& c) {
             "is_primary = ?, is_read_only = ?, is_shared = ?, sync_enabled = ?, sync_status = ?, "
             "deleted_at = ? "
             "WHERE id = ?");
-        query.bind(1, c.accountId);
+        BindInt64(query, 1, c.accountId);
         BindProviderCalendarId(query, 2, c.providerCalendarId);
         query.bind(3, c.name);
         query.bind(4, c.description);
@@ -99,8 +99,8 @@ bool CalendarRepository::updateById(const Calendar& c) {
         query.bind(9, static_cast<int>(c.isShared));
         query.bind(10, static_cast<int>(c.syncEnabled));
         query.bind(11, c.syncStatus);
-        query.bind(12, c.deletedAt);
-        query.bind(13, c.id);
+        BindInt64(query, 12, c.deletedAt);
+        BindInt64(query, 13, c.id);
         return query.exec() > 0;
     });
 }
@@ -111,7 +111,7 @@ std::optional<Calendar> CalendarRepository::getById(long long id) {
         "WHERE id = ?"
         );
 
-    query.bind(1, id);
+    BindInt64(query, 1, id);
 
     if (!query.executeStep()) {
         return std::nullopt;
@@ -123,7 +123,7 @@ std::optional<Calendar> CalendarRepository::getById(long long id) {
 bool CalendarRepository::deleteById(long long id) {
     return RunInSavepoint(db, "calendar_delete", [&]() {
         SQLite::Statement query(db, "DELETE FROM calendars WHERE id = ?");
-        query.bind(1, id);
+        BindInt64(query, 1, id);
 
         return query.exec() > 0;
     });
@@ -136,7 +136,7 @@ std::vector<Calendar> CalendarRepository::getByAccount(long long accountId) {
         std::string("SELECT ") + kCalendarSelectColumns + " FROM calendars WHERE account_id = ? AND deleted_at = 0"
         );
 
-    query.bind(1, accountId);
+    BindInt64(query, 1, accountId);
 
     while (query.executeStep()) {
         calendars.push_back(mapRow(query));
@@ -154,7 +154,7 @@ std::vector<Calendar> CalendarRepository::getPendingRemoteCalendars(const long l
         "WHERE account_id = ? AND sync_status != ? "
         "ORDER BY id");
 
-    query.bind(1, accountId);
+    BindInt64(query, 1, accountId);
     query.bind(2, SYNCED);
 
     while (query.executeStep()) {
@@ -171,7 +171,7 @@ std::optional<Calendar> CalendarRepository::getByProviderId(const long long acco
         "AND provider_calendar_id = ?"
         );
 
-    query.bind(1, accountId);
+    BindInt64(query, 1, accountId);
     query.bind(2, providerCalendarId);
 
     if (!query.executeStep()) {

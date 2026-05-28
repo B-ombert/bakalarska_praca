@@ -235,8 +235,8 @@ private:
         SQLite::Statement query(
             db_,
             "UPDATE calendars SET is_primary = CASE WHEN id = ? THEN 1 ELSE 0 END WHERE account_id = ?");
-        query.bind(1, calendarId);
-        query.bind(2, accountId);
+        BindInt64(query, 1, calendarId);
+        BindInt64(query, 2, accountId);
         query.exec();
     }
 

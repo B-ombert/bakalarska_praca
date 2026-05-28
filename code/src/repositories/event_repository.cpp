@@ -34,11 +34,11 @@ long long InsertEventRow(SQLite::Database& db, const Event& e) {
         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     int i = 1;
-    query.bind(i++, e.calendarId);
+    BindInt64(query, i++, e.calendarId);
     BindProviderEventId(query, i++, e.providerEventId);
     query.bind(i++, e.providerMasterId);
     query.bind(i++, e.recurrenceGroupId);
-    query.bind(i++, e.instanceStart);
+    BindInt64(query, i++, e.instanceStart);
     query.bind(i++, static_cast<int>(e.type));
 
     query.bind(i++, e.title);
@@ -46,18 +46,18 @@ long long InsertEventRow(SQLite::Database& db, const Event& e) {
     query.bind(i++, e.location);
     query.bind(i++, e.timezone);
 
-    query.bind(i++, e.startDateTime);
-    query.bind(i++, e.endDateTime);
+    BindInt64(query, i++, e.startDateTime);
+    BindInt64(query, i++, e.endDateTime);
     query.bind(i++, static_cast<int>(e.allDay));
 
     query.bind(i++, e.status);
     query.bind(i++, e.recurrenceRule);
 
-    query.bind(i++, e.deletedAt);
+    BindInt64(query, i++, e.deletedAt);
     query.bind(i++, e.syncStatus);
 
-    query.bind(i++, e.createdAt);
-    query.bind(i++, e.updatedAt);
+    BindInt64(query, i++, e.createdAt);
+    BindInt64(query, i++, e.updatedAt);
 
     query.exec();
     return db.getLastInsertRowid();
@@ -69,7 +69,7 @@ bool CalendarUploadsToProvider(SQLite::Database& db, const long long calendarId)
         "SELECT provider_calendar_id, sync_enabled "
         "FROM calendars "
         "WHERE id = ?");
-    query.bind(1, calendarId);
+    BindInt64(query, 1, calendarId);
     if (!query.executeStep()) {
         return false;
     }
@@ -135,20 +135,20 @@ long long EventRepository::upsertRecurrenceOverride(const RecurrenceOverride& ov
                 "sync_status = ?, deleted_at = ?, created_at = ?, updated_at = ? "
                 "WHERE id = ?");
             int i = 1;
-            update.bind(i++, overrideEntry.masterEventId);
-            update.bind(i++, overrideEntry.originalStart);
+            BindInt64(update, i++, overrideEntry.masterEventId);
+            BindInt64(update, i++, overrideEntry.originalStart);
             update.bind(i++, static_cast<int>(overrideEntry.type));
             if (overrideEntry.replacementEventId == 0) {
                 update.bind(i++);
             }
             else {
-                update.bind(i++, overrideEntry.replacementEventId);
+                BindInt64(update, i++, overrideEntry.replacementEventId);
             }
             update.bind(i++, overrideEntry.syncStatus);
-            update.bind(i++, overrideEntry.deletedAt);
-            update.bind(i++, overrideEntry.createdAt == 0 ? now : overrideEntry.createdAt);
-            update.bind(i++, now);
-            update.bind(i++, overrideEntry.id);
+            BindInt64(update, i++, overrideEntry.deletedAt);
+            BindInt64(update, i++, overrideEntry.createdAt == 0 ? now : overrideEntry.createdAt);
+            BindInt64(update, i++, now);
+            BindInt64(update, i++, overrideEntry.id);
             if (update.exec() > 0) {
                 return overrideEntry.id;
             }
@@ -157,8 +157,8 @@ long long EventRepository::upsertRecurrenceOverride(const RecurrenceOverride& ov
         SQLite::Statement existing(
             db,
             "SELECT id FROM recurrence_overrides WHERE master_event_id = ? AND original_start = ?");
-        existing.bind(1, overrideEntry.masterEventId);
-        existing.bind(2, overrideEntry.originalStart);
+        BindInt64(existing, 1, overrideEntry.masterEventId);
+        BindInt64(existing, 2, overrideEntry.originalStart);
         if (existing.executeStep()) {
             RecurrenceOverride updated = overrideEntry;
             updated.id = existing.getColumn(0).getInt64();
@@ -172,19 +172,19 @@ long long EventRepository::upsertRecurrenceOverride(const RecurrenceOverride& ov
             "sync_status, deleted_at, created_at, updated_at) "
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         int i = 1;
-        insert.bind(i++, overrideEntry.masterEventId);
-        insert.bind(i++, overrideEntry.originalStart);
+        BindInt64(insert, i++, overrideEntry.masterEventId);
+        BindInt64(insert, i++, overrideEntry.originalStart);
         insert.bind(i++, static_cast<int>(overrideEntry.type));
         if (overrideEntry.replacementEventId == 0) {
             insert.bind(i++);
         }
         else {
-            insert.bind(i++, overrideEntry.replacementEventId);
+            BindInt64(insert, i++, overrideEntry.replacementEventId);
         }
         insert.bind(i++, overrideEntry.syncStatus);
-        insert.bind(i++, overrideEntry.deletedAt);
-        insert.bind(i++, overrideEntry.createdAt == 0 ? now : overrideEntry.createdAt);
-        insert.bind(i++, now);
+        BindInt64(insert, i++, overrideEntry.deletedAt);
+        BindInt64(insert, i++, overrideEntry.createdAt == 0 ? now : overrideEntry.createdAt);
+        BindInt64(insert, i++, now);
         insert.exec();
         return db.getLastInsertRowid();
     });
@@ -241,26 +241,26 @@ bool EventRepository::updateById(const Event& e) {
             "WHERE id = ?");
 
         int i = 1;
-        query.bind(i++, e.calendarId);
+        BindInt64(query, i++, e.calendarId);
         BindProviderEventId(query, i++, e.providerEventId);
         query.bind(i++, e.providerMasterId);
         query.bind(i++, e.recurrenceGroupId);
-        query.bind(i++, e.instanceStart);
+        BindInt64(query, i++, e.instanceStart);
         query.bind(i++, static_cast<int>(e.type));
         query.bind(i++, e.title);
         query.bind(i++, e.description);
         query.bind(i++, e.location);
         query.bind(i++, e.timezone);
-        query.bind(i++, e.startDateTime);
-        query.bind(i++, e.endDateTime);
+        BindInt64(query, i++, e.startDateTime);
+        BindInt64(query, i++, e.endDateTime);
         query.bind(i++, static_cast<int>(e.allDay));
         query.bind(i++, e.status);
         query.bind(i++, e.recurrenceRule);
-        query.bind(i++, e.deletedAt);
+        BindInt64(query, i++, e.deletedAt);
         query.bind(i++, e.syncStatus);
-        query.bind(i++, e.createdAt);
-        query.bind(i++, e.updatedAt);
-        query.bind(i++, e.id);
+        BindInt64(query, i++, e.createdAt);
+        BindInt64(query, i++, e.updatedAt);
+        BindInt64(query, i++, e.id);
 
         return query.exec() > 0;
     });
@@ -310,10 +310,10 @@ std::optional<long long> EventRepository::moveEventToCalendar(
             "UPDATE recurrence_overrides "
             "SET master_event_id = ?, sync_status = ?, deleted_at = 0, updated_at = ? "
             "WHERE master_event_id = ?");
-        updateMasterOverrides.bind(1, newEventId);
+        BindInt64(updateMasterOverrides, 1, newEventId);
         updateMasterOverrides.bind(2, movedSyncStatus);
-        updateMasterOverrides.bind(3, now);
-        updateMasterOverrides.bind(4, original->id);
+        BindInt64(updateMasterOverrides, 3, now);
+        BindInt64(updateMasterOverrides, 4, original->id);
         updateMasterOverrides.exec();
 
         SQLite::Statement updateReplacementOverrides(
@@ -321,10 +321,10 @@ std::optional<long long> EventRepository::moveEventToCalendar(
             "UPDATE recurrence_overrides "
             "SET replacement_event_id = ?, sync_status = ?, deleted_at = 0, updated_at = ? "
             "WHERE replacement_event_id = ?");
-        updateReplacementOverrides.bind(1, newEventId);
+        BindInt64(updateReplacementOverrides, 1, newEventId);
         updateReplacementOverrides.bind(2, movedSyncStatus);
-        updateReplacementOverrides.bind(3, now);
-        updateReplacementOverrides.bind(4, original->id);
+        BindInt64(updateReplacementOverrides, 3, now);
+        BindInt64(updateReplacementOverrides, 4, original->id);
         updateReplacementOverrides.exec();
 
         if (sourceUploads && !original->providerEventId.empty() && original->syncStatus != PENDING_INSERT) {
@@ -333,15 +333,15 @@ std::optional<long long> EventRepository::moveEventToCalendar(
                 "UPDATE events "
                 "SET deleted_at = ?, sync_status = ?, updated_at = ? "
                 "WHERE id = ?");
-            markOriginalDeleted.bind(1, now);
+            BindInt64(markOriginalDeleted, 1, now);
             markOriginalDeleted.bind(2, PENDING_DELETE);
-            markOriginalDeleted.bind(3, now);
-            markOriginalDeleted.bind(4, original->id);
+            BindInt64(markOriginalDeleted, 3, now);
+            BindInt64(markOriginalDeleted, 4, original->id);
             markOriginalDeleted.exec();
         }
         else {
             SQLite::Statement deleteOriginal(db, "DELETE FROM events WHERE id = ?");
-            deleteOriginal.bind(1, original->id);
+            BindInt64(deleteOriginal, 1, original->id);
             deleteOriginal.exec();
         }
 
@@ -389,7 +389,7 @@ Event EventRepository::mapRow(SQLite::Statement &query) {
 
 std::optional<Event> EventRepository::getById(long long id) {
     SQLite::Statement query(db, std::string("SELECT ") + kEventSelectColumns + " FROM events WHERE id = ?");
-    query.bind(1, id);
+    BindInt64(query, 1, id);
 
     if (!query.executeStep()) {
         return std::nullopt;
@@ -419,7 +419,7 @@ std::optional<Event> EventRepository::getByProviderId(const long long calendarId
         std::string("SELECT ") + kEventSelectColumns + " FROM events "
         "WHERE calendar_id = ? AND provider_event_id = ?");
 
-    query.bind(1, calendarId);
+    BindInt64(query, 1, calendarId);
     query.bind(2, providerId);
 
     if (!query.executeStep()) {
@@ -434,9 +434,9 @@ bool EventRepository::softDelete(long long id) {
         SQLite::Statement query(db,
             "UPDATE events SET deleted_at = ?, sync_status = ? WHERE id = ?");
 
-        query.bind(1, (long long)time(nullptr));
+        BindInt64(query, 1, static_cast<long long>(time(nullptr)));
         query.bind(2, PENDING_DELETE);
-        query.bind(3, id);
+        BindInt64(query, 3, id);
 
         return query.exec() > 0;
     });
@@ -445,7 +445,7 @@ bool EventRepository::softDelete(long long id) {
 bool EventRepository::deleteEvent(long long id) {
     return RunInSavepoint(db, "event_delete", [&]() {
         SQLite::Statement query(db, "DELETE FROM events WHERE id = ?");
-        query.bind(1, id);
+        BindInt64(query, 1, id);
 
         return query.exec() > 0;
     });
@@ -462,7 +462,7 @@ int EventRepository::deleteByProviderIdentity(const long long calendarId, const 
             "DELETE FROM events "
             "WHERE calendar_id = ? "
             "AND (provider_event_id = ? OR provider_master_id = ?)");
-        query.bind(1, calendarId);
+        BindInt64(query, 1, calendarId);
         query.bind(2, providerEventId);
         query.bind(3, providerEventId);
 
@@ -489,8 +489,8 @@ int EventRepository::deleteStoredInstancesForMaster(
             "    (? != '' AND provider_master_id = ?) "
             "    OR (? != '' AND recurrence_group_id = ?)"
             ")");
-        query.bind(1, calendarId);
-        query.bind(2, masterEventId);
+        BindInt64(query, 1, calendarId);
+        BindInt64(query, 2, masterEventId);
         query.bind(3, providerMasterId);
         query.bind(4, providerMasterId);
         query.bind(5, recurrenceGroupId);
@@ -505,8 +505,8 @@ bool EventRepository::markRecurrenceOverrideSynced(const long long id) {
             db,
             "UPDATE recurrence_overrides SET sync_status = ?, updated_at = ? WHERE id = ?");
         query.bind(1, SYNCED);
-        query.bind(2, static_cast<long long>(std::time(nullptr)));
-        query.bind(3, id);
+        BindInt64(query, 2, static_cast<long long>(std::time(nullptr)));
+        BindInt64(query, 3, id);
         return query.exec() > 0;
     });
 }
@@ -516,7 +516,7 @@ std::optional<Event> EventRepository::getByProviderInstance(const std::string &p
                                 "WHERE provider_event_id = ? AND instance_start = ?");
 
     query.bind(1, providerId);
-    query.bind(2, instanceStart);
+    BindInt64(query, 2, instanceStart);
 
     if (!query.executeStep()) return std::nullopt;
 
@@ -529,7 +529,7 @@ std::vector<Event> EventRepository::getByCalendar(long long calendarId) {
         "AND deleted_at = 0 ORDER BY start_datetime ASC"
         );
 
-    query.bind(1, calendarId);
+    BindInt64(query, 1, calendarId);
 
     std::vector<Event> events;
 
@@ -549,9 +549,9 @@ std::vector<Event> EventRepository::getEventsInRange(long long calendarId, long 
                             "AND end_datetime > ? "
                             "ORDER BY start_datetime ASC"
                             );
-    query.bind(1, calendarId);
-    query.bind(2, end);
-    query.bind(3, start);
+    BindInt64(query, 1, calendarId);
+    BindInt64(query, 2, end);
+    BindInt64(query, 3, start);
 
     std::vector<Event> events;
     while (query.executeStep()) {
@@ -569,7 +569,7 @@ std::vector<Event> EventRepository::getRecurringMasters(long long calendarId) {
         "AND recurrence_rule IS NOT NULL "
         "AND recurrence_rule != '' "
         "ORDER BY start_datetime ASC");
-    query.bind(1, calendarId);
+    BindInt64(query, 1, calendarId);
 
     std::vector<Event> events;
     while (query.executeStep()) {
@@ -588,8 +588,8 @@ std::vector<Event> EventRepository::getRecurringMastersStartingBefore(const long
         "AND recurrence_rule != '' "
         "AND start_datetime < ? "
         "ORDER BY start_datetime ASC");
-    query.bind(1, calendarId);
-    query.bind(2, end);
+    BindInt64(query, 1, calendarId);
+    BindInt64(query, 2, end);
 
     std::vector<Event> events;
     while (query.executeStep()) {
@@ -605,7 +605,7 @@ std::vector<Event> EventRepository::getPendingRemoteEvents(const long long calen
                                 "AND (provider_event_id IS NOT NULL OR sync_status = ?) "
                                 "ORDER BY updated_at ASC, id ASC"
         );
-    query.bind(1, calendarId);
+    BindInt64(query, 1, calendarId);
     query.bind(2, SYNCED);
     query.bind(3, PENDING_INSERT);
 
@@ -625,10 +625,10 @@ std::vector<Event> EventRepository::getPendingRemoteEvents(const long long calen
                                 "ORDER BY updated_at ASC, id ASC "
                                 "LIMIT ?"
         );
-    query.bind(1, calendarId);
+    BindInt64(query, 1, calendarId);
     query.bind(2, SYNCED);
     query.bind(3, PENDING_INSERT);
-    query.bind(4, static_cast<long long>(limit));
+    BindInt64(query, 4, static_cast<long long>(limit));
 
     std::vector<Event> pendingEvents;
     while (query.executeStep()) {
@@ -645,7 +645,7 @@ int EventRepository::countPendingRemoteEvents(const long long calendarId) {
         "WHERE calendar_id = ? "
         "AND sync_status != ? "
         "AND (provider_event_id IS NOT NULL OR sync_status = ?)");
-    query.bind(1, calendarId);
+    BindInt64(query, 1, calendarId);
     query.bind(2, SYNCED);
     query.bind(3, PENDING_INSERT);
 
@@ -664,7 +664,7 @@ bool EventRepository::hasPendingRemoteEvents(const long long calendarId) {
         "AND sync_status != ? "
         "AND (provider_event_id IS NOT NULL OR sync_status = ?) "
         "LIMIT 1");
-    query.bind(1, calendarId);
+    BindInt64(query, 1, calendarId);
     query.bind(2, SYNCED);
     query.bind(3, PENDING_INSERT);
 
@@ -678,7 +678,7 @@ std::optional<RecurrenceOverride> EventRepository::getRecurrenceOverrideById(con
         "sync_status, deleted_at, created_at, updated_at "
         "FROM recurrence_overrides "
         "WHERE id = ?");
-    query.bind(1, id);
+    BindInt64(query, 1, id);
 
     if (!query.executeStep()) {
         return std::nullopt;
@@ -701,9 +701,9 @@ std::vector<RecurrenceOverride> EventRepository::getRecurrenceOverridesForMaster
         "AND original_start >= ? "
         "AND original_start < ? "
         "ORDER BY original_start ASC");
-    query.bind(1, masterEventId);
-    query.bind(2, start);
-    query.bind(3, end);
+    BindInt64(query, 1, masterEventId);
+    BindInt64(query, 2, start);
+    BindInt64(query, 3, end);
 
     std::vector<RecurrenceOverride> overrides;
     while (query.executeStep()) {
@@ -722,7 +722,7 @@ int EventRepository::countPendingRecurrenceOverrides(const long long calendarId)
         "WHERE master.calendar_id = ? "
         "AND ro.deleted_at = 0 "
         "AND ro.sync_status != ?");
-    query.bind(1, calendarId);
+    BindInt64(query, 1, calendarId);
     query.bind(2, SYNCED);
 
     if (!query.executeStep()) {
@@ -742,7 +742,7 @@ bool EventRepository::hasPendingRecurrenceOverrides(const long long calendarId) 
         "AND ro.deleted_at = 0 "
         "AND ro.sync_status != ? "
         "LIMIT 1");
-    query.bind(1, calendarId);
+    BindInt64(query, 1, calendarId);
     query.bind(2, SYNCED);
 
     return query.executeStep();
@@ -759,7 +759,7 @@ std::vector<RecurrenceOverride> EventRepository::getPendingRecurrenceOverrides(c
         "AND ro.deleted_at = 0 "
         "AND ro.sync_status != ? "
         "ORDER BY ro.original_start ASC");
-    query.bind(1, calendarId);
+    BindInt64(query, 1, calendarId);
     query.bind(2, SYNCED);
 
     std::vector<RecurrenceOverride> overrides;

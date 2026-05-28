@@ -212,7 +212,7 @@ void EnsureLocalSeedData(SQLite::Database& db) {
         db,
         "UPDATE calendars SET is_primary = CASE WHEN provider_calendar_id = ? THEN 1 ELSE 0 END WHERE account_id = ?");
     primaryOnly.bind(1, "local-calendar");
-    primaryOnly.bind(2, localAccountId);
+    BindInt64(primaryOnly, 2, localAccountId);
     primaryOnly.exec();
 }
 

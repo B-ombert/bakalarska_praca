@@ -36,7 +36,7 @@ long long AccountRepository::Upsert(const Account &a) {
             update.bind(1, a.name);
             update.bind(2, a.email);
             update.bind(3, a.refreshToken);
-            update.bind(4, id);
+            BindInt64(update, 4, id);
             update.exec();
 
             return id;
@@ -73,7 +73,7 @@ std::vector<Account> AccountRepository::GetAllAccounts() {
 
 std::optional<Account> AccountRepository::GetById(const long long id) {
     SQLite::Statement query(db, std::string("SELECT ") + kAccountSelectColumns + " FROM accounts WHERE id = ?");
-    query.bind(1, id);
+    BindInt64(query, 1, id);
 
     if (!query.executeStep()) {
         return std::nullopt;
@@ -85,14 +85,14 @@ std::optional<Account> AccountRepository::GetById(const long long id) {
 bool AccountRepository::DeleteById(const long long id) {
     return RunInSavepoint(db, "account_delete", [&]() {
         SQLite::Statement query(db, "DELETE FROM accounts WHERE id = ?");
-        query.bind(1, id);
+        BindInt64(query, 1, id);
         return query.exec() > 0;
     });
 }
 
 std::string AccountRepository::GetRefreshToken(const Account &a) {
     SQLite::Statement query(db, "SELECT refresh_token FROM accounts WHERE id = ?");
-    query.bind(1, a.id);
+    BindInt64(query, 1, a.id);
 
     if (query.executeStep()) {
         return query.getColumn(0).getString();
