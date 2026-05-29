@@ -16,12 +16,14 @@ MonthCellPanel::MonthCellPanel(wxWindow* parent,
                                const int index,
                                std::function<void(int)> dayClicked,
                                std::function<void(int)> emptySpaceClicked,
-    std::function<void(long long)> eventClicked)
+                               std::function<void(long long)> eventDoubleClicked,
+                               std::function<void(long long)> eventRightClicked)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(150, 132), wxBORDER_NONE),
       index_(index),
       dayClicked_(std::move(dayClicked)),
       emptySpaceClicked_(std::move(emptySpaceClicked)),
-      eventClicked_(std::move(eventClicked)) {
+      eventDoubleClicked_(std::move(eventDoubleClicked)),
+      eventRightClicked_(std::move(eventRightClicked)) {
     SetBackgroundColour(*wxWHITE);
 
     auto* rootSizer = new wxBoxSizer(wxVERTICAL);
@@ -78,8 +80,15 @@ std::string BuildMonthSegmentLabel(const MonthCellEventSegment& segment) {
     return segment.label;
 }
 
-void BindClickRecursive(wxWindow* window, std::function<void()> handler) {
-    window->Bind(wxEVT_LEFT_UP, [handler = std::move(handler)](wxMouseEvent&) {
+void BindEventActionsRecursive(wxWindow* window,
+                               std::function<void()> doubleClickHandler,
+                               std::function<void()> rightClickHandler) {
+    window->Bind(wxEVT_LEFT_DCLICK, [handler = doubleClickHandler](wxMouseEvent&) {
+        if (handler) {
+            handler();
+        }
+    });
+    window->Bind(wxEVT_RIGHT_UP, [handler = std::move(rightClickHandler)](wxMouseEvent&) {
         if (handler) {
             handler();
         }
@@ -175,13 +184,18 @@ void MonthCellPanel::UpdateCell(const long long dayEpoch,
             eventPanel->SetSizer(eventSizer);
 
             if (!row->isSummary) {
-                auto handler = [handler = eventClicked_, id = row->eventId]() {
+                auto doubleClickHandler = [handler = eventDoubleClicked_, id = row->eventId]() {
                     if (handler) {
                         handler(id);
                     }
                 };
-                BindClickRecursive(eventPanel, handler);
-                BindClickRecursive(eventLabel, handler);
+                auto rightClickHandler = [handler = eventRightClicked_, id = row->eventId]() {
+                    if (handler) {
+                        handler(id);
+                    }
+                };
+                BindEventActionsRecursive(eventPanel, doubleClickHandler, rightClickHandler);
+                BindEventActionsRecursive(eventLabel, doubleClickHandler, rightClickHandler);
             }
 
             auto* rowSizer = new wxBoxSizer(wxHORIZONTAL);

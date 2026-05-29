@@ -13,10 +13,11 @@
 #include <wx/arrstr.h>
 #include <wx/msgdlg.h>
 #include <wx/sizer.h>
+#include <wx/spinctrl.h>
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
 
-#include "events/rrule.h"
+#include "models/rrule.h"
 #include "utils/datetime_utils.h"
 #include "utils/timezone_utils.h"
 
@@ -89,11 +90,11 @@ int RecurrenceSelectionFromRule(const std::string& recurrenceRule) {
     return 0;
 }
 
-int SelectedYear(const wxComboBox* choice) {
-    if (choice == nullptr || choice->GetSelection() == wxNOT_FOUND) {
+int SelectedYear(const wxSpinCtrl* choice) {
+    if (choice == nullptr) {
         return kMinCalendarYear;
     }
-    return std::max(kMinCalendarYear, std::stoi(choice->GetStringSelection().ToStdString()));
+    return std::max(kMinCalendarYear, choice->GetValue());
 }
 
 int SelectedMonth(const wxComboBox* choice) {
@@ -103,13 +104,13 @@ int SelectedMonth(const wxComboBox* choice) {
     return choice->GetSelection() + 1;
 }
 
-long long DisplayDayFromChoice(const wxComboBox* yearChoice, const wxComboBox* monthChoice, const wxComboBox* dayChoice) {
-    if (dayChoice == nullptr || dayChoice->GetSelection() == wxNOT_FOUND) {
+long long DisplayDayFromChoice(const wxSpinCtrl* yearChoice, const wxComboBox* monthChoice, const wxSpinCtrl* dayChoice) {
+    if (dayChoice == nullptr) {
         return -1;
     }
     const int year = SelectedYear(yearChoice);
     const int month = SelectedMonth(monthChoice);
-    return MakeUtcEpoch(year, month, dayChoice->GetSelection() + 1);
+    return MakeUtcEpoch(year, month, dayChoice->GetValue());
 }
 
 int MinuteOfDayFromDisplayEpoch(const long long displayEpoch) {
@@ -380,13 +381,14 @@ void EventEditorDialog::BuildLayout() {
 
     auto* dateTimeSizer = new wxFlexGridSizer(2, 5, 8, 10);
     dateTimeSizer->AddGrowableCol(3, 1);
-    const wxArrayString emptyChoices;
     static const wxArrayString emptyTimeChoices;
 
     dateTimeSizer->Add(new wxStaticText(this, wxID_ANY, "Start"), 0, wxALIGN_CENTER_VERTICAL);
-    startYearCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, emptyChoices, wxCB_READONLY);
+    startYearCtrl_ = new wxSpinCtrl(this, wxID_ANY, "", wxDefaultPosition, wxSize(78, -1),
+                                    wxSP_ARROW_KEYS, kMinCalendarYear, 9999, kMinCalendarYear);
     startMonthCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, MonthLabels(), wxCB_READONLY);
-    startDateCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, emptyChoices, wxCB_READONLY);
+    startDateCtrl_ = new wxSpinCtrl(this, wxID_ANY, "", wxDefaultPosition, wxSize(70, -1),
+                                    wxSP_ARROW_KEYS, 1, 31, 1);
     startTimeCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, emptyTimeChoices, wxCB_DROPDOWN);
     dateTimeSizer->Add(startYearCtrl_, 0, wxEXPAND);
     dateTimeSizer->Add(startMonthCtrl_, 0, wxEXPAND);
@@ -394,9 +396,11 @@ void EventEditorDialog::BuildLayout() {
     dateTimeSizer->Add(startTimeCtrl_, 0, wxEXPAND);
 
     dateTimeSizer->Add(new wxStaticText(this, wxID_ANY, "End"), 0, wxALIGN_CENTER_VERTICAL);
-    endYearCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, emptyChoices, wxCB_READONLY);
+    endYearCtrl_ = new wxSpinCtrl(this, wxID_ANY, "", wxDefaultPosition, wxSize(78, -1),
+                                  wxSP_ARROW_KEYS, kMinCalendarYear, 9999, kMinCalendarYear);
     endMonthCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, MonthLabels(), wxCB_READONLY);
-    endDateCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, emptyChoices, wxCB_READONLY);
+    endDateCtrl_ = new wxSpinCtrl(this, wxID_ANY, "", wxDefaultPosition, wxSize(70, -1),
+                                  wxSP_ARROW_KEYS, 1, 31, 1);
     endTimeCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, emptyTimeChoices, wxCB_DROPDOWN);
     dateTimeSizer->Add(endYearCtrl_, 0, wxEXPAND);
     dateTimeSizer->Add(endMonthCtrl_, 0, wxEXPAND);
@@ -418,6 +422,7 @@ void EventEditorDialog::BuildLayout() {
     cancelButton_ = new wxButton(this, wxID_CANCEL, "Cancel");
     saveButton_ = new wxButton(this, wxID_OK, originalEvent_.has_value() ? "Save changes" : "Create event");
     saveButton_->Bind(wxEVT_BUTTON, &EventEditorDialog::OnSave, this);
+    saveButton_->SetDefault();
 
     buttonSizer->AddStretchSpacer();
     buttonSizer->Add(cancelButton_, 0, wxRIGHT, 8);
@@ -428,8 +433,8 @@ void EventEditorDialog::BuildLayout() {
     Layout();
 
     allDayCtrl_->Bind(wxEVT_CHECKBOX, &EventEditorDialog::OnAllDayChanged, this);
-    startYearCtrl_->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent&) { RefreshDayChoicesForSelectedDateParts(); });
-    endYearCtrl_->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent&) { RefreshDayChoicesForSelectedDateParts(); });
+    startYearCtrl_->Bind(wxEVT_SPINCTRL, [this](wxSpinEvent&) { RefreshDayChoicesForSelectedDateParts(); });
+    endYearCtrl_->Bind(wxEVT_SPINCTRL, [this](wxSpinEvent&) { RefreshDayChoicesForSelectedDateParts(); });
     startMonthCtrl_->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent&) { RefreshDayChoicesForSelectedDateParts(); });
     endMonthCtrl_->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent&) { RefreshDayChoicesForSelectedDateParts(); });
     startTimeCtrl_->Bind(wxEVT_COMBOBOX_DROPDOWN, [this](wxCommandEvent&) { EnsureTimeChoicesPopulated(); });
@@ -527,17 +532,11 @@ void EventEditorDialog::WriteDateTimeControls(const bool start, const long long 
     const long long displayDay = StartOfUtcDay(displayEpoch);
     const std::tm tm = EpochToUtcTm(displayDay);
     const int year = tm.tm_year + 1900;
-    const int yearSelection = year - yearChoiceStart_;
-    if (yearSelection >= 0 && yearSelection < static_cast<int>(yearCtrl->GetCount())) {
-        yearCtrl->SetSelection(yearSelection);
-    }
+    yearCtrl->SetValue(std::clamp(year, kMinCalendarYear, 9999));
     monthCtrl->SetSelection(tm.tm_mon);
     RefreshDayChoicesForRow(yearCtrl, monthCtrl, dateCtrl);
 
-    const int daySelection = tm.tm_mday - 1;
-    if (daySelection >= 0 && daySelection < static_cast<int>(dateCtrl->GetCount())) {
-        dateCtrl->SetSelection(daySelection);
-    }
+    dateCtrl->SetValue(std::clamp(tm.tm_mday, dateCtrl->GetMin(), dateCtrl->GetMax()));
     timeCtrl->SetValue(FormatTimeInput(MinuteOfDayFromDisplayEpoch(displayEpoch)));
 }
 
@@ -555,31 +554,16 @@ void EventEditorDialog::PopulateDateChoices(const long long centerDisplayDay) {
 
 void EventEditorDialog::PopulateYearChoices(const long long centerDisplayDay) {
     const int centerYear = std::max(kMinCalendarYear, EpochToUtcTm(StartOfUtcDay(centerDisplayDay)).tm_year + 1900);
-    constexpr int kYearsBeforeCenter = 20;
-    constexpr int kYearsAfterCenter = 80;
-    yearChoiceStart_ = std::max(kMinCalendarYear, centerYear - kYearsBeforeCenter);
-    const int yearChoiceEnd = centerYear + kYearsAfterCenter;
-
-    wxArrayString labels;
-    labels.Alloc(yearChoiceEnd - yearChoiceStart_ + 1);
-    for (int year = yearChoiceStart_; year <= yearChoiceEnd; ++year) {
-        labels.Add(std::to_string(year));
-    }
-
-    auto appendChoices = [this, centerYear, &labels](wxComboBox* choice) {
-        choice->Freeze();
-        choice->Clear();
-        choice->Append(labels);
-        choice->SetSelection(std::clamp(centerYear - yearChoiceStart_, 0, static_cast<int>(labels.GetCount()) - 1));
-        choice->Thaw();
+    auto setYear = [centerYear](wxSpinCtrl* choice) {
+        if (choice == nullptr) {
+            return;
+        }
+        choice->SetRange(kMinCalendarYear, 9999);
+        choice->SetValue(std::clamp(centerYear, kMinCalendarYear, 9999));
     };
 
-    if (startYearCtrl_ != nullptr) {
-        appendChoices(startYearCtrl_);
-    }
-    if (endYearCtrl_ != nullptr) {
-        appendChoices(endYearCtrl_);
-    }
+    setYear(startYearCtrl_);
+    setYear(endYearCtrl_);
 }
 
 void EventEditorDialog::PopulateMonthChoices() {
@@ -606,26 +590,18 @@ void EventEditorDialog::RefreshDayChoicesForSelectedDateParts() {
     }
 }
 
-void EventEditorDialog::RefreshDayChoicesForRow(wxComboBox* yearChoice,
+void EventEditorDialog::RefreshDayChoicesForRow(wxSpinCtrl* yearChoice,
                                                 wxComboBox* monthChoice,
-                                                wxComboBox* dayChoice) {
+                                                wxSpinCtrl* dayChoice) {
     if (yearChoice == nullptr || monthChoice == nullptr || dayChoice == nullptr) {
         return;
     }
-    const int previousSelection = std::max(0, dayChoice->GetSelection());
+    const int previousValue = std::max(1, dayChoice->GetValue());
     const int year = SelectedYear(yearChoice);
     const int month = SelectedMonth(monthChoice);
-    wxArrayString labels;
     const int dayCount = DaysInMonth(year, month);
-    labels.Alloc(dayCount);
-    for (int day = 1; day <= dayCount; ++day) {
-        labels.Add(std::to_string(day));
-    }
-    dayChoice->Freeze();
-    dayChoice->Clear();
-    dayChoice->Append(labels);
-    dayChoice->SetSelection(std::min(previousSelection, dayCount - 1));
-    dayChoice->Thaw();
+    dayChoice->SetRange(1, dayCount);
+    dayChoice->SetValue(std::min(previousValue, dayCount));
 }
 
 void EventEditorDialog::PopulateTimeChoices() {
@@ -656,6 +632,9 @@ void EventEditorDialog::EnsureTimeChoicesPopulated() {
 
 void EventEditorDialog::UpdateTimeControlsEnabled() {
     const bool enabled = !readOnly_ && !allDayCtrl_->GetValue();
+    if (enabled) {
+        EnsureTimeChoicesPopulated();
+    }
     if (startTimeCtrl_ != nullptr) {
         startTimeCtrl_->Enable(enabled);
     }
@@ -723,6 +702,7 @@ void EventEditorDialog::ApplyReadOnlyState() {
     }
     if (cancelButton_ != nullptr) {
         cancelButton_->SetLabel("Close");
+        cancelButton_->SetDefault();
     }
 }
 

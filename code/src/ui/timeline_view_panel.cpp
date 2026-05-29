@@ -104,8 +104,12 @@ void TimelineViewPanel::SetEvents(const std::vector<Event>& events) {
     RefreshView();
 }
 
-void TimelineViewPanel::SetEventClickHandler(std::function<void(long long)> handler) {
-    eventClickHandler_ = std::move(handler);
+void TimelineViewPanel::SetEventDoubleClickHandler(std::function<void(long long)> handler) {
+    eventDoubleClickHandler_ = std::move(handler);
+}
+
+void TimelineViewPanel::SetEventRightClickHandler(std::function<void(long long)> handler) {
+    eventRightClickHandler_ = std::move(handler);
 }
 
 void TimelineViewPanel::SetEmptySlotClickHandler(std::function<void(long long, int)> handler) {
@@ -283,7 +287,12 @@ void TimelineViewPanel::RebuildEventButtons() {
                                         wxSize(width, kTimelineAllDayRowHeight - 4), wxBU_LEFT);
             button->SetBackgroundColour(wxColour(wxString::FromUTF8(NormalizeCalendarColor(span.colorHex))));
             button->SetForegroundColour(*wxWHITE);
-            button->Bind(wxEVT_BUTTON, [handler = eventClickHandler_, id = span.eventId](wxCommandEvent&) {
+            button->Bind(wxEVT_LEFT_DCLICK, [handler = eventDoubleClickHandler_, id = span.eventId](wxMouseEvent&) {
+                if (handler) {
+                    handler(id);
+                }
+            });
+            button->Bind(wxEVT_RIGHT_UP, [handler = eventRightClickHandler_, id = span.eventId](wxMouseEvent&) {
                 if (handler) {
                     handler(id);
                 }
@@ -414,7 +423,12 @@ void TimelineViewPanel::RebuildEventButtons() {
                                         wxSize(usableWidth, kTimelineAllDayRowHeight - 4), wxBU_LEFT);
             button->SetBackgroundColour(wxColour(wxString::FromUTF8(NormalizeCalendarColor(allDaySegments[index].colorHex))));
             button->SetForegroundColour(*wxWHITE);
-            button->Bind(wxEVT_BUTTON, [handler = eventClickHandler_, id = allDaySegments[index].eventId](wxCommandEvent&) {
+            button->Bind(wxEVT_LEFT_DCLICK, [handler = eventDoubleClickHandler_, id = allDaySegments[index].eventId](wxMouseEvent&) {
+                if (handler) {
+                    handler(id);
+                }
+            });
+            button->Bind(wxEVT_RIGHT_UP, [handler = eventRightClickHandler_, id = allDaySegments[index].eventId](wxMouseEvent&) {
                 if (handler) {
                     handler(id);
                 }
@@ -433,7 +447,12 @@ void TimelineViewPanel::RebuildEventButtons() {
                                         wxPoint(x, y), wxSize(width, height), wxBU_LEFT);
             button->SetBackgroundColour(wxColour(wxString::FromUTF8(NormalizeCalendarColor(segment.colorHex))));
             button->SetForegroundColour(*wxWHITE);
-            button->Bind(wxEVT_BUTTON, [handler = eventClickHandler_, id = segment.eventId](wxCommandEvent&) {
+            button->Bind(wxEVT_LEFT_DCLICK, [handler = eventDoubleClickHandler_, id = segment.eventId](wxMouseEvent&) {
+                if (handler) {
+                    handler(id);
+                }
+            });
+            button->Bind(wxEVT_RIGHT_UP, [handler = eventRightClickHandler_, id = segment.eventId](wxMouseEvent&) {
                 if (handler) {
                     handler(id);
                 }

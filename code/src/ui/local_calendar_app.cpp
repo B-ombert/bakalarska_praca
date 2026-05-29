@@ -29,6 +29,7 @@
 #include <wx/scrolwin.h>
 #include <wx/simplebook.h>
 #include <wx/sizer.h>
+#include <wx/spinctrl.h>
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
 #include <wx/weakref.h>
@@ -68,8 +69,6 @@ struct MonthCellMeta {
     bool inCurrentMonth = true;
 };
 
-constexpr int kYearComboChunkSize = 120;
-constexpr int kYearComboBackwardPadding = 20;
 constexpr size_t kMaxMonthCellRenderedRows = 4;
 constexpr const char* kLocalProvider = "LOCAL";
 constexpr const char* kLocalProviderUserId = "local-account";
@@ -1451,11 +1450,11 @@ private:
         nextButton_ = new wxButton(panel, wxID_ANY, ">");
         monthTitleLabel_ = new wxStaticText(panel, wxID_ANY, "");
         monthTitleLabel_->SetMinSize(wxSize(90, -1));
-        yearComboBox_ = new wxComboBox(panel, wxID_ANY, "", wxDefaultPosition, wxSize(110, -1), 0, nullptr, wxCB_READONLY);
-        PopulateYearComboWindow(visibleYear_);
-        auto* periodSizer = new wxBoxSizer(wxHORIZONTAL);
-        periodSizer->Add(monthTitleLabel_, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 10);
-        periodSizer->Add(yearComboBox_, 0, wxALIGN_CENTER_VERTICAL);
+        yearSpinCtrl_ = new wxSpinCtrl(panel, wxID_ANY, "", wxDefaultPosition, wxSize(110, -1),
+                                       wxSP_ARROW_KEYS, kMinCalendarYear, 9999, visibleYear_);
+        periodSizer_ = new wxBoxSizer(wxHORIZONTAL);
+        periodSizer_->Add(monthTitleLabel_, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 10);
+        periodSizer_->Add(yearSpinCtrl_, 0, wxALIGN_CENTER_VERTICAL);
 
         manageAccountsButton_ = new wxButton(panel, wxID_ANY, "Manage accounts");
 
@@ -1465,7 +1464,7 @@ private:
         toolbarSizer->Add(previousButton_, 0, wxRIGHT | wxALIGN_CENTER_VERTICAL, 6);
         toolbarSizer->Add(nextButton_, 0, wxRIGHT | wxALIGN_CENTER_VERTICAL, 18);
         toolbarSizer->AddStretchSpacer(1);
-        toolbarSizer->Add(periodSizer, 0, wxRIGHT | wxALIGN_CENTER_VERTICAL, 16);
+        toolbarSizer->Add(periodSizer_, 0, wxRIGHT | wxALIGN_CENTER_VERTICAL, 16);
         toolbarSizer->AddStretchSpacer(1);
         toolbarSizer->Add(manageAccountsButton_, 0, wxALIGN_CENTER_VERTICAL);
 
@@ -1494,7 +1493,8 @@ private:
                 index,
                 [this](const int cellIndex) { HandleMonthCellClicked(cellIndex); },
                 [this](const int cellIndex) { HandleMonthCellCreateEvent(cellIndex); },
-                [this](const long long eventId) { OpenEventById(eventId); });
+                [this](const long long eventId) { OpenEventById(eventId, false); },
+                [this](const long long eventId) { OpenEventById(eventId, true); });
             gridSizer->Add(monthCells_[index], 1, wxEXPAND);
         }
         gridPanel->SetSizer(gridSizer);
@@ -1544,13 +1544,15 @@ private:
         panel->SetSizer(rootSizer);
 
         weekTimeline_->SetMode(CalendarViewMode::WEEK);
-        weekTimeline_->SetEventClickHandler([this](const long long eventId) { OpenEventById(eventId); });
+        weekTimeline_->SetEventDoubleClickHandler([this](const long long eventId) { OpenEventById(eventId, false); });
+        weekTimeline_->SetEventRightClickHandler([this](const long long eventId) { OpenEventById(eventId, true); });
         weekTimeline_->SetEmptySlotClickHandler([this](const long long dayEpoch, const int minuteOfDay) {
             OpenNewTimedEventDialog(dayEpoch, minuteOfDay);
         });
 
         dayTimeline_->SetMode(CalendarViewMode::DAY);
-        dayTimeline_->SetEventClickHandler([this](const long long eventId) { OpenEventById(eventId); });
+        dayTimeline_->SetEventDoubleClickHandler([this](const long long eventId) { OpenEventById(eventId, false); });
+        dayTimeline_->SetEventRightClickHandler([this](const long long eventId) { OpenEventById(eventId, true); });
         dayTimeline_->SetEmptySlotClickHandler([this](const long long dayEpoch, const int minuteOfDay) {
             OpenNewTimedEventDialog(dayEpoch, minuteOfDay);
         });
@@ -1567,7 +1569,7 @@ private:
         todayButton_->SetBackgroundColour(surfaceBg);
         previousButton_->SetBackgroundColour(surfaceBg);
         nextButton_->SetBackgroundColour(surfaceBg);
-        yearComboBox_->SetBackgroundColour(surfaceBg);
+        yearSpinCtrl_->SetBackgroundColour(surfaceBg);
         manageAccountsButton_->SetBackgroundColour(surfaceBg);
     }
 
@@ -1577,7 +1579,7 @@ private:
         previousButton_->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) { ShiftCurrentPeriod(-1); });
         nextButton_->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) { ShiftCurrentPeriod(1); });
         refreshButton_->Bind(wxEVT_BUTTON, &LocalCalendarFrame::OnRefresh, this);
-        yearComboBox_->Bind(wxEVT_COMBOBOX, &LocalCalendarFrame::OnYearChanged, this);
+        yearSpinCtrl_->Bind(wxEVT_SPINCTRL, &LocalCalendarFrame::OnYearChanged, this);
         manageAccountsButton_->Bind(wxEVT_BUTTON, &LocalCalendarFrame::OnManageAccounts, this);
     }
 
@@ -1907,8 +1909,17 @@ private:
             monthTitleLabel_->SetLabel(FormatDayHeader(selectedDayEpoch_));
             modeComboBox_->SetSelection(2);
         }
-        EnsureYearComboContains(visibleYear_);
-        yearComboBox_->Enable(currentViewMode_ == CalendarViewMode::MONTH);
+        SetYearControlValue(visibleYear_);
+        const bool showYearSelector = currentViewMode_ == CalendarViewMode::MONTH;
+        if (periodSizer_ != nullptr && yearSpinCtrl_ != nullptr) {
+            periodSizer_->Show(yearSpinCtrl_, showYearSelector, true);
+        }
+        if (yearSpinCtrl_ != nullptr) {
+            yearSpinCtrl_->Enable(showYearSelector);
+        }
+        if (yearSpinCtrl_ != nullptr && yearSpinCtrl_->GetParent() != nullptr) {
+            yearSpinCtrl_->GetParent()->Layout();
+        }
     }
 
     void RefreshMonthGrid() {
@@ -2156,32 +2167,11 @@ private:
         }
     }
 
-    void PopulateYearComboWindow(const int targetYear) {
-        const int clampedYear = std::max(kMinCalendarYear, targetYear);
-        yearComboWindowStart_ = std::max(kMinCalendarYear, clampedYear - kYearComboBackwardPadding);
-        yearComboWindowEnd_ = yearComboWindowStart_ + kYearComboChunkSize - 1;
-
-        yearComboBox_->Freeze();
-        yearComboBox_->Clear();
-        for (int year = yearComboWindowStart_; year <= yearComboWindowEnd_; ++year) {
-            yearComboBox_->Append(std::to_string(year));
-        }
-        yearComboBox_->SetValue(std::to_string(clampedYear));
-        yearComboBox_->Thaw();
-    }
-
-    void EnsureYearComboContains(const int year) {
-        const int clampedYear = std::max(kMinCalendarYear, year);
-        const bool outsideWindow = clampedYear < yearComboWindowStart_ || clampedYear > yearComboWindowEnd_;
-        const bool nearTop = clampedYear - yearComboWindowStart_ < 5 && yearComboWindowStart_ > kMinCalendarYear;
-        const bool nearBottom = yearComboWindowEnd_ - clampedYear < 5;
-
-        if (outsideWindow || nearTop || nearBottom) {
-            PopulateYearComboWindow(clampedYear);
+    void SetYearControlValue(const int year) {
+        if (yearSpinCtrl_ == nullptr) {
             return;
         }
-
-        yearComboBox_->SetValue(std::to_string(clampedYear));
+        yearSpinCtrl_->SetValue(std::clamp(year, kMinCalendarYear, 9999));
     }
 
     void SwitchView(const CalendarViewMode mode, const int pageIndex) {
@@ -2704,7 +2694,7 @@ private:
         PersistEvent(*builtEvent);
     }
 
-    void OpenEventById(const long long eventId) {
+    void OpenEventById(const long long eventId, const bool showActionDialog) {
         std::optional<Event> selectedEvent = FindLoadedEventById(eventId);
         if (!selectedEvent.has_value() && eventId > 0) {
             selectedEvent = eventRepository_.getById(eventId);
@@ -2739,7 +2729,12 @@ private:
         statusLabel_->SetLabel(readOnly
             ? wxString::Format("Viewing event #%lld", selectedEvent->id)
             : wxString::Format("Editing event #%lld", selectedEvent->id));
-        OpenEventActionDialog(*selectedEvent, readOnly);
+        if (showActionDialog) {
+            OpenEventActionDialog(*selectedEvent, readOnly);
+        }
+        else {
+            OpenEventDialog(*selectedEvent, std::nullopt, readOnly);
+        }
     }
 
     void OpenNewEventDialog(const long long dayEpoch, const EventDraftDefaults& defaults) {
@@ -2831,16 +2826,13 @@ private:
         ShowAccountManagerDialog();
     }
 
-    void OnYearChanged(wxCommandEvent& event) {
-        long selectedYear = visibleYear_;
-        if (!event.GetString().ToLong(&selectedYear)) {
-            return;
-        }
+    void OnYearChanged(wxSpinEvent& event) {
+        const int selectedYear = event.GetValue();
         visibleYear_ = std::max(kMinCalendarYear, static_cast<int>(selectedYear));
         const std::tm selectedTm = EpochToUtcTm(selectedDayEpoch_);
         const int selectedDay = std::min(selectedTm.tm_mday, DaysInMonth(visibleYear_, visibleMonth_));
         selectedDayEpoch_ = MakeUtcEpoch(visibleYear_, visibleMonth_, selectedDay);
-        EnsureYearComboContains(visibleYear_);
+        SetYearControlValue(visibleYear_);
         if (currentViewMode_ == CalendarViewMode::MONTH) {
             RefreshEvents();
         }
@@ -2919,9 +2911,8 @@ private:
     wxButton* previousButton_ = nullptr;
     wxButton* nextButton_ = nullptr;
     wxStaticText* monthTitleLabel_ = nullptr;
-    wxComboBox* yearComboBox_ = nullptr;
-    int yearComboWindowStart_ = kMinCalendarYear;
-    int yearComboWindowEnd_ = kMinCalendarYear + kYearComboChunkSize - 1;
+    wxBoxSizer* periodSizer_ = nullptr;
+    wxSpinCtrl* yearSpinCtrl_ = nullptr;
     wxButton* manageAccountsButton_ = nullptr;
     wxDialog* authProgressDialog_ = nullptr;
     wxActivityIndicator* authActivityIndicator_ = nullptr;

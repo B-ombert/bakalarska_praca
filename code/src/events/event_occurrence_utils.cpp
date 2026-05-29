@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <ctime>
 
-#include "events/rrule.h"
+#include "models/rrule.h"
 #include "utils/datetime_utils.h"
 #include "utils/timezone_utils.h"
 

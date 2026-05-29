@@ -25,7 +25,8 @@ public:
                    int index,
                    std::function<void(int)> dayClicked,
                    std::function<void(int)> emptySpaceClicked,
-                   std::function<void(long long)> eventClicked);
+                   std::function<void(long long)> eventDoubleClicked,
+                   std::function<void(long long)> eventRightClicked);
 
     void UpdateCell(long long dayEpoch,
                     int dayNumber,
@@ -53,7 +54,8 @@ private:
     bool dayButtonHovered_ = false;
     std::function<void(int)> dayClicked_;
     std::function<void(int)> emptySpaceClicked_;
-    std::function<void(long long)> eventClicked_;
+    std::function<void(long long)> eventDoubleClicked_;
+    std::function<void(long long)> eventRightClicked_;
     wxPanel* headerPanel_ = nullptr;
     class wxButton* headerButton_ = nullptr;
     wxPanel* bodyPanel_ = nullptr;

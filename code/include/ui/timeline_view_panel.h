@@ -18,7 +18,8 @@ public:
     void SetRangeStart(long long rangeStartEpoch);
     void SetSelectedDay(long long selectedDayEpoch);
     void SetEvents(const std::vector<Event>& events);
-    void SetEventClickHandler(std::function<void(long long)> handler);
+    void SetEventDoubleClickHandler(std::function<void(long long)> handler);
+    void SetEventRightClickHandler(std::function<void(long long)> handler);
     void SetEmptySlotClickHandler(std::function<void(long long, int)> handler);
 
 private:
@@ -63,7 +64,8 @@ private:
     long long selectedDayEpoch_ = 0;
     std::uint64_t eventsFingerprint_ = 0;
     std::vector<Event> events_;
-    std::function<void(long long)> eventClickHandler_;
+    std::function<void(long long)> eventDoubleClickHandler_;
+    std::function<void(long long)> eventRightClickHandler_;
     std::function<void(long long, int)> emptySlotClickHandler_;
     wxPanel* canvas_ = nullptr;
     std::vector<class wxButton*> eventButtons_;

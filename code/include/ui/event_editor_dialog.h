@@ -42,9 +42,9 @@ private:
     void PopulateYearChoices(long long centerDisplayDay);
     void PopulateMonthChoices();
     void RefreshDayChoicesForSelectedDateParts();
-    void RefreshDayChoicesForRow(class wxComboBox* yearChoice,
+    void RefreshDayChoicesForRow(class wxSpinCtrl* yearChoice,
                                  class wxComboBox* monthChoice,
-                                 class wxComboBox* dayChoice);
+                                 class wxSpinCtrl* dayChoice);
     void PopulateTimeChoices();
     void EnsureTimeChoicesPopulated();
     void UpdateTimeControlsEnabled();
@@ -55,7 +55,6 @@ private:
 
     std::optional<Event> originalEvent_;
     long long defaultDayEpoch_ = 0;
-    int yearChoiceStart_ = kMinCalendarYear;
     std::optional<EventDraftDefaults> defaults_;
     std::vector<Calendar> calendars_;
     std::unordered_map<long long, wxString> accountLabels_;
@@ -68,13 +67,13 @@ private:
     class wxComboBox* calendarCtrl_ = nullptr;
     class wxTextCtrl* titleCtrl_ = nullptr;
     class wxTextCtrl* locationCtrl_ = nullptr;
-    class wxComboBox* startYearCtrl_ = nullptr;
+    class wxSpinCtrl* startYearCtrl_ = nullptr;
     class wxComboBox* startMonthCtrl_ = nullptr;
-    class wxComboBox* startDateCtrl_ = nullptr;
+    class wxSpinCtrl* startDateCtrl_ = nullptr;
     class wxComboBox* startTimeCtrl_ = nullptr;
-    class wxComboBox* endYearCtrl_ = nullptr;
+    class wxSpinCtrl* endYearCtrl_ = nullptr;
     class wxComboBox* endMonthCtrl_ = nullptr;
-    class wxComboBox* endDateCtrl_ = nullptr;
+    class wxSpinCtrl* endDateCtrl_ = nullptr;
     class wxComboBox* endTimeCtrl_ = nullptr;
     class wxTextCtrl* descriptionCtrl_ = nullptr;
     class wxCheckBox* allDayCtrl_ = nullptr;

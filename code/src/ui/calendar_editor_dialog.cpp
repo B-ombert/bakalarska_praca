@@ -117,6 +117,9 @@ CalendarEditorDialog::CalendarEditorDialog(wxWindow* parent, const std::optional
     if (buttonSizer != nullptr) {
         rootSizer->Add(buttonSizer, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 14);
     }
+    if (auto* okButton = wxDynamicCast(FindWindow(wxID_OK), wxButton)) {
+        okButton->SetDefault();
+    }
 
     SetSizerAndFit(rootSizer);
     SetMinSize(wxSize(420, GetSize().GetHeight()));
