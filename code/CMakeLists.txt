@@ -54,6 +54,11 @@ file(GLOB_RECURSE PROJECT_SOURCES_EXTRA
         "src/*.cpp"
 )
 
+# Some files were moved during refactoring. Exclude legacy locations if they
+# are still present in an older checkout/build tree to avoid duplicate symbols.
+list(FILTER PROJECT_SOURCES_EXTRA EXCLUDE REGEX ".*/src/events/(event_serialization|rrule)\\.cpp$")
+list(FILTER PROJECT_SOURCES_EXTRA EXCLUDE REGEX ".*/src/accounts/.*\\.cpp$")
+
 set(ALL_SOURCES
         ${PROJECT_SOURCES}
         ${PROJECT_SOURCES_EXTRA}
