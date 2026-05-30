@@ -8,25 +8,16 @@
 #include <wx/sizer.h>
 #include <wx/stattext.h>
 
+#include "utils/provider_utils.h"
+
 namespace {
 
-constexpr const char* kLocalProvider = "LOCAL";
-
-wxString ProviderLabel(const std::string& provider) {
-    if (provider == "GOOGLE") {
-        return "Google";
-    }
-    if (provider == "MICROSOFT") {
-        return "Outlook";
-    }
-    if (provider == kLocalProvider) {
-        return "Local";
-    }
-    return wxString::FromUTF8(provider);
+wxString ProviderDisplayLabel(const std::string& provider) {
+    return wxString::FromUTF8(ProviderLabel(provider));
 }
 
 wxString AccountTitle(const Account& account) {
-    if (account.provider == kLocalProvider) {
+    if (IsLocalProvider(account.provider)) {
         return "Local account";
     }
     if (!account.name.empty()) {
@@ -35,7 +26,7 @@ wxString AccountTitle(const Account& account) {
     if (!account.email.empty()) {
         return wxString::FromUTF8(account.email);
     }
-    return ProviderLabel(account.provider) + " account";
+    return ProviderDisplayLabel(account.provider) + " account";
 }
 
 wxString AccountEmail(const Account& account) {
@@ -108,13 +99,13 @@ void AccountManagerDialog::Build(const std::vector<AccountState>& accounts) {
         name->SetFont(nameFont);
         textSizer->Add(name, 0, wxBOTTOM, 2);
 
-        if (account.provider != kLocalProvider) {
+        if (!IsLocalProvider(account.provider)) {
             textSizer->Add(new wxStaticText(card, wxID_ANY, AccountEmail(account)), 0, wxBOTTOM, 2);
         }
-        textSizer->Add(new wxStaticText(card, wxID_ANY, wxString("Platform: ") + ProviderLabel(account.provider)), 0);
+        textSizer->Add(new wxStaticText(card, wxID_ANY, wxString("Platform: ") + ProviderDisplayLabel(account.provider)), 0);
         row->Add(textSizer, 1, wxALIGN_CENTER_VERTICAL | wxRIGHT, 10);
 
-        if (account.provider == kLocalProvider) {
+        if (IsLocalProvider(account.provider)) {
             auto* localStatus = new wxStaticText(card, wxID_ANY, "Always available");
             localStatus->SetForegroundColour(wxColour(34, 128, 70));
             row->Add(localStatus, 0, wxALIGN_CENTER_VERTICAL);
@@ -141,7 +132,7 @@ void AccountManagerDialog::Build(const std::vector<AccountState>& accounts) {
             row->Add(loginButton, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 8);
         }
 
-        if (account.provider != kLocalProvider) {
+        if (!IsLocalProvider(account.provider)) {
             auto* removeButton = new wxButton(card, wxID_ANY, "Remove");
             removeButton->Bind(wxEVT_BUTTON, [this, accountId = account.id](wxCommandEvent&) {
                 if (onRemoveAccount_) {

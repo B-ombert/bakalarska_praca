@@ -11,6 +11,7 @@
 #include "repositories/event_repository.h"
 #include "utils/calendar_colors.h"
 #include "utils/datetime_utils.h"
+#include "utils/provider_utils.h"
 #include "utils/sqlite_utils.h"
 #include "utils/timezone_utils.h"
 
@@ -90,7 +91,7 @@ bool ShouldSkipMicrosoftMasterWithStoredOccurrences(
     const std::unordered_map<long long, std::unordered_set<std::string>>& remoteOccurrenceMasterIdsByCalendar) {
     const auto providerIt = calendarProviders.find(event.calendarId);
     const bool isMicrosoftCalendar =
-        providerIt != calendarProviders.end() && providerIt->second == "MICROSOFT";
+        providerIt != calendarProviders.end() && providerIt->second == kProviderMicrosoft;
     if (!isMicrosoftCalendar ||
         event.type != EventType::MASTER ||
         event.recurrenceRule.empty()) {

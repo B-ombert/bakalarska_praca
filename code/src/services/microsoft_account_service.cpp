@@ -2,6 +2,7 @@
 
 #include <utils/http.h>
 #include <utils/json.hpp>
+#include <utils/provider_utils.h>
 
 std::optional<Account> GetMicrosoftUserInfo(AccessToken& token) {
     HttpRequest req;
@@ -28,7 +29,7 @@ std::optional<Account> GetMicrosoftUserInfo(AccessToken& token) {
         if (account.email.empty()) {
             account.email = json.value("userPrincipalName", "");
         }
-        account.provider = "MICROSOFT";
+        account.provider = kProviderMicrosoft;
         account.refreshToken = token.GetRefreshToken();
 
         return account;

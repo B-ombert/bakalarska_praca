@@ -13,63 +13,31 @@
 #include "repositories/calendar_repository.h"
 #include "repositories/event_repository.h"
 #include "services/account_service.h"
-#include "sync/google_calendar_sync_service.h"
-#include "sync/outlook_calendar_sync_service.h"
+#include "sync/calendar_sync_service_factory.h"
+#include "utils/provider_utils.h"
 #include "utils/sqlite_utils.h"
 
 namespace {
-
-std::optional<int> PlatformForProvider(const std::string& provider) {
-    if (provider == "GOOGLE") {
-        return GOOGLE;
-    }
-    if (provider == "MICROSOFT") {
-        return MICROSOFT;
-    }
-    return std::nullopt;
-}
-
-void ApplyGooglePrimaryCalendarDisplayName(const Account& account, std::vector<Calendar>& calendars) {
-    if (account.provider != "GOOGLE" || account.name.empty()) {
-        return;
-    }
-
-    for (auto& calendar : calendars) {
-        if (calendar.isPrimary) {
-            calendar.name = account.name;
-        }
-    }
-}
 
 bool FetchAndStoreRemoteCalendarsForAccount(const Account& account,
                                             AccessToken& token,
                                             CalendarRepository& calendarRepository,
                                             EventRepository& eventRepository) {
-    if (account.provider == "GOOGLE") {
-        GoogleCalendarSyncService service(calendarRepository, eventRepository);
-        auto remoteCalendars = service.fetchRemoteCalendars(token.GetToken());
-        ApplyGooglePrimaryCalendarDisplayName(account, remoteCalendars);
-        for (auto& calendar : remoteCalendars) {
-            calendar.accountId = account.id;
-        }
-        service.syncCalendarsIncremental(
-            account.id,
-            remoteCalendars,
-            [&token]() { return token.GetToken(); },
-            true);
+    auto service = CreateCalendarSyncService(account.provider, calendarRepository, eventRepository);
+    if (service == nullptr) {
+        return false;
     }
-    else if (account.provider == "MICROSOFT") {
-        OutlookCalendarSyncService service(calendarRepository, eventRepository);
-        auto remoteCalendars = service.fetchRemoteCalendars(token.GetToken());
-        for (auto& calendar : remoteCalendars) {
-            calendar.accountId = account.id;
-        }
-        service.syncCalendarsIncremental(
-            account.id,
-            remoteCalendars,
-            [&token]() { return token.GetToken(); },
-            true);
+
+    auto remoteCalendars = service->fetchRemoteCalendars(token.GetToken());
+    ApplyProviderCalendarDisplayDefaults(account, remoteCalendars);
+    for (auto& calendar : remoteCalendars) {
+        calendar.accountId = account.id;
     }
+    service->syncCalendarsIncremental(
+        account.id,
+        remoteCalendars,
+        [&token]() { return token.GetToken(); },
+        true);
 
     return true;
 }

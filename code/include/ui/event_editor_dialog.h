@@ -16,6 +16,8 @@ enum class RecurrenceEditScope {
     ENTIRE_SERIES
 };
 
+class TimePickerCtrl;
+
 class EventEditorDialog final : public wxDialog {
 public:
     EventEditorDialog(wxWindow* parent,
@@ -28,7 +30,6 @@ public:
                       bool readOnly = false);
 
     bool IsDeleteRequested() const;
-    RecurrenceEditScope GetRecurrenceEditScope() const;
     std::optional<Event> BuildEvent(long long calendarId) const;
 
 private:
@@ -37,7 +38,9 @@ private:
     bool ValidateEvent(const Event& event) const;
     long long SelectedCalendarId(long long fallbackCalendarId) const;
     long long ReadDateTimeControls(bool start, bool allDay) const;
+    long long ReadUntilDateControl() const;
     void WriteDateTimeControls(bool start, long long epoch, bool allDay);
+    void WriteUntilDateControl(long long epoch);
     void PopulateDateChoices(long long centerDisplayDay);
     void PopulateYearChoices(long long centerDisplayDay);
     void PopulateMonthChoices();
@@ -48,8 +51,12 @@ private:
     void PopulateTimeChoices();
     void EnsureTimeChoicesPopulated();
     void UpdateTimeControlsEnabled();
+    void UpdateRecurrenceLimitControlsEnabled();
     void ApplyReadOnlyState();
     void OnAllDayChanged(wxCommandEvent& event);
+    void OnRecurrenceChanged(wxCommandEvent& event);
+    void OnCountLimitChanged(wxCommandEvent& event);
+    void OnUntilLimitChanged(wxCommandEvent& event);
     void OnSave(wxCommandEvent& event);
     void OnDelete(wxCommandEvent& event);
 
@@ -70,15 +77,20 @@ private:
     class wxSpinCtrl* startYearCtrl_ = nullptr;
     class wxComboBox* startMonthCtrl_ = nullptr;
     class wxSpinCtrl* startDateCtrl_ = nullptr;
-    class wxComboBox* startTimeCtrl_ = nullptr;
+    TimePickerCtrl* startTimeCtrl_ = nullptr;
     class wxSpinCtrl* endYearCtrl_ = nullptr;
     class wxComboBox* endMonthCtrl_ = nullptr;
     class wxSpinCtrl* endDateCtrl_ = nullptr;
-    class wxComboBox* endTimeCtrl_ = nullptr;
+    TimePickerCtrl* endTimeCtrl_ = nullptr;
     class wxTextCtrl* descriptionCtrl_ = nullptr;
     class wxCheckBox* allDayCtrl_ = nullptr;
     class wxComboBox* recurrenceCtrl_ = nullptr;
-    class wxComboBox* recurrenceScopeCtrl_ = nullptr;
+    class wxCheckBox* recurrenceCountCtrl_ = nullptr;
+    class wxTextCtrl* recurrenceCountValueCtrl_ = nullptr;
+    class wxCheckBox* recurrenceUntilCtrl_ = nullptr;
+    class wxSpinCtrl* recurrenceUntilYearCtrl_ = nullptr;
+    class wxComboBox* recurrenceUntilMonthCtrl_ = nullptr;
+    class wxSpinCtrl* recurrenceUntilDateCtrl_ = nullptr;
     class wxButton* deleteButton_ = nullptr;
     class wxButton* cancelButton_ = nullptr;
     class wxButton* saveButton_ = nullptr;

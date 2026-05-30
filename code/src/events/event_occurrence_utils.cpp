@@ -166,6 +166,21 @@ bool MatchesRecurringDay(const Event& event, const RRule& rule, const long long 
     return false;
 }
 
+unsigned int CountOccurrencesBeforeDay(const Event& event, const RRule& rule, const long long dayEpoch) {
+    const long long startDay = StartOfUtcDay(event.GetDisplayStartEpoch());
+    if (dayEpoch <= startDay) {
+        return 0;
+    }
+
+    unsigned int count = 0;
+    for (long long currentDay = startDay; currentDay < dayEpoch; currentDay += kSecondsPerDay) {
+        if (MatchesRecurringDay(event, rule, currentDay)) {
+            ++count;
+        }
+    }
+    return count;
+}
+
 } // namespace
 
 Event BuildEffectiveRemoteEvent(
@@ -232,10 +247,19 @@ std::vector<Event> ExpandRecurringEventForRange(
     const long long startDay = StartOfUtcDay(displayStartEpoch);
     const long long scanStartDay = std::max(startDay, StartOfUtcDay(range.startEpoch));
     const long long scanEndDay = StartOfUtcDay(std::max(range.startEpoch, range.endEpoch - 1));
+    unsigned int generatedCount = rule.hasCount
+        ? CountOccurrencesBeforeDay(event, rule, scanStartDay)
+        : 0;
 
     for (long long dayEpoch = scanStartDay; dayEpoch <= scanEndDay; dayEpoch += kSecondsPerDay) {
         if (!MatchesRecurringDay(event, rule, dayEpoch)) {
             continue;
+        }
+        if (rule.hasCount && generatedCount >= rule.count) {
+            break;
+        }
+        if (rule.hasCount) {
+            ++generatedCount;
         }
 
         Event occurrence = event;

@@ -24,6 +24,108 @@ std::string trim(const std::string& value) {
     return value.substr(first, last - first + 1);
 }
 
+std::string toLowerAscii(std::string value) {
+    std::transform(value.begin(), value.end(), value.begin(), [](const unsigned char ch) {
+        return static_cast<char>(std::tolower(ch));
+    });
+    return value;
+}
+
+void replaceAll(std::string& value, const std::string& from, const std::string& to) {
+    if (from.empty()) {
+        return;
+    }
+
+    std::size_t pos = 0;
+    while ((pos = value.find(from, pos)) != std::string::npos) {
+        value.replace(pos, from.size(), to);
+        pos += to.size();
+    }
+}
+
+std::string decodeBasicHtmlEntities(std::string value) {
+    replaceAll(value, "&nbsp;", " ");
+    replaceAll(value, "&#160;", " ");
+    replaceAll(value, "&amp;", "&");
+    replaceAll(value, "&lt;", "<");
+    replaceAll(value, "&gt;", ">");
+    replaceAll(value, "&quot;", "\"");
+    replaceAll(value, "&#39;", "'");
+    replaceAll(value, "&apos;", "'");
+    return value;
+}
+
+bool isHtmlBreakTag(std::string tag) {
+    tag = trim(toLowerAscii(std::move(tag)));
+    if (!tag.empty() && tag.front() == '/') {
+        tag.erase(tag.begin());
+    }
+
+    const auto nameEnd = tag.find_first_of(" \t\r\n/");
+    const std::string name = tag.substr(0, nameEnd);
+    return name == "br" || name == "div" || name == "p" || name == "li";
+}
+
+std::string stripHtmlToText(const std::string& html) {
+    std::string text;
+    text.reserve(html.size());
+
+    for (std::size_t i = 0; i < html.size();) {
+        if (html[i] != '<') {
+            text.push_back(html[i++]);
+            continue;
+        }
+
+        const auto tagEnd = html.find('>', i + 1);
+        if (tagEnd == std::string::npos) {
+            break;
+        }
+
+        if (isHtmlBreakTag(html.substr(i + 1, tagEnd - i - 1)) &&
+            !text.empty() && text.back() != '\n') {
+            text.push_back('\n');
+        }
+        i = tagEnd + 1;
+    }
+
+    text = decodeBasicHtmlEntities(std::move(text));
+
+    std::stringstream input(text);
+    std::ostringstream output;
+    std::string line;
+    bool wroteLine = false;
+    while (std::getline(input, line)) {
+        line = trim(line);
+        if (line.empty()) {
+            continue;
+        }
+        if (wroteLine) {
+            output << '\n';
+        }
+        output << line;
+        wroteLine = true;
+    }
+
+    return output.str();
+}
+
+std::string normalizeMicrosoftBodyDescription(const std::string& content, const std::string& contentType) {
+    const std::string lowerContentType = toLowerAscii(contentType);
+    const std::string lowerContent = toLowerAscii(content);
+    const bool html =
+        lowerContentType == "html" ||
+        lowerContent.find("<html") != std::string::npos ||
+        lowerContent.find("<body") != std::string::npos ||
+        lowerContent.find("<div") != std::string::npos ||
+        lowerContent.find("<br") != std::string::npos;
+
+    if (html) {
+        return stripHtmlToText(content);
+    }
+
+    return trim(decodeBasicHtmlEntities(content));
+}
+
 std::string getIcalValue(const std::string& line) {
     const auto separator = line.find(':');
     if (separator == std::string::npos) {
@@ -364,7 +466,7 @@ std::string microsoftRecurrenceToRRule(const json& recurrence) {
         const std::string rangeType = range.value("type", "");
 
         if (rangeType == "numbered" && range.contains("numberOfOccurrences")) {
-            rule << ";COUNT=" << range["numberOfOccurrences"].get<int>();
+            rule << ";COUNT=" << range["numberOfOccurrences"].get<unsigned int>();
         }
         else if ((rangeType == "endDate" || rangeType == "numbered") && range.contains("endDate")) {
             const std::string until = dateToBasicIso(range["endDate"].get<std::string>());
@@ -390,7 +492,9 @@ Event parseMicrosoftJsonEvent(const json& j) {
 
     if (j.contains("body") && j["body"].is_object() &&
         j["body"].contains("content") && j["body"]["content"].is_string()) {
-        e.description = j["body"]["content"].get<std::string>();
+        const std::string content = j["body"]["content"].get<std::string>();
+        const std::string contentType = j["body"].value("contentType", "");
+        e.description = normalizeMicrosoftBodyDescription(content, contentType);
     }
 
     if (j.contains("location") && j["location"].is_object() &&

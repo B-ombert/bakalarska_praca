@@ -9,29 +9,13 @@
 #include "repositories/account_repository.h"
 #include "repositories/calendar_repository.h"
 #include "repositories/event_repository.h"
-#include "sync/google_calendar_sync_service.h"
-#include "sync/outlook_calendar_sync_service.h"
+#include "sync/calendar_sync_service_factory.h"
+#include "utils/provider_utils.h"
 #include "utils/sqlite_utils.h"
 
 namespace {
 
 constexpr auto kUploadInterval = std::chrono::minutes(5);
-
-bool SupportsEventUploadProvider(const std::string& provider) {
-    return provider == "GOOGLE" || provider == "MICROSOFT";
-}
-
-void ApplyGooglePrimaryCalendarDisplayName(const Account& account, std::vector<Calendar>& calendars) {
-    if (account.provider != "GOOGLE" || account.name.empty()) {
-        return;
-    }
-
-    for (auto& calendar : calendars) {
-        if (calendar.isPrimary) {
-            calendar.name = account.name;
-        }
-    }
-}
 
 int CountPendingUploadEvents(const std::string& dbPath, const long long accountId) {
     SQLite::Database db(dbPath, SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
@@ -95,7 +79,7 @@ void EventUploadScheduler::Stop() {
 }
 
 void EventUploadScheduler::UpsertSession(PendingEventUploadSession session) {
-    if (!SupportsEventUploadProvider(session.provider) || session.token == nullptr) {
+    if (!IsCalendarSyncProvider(session.provider) || session.token == nullptr) {
         return;
     }
 
@@ -231,7 +215,7 @@ PendingEventUploadResult EventUploadScheduler::RunJob(const Job& job) {
             auto remoteCalendars = service.fetchRemoteCalendars(currentAccessToken);
             const auto account = accountRepository.GetById(job.accountId);
             if (account.has_value()) {
-                ApplyGooglePrimaryCalendarDisplayName(*account, remoteCalendars);
+                ApplyProviderCalendarDisplayDefaults(*account, remoteCalendars);
             }
             for (auto& calendar : remoteCalendars) {
                 calendar.accountId = job.accountId;
@@ -244,44 +228,21 @@ PendingEventUploadResult EventUploadScheduler::RunJob(const Job& job) {
             return true;
         };
 
-        auto syncGoogleAccount = [&]() {
-            GoogleCalendarSyncService service(calendarRepository, eventRepository);
-
-            const SyncPendingEventsResult calendarUploadResult =
-                service.syncPendingCalendarsForAccount([token]() { return token->GetToken(); }, job.accountId);
-            const SyncPendingEventsResult syncResult =
-                service.syncPendingEventsForAccount([token]() { return token->GetToken(); }, job.accountId);
-            if (syncRemoteCalendars(service)) {
-                fetchRangeForAccount(service);
-            }
-            result.pendingEventCount = calendarUploadResult.pendingEventCount + syncResult.pendingEventCount;
-            result.acceptedEventCount = calendarUploadResult.acceptedEventCount + syncResult.acceptedEventCount;
-        };
-
-        auto syncMicrosoftAccount = [&]() {
-            OutlookCalendarSyncService service(calendarRepository, eventRepository);
-
-            const SyncPendingEventsResult calendarUploadResult =
-                service.syncPendingCalendarsForAccount([token]() { return token->GetToken(); }, job.accountId);
-            const SyncPendingEventsResult syncResult =
-                service.syncPendingEventsForAccount([token]() { return token->GetToken(); }, job.accountId);
-            if (syncRemoteCalendars(service)) {
-                fetchRangeForAccount(service);
-            }
-            result.pendingEventCount = calendarUploadResult.pendingEventCount + syncResult.pendingEventCount;
-            result.acceptedEventCount = calendarUploadResult.acceptedEventCount + syncResult.acceptedEventCount;
-        };
-
-        if (provider == "GOOGLE") {
-            syncGoogleAccount();
-        }
-        else if (provider == "MICROSOFT") {
-            syncMicrosoftAccount();
-        }
-        else {
+        auto service = CreateCalendarSyncService(provider, calendarRepository, eventRepository);
+        if (service == nullptr) {
             result.message = "This account provider does not support sync.";
             return result;
         }
+
+        const SyncPendingEventsResult calendarUploadResult =
+            service->syncPendingCalendarsForAccount([token]() { return token->GetToken(); }, job.accountId);
+        const SyncPendingEventsResult syncResult =
+            service->syncPendingEventsForAccount([token]() { return token->GetToken(); }, job.accountId);
+        if (syncRemoteCalendars(*service)) {
+            fetchRangeForAccount(*service);
+        }
+        result.pendingEventCount = calendarUploadResult.pendingEventCount + syncResult.pendingEventCount;
+        result.acceptedEventCount = calendarUploadResult.acceptedEventCount + syncResult.acceptedEventCount;
 
         const std::string refreshedRefreshToken = token->GetRefreshToken();
         if (!refreshedRefreshToken.empty() && refreshedRefreshToken != oldRefreshToken) {

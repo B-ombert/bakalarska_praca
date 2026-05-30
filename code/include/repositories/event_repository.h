@@ -11,6 +11,11 @@
 #include "models/recurrence_override.h"
 #include "utils/sqlite_utils.h"
 
+enum class EventTitleSearchMode {
+    STARTS_WITH,
+    CONTAINS
+};
+
 class EventRepository {
 public:
     explicit EventRepository(SQLite::Database& db);
@@ -32,6 +37,7 @@ public:
     std::optional<Event> getByProviderId(long long calendarId, const std::string& providerId);
     std::optional<Event> getByProviderInstance(const std::string& providerId, long long instanceStart);
     std::vector<Event> getByCalendar(long long calendarId);
+    std::vector<Event> searchByTitle(const std::string& keyword, EventTitleSearchMode mode);
     std::vector<Event> getEventsInRange(long long calendarId, long long start, long long end);
     std::vector<Event> getRecurringMasters(long long calendarId);
     std::vector<Event> getRecurringMastersStartingBefore(long long calendarId, long long end);

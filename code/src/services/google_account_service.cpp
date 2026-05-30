@@ -2,6 +2,7 @@
 
 #include <utils/http.h>
 #include <utils/json.hpp>
+#include <utils/provider_utils.h>
 
 std::optional<Account> GetGoogleUserInfo(AccessToken& token) {
     HttpRequest req;
@@ -27,7 +28,7 @@ std::optional<Account> GetGoogleUserInfo(AccessToken& token) {
         account.providerUserId = json.value("sub", "");
         account.name = json.value("name", "");
         account.email = json.value("email", "");
-        account.provider = "GOOGLE";
+        account.provider = kProviderGoogle;
         account.refreshToken = token.GetRefreshToken();
 
         return account;

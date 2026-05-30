@@ -11,6 +11,7 @@
 #include "calendar_sync_internal.h"
 #include "repositories/calendar_sync_range_repository.h"
 #include "utils/datetime_utils.h"
+#include "utils/provider_utils.h"
 
 namespace {
 
@@ -432,7 +433,7 @@ bool OutlookCalendarSyncService::fetchAndStoreRemoteEventsInRange(
 }
 
 std::string OutlookCalendarSyncService::providerName() const {
-    return "MICROSOFT";
+    return kProviderMicrosoft;
 }
 
 json OutlookCalendarSyncService::exportEventPayload(const Event& event) {

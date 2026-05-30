@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <cstdlib>
 #include <ctime>
 #include <functional>
 
@@ -17,6 +18,7 @@ namespace {
 
 constexpr size_t kMaxTimelineButtonsPerDay = 300;
 constexpr size_t kMaxTimelineHeaderSpans = 200;
+constexpr int kTimelineSelectionSlotMinutes = 15;
 
 std::string BuildHeaderSpanLabel(const Event& event, const bool continuesBefore, const bool continuesAfter) {
     std::string label = event.title.empty() ? "Event" : event.title;
@@ -63,7 +65,9 @@ TimelineViewPanel::TimelineViewPanel(wxWindow* parent)
     canvas_ = new wxPanel(this);
     canvas_->SetBackgroundStyle(wxBG_STYLE_PAINT);
     canvas_->Bind(wxEVT_PAINT, &TimelineViewPanel::OnPaint, this);
+    canvas_->Bind(wxEVT_LEFT_DOWN, &TimelineViewPanel::OnCanvasLeftDown, this);
     canvas_->Bind(wxEVT_LEFT_UP, &TimelineViewPanel::OnCanvasLeftUp, this);
+    canvas_->Bind(wxEVT_MOTION, &TimelineViewPanel::OnCanvasMotion, this);
     Bind(wxEVT_SIZE, &TimelineViewPanel::OnHostResized, this);
 
     SetSizer(new wxBoxSizer(wxVERTICAL));
@@ -94,6 +98,14 @@ void TimelineViewPanel::SetSelectedDay(const long long selectedDayEpoch) {
     RefreshView();
 }
 
+void TimelineViewPanel::SetSelectedEventId(const long long selectedEventId) {
+    if (selectedEventId_ == selectedEventId) {
+        return;
+    }
+    selectedEventId_ = selectedEventId;
+    RefreshView();
+}
+
 void TimelineViewPanel::SetEvents(const std::vector<Event>& events) {
     const std::uint64_t fingerprint = ComputeTimelineEventsFingerprint(events);
     if (eventsFingerprint_ == fingerprint) {
@@ -102,6 +114,10 @@ void TimelineViewPanel::SetEvents(const std::vector<Event>& events) {
     eventsFingerprint_ = fingerprint;
     events_ = events;
     RefreshView();
+}
+
+void TimelineViewPanel::SetEventClickHandler(std::function<void(long long)> handler) {
+    eventClickHandler_ = std::move(handler);
 }
 
 void TimelineViewPanel::SetEventDoubleClickHandler(std::function<void(long long)> handler) {
@@ -114,6 +130,10 @@ void TimelineViewPanel::SetEventRightClickHandler(std::function<void(long long)>
 
 void TimelineViewPanel::SetEmptySlotClickHandler(std::function<void(long long, int)> handler) {
     emptySlotClickHandler_ = std::move(handler);
+}
+
+void TimelineViewPanel::SetEmptyRangeDragHandler(std::function<void(long long, int, int)> handler) {
+    emptyRangeDragHandler_ = std::move(handler);
 }
 
 int TimelineViewPanel::DayCount() const {
@@ -161,6 +181,23 @@ int TimelineViewPanel::TotalCanvasHeight() const {
 
 int TimelineViewPanel::TimelineTop() const {
     return kTimelineHeaderHeight + CurrentAllDayLaneHeight();
+}
+
+bool TimelineViewPanel::TimelineSlotFromPoint(const wxPoint& point, long long& dayEpoch, int& minuteOfDay) const {
+    if (point.x < kTimelineTimeLabelWidth || point.y < TimelineTop()) {
+        return false;
+    }
+
+    const int dayColumnWidth = CurrentColumnWidth();
+    const int dayIndex = std::clamp((point.x - kTimelineTimeLabelWidth) / dayColumnWidth, 0, DayCount() - 1);
+    dayEpoch = rangeStartEpoch_ + static_cast<long long>(dayIndex) * kSecondsPerDay;
+
+    const int minutesFromTop = std::clamp(
+        ((point.y - TimelineTop()) * 60) / kTimelineHourHeight,
+        0,
+        kMinutesPerDay - 1);
+    minuteOfDay = std::clamp(((minutesFromTop + 7) / 15) * 15, 0, kMinutesPerDay);
+    return true;
 }
 
 void TimelineViewPanel::RefreshView() {
@@ -287,6 +324,12 @@ void TimelineViewPanel::RebuildEventButtons() {
                                         wxSize(width, kTimelineAllDayRowHeight - 4), wxBU_LEFT);
             button->SetBackgroundColour(wxColour(wxString::FromUTF8(NormalizeCalendarColor(span.colorHex))));
             button->SetForegroundColour(*wxWHITE);
+            button->SetWindowStyleFlag(button->GetWindowStyleFlag() | (span.eventId == selectedEventId_ ? wxBORDER_SIMPLE : 0));
+            button->Bind(wxEVT_LEFT_UP, [handler = eventClickHandler_, id = span.eventId](wxMouseEvent&) {
+                if (handler) {
+                    handler(id);
+                }
+            });
             button->Bind(wxEVT_LEFT_DCLICK, [handler = eventDoubleClickHandler_, id = span.eventId](wxMouseEvent&) {
                 if (handler) {
                     handler(id);
@@ -423,6 +466,12 @@ void TimelineViewPanel::RebuildEventButtons() {
                                         wxSize(usableWidth, kTimelineAllDayRowHeight - 4), wxBU_LEFT);
             button->SetBackgroundColour(wxColour(wxString::FromUTF8(NormalizeCalendarColor(allDaySegments[index].colorHex))));
             button->SetForegroundColour(*wxWHITE);
+            button->SetWindowStyleFlag(button->GetWindowStyleFlag() | (allDaySegments[index].eventId == selectedEventId_ ? wxBORDER_SIMPLE : 0));
+            button->Bind(wxEVT_LEFT_UP, [handler = eventClickHandler_, id = allDaySegments[index].eventId](wxMouseEvent&) {
+                if (handler) {
+                    handler(id);
+                }
+            });
             button->Bind(wxEVT_LEFT_DCLICK, [handler = eventDoubleClickHandler_, id = allDaySegments[index].eventId](wxMouseEvent&) {
                 if (handler) {
                     handler(id);
@@ -447,6 +496,12 @@ void TimelineViewPanel::RebuildEventButtons() {
                                         wxPoint(x, y), wxSize(width, height), wxBU_LEFT);
             button->SetBackgroundColour(wxColour(wxString::FromUTF8(NormalizeCalendarColor(segment.colorHex))));
             button->SetForegroundColour(*wxWHITE);
+            button->SetWindowStyleFlag(button->GetWindowStyleFlag() | (segment.eventId == selectedEventId_ ? wxBORDER_SIMPLE : 0));
+            button->Bind(wxEVT_LEFT_UP, [handler = eventClickHandler_, id = segment.eventId](wxMouseEvent&) {
+                if (handler) {
+                    handler(id);
+                }
+            });
             button->Bind(wxEVT_LEFT_DCLICK, [handler = eventDoubleClickHandler_, id = segment.eventId](wxMouseEvent&) {
                 if (handler) {
                     handler(id);
@@ -467,26 +522,85 @@ void TimelineViewPanel::OnHostResized(wxSizeEvent& event) {
     event.Skip();
 }
 
+void TimelineViewPanel::OnCanvasLeftDown(wxMouseEvent& event) {
+    long long dayEpoch = 0;
+    int minuteOfDay = 0;
+    if (!TimelineSlotFromPoint(event.GetPosition(), dayEpoch, minuteOfDay)) {
+        event.Skip();
+        return;
+    }
+
+    dragSelecting_ = true;
+    dragMoved_ = false;
+    dragDayEpoch_ = dayEpoch;
+    dragStartMinute_ = minuteOfDay;
+    dragCurrentMinute_ = minuteOfDay;
+    dragStartPoint_ = event.GetPosition();
+    if (!canvas_->HasCapture()) {
+        canvas_->CaptureMouse();
+    }
+}
+
+void TimelineViewPanel::OnCanvasMotion(wxMouseEvent& event) {
+    if (!dragSelecting_ || !event.Dragging() || !event.LeftIsDown()) {
+        event.Skip();
+        return;
+    }
+
+    long long dayEpoch = 0;
+    int minuteOfDay = 0;
+    if (!TimelineSlotFromPoint(event.GetPosition(), dayEpoch, minuteOfDay)) {
+        event.Skip();
+        return;
+    }
+
+    if (dayEpoch != dragDayEpoch_) {
+        return;
+    }
+
+    const wxPoint delta = event.GetPosition() - dragStartPoint_;
+    dragMoved_ = dragMoved_ || std::abs(delta.x) > 3 || std::abs(delta.y) > 3;
+    if (dragCurrentMinute_ != minuteOfDay) {
+        dragCurrentMinute_ = minuteOfDay;
+        canvas_->Refresh();
+    }
+}
+
 void TimelineViewPanel::OnCanvasLeftUp(wxMouseEvent& event) {
-    if (!emptySlotClickHandler_) {
-        event.Skip();
-        return;
+    if (canvas_->HasCapture()) {
+        canvas_->ReleaseMouse();
     }
 
-    const wxPoint point = event.GetPosition();
-    if (point.x < kTimelineTimeLabelWidth || point.y < TimelineTop()) {
-        event.Skip();
-        return;
-    }
-
+    long long dayEpoch = 0;
+    int minuteOfDay = 0;
+    const bool hasSlot = TimelineSlotFromPoint(event.GetPosition(), dayEpoch, minuteOfDay);
+    const bool wasDragging = dragSelecting_;
+    dragSelecting_ = false;
     canvas_->Refresh();
-    const int dayColumnWidth = CurrentColumnWidth();
-    const int dayIndex = std::clamp((point.x - kTimelineTimeLabelWidth) / dayColumnWidth, 0, DayCount() - 1);
-    const long long dayEpoch = rangeStartEpoch_ + static_cast<long long>(dayIndex) * kSecondsPerDay;
-    const int minutesFromTop = std::clamp(((point.y - TimelineTop()) * 60) / kTimelineHourHeight, 0, kMinutesPerDay - 1);
-    const int hour = minutesFromTop / 60;
-    const int minute = (minutesFromTop % 60) < 30 ? 0 : 30;
-    emptySlotClickHandler_(dayEpoch, hour * 60 + minute);
+
+    if (!hasSlot) {
+        event.Skip();
+        return;
+    }
+
+    if (wasDragging && dragMoved_ && dayEpoch == dragDayEpoch_ && emptyRangeDragHandler_) {
+        int startMinute = minuteOfDay;
+        int endMinute = dragStartMinute_;
+        if (startMinute > endMinute) {
+            std::swap(startMinute, endMinute);
+        }
+        if (endMinute == startMinute) {
+            endMinute = std::min(kMinutesPerDay, startMinute + 15);
+        }
+        if (endMinute > startMinute) {
+            emptyRangeDragHandler_(dayEpoch, startMinute, endMinute);
+            return;
+        }
+    }
+
+    if (emptySlotClickHandler_) {
+        emptySlotClickHandler_(dayEpoch, minuteOfDay);
+    }
 }
 
 void TimelineViewPanel::OnPaint(wxPaintEvent&) {
@@ -540,4 +654,21 @@ void TimelineViewPanel::OnPaint(wxPaintEvent&) {
 
     dc.DrawLine(kTimelineTimeLabelWidth + DayCount() * dayColumnWidth, 0,
                 kTimelineTimeLabelWidth + DayCount() * dayColumnWidth, canvasHeight);
+
+    if (dragSelecting_) {
+        const int dayIndex = static_cast<int>((dragDayEpoch_ - rangeStartEpoch_) / kSecondsPerDay);
+        if (dayIndex >= 0 && dayIndex < DayCount()) {
+            const int startMinute = std::min(dragStartMinute_, dragCurrentMinute_);
+            int endMinute = std::max(dragStartMinute_, dragCurrentMinute_);
+            if (endMinute == startMinute) {
+                endMinute = std::min(kMinutesPerDay, startMinute + kTimelineSelectionSlotMinutes);
+            }
+            const int x = kTimelineTimeLabelWidth + dayIndex * dayColumnWidth + 3;
+            const int y = timelineTop + (startMinute * kTimelineHourHeight) / 60;
+            const int height = std::max(6, ((endMinute - startMinute) * kTimelineHourHeight) / 60);
+            dc.SetBrush(wxBrush(wxColour(26, 115, 232, 45)));
+            dc.SetPen(wxPen(wxColour(26, 115, 232), 2));
+            dc.DrawRectangle(x, y, dayColumnWidth - 6, height);
+        }
+    }
 }

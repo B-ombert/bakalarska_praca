@@ -4,6 +4,8 @@
 
 #include <algorithm>
 #include <cctype>
+#include <cstdlib>
+#include <limits>
 #include <sstream>
 
 namespace {
@@ -90,12 +92,23 @@ RRule RRule::parseRRule(const std::string& rule) {
             parsed.interval = std::max(1, std::atoi(value.c_str()));
         }
         else if (key == "COUNT") {
-            parsed.count = std::atoi(value.c_str());
-            parsed.hasCount = true;
+            char* end = nullptr;
+            const unsigned long parsedCount = std::strtoul(value.c_str(), &end, 10);
+            if (end != value.c_str() && parsedCount > 0) {
+                parsed.count = static_cast<unsigned int>(
+                    std::min(parsedCount, static_cast<unsigned long>(std::numeric_limits<unsigned int>::max())));
+                parsed.hasCount = true;
+                parsed.hasUntil = false;
+                parsed.until = 0;
+            }
         }
         else if (key == "UNTIL") {
             parsed.until = iso8601ToEpoch(value);
             parsed.hasUntil = parsed.until > 0;
+            if (parsed.hasUntil) {
+                parsed.hasCount = false;
+                parsed.count = 0;
+            }
         }
         else if (key == "BYDAY") {
             for (const auto& day : splitString(value, ',')) {

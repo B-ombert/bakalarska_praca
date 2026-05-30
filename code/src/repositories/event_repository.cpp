@@ -22,6 +22,18 @@ void BindProviderEventId(SQLite::Statement& query, const int index, const std::s
     query.bind(index, providerEventId);
 }
 
+std::string EscapeLikePattern(const std::string& value) {
+    std::string escaped;
+    escaped.reserve(value.size());
+    for (const char ch : value) {
+        if (ch == '%' || ch == '_' || ch == '\\') {
+            escaped.push_back('\\');
+        }
+        escaped.push_back(ch);
+    }
+    return escaped;
+}
+
 long long InsertEventRow(SQLite::Database& db, const Event& e) {
     SQLite::Statement query(db,
         "INSERT INTO events ("
@@ -537,6 +549,31 @@ std::vector<Event> EventRepository::getByCalendar(long long calendarId) {
         events.push_back(mapRow(query));
     }
 
+    return events;
+}
+
+std::vector<Event> EventRepository::searchByTitle(const std::string& keyword, const EventTitleSearchMode mode) {
+    if (keyword.empty()) {
+        return {};
+    }
+
+    const std::string escapedKeyword = EscapeLikePattern(keyword);
+    const std::string pattern = mode == EventTitleSearchMode::STARTS_WITH
+        ? escapedKeyword + "%"
+        : "%" + escapedKeyword + "%";
+
+    SQLite::Statement query(
+        db,
+        std::string("SELECT ") + kEventSelectColumns + " FROM events "
+        "WHERE deleted_at = 0 "
+        "AND title LIKE ? ESCAPE '\\' COLLATE NOCASE "
+        "ORDER BY start_datetime ASC, title ASC");
+    query.bind(1, pattern);
+
+    std::vector<Event> events;
+    while (query.executeStep()) {
+        events.push_back(mapRow(query));
+    }
     return events;
 }
 

@@ -9,6 +9,7 @@
 
 #include "utils/timezone_utils.h"
 #include "utils/calendar_colors.h"
+#include "utils/provider_utils.h"
 
 namespace {
 
@@ -281,7 +282,7 @@ Calendar Calendar::parseOutlookCalendarJson(const json& cal) {
     c.providerCalendarId = cal.value("id", "");
     c.name = cal.value("name", "");
     c.description = cal.value("description", "");
-    c.timezone = NormalizeTimeZoneForProvider("MICROSOFT", cal.value("timeZone", ""));
+    c.timezone = NormalizeTimeZoneForProvider(kProviderMicrosoft, cal.value("timeZone", ""));
     c.isPrimary = cal.value("isDefaultCalendar", false);
     c.isReadOnly = !cal.value("canEdit", true);
     c.isShared = cal.value("isShared", false) || cal.value("canShare", false);

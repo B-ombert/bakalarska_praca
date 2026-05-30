@@ -115,6 +115,9 @@ bool InitializeSchema(SQLite::Database& db) {
     db.exec("CREATE INDEX IF NOT EXISTS idx_events_end "
             "ON events(end_datetime)");
 
+    db.exec("CREATE INDEX IF NOT EXISTS idx_events_title "
+            "ON events(title COLLATE NOCASE)");
+
     db.exec("CREATE INDEX IF NOT EXISTS idx_events_provider "
             "ON events(provider_event_id)");
 

@@ -16,12 +16,14 @@ MonthCellPanel::MonthCellPanel(wxWindow* parent,
                                const int index,
                                std::function<void(int)> dayClicked,
                                std::function<void(int)> emptySpaceClicked,
+                               std::function<void(long long)> eventClicked,
                                std::function<void(long long)> eventDoubleClicked,
                                std::function<void(long long)> eventRightClicked)
     : wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(150, 132), wxBORDER_NONE),
       index_(index),
       dayClicked_(std::move(dayClicked)),
       emptySpaceClicked_(std::move(emptySpaceClicked)),
+      eventClicked_(std::move(eventClicked)),
       eventDoubleClicked_(std::move(eventDoubleClicked)),
       eventRightClicked_(std::move(eventRightClicked)) {
     SetBackgroundColour(*wxWHITE);
@@ -81,8 +83,14 @@ std::string BuildMonthSegmentLabel(const MonthCellEventSegment& segment) {
 }
 
 void BindEventActionsRecursive(wxWindow* window,
+                               std::function<void()> clickHandler,
                                std::function<void()> doubleClickHandler,
                                std::function<void()> rightClickHandler) {
+    window->Bind(wxEVT_LEFT_UP, [handler = std::move(clickHandler)](wxMouseEvent&) {
+        if (handler) {
+            handler();
+        }
+    });
     window->Bind(wxEVT_LEFT_DCLICK, [handler = doubleClickHandler](wxMouseEvent&) {
         if (handler) {
             handler();
@@ -103,6 +111,7 @@ std::uint64_t MonthCellPanel::ComputeCellFingerprint(
     const bool inCurrentMonth,
     const bool isToday,
     const bool isSelected,
+    const long long selectedEventId,
     const std::vector<std::optional<MonthCellEventSegment>>& eventRows) {
     auto combine = [](std::uint64_t& seed, const std::uint64_t value) {
         seed ^= value + 0x9e3779b97f4a7c15ULL + (seed << 6) + (seed >> 2);
@@ -113,6 +122,7 @@ std::uint64_t MonthCellPanel::ComputeCellFingerprint(
     combine(seed, inCurrentMonth ? 1 : 0);
     combine(seed, isToday ? 1 : 0);
     combine(seed, isSelected ? 1 : 0);
+    combine(seed, static_cast<std::uint64_t>(selectedEventId));
     combine(seed, eventRows.size());
 
     for (const auto& row : eventRows) {
@@ -136,9 +146,10 @@ void MonthCellPanel::UpdateCell(const long long dayEpoch,
                                 const bool inCurrentMonth,
                                 const bool isToday,
                                 const bool isSelected,
+                                const long long selectedEventId,
                                 const std::vector<std::optional<MonthCellEventSegment>>& eventRows) {
     const std::uint64_t newFingerprint =
-        ComputeCellFingerprint(dayEpoch, dayNumber, inCurrentMonth, isToday, isSelected, eventRows);
+        ComputeCellFingerprint(dayEpoch, dayNumber, inCurrentMonth, isToday, isSelected, selectedEventId, eventRows);
     if (newFingerprint == fingerprint_) {
         return;
     }
@@ -165,7 +176,13 @@ void MonthCellPanel::UpdateCell(const long long dayEpoch,
 
     for (const auto& row : eventRows) {
         if (row.has_value()) {
-            auto* eventPanel = new wxPanel(bodyPanel_, wxID_ANY, wxDefaultPosition, wxSize(-1, 22), wxBORDER_NONE);
+            const bool rowSelected = row->eventId == selectedEventId;
+            auto* eventPanel = new wxPanel(
+                bodyPanel_,
+                wxID_ANY,
+                wxDefaultPosition,
+                wxSize(-1, 22),
+                rowSelected ? wxBORDER_SIMPLE : wxBORDER_NONE);
             eventPanel->SetMinSize(wxSize(-1, 22));
             eventPanel->SetBackgroundColour(row->isSummary
                 ? wxColour(245, 247, 250)
@@ -184,6 +201,11 @@ void MonthCellPanel::UpdateCell(const long long dayEpoch,
             eventPanel->SetSizer(eventSizer);
 
             if (!row->isSummary) {
+                auto clickHandler = [handler = eventClicked_, id = row->eventId]() {
+                    if (handler) {
+                        handler(id);
+                    }
+                };
                 auto doubleClickHandler = [handler = eventDoubleClicked_, id = row->eventId]() {
                     if (handler) {
                         handler(id);
@@ -194,8 +216,8 @@ void MonthCellPanel::UpdateCell(const long long dayEpoch,
                         handler(id);
                     }
                 };
-                BindEventActionsRecursive(eventPanel, doubleClickHandler, rightClickHandler);
-                BindEventActionsRecursive(eventLabel, doubleClickHandler, rightClickHandler);
+                BindEventActionsRecursive(eventPanel, clickHandler, doubleClickHandler, rightClickHandler);
+                BindEventActionsRecursive(eventLabel, clickHandler, doubleClickHandler, rightClickHandler);
             }
 
             auto* rowSizer = new wxBoxSizer(wxHORIZONTAL);

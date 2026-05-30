@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -9,7 +10,7 @@ struct RRule {
     Frequency freq = Frequency::UNKNOWN;
     int interval = 1;
 
-    int count = 0;
+    unsigned int count = 0;
     long long until = 0;
 
     std::vector<int> byDay;

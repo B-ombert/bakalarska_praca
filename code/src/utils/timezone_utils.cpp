@@ -9,6 +9,7 @@
 
 #include "utils/app_paths.h"
 #include "utils/datetime_utils.h"
+#include "utils/provider_utils.h"
 
 namespace {
 
@@ -168,7 +169,7 @@ std::string IanaTimeZoneToMicrosoft(const std::string& timezone) {
 }
 
 std::string NormalizeTimeZoneForProvider(const std::string& provider, const std::string& timezone) {
-    if (provider == "MICROSOFT") {
+    if (provider == kProviderMicrosoft) {
         return MicrosoftTimeZoneToIana(timezone);
     }
 

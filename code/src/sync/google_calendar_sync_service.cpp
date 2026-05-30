@@ -15,6 +15,7 @@
 
 #include "calendar_sync_internal.h"
 #include "utils/datetime_utils.h"
+#include "utils/provider_utils.h"
 
 namespace {
 
@@ -398,7 +399,7 @@ std::vector<GoogleSyncMemoryRange> GoogleCalendarSyncService::RememberedRangesFo
 }
 
 std::string GoogleCalendarSyncService::providerName() const {
-    return "GOOGLE";
+    return kProviderGoogle;
 }
 
 json GoogleCalendarSyncService::exportEventPayload(const Event& event) {

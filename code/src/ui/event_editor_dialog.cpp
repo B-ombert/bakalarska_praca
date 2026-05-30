@@ -4,6 +4,7 @@
 #include <cctype>
 #include <ctime>
 #include <iomanip>
+#include <limits>
 #include <sstream>
 
 #include <wx/button.h>
@@ -11,7 +12,9 @@
 #include <wx/choice.h>
 #include <wx/combobox.h>
 #include <wx/arrstr.h>
+#include <wx/listbox.h>
 #include <wx/msgdlg.h>
+#include <wx/popupwin.h>
 #include <wx/sizer.h>
 #include <wx/spinctrl.h>
 #include <wx/stattext.h>
@@ -21,9 +24,124 @@
 #include "utils/datetime_utils.h"
 #include "utils/timezone_utils.h"
 
-namespace {
+class TimePickerCtrl final : public wxPanel {
+public:
+    explicit TimePickerCtrl(wxWindow* parent)
+        : wxPanel(parent, wxID_ANY) {
+        auto* sizer = new wxBoxSizer(wxHORIZONTAL);
+        textCtrl_ = new wxTextCtrl(this, wxID_ANY, "", wxDefaultPosition, wxSize(82, -1));
+        dropdownButton_ = new wxButton(this, wxID_ANY, "v", wxDefaultPosition, wxSize(34, -1));
+        sizer->Add(textCtrl_, 1, wxEXPAND);
+        sizer->Add(dropdownButton_, 0, wxEXPAND);
+        SetSizer(sizer);
 
-const wxArrayString& TimeLabels();
+        dropdownButton_->Bind(wxEVT_BUTTON, [this](wxCommandEvent&) { ShowPopup(); });
+    }
+
+    wxString GetValue() const {
+        return textCtrl_ != nullptr ? textCtrl_->GetValue() : wxString{};
+    }
+
+    void SetValue(const wxString& value) {
+        if (textCtrl_ != nullptr) {
+            textCtrl_->SetValue(value);
+        }
+    }
+
+    void PopulateChoices(const wxArrayString& choices) {
+        if (choicesPopulated_) {
+            return;
+        }
+        choices_ = choices;
+        choicesPopulated_ = true;
+    }
+
+    bool Enable(bool enable = true) override {
+        if (textCtrl_ != nullptr) {
+            textCtrl_->Enable(enable);
+        }
+        if (dropdownButton_ != nullptr) {
+            dropdownButton_->Enable(enable);
+        }
+        return wxPanel::Enable(enable);
+    }
+
+    void SetEditable(const bool editable) {
+        if (textCtrl_ != nullptr) {
+            textCtrl_->SetEditable(editable);
+        }
+        if (dropdownButton_ != nullptr) {
+            dropdownButton_->Enable(editable);
+        }
+    }
+
+private:
+    void EnsurePopupCreated() {
+        if (popup_ != nullptr) {
+            return;
+        }
+
+        popup_ = new wxPopupWindow(this, wxBORDER_SIMPLE);
+        listBox_ = new wxListBox(popup_, wxID_ANY, wxDefaultPosition, wxSize(120, 220), choices_);
+        auto* popupSizer = new wxBoxSizer(wxVERTICAL);
+        popupSizer->Add(listBox_, 1, wxEXPAND);
+        popup_->SetSizerAndFit(popupSizer);
+
+        listBox_->Bind(wxEVT_LISTBOX, [this](wxCommandEvent&) { AcceptSelection(); });
+        listBox_->Bind(wxEVT_LISTBOX_DCLICK, [this](wxCommandEvent&) { AcceptSelection(); });
+        listBox_->Bind(wxEVT_LEFT_UP, [this](wxMouseEvent& event) {
+            const int hit = listBox_->HitTest(event.GetPosition());
+            if (hit == wxNOT_FOUND) {
+                event.Skip();
+                return;
+            }
+
+            listBox_->SetSelection(hit);
+            AcceptSelection();
+        });
+    }
+
+    void ShowPopup() {
+        EnsurePopupCreated();
+        if (popup_ == nullptr || listBox_ == nullptr) {
+            return;
+        }
+
+        const wxString currentValue = GetValue();
+        const int selected = listBox_->FindString(currentValue);
+        if (selected != wxNOT_FOUND) {
+            listBox_->SetSelection(selected);
+        }
+
+        popup_->SetSize(wxSize(std::max(GetSize().GetWidth(), 120), 220));
+        popup_->Position(ClientToScreen(wxPoint(0, GetSize().GetHeight())), wxSize(0, 0));
+        popup_->Show(true);
+        popup_->Raise();
+        listBox_->SetFocus();
+    }
+
+    void AcceptSelection() {
+        if (listBox_ == nullptr) {
+            return;
+        }
+        const int selection = listBox_->GetSelection();
+        if (selection != wxNOT_FOUND) {
+            SetValue(listBox_->GetString(selection));
+        }
+        if (popup_ != nullptr) {
+            popup_->Show(false);
+        }
+    }
+
+    wxTextCtrl* textCtrl_ = nullptr;
+    wxButton* dropdownButton_ = nullptr;
+    wxPopupWindow* popup_ = nullptr;
+    wxListBox* listBox_ = nullptr;
+    wxArrayString choices_;
+    bool choicesPopulated_ = false;
+};
+
+namespace {
 
 std::string WxStringToUtf8(const wxString& value) {
     const wxScopedCharBuffer utf8 = value.ToUTF8();
@@ -47,25 +165,45 @@ long long FormatDisplayEndEpoch(const long long epoch, const bool allDay) {
     return epoch > 0 ? epoch - kSecondsPerDay : epoch;
 }
 
-std::string BuildRecurrenceRule(const long long startDateTime, const int selection) {
+std::string BuildRecurrenceRule(const long long startDateTime,
+                                const int selection,
+                                const bool hasCount,
+                                const unsigned int count,
+                                const bool hasUntil,
+                                const long long untilEpoch) {
     const long long localDisplayEpoch =
         ConvertUtcEpochToTimeZoneDisplayEpoch(GetCurrentLocalTimeZoneName(), startDateTime);
     const std::tm startTm = EpochToUtcTm(localDisplayEpoch);
 
+    std::string rule;
     switch (selection) {
         case 1:
-            return "RRULE:FREQ=DAILY";
+            rule = "RRULE:FREQ=DAILY";
+            break;
         case 2: {
             static const char* weekdays[] = {"SU", "MO", "TU", "WE", "TH", "FR", "SA"};
-            return std::string("RRULE:FREQ=WEEKLY;BYDAY=") + weekdays[startTm.tm_wday] + ";WKST=MO";
+            rule = std::string("RRULE:FREQ=WEEKLY;BYDAY=") + weekdays[startTm.tm_wday] + ";WKST=MO";
+            break;
         }
         case 3:
-            return "RRULE:FREQ=MONTHLY;BYMONTHDAY=" + std::to_string(startTm.tm_mday);
+            rule = "RRULE:FREQ=MONTHLY;BYMONTHDAY=" + std::to_string(startTm.tm_mday);
+            break;
         case 4:
-            return "RRULE:FREQ=YEARLY;BYMONTHDAY=" + std::to_string(startTm.tm_mday);
+            rule = "RRULE:FREQ=YEARLY;BYMONTHDAY=" + std::to_string(startTm.tm_mday);
+            break;
         default:
             return "";
     }
+
+    if (hasCount && count > 0) {
+        rule += ";COUNT=" + std::to_string(count);
+    }
+    else if (hasUntil && untilEpoch > 0) {
+        const long long untilEndOfDay = StartOfUtcDay(untilEpoch) + kSecondsPerDay - 1;
+        rule += ";UNTIL=" + epochToIso(untilEndOfDay);
+    }
+
+    return rule;
 }
 
 int RecurrenceSelectionFromRule(const std::string& recurrenceRule) {
@@ -88,6 +226,26 @@ int RecurrenceSelectionFromRule(const std::string& recurrenceRule) {
     }
 
     return 0;
+}
+
+std::optional<unsigned int> ParseUnsignedInteger(const wxString& value) {
+    const std::string text = value.ToStdString();
+    if (text.empty() ||
+        !std::all_of(text.begin(), text.end(), [](const unsigned char ch) { return std::isdigit(ch) != 0; })) {
+        return std::nullopt;
+    }
+
+    unsigned long long parsed = 0;
+    try {
+        parsed = std::stoull(text);
+    }
+    catch (...) {
+        return std::nullopt;
+    }
+    if (parsed == 0 || parsed > std::numeric_limits<unsigned int>::max()) {
+        return std::nullopt;
+    }
+    return static_cast<unsigned int>(parsed);
 }
 
 int SelectedYear(const wxSpinCtrl* choice) {
@@ -128,14 +286,9 @@ std::string FormatTimeInput(const int minuteOfDay) {
     return output.str();
 }
 
-std::optional<int> MinutesFromTimeInput(const wxComboBox* choice) {
+std::optional<int> MinutesFromTimeInput(const TimePickerCtrl* choice) {
     if (choice == nullptr) {
         return 0;
-    }
-
-    const int selection = choice->GetSelection();
-    if (selection >= 0 && choice->GetCount() == TimeLabels().GetCount()) {
-        return selection * 15;
     }
 
     std::string value = choice->GetValue().ToStdString();
@@ -255,21 +408,6 @@ bool EventEditorDialog::IsDeleteRequested() const {
     return deleteRequested_;
 }
 
-RecurrenceEditScope EventEditorDialog::GetRecurrenceEditScope() const {
-    if (recurrenceScopeCtrl_ == nullptr) {
-        return RecurrenceEditScope::ENTIRE_SERIES;
-    }
-
-    switch (recurrenceScopeCtrl_->GetSelection()) {
-        case 0:
-            return RecurrenceEditScope::THIS_INSTANCE;
-        case 1:
-            return RecurrenceEditScope::THIS_AND_FOLLOWING;
-        default:
-            return RecurrenceEditScope::ENTIRE_SERIES;
-    }
-}
-
 std::optional<Event> EventEditorDialog::BuildEvent(const long long calendarId) const {
     Event event{};
 
@@ -294,7 +432,27 @@ std::optional<Event> EventEditorDialog::BuildEvent(const long long calendarId) c
     event.startDateTime = ReadDateTimeControls(true, event.allDay);
     event.endDateTime = ReadDateTimeControls(false, event.allDay);
     NormalizeAllDayEventRange(event);
-    event.recurrenceRule = BuildRecurrenceRule(event.startDateTime, recurrenceCtrl_->GetSelection());
+    const bool recurrenceEnabled = recurrenceCtrl_->GetSelection() > 0;
+    const bool countLimitEnabled = recurrenceEnabled && recurrenceCountCtrl_->GetValue();
+    const bool untilLimitEnabled = recurrenceEnabled && recurrenceUntilCtrl_->GetValue();
+    unsigned int recurrenceCount = 0;
+    if (countLimitEnabled) {
+        const auto parsedCount = ParseUnsignedInteger(recurrenceCountValueCtrl_->GetValue());
+        if (!parsedCount.has_value()) {
+            wxMessageBox("Repeat count must be a positive unsigned integer.",
+                         "Validation", wxOK | wxICON_WARNING, const_cast<EventEditorDialog*>(this));
+            return std::nullopt;
+        }
+        recurrenceCount = *parsedCount;
+    }
+    const long long recurrenceUntil = untilLimitEnabled ? ReadUntilDateControl() : 0;
+    event.recurrenceRule = BuildRecurrenceRule(
+        event.startDateTime,
+        recurrenceCtrl_->GetSelection(),
+        countLimitEnabled,
+        recurrenceCount,
+        untilLimitEnabled,
+        recurrenceUntil);
     event.type = event.recurrenceRule.empty() ? EventType::SINGLE : EventType::MASTER;
     event.providerMasterId.clear();
 
@@ -364,32 +522,38 @@ void EventEditorDialog::BuildLayout() {
     recurrenceCtrl_->SetSelection(0);
     rootSizer->Add(recurrenceCtrl_, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 12);
 
-    const bool recurringContext = originalEvent_.has_value() &&
-        (originalEvent_->type == EventType::MASTER ||
-         originalEvent_->type == EventType::OCCURRENCE ||
-         !originalEvent_->recurrenceRule.empty() ||
-         !originalEvent_->providerMasterId.empty());
-    if (recurringContext) {
-        rootSizer->Add(new wxStaticText(this, wxID_ANY, "Apply changes to"), 0, wxLEFT | wxRIGHT, 12);
-        recurrenceScopeCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, 0, nullptr, wxCB_READONLY);
-        recurrenceScopeCtrl_->Append("Only this instance");
-        recurrenceScopeCtrl_->Append("This and following instances");
-        recurrenceScopeCtrl_->Append("Entire series");
-        recurrenceScopeCtrl_->SetSelection(originalEvent_->type == EventType::MASTER ? 2 : 0);
-        rootSizer->Add(recurrenceScopeCtrl_, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 12);
-    }
+    auto* recurrenceLimitSizer = new wxFlexGridSizer(2, 5, 8, 10);
+    recurrenceLimitSizer->AddGrowableCol(3, 1);
+    recurrenceCountCtrl_ = new wxCheckBox(this, wxID_ANY, "End after");
+    recurrenceCountValueCtrl_ = new wxTextCtrl(this, wxID_ANY, "10", wxDefaultPosition, wxSize(90, -1));
+    recurrenceLimitSizer->Add(recurrenceCountCtrl_, 0, wxALIGN_CENTER_VERTICAL);
+    recurrenceLimitSizer->Add(recurrenceCountValueCtrl_, 0, wxEXPAND);
+    recurrenceLimitSizer->Add(new wxStaticText(this, wxID_ANY, "occurrences"), 0, wxALIGN_CENTER_VERTICAL);
+    recurrenceLimitSizer->AddSpacer(1);
+    recurrenceLimitSizer->AddSpacer(1);
+
+    recurrenceUntilCtrl_ = new wxCheckBox(this, wxID_ANY, "End by");
+    recurrenceUntilYearCtrl_ = new wxSpinCtrl(this, wxID_ANY, "", wxDefaultPosition, wxSize(78, -1),
+                                              wxSP_ARROW_KEYS, kMinCalendarYear, 9999, kMinCalendarYear);
+    recurrenceUntilMonthCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, MonthLabels(), wxCB_READONLY);
+    recurrenceUntilDateCtrl_ = new wxSpinCtrl(this, wxID_ANY, "", wxDefaultPosition, wxSize(70, -1),
+                                              wxSP_ARROW_KEYS, 1, 31, 1);
+    recurrenceLimitSizer->Add(recurrenceUntilCtrl_, 0, wxALIGN_CENTER_VERTICAL);
+    recurrenceLimitSizer->Add(recurrenceUntilYearCtrl_, 0, wxEXPAND);
+    recurrenceLimitSizer->Add(recurrenceUntilMonthCtrl_, 0, wxEXPAND);
+    recurrenceLimitSizer->Add(recurrenceUntilDateCtrl_, 1, wxEXPAND);
+    recurrenceLimitSizer->AddSpacer(1);
+    rootSizer->Add(recurrenceLimitSizer, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 12);
 
     auto* dateTimeSizer = new wxFlexGridSizer(2, 5, 8, 10);
     dateTimeSizer->AddGrowableCol(3, 1);
-    static const wxArrayString emptyTimeChoices;
-
     dateTimeSizer->Add(new wxStaticText(this, wxID_ANY, "Start"), 0, wxALIGN_CENTER_VERTICAL);
     startYearCtrl_ = new wxSpinCtrl(this, wxID_ANY, "", wxDefaultPosition, wxSize(78, -1),
                                     wxSP_ARROW_KEYS, kMinCalendarYear, 9999, kMinCalendarYear);
     startMonthCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, MonthLabels(), wxCB_READONLY);
     startDateCtrl_ = new wxSpinCtrl(this, wxID_ANY, "", wxDefaultPosition, wxSize(70, -1),
                                     wxSP_ARROW_KEYS, 1, 31, 1);
-    startTimeCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, emptyTimeChoices, wxCB_DROPDOWN);
+    startTimeCtrl_ = new TimePickerCtrl(this);
     dateTimeSizer->Add(startYearCtrl_, 0, wxEXPAND);
     dateTimeSizer->Add(startMonthCtrl_, 0, wxEXPAND);
     dateTimeSizer->Add(startDateCtrl_, 1, wxEXPAND);
@@ -401,7 +565,7 @@ void EventEditorDialog::BuildLayout() {
     endMonthCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, MonthLabels(), wxCB_READONLY);
     endDateCtrl_ = new wxSpinCtrl(this, wxID_ANY, "", wxDefaultPosition, wxSize(70, -1),
                                   wxSP_ARROW_KEYS, 1, 31, 1);
-    endTimeCtrl_ = new wxComboBox(this, wxID_ANY, "", wxDefaultPosition, wxDefaultSize, emptyTimeChoices, wxCB_DROPDOWN);
+    endTimeCtrl_ = new TimePickerCtrl(this);
     dateTimeSizer->Add(endYearCtrl_, 0, wxEXPAND);
     dateTimeSizer->Add(endMonthCtrl_, 0, wxEXPAND);
     dateTimeSizer->Add(endDateCtrl_, 1, wxEXPAND);
@@ -433,12 +597,19 @@ void EventEditorDialog::BuildLayout() {
     Layout();
 
     allDayCtrl_->Bind(wxEVT_CHECKBOX, &EventEditorDialog::OnAllDayChanged, this);
+    recurrenceCtrl_->Bind(wxEVT_COMBOBOX, &EventEditorDialog::OnRecurrenceChanged, this);
+    recurrenceCountCtrl_->Bind(wxEVT_CHECKBOX, &EventEditorDialog::OnCountLimitChanged, this);
+    recurrenceUntilCtrl_->Bind(wxEVT_CHECKBOX, &EventEditorDialog::OnUntilLimitChanged, this);
     startYearCtrl_->Bind(wxEVT_SPINCTRL, [this](wxSpinEvent&) { RefreshDayChoicesForSelectedDateParts(); });
     endYearCtrl_->Bind(wxEVT_SPINCTRL, [this](wxSpinEvent&) { RefreshDayChoicesForSelectedDateParts(); });
+    recurrenceUntilYearCtrl_->Bind(wxEVT_SPINCTRL, [this](wxSpinEvent&) {
+        RefreshDayChoicesForRow(recurrenceUntilYearCtrl_, recurrenceUntilMonthCtrl_, recurrenceUntilDateCtrl_);
+    });
     startMonthCtrl_->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent&) { RefreshDayChoicesForSelectedDateParts(); });
     endMonthCtrl_->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent&) { RefreshDayChoicesForSelectedDateParts(); });
-    startTimeCtrl_->Bind(wxEVT_COMBOBOX_DROPDOWN, [this](wxCommandEvent&) { EnsureTimeChoicesPopulated(); });
-    endTimeCtrl_->Bind(wxEVT_COMBOBOX_DROPDOWN, [this](wxCommandEvent&) { EnsureTimeChoicesPopulated(); });
+    recurrenceUntilMonthCtrl_->Bind(wxEVT_COMBOBOX, [this](wxCommandEvent&) {
+        RefreshDayChoicesForRow(recurrenceUntilYearCtrl_, recurrenceUntilMonthCtrl_, recurrenceUntilDateCtrl_);
+    });
 }
 
 void EventEditorDialog::LoadInitialValues() {
@@ -449,6 +620,11 @@ void EventEditorDialog::LoadInitialValues() {
         descriptionCtrl_->SetValue(wxString::FromUTF8(event.description));
         allDayCtrl_->SetValue(event.allDay);
         recurrenceCtrl_->SetSelection(RecurrenceSelectionFromRule(event.recurrenceRule));
+        const RRule rule = RRule().parseRRule(event.recurrenceRule);
+        recurrenceCountCtrl_->SetValue(rule.hasCount);
+        recurrenceCountValueCtrl_->SetValue(rule.hasCount ? wxString::Format("%u", rule.count) : wxString("10"));
+        recurrenceUntilCtrl_->SetValue(rule.hasUntil);
+        WriteUntilDateControl(rule.hasUntil ? rule.until : event.startDateTime);
         const long long centerEpoch = event.allDay
             ? event.startDateTime
             : ConvertUtcEpochToTimeZoneDisplayEpoch(GetCurrentLocalTimeZoneName(), event.startDateTime);
@@ -456,6 +632,7 @@ void EventEditorDialog::LoadInitialValues() {
         WriteDateTimeControls(true, event.startDateTime, event.allDay);
         WriteDateTimeControls(false, FormatDisplayEndEpoch(event.endDateTime, event.allDay), event.allDay);
         UpdateTimeControlsEnabled();
+        UpdateRecurrenceLimitControlsEnabled();
         return;
     }
 
@@ -465,6 +642,10 @@ void EventEditorDialog::LoadInitialValues() {
     const EventDraftDefaults defaults = defaults_.value_or(BuildDefaultTimedDraft(defaultDayEpoch_));
     allDayCtrl_->SetValue(defaults.allDay);
     recurrenceCtrl_->SetSelection(0);
+    recurrenceCountCtrl_->SetValue(false);
+    recurrenceCountValueCtrl_->SetValue("10");
+    recurrenceUntilCtrl_->SetValue(false);
+    WriteUntilDateControl(defaults.startDateTime);
     const long long centerEpoch = defaults.allDay
         ? defaults.startDateTime
         : ConvertUtcEpochToTimeZoneDisplayEpoch(GetCurrentLocalTimeZoneName(), defaults.startDateTime);
@@ -472,6 +653,7 @@ void EventEditorDialog::LoadInitialValues() {
     WriteDateTimeControls(true, defaults.startDateTime, defaults.allDay);
     WriteDateTimeControls(false, FormatDisplayEndEpoch(defaults.endDateTime, defaults.allDay), defaults.allDay);
     UpdateTimeControlsEnabled();
+    UpdateRecurrenceLimitControlsEnabled();
 }
 
 bool EventEditorDialog::ValidateEvent(const Event& event) const {
@@ -521,6 +703,10 @@ long long EventEditorDialog::ReadDateTimeControls(const bool start, const bool a
     return utcEpoch.value_or(displayEpoch);
 }
 
+long long EventEditorDialog::ReadUntilDateControl() const {
+    return DisplayDayFromChoice(recurrenceUntilYearCtrl_, recurrenceUntilMonthCtrl_, recurrenceUntilDateCtrl_);
+}
+
 void EventEditorDialog::WriteDateTimeControls(const bool start, const long long epoch, const bool allDay) {
     auto* dateCtrl = start ? startDateCtrl_ : endDateCtrl_;
     auto* yearCtrl = start ? startYearCtrl_ : endYearCtrl_;
@@ -538,6 +724,24 @@ void EventEditorDialog::WriteDateTimeControls(const bool start, const long long 
 
     dateCtrl->SetValue(std::clamp(tm.tm_mday, dateCtrl->GetMin(), dateCtrl->GetMax()));
     timeCtrl->SetValue(FormatTimeInput(MinuteOfDayFromDisplayEpoch(displayEpoch)));
+}
+
+void EventEditorDialog::WriteUntilDateControl(const long long epoch) {
+    if (recurrenceUntilYearCtrl_ == nullptr ||
+        recurrenceUntilMonthCtrl_ == nullptr ||
+        recurrenceUntilDateCtrl_ == nullptr) {
+        return;
+    }
+
+    const long long displayEpoch = ConvertUtcEpochToTimeZoneDisplayEpoch(GetCurrentLocalTimeZoneName(), epoch);
+    const long long displayDay = StartOfUtcDay(displayEpoch);
+    const std::tm tm = EpochToUtcTm(displayDay);
+    recurrenceUntilYearCtrl_->SetValue(std::clamp(tm.tm_year + 1900, kMinCalendarYear, 9999));
+    recurrenceUntilMonthCtrl_->SetSelection(tm.tm_mon);
+    RefreshDayChoicesForRow(recurrenceUntilYearCtrl_, recurrenceUntilMonthCtrl_, recurrenceUntilDateCtrl_);
+    recurrenceUntilDateCtrl_->SetValue(std::clamp(tm.tm_mday,
+                                                  recurrenceUntilDateCtrl_->GetMin(),
+                                                  recurrenceUntilDateCtrl_->GetMax()));
 }
 
 void EventEditorDialog::PopulateDateChoices(const long long centerDisplayDay) {
@@ -605,16 +809,11 @@ void EventEditorDialog::RefreshDayChoicesForRow(wxSpinCtrl* yearChoice,
 }
 
 void EventEditorDialog::PopulateTimeChoices() {
-    auto appendChoices = [](wxComboBox* choice) {
-        if (choice == nullptr || choice->GetCount() > 0) {
+    auto appendChoices = [](TimePickerCtrl* choice) {
+        if (choice == nullptr) {
             return;
         }
-        const wxString currentValue = choice->GetValue();
-        choice->Freeze();
-        choice->Clear();
-        choice->Append(TimeLabels());
-        choice->SetValue(currentValue);
-        choice->Thaw();
+        choice->PopulateChoices(TimeLabels());
     };
 
     appendChoices(startTimeCtrl_);
@@ -643,6 +842,31 @@ void EventEditorDialog::UpdateTimeControlsEnabled() {
     }
 }
 
+void EventEditorDialog::UpdateRecurrenceLimitControlsEnabled() {
+    const bool recurrenceEnabled = !readOnly_ && recurrenceCtrl_ != nullptr && recurrenceCtrl_->GetSelection() > 0;
+    const bool countEnabled = recurrenceEnabled && recurrenceCountCtrl_ != nullptr && recurrenceCountCtrl_->GetValue();
+    const bool untilEnabled = recurrenceEnabled && recurrenceUntilCtrl_ != nullptr && recurrenceUntilCtrl_->GetValue();
+
+    if (recurrenceCountCtrl_ != nullptr) {
+        recurrenceCountCtrl_->Enable(recurrenceEnabled);
+    }
+    if (recurrenceCountValueCtrl_ != nullptr) {
+        recurrenceCountValueCtrl_->Enable(countEnabled);
+    }
+    if (recurrenceUntilCtrl_ != nullptr) {
+        recurrenceUntilCtrl_->Enable(recurrenceEnabled);
+    }
+    if (recurrenceUntilYearCtrl_ != nullptr) {
+        recurrenceUntilYearCtrl_->Enable(untilEnabled);
+    }
+    if (recurrenceUntilMonthCtrl_ != nullptr) {
+        recurrenceUntilMonthCtrl_->Enable(untilEnabled);
+    }
+    if (recurrenceUntilDateCtrl_ != nullptr) {
+        recurrenceUntilDateCtrl_->Enable(untilEnabled);
+    }
+}
+
 void EventEditorDialog::ApplyReadOnlyState() {
     if (!readOnly_) {
         return;
@@ -664,8 +888,23 @@ void EventEditorDialog::ApplyReadOnlyState() {
     if (recurrenceCtrl_ != nullptr) {
         recurrenceCtrl_->Enable(false);
     }
-    if (recurrenceScopeCtrl_ != nullptr) {
-        recurrenceScopeCtrl_->Enable(false);
+    if (recurrenceCountCtrl_ != nullptr) {
+        recurrenceCountCtrl_->Enable(false);
+    }
+    if (recurrenceCountValueCtrl_ != nullptr) {
+        recurrenceCountValueCtrl_->Enable(false);
+    }
+    if (recurrenceUntilCtrl_ != nullptr) {
+        recurrenceUntilCtrl_->Enable(false);
+    }
+    if (recurrenceUntilYearCtrl_ != nullptr) {
+        recurrenceUntilYearCtrl_->Enable(false);
+    }
+    if (recurrenceUntilMonthCtrl_ != nullptr) {
+        recurrenceUntilMonthCtrl_->Enable(false);
+    }
+    if (recurrenceUntilDateCtrl_ != nullptr) {
+        recurrenceUntilDateCtrl_->Enable(false);
     }
     if (calendarCtrl_ != nullptr) {
         calendarCtrl_->Enable(false);
@@ -708,6 +947,28 @@ void EventEditorDialog::ApplyReadOnlyState() {
 
 void EventEditorDialog::OnAllDayChanged(wxCommandEvent&) {
     UpdateTimeControlsEnabled();
+}
+
+void EventEditorDialog::OnRecurrenceChanged(wxCommandEvent&) {
+    UpdateRecurrenceLimitControlsEnabled();
+}
+
+void EventEditorDialog::OnCountLimitChanged(wxCommandEvent&) {
+    if (recurrenceCountCtrl_ != nullptr &&
+        recurrenceCountCtrl_->GetValue() &&
+        recurrenceUntilCtrl_ != nullptr) {
+        recurrenceUntilCtrl_->SetValue(false);
+    }
+    UpdateRecurrenceLimitControlsEnabled();
+}
+
+void EventEditorDialog::OnUntilLimitChanged(wxCommandEvent&) {
+    if (recurrenceUntilCtrl_ != nullptr &&
+        recurrenceUntilCtrl_->GetValue() &&
+        recurrenceCountCtrl_ != nullptr) {
+        recurrenceCountCtrl_->SetValue(false);
+    }
+    UpdateRecurrenceLimitControlsEnabled();
 }
 
 void EventEditorDialog::OnSave(wxCommandEvent&) {

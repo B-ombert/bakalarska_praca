@@ -426,16 +426,17 @@ std::string WritePostDataForMS(const tokenRequestParameters& params) {
 std::string ExchangeCodeForToken(Platform platform, const tokenRequestParameters& params) {
     HttpRequest req;
 
-    if (platform == GOOGLE) {
-        req.url = GOOGLE_TOKEN_URL;
-        req.postData = WritePostDataForGoogle(params);
-    }
-    else if (platform == MICROSOFT) {
-        req.url = MS_TOKEN_URL;
-        req.postData = WritePostDataForMS(params);
-    }
-    else {
-        return "";
+    switch (platform) {
+        case GOOGLE:
+            req.url = GOOGLE_TOKEN_URL;
+            req.postData = WritePostDataForGoogle(params);
+            break;
+        case MICROSOFT:
+            req.url = MS_TOKEN_URL;
+            req.postData = WritePostDataForMS(params);
+            break;
+        default:
+            return "";
     }
 
     req.verb = POST;
