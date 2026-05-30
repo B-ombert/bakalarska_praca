@@ -16,6 +16,7 @@
 #include <wx/msgdlg.h>
 #include <wx/popupwin.h>
 #include <wx/sizer.h>
+#include <wx/panel.h>
 #include <wx/spinctrl.h>
 #include <wx/stattext.h>
 #include <wx/textctrl.h>
