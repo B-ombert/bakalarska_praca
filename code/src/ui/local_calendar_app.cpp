@@ -609,6 +609,7 @@ private:
         menu.Enable(deleteId, !calendar->isPrimary && !calendar->isReadOnly);
         menu.AppendSeparator();
         menu.Append(clearEventsId, "Delete all events...");
+        menu.Enable(clearEventsId, !calendar->isReadOnly);
         menu.AppendSeparator();
         menu.Append(exportId, "Export to .ics...");
 
@@ -663,6 +664,13 @@ private:
     void DeleteAllEventsInCalendarWithConfirmation(const long long calendarId) {
         const auto calendar = FindLoadedCalendarById(calendarId);
         if (!calendar.has_value()) {
+            return;
+        }
+        if (calendar->isReadOnly) {
+            wxMessageBox("This calendar is read-only and its events cannot be deleted.",
+                         "Delete all events",
+                         wxOK | wxICON_INFORMATION,
+                         this);
             return;
         }
 
@@ -3148,6 +3156,14 @@ private:
         if (!selectedEvent.has_value()) {
             selectedEventId_ = 0;
             RefreshViewState();
+            return;
+        }
+        const auto eventCalendar = FindLoadedCalendarById(selectedEvent->calendarId);
+        if (eventCalendar.has_value() && eventCalendar->isReadOnly) {
+            wxMessageBox("This calendar is read-only and its events cannot be deleted.",
+                         "Delete event",
+                         wxOK | wxICON_INFORMATION,
+                         this);
             return;
         }
 
