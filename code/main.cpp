@@ -1,15 +1,22 @@
 #include <iostream>
+#include <algorithm>
+#include <cstdint>
+#include <ctime>
+#include <stdexcept>
 
 #include "models/account.h"
 #include "models/calendar.h"
 #include "repositories/account_repository.h"
 #include "repositories/calendar_repository.h"
 #include "ui/local_calendar_app.h"
+#include "utils/datetime_utils.h"
 #include "utils/app_paths.h"
 #include "utils/sqlite_utils.h"
 #include "utils/types.h"
 
 namespace {
+
+constexpr long long kSeedSecondsPerDay = 86400;
 
 bool TableHasColumn(SQLite::Database& db, const std::string& tableName, const std::string& columnName) {
     SQLite::Statement query(db, "PRAGMA table_info(" + tableName + ")");
@@ -219,6 +226,72 @@ void EnsureLocalSeedData(SQLite::Database& db) {
     primaryOnly.exec();
 }
 
+void CreateLocalTenYearEventLoadTestData(SQLite::Database& db) {
+    AccountRepository accountRepository(db);
+    CalendarRepository calendarRepository(db);
+
+    const auto accounts = accountRepository.GetAllAccounts();
+    const auto localAccountIt = std::find_if(accounts.begin(), accounts.end(), [](const Account& account) {
+        return account.provider == "LOCAL" && account.providerUserId == "local-account";
+    });
+    if (localAccountIt == accounts.end()) {
+        throw std::runtime_error("Local account seed data is missing.");
+    }
+
+    const long long now = static_cast<long long>(std::time(nullptr));
+    Calendar loadTestCalendar{};
+    loadTestCalendar.accountId = localAccountIt->id;
+    loadTestCalendar.providerCalendarId = "local-load-test-" + std::to_string(now);
+    loadTestCalendar.name = "Local Load Test";
+    loadTestCalendar.description = "Generated local events for performance testing";
+    loadTestCalendar.timezone = "UTC";
+    loadTestCalendar.colorHex = "#1A73E8";
+    loadTestCalendar.isPrimary = false;
+    loadTestCalendar.isReadOnly = false;
+    loadTestCalendar.isShared = false;
+    loadTestCalendar.syncEnabled = false;
+    loadTestCalendar.syncStatus = SYNCED;
+    const long long calendarId = calendarRepository.upsert(loadTestCalendar);
+
+    RunInSavepoint(db, "seed_ten_year_local_events", [&]() {
+        SQLite::Statement insert(
+            db,
+            "INSERT INTO events ("
+            "calendar_id, provider_event_id, provider_master_id, recurrence_group_id, "
+            "instance_start, type, title, description, location, timezone, "
+            "start_datetime, end_datetime, all_day, status, recurrence_rule, "
+            "deleted_at, sync_status, created_at, updated_at"
+            ") VALUES (?, ?, '', '', 0, ?, ?, '', '', ?, ?, ?, 0, 'confirmed', '', 0, ?, ?, ?)");
+
+        const long long firstDay = MakeUtcEpoch(2022, 1, 1);
+        const long long endDay = MakeUtcEpoch(2032, 1, 1);
+        long long eventIndex = 0;
+
+        for (long long day = firstDay; day < endDay; day += kSeedSecondsPerDay) {
+            for (int slot = 0; slot < 5; ++slot) {
+                const long long start = day + (7 * 60 + 30 + slot * 30) * 60;
+                const long long end = start + 30 * 60;
+
+                insert.bind(1, static_cast<std::int64_t>(calendarId));
+                insert.bind(2, "local-load-test-event-" + std::to_string(eventIndex));
+                insert.bind(3, static_cast<int>(EventType::SINGLE));
+                insert.bind(4, "Generated event");
+                insert.bind(5, "UTC");
+                BindInt64(insert, 6, start);
+                BindInt64(insert, 7, end);
+                insert.bind(8, SYNCED);
+                BindInt64(insert, 9, now);
+                BindInt64(insert, 10, now);
+                insert.exec();
+                insert.reset();
+                insert.clearBindings();
+
+                ++eventIndex;
+            }
+        }
+    });
+}
+
 } // namespace
 
 int main() {
@@ -233,6 +306,7 @@ int main() {
 
         //ResetApplicationData(db);
         EnsureLocalSeedData(db);
+        //CreateLocalTenYearEventLoadTestData(db);
     }
     catch (const SQLite::Exception& ex) {
         std::cerr << "Database initialization failed: " << ex.what() << "\n";

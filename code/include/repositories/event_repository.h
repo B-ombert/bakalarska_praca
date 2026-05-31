@@ -26,7 +26,9 @@ public:
     bool updateById(const Event& e);
     std::optional<long long> moveEventToCalendar(const Event& movedEvent, long long targetCalendarId);
     bool softDelete(long long id);
+    int softDeleteAllByCalendar(long long calendarId);
     bool deleteEvent(long long id);
+    int deleteAllByCalendar(long long calendarId);
     int deleteByProviderIdentity(long long calendarId, const std::string& providerEventId);
     int deleteStoredInstancesForMaster(long long calendarId, long long masterEventId, const std::string& providerMasterId, const std::string& recurrenceGroupId);
     bool markRecurrenceOverrideSynced(long long id);

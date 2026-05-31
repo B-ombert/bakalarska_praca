@@ -3,9 +3,11 @@
 #include <cstdint>
 #include <optional>
 #include <functional>
+#include <utility>
 #include <string>
 #include <vector>
 
+#include <wx/colour.h>
 #include <wx/panel.h>
 
 #include "models/event.h"
@@ -36,16 +38,23 @@ public:
                     bool isSelected,
                     long long selectedEventId,
                     const std::vector<std::optional<MonthCellEventSegment>>& eventRows);
+    void SetSelectedEventId(long long selectedEventId);
 
 private:
+    struct EventWidgetState {
+        class wxWindow* window = nullptr;
+        long long eventId = 0;
+        wxColour baseColour;
+    };
+
     static std::uint64_t ComputeCellFingerprint(long long dayEpoch,
                                                 int dayNumber,
                                                 bool inCurrentMonth,
                                                 bool isToday,
                                                 bool isSelected,
-                                                long long selectedEventId,
                                                 const std::vector<std::optional<MonthCellEventSegment>>& eventRows);
     void ApplyDayButtonStyle();
+    void ApplyEventSelection(long long selectedEventId);
     void OnPaint(wxPaintEvent& event);
 
     int index_ = -1;
@@ -55,6 +64,7 @@ private:
     bool isSelected_ = false;
     bool inCurrentMonth_ = true;
     bool dayButtonHovered_ = false;
+    long long selectedEventId_ = 0;
     std::function<void(int)> dayClicked_;
     std::function<void(int)> emptySpaceClicked_;
     std::function<void(long long)> eventClicked_;
@@ -64,5 +74,5 @@ private:
     class wxButton* headerButton_ = nullptr;
     wxPanel* bodyPanel_ = nullptr;
     class wxBoxSizer* eventsSizer_ = nullptr;
-    std::vector<class wxWindow*> eventWidgets_;
+    std::vector<EventWidgetState> eventWidgets_;
 };

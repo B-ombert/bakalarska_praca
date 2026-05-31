@@ -24,16 +24,10 @@ std::string GetAccessTokenFromGoogle(){
     std::string code = authorization.code;
 
     if (code.empty()){
-        std::cerr << "Couldn't get auth code";
         return "";
     }
 
-    std::cout << "Auth code: " << code << "\n";
-
     tokenRequestParameters params {code, code_verifier, authorization.redirectUri};
 
-    std::string tokenResponse = ExchangeCodeForToken(GOOGLE, params);
-    std::cout << "\n Token response: \n" << tokenResponse << "\n";
-
-    return tokenResponse;
+    return ExchangeCodeForToken(GOOGLE, params);
 }

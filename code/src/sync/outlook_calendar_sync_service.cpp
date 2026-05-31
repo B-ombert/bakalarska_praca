@@ -473,20 +473,30 @@ std::vector<EventBatchRequest> OutlookCalendarSyncService::buildEventBatchReques
 
         for (size_t index = offset; index < end; ++index) {
             const Event& event = events[index];
-            if (event.syncStatus != PENDING_INSERT &&
-                !(event.syncStatus == PENDING_UPDATE && !event.providerEventId.empty())) {
+            const bool isInsert = event.syncStatus == PENDING_INSERT;
+            const bool isUpdate = event.syncStatus == PENDING_UPDATE && !event.providerEventId.empty();
+            const bool isDelete = event.syncStatus == PENDING_DELETE && !event.providerEventId.empty();
+            if (!isInsert && !isUpdate && !isDelete) {
                 continue;
             }
 
             std::string method;
             std::string url;
-            method = event.syncStatus == PENDING_INSERT ? "POST" : "PATCH";
-            url = event.syncStatus == PENDING_INSERT
-                ? BuildOutlookEventsCollectionBatchUrl(calendar)
-                : BuildOutlookEventItemBatchUrl(calendar, event.providerEventId);
-            json body = exportEventPayload(event);
-            if (event.syncStatus == PENDING_INSERT) {
+            json body;
+            if (isInsert) {
+                method = "POST";
+                url = BuildOutlookEventsCollectionBatchUrl(calendar);
+                body = exportEventPayload(event);
                 body["transactionId"] = std::to_string(event.id);
+            }
+            else if (isUpdate) {
+                method = "PATCH";
+                url = BuildOutlookEventItemBatchUrl(calendar, event.providerEventId);
+                body = exportEventPayload(event);
+            }
+            else {
+                method = "DELETE";
+                url = BuildOutlookEventItemBatchUrl(calendar, event.providerEventId);
             }
 
             json requestItem = {
@@ -494,11 +504,14 @@ std::vector<EventBatchRequest> OutlookCalendarSyncService::buildEventBatchReques
                 {"method", method},
                 {"url", url}
             };
-            requestItem["headers"] = {
-                {"Content-Type", "application/json"},
+            json headers = {
                 {"Prefer", "IdType=\"ImmutableId\""}
             };
-            requestItem["body"] = body;
+            if (!isDelete) {
+                headers["Content-Type"] = "application/json";
+                requestItem["body"] = body;
+            }
+            requestItem["headers"] = headers;
 
             requestItems.push_back(std::move(requestItem));
             localEventIds.push_back(event.id);

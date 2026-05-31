@@ -2,9 +2,11 @@
 
 #include <cstdint>
 #include <functional>
+#include <utility>
 #include <string>
 #include <vector>
 
+#include <wx/colour.h>
 #include <wx/gdicmn.h>
 #include <wx/scrolwin.h>
 
@@ -27,6 +29,12 @@ public:
     void SetEmptyRangeDragHandler(std::function<void(long long, int, int)> handler);
 
 private:
+    struct EventButtonState {
+        class wxButton* button = nullptr;
+        long long eventId = 0;
+        wxColour baseColour;
+    };
+
     struct TimelineSegment {
         long long eventId = -1;
         long long dayEpoch = 0;
@@ -57,6 +65,7 @@ private:
     int TimelineTop() const;
     bool TimelineSlotFromPoint(const wxPoint& point, long long& dayEpoch, int& minuteOfDay) const;
     void RefreshView();
+    void ApplyEventSelection();
     std::vector<Event> EventsForDay(long long dayEpoch) const;
     std::vector<HeaderSpanSegment> BuildHeaderSpans() const;
     void RebuildEventButtons();
@@ -84,5 +93,5 @@ private:
     int dragCurrentMinute_ = 0;
     wxPoint dragStartPoint_;
     wxPanel* canvas_ = nullptr;
-    std::vector<class wxButton*> eventButtons_;
+    std::vector<EventButtonState> eventButtons_;
 };

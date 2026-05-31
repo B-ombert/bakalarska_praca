@@ -601,11 +601,14 @@ private:
         wxMenu menu;
         const int editId = wxWindow::NewControlId();
         const int deleteId = wxWindow::NewControlId();
+        const int clearEventsId = wxWindow::NewControlId();
         const int exportId = wxWindow::NewControlId();
 
         menu.Append(editId, "Edit");
         menu.Append(deleteId, "Delete");
         menu.Enable(deleteId, !calendar->isPrimary && !calendar->isReadOnly);
+        menu.AppendSeparator();
+        menu.Append(clearEventsId, "Delete all events...");
         menu.AppendSeparator();
         menu.Append(exportId, "Export to .ics...");
 
@@ -615,6 +618,9 @@ private:
         menu.Bind(wxEVT_MENU, [this, calendarId](wxCommandEvent&) {
             DeleteCalendarWithConfirmation(calendarId);
         }, deleteId);
+        menu.Bind(wxEVT_MENU, [this, calendarId](wxCommandEvent&) {
+            DeleteAllEventsInCalendarWithConfirmation(calendarId);
+        }, clearEventsId);
         menu.Bind(wxEVT_MENU, [this, calendarId](wxCommandEvent&) {
             ExportCalendarToIcal(calendarId);
         }, exportId);
@@ -650,6 +656,39 @@ private:
         }
         catch (const SQLite::Exception& ex) {
             wxMessageBox(wxString::Format("Calendar deletion failed: %s", ex.what()),
+                         "Database error", wxOK | wxICON_ERROR, this);
+        }
+    }
+
+    void DeleteAllEventsInCalendarWithConfirmation(const long long calendarId) {
+        const auto calendar = FindLoadedCalendarById(calendarId);
+        if (!calendar.has_value()) {
+            return;
+        }
+
+        const bool remoteCalendar = calendar->syncEnabled && !calendar->providerCalendarId.empty();
+        const wxString message = remoteCalendar
+            ? "Mark all events in this calendar for deletion? The deletions will be sent to the remote service during synchronization."
+            : "Delete all events stored in this local calendar?";
+        const int confirm = wxMessageBox(
+            message,
+            "Delete all events",
+            wxYES_NO | wxNO_DEFAULT | wxICON_WARNING,
+            this);
+        if (confirm != wxYES) {
+            return;
+        }
+
+        try {
+            const int affected = remoteCalendar
+                ? eventRepository_.softDeleteAllByCalendar(calendarId)
+                : eventRepository_.deleteAllByCalendar(calendarId);
+            selectedEventId_ = 0;
+            RefreshEvents();
+            statusLabel_->SetLabel(wxString::Format("%d event(s) deleted from calendar", affected));
+        }
+        catch (const SQLite::Exception& ex) {
+            wxMessageBox(wxString::Format("Deleting events failed: %s", ex.what()),
                          "Database error", wxOK | wxICON_ERROR, this);
         }
     }
@@ -1642,6 +1681,7 @@ private:
         searchButton_->Bind(wxEVT_BUTTON, &LocalCalendarFrame::OnSearchEvents, this);
         manageAccountsButton_->Bind(wxEVT_BUTTON, &LocalCalendarFrame::OnManageAccounts, this);
         Bind(wxEVT_CHAR_HOOK, &LocalCalendarFrame::OnCharHook, this);
+        Bind(wxEVT_CLOSE_WINDOW, &LocalCalendarFrame::OnClose, this);
     }
 
     std::vector<Event> EventsForDay(const long long dayEpoch) const {
@@ -1692,7 +1732,7 @@ private:
             return;
         }
         selectedEventId_ = eventId;
-        RefreshViewState();
+        RefreshSelectedEventState();
         statusLabel_->SetLabel(wxString::Format("Selected event #%lld", eventId));
     }
 
@@ -1701,7 +1741,21 @@ private:
             return;
         }
         selectedEventId_ = 0;
-        RefreshViewState();
+        RefreshSelectedEventState();
+    }
+
+    void RefreshSelectedEventState() {
+        for (auto* monthCell : monthCells_) {
+            if (monthCell != nullptr) {
+                monthCell->SetSelectedEventId(selectedEventId_);
+            }
+        }
+        if (weekTimeline_ != nullptr) {
+            weekTimeline_->SetSelectedEventId(selectedEventId_);
+        }
+        if (dayTimeline_ != nullptr) {
+            dayTimeline_->SetSelectedEventId(selectedEventId_);
+        }
     }
 
     bool DeleteEventWithRecurringPrompt(const Event& event) {
@@ -3050,6 +3104,40 @@ private:
         StartManualSyncForAllAccounts();
     }
 
+    void OnClose(wxCloseEvent& event) {
+        if (finalCloseSyncStarted_) {
+            if (event.CanVeto()) {
+                event.Veto();
+            }
+            return;
+        }
+
+        if (eventUploadScheduler_ == nullptr || sessionTokens_.empty() || !event.CanVeto()) {
+            event.Skip();
+            return;
+        }
+
+        finalCloseSyncStarted_ = true;
+        UpdateEventUploadSessionsForVisibleRange();
+        statusLabel_->SetLabel("Final sync before exit...");
+        Hide();
+        event.Veto();
+
+        wxWeakRef<LocalCalendarFrame> weakThis(this);
+        std::thread([weakThis]() {
+            if (weakThis && weakThis->eventUploadScheduler_ != nullptr) {
+                weakThis->eventUploadScheduler_->Stop();
+                weakThis->eventUploadScheduler_->RunAllSignedInAccountsNow();
+            }
+
+            wxTheApp->CallAfter([weakThis]() {
+                if (weakThis) {
+                    weakThis->Destroy();
+                }
+            });
+        }).detach();
+    }
+
     void OnCharHook(wxKeyEvent& event) {
         if (event.GetKeyCode() != WXK_BACK || selectedEventId_ == 0) {
             event.Skip();
@@ -3247,6 +3335,7 @@ private:
     EventRepository eventRepository_;
     CalendarRepository calendarRepository_;
     std::unique_ptr<EventUploadScheduler> eventUploadScheduler_;
+    bool finalCloseSyncStarted_ = false;
     long long localAccountId_ = 0;
     long long currentAccountId_ = 0;
     long long selectedCalendarId_ = 0;

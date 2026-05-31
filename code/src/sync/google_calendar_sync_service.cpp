@@ -439,30 +439,47 @@ std::vector<EventBatchRequest> GoogleCalendarSyncService::buildEventBatchRequest
 
         for (size_t index = offset; index < end; ++index) {
             const Event& event = events[index];
-            if (event.syncStatus != PENDING_INSERT &&
-                !(event.syncStatus == PENDING_UPDATE && !event.providerEventId.empty())) {
+            const bool isInsert = event.syncStatus == PENDING_INSERT;
+            const bool isUpdate = event.syncStatus == PENDING_UPDATE && !event.providerEventId.empty();
+            const bool isDelete = event.syncStatus == PENDING_DELETE && !event.providerEventId.empty();
+            if (!isInsert && !isUpdate && !isDelete) {
                 continue;
             }
 
             std::string method;
             std::string target;
-            json payload = exportEventPayload(event);
-            method = event.syncStatus == PENDING_INSERT ? "POST" : "PATCH";
-            target = event.syncStatus == PENDING_INSERT
-                ? BuildGoogleEventsCollectionTarget(calendar)
-                : BuildGoogleEventItemTarget(calendar, event.providerEventId);
+            json payload;
+            if (isInsert) {
+                method = "POST";
+                target = BuildGoogleEventsCollectionTarget(calendar);
+                payload = exportEventPayload(event);
+            }
+            else if (isUpdate) {
+                method = "PATCH";
+                target = BuildGoogleEventItemTarget(calendar, event.providerEventId);
+                payload = exportEventPayload(event);
+            }
+            else {
+                method = "DELETE";
+                target = BuildGoogleEventItemTarget(calendar, event.providerEventId);
+            }
 
             localEventIds.push_back(event.id);
-            if (event.syncStatus == PENDING_INSERT) {
+            if (isInsert) {
                 payload["extendedProperties"]["private"]["local_id"] = std::to_string(event.id);
             }
 
             body << "--" << boundary << "\r\n"
                  << "Content-Type: application/http\r\n"
                  << "Content-ID: " << event.id << "\r\n\r\n"
-                 << method << " " << target << " HTTP/1.1\r\n"
-                 << "Content-Type: application/json; charset=UTF-8\r\n\r\n"
-                 << payload.dump() << "\r\n";
+                 << method << " " << target << " HTTP/1.1\r\n";
+            if (isDelete) {
+                body << "\r\n";
+            }
+            else {
+                body << "Content-Type: application/json; charset=UTF-8\r\n\r\n"
+                     << payload.dump() << "\r\n";
+            }
         }
 
         body << "--" << boundary << "--\r\n";

@@ -119,6 +119,26 @@ void EventUploadScheduler::QueueAllSignedInAccounts() {
     cv_.notify_one();
 }
 
+std::vector<PendingEventUploadResult> EventUploadScheduler::RunAllSignedInAccountsNow() {
+    std::vector<long long> accountIds;
+    {
+        std::lock_guard<std::mutex> lock(mutex_);
+        jobs_.clear();
+        queuedAccountIds_.clear();
+        accountIds.reserve(sessions_.size());
+        for (const auto& [accountId, _] : sessions_) {
+            accountIds.push_back(accountId);
+        }
+    }
+
+    std::vector<PendingEventUploadResult> results;
+    results.reserve(accountIds.size());
+    for (const long long accountId : accountIds) {
+        results.push_back(RunJob(Job{accountId}));
+    }
+    return results;
+}
+
 int EventUploadScheduler::CountPendingUploadEvents(const long long accountId) const {
     try {
         return ::CountPendingUploadEvents(dbPath_, accountId);

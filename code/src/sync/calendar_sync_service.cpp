@@ -222,63 +222,16 @@ SyncPendingEventsResult CalendarSyncService::syncPendingEvents(const AccessToken
     std::vector<Event> batchEvents;
 
     for (const auto& pending : pendingEvents) {
+        if (pending.syncStatus == PENDING_DELETE && pending.providerEventId.empty()) {
+            eventRepo.deleteEvent(pending.id);
+            continue;
+        }
+
         if (pending.syncStatus == PENDING_INSERT ||
+            pending.syncStatus == PENDING_DELETE ||
             (pending.syncStatus == PENDING_UPDATE && !pending.providerEventId.empty())) {
             batchEvents.push_back(pending);
             ++result.pendingEventCount;
-            continue;
-        }
-
-        HttpRequest req;
-        std::optional<json> payload;
-
-        if (pending.syncStatus == PENDING_DELETE) {
-            if (pending.providerEventId.empty()) {
-                eventRepo.deleteEvent(pending.id);
-                continue;
-            }
-            ++result.pendingEventCount;
-            const std::string accessToken = accessTokenProvider ? accessTokenProvider() : "";
-            if (accessToken.empty()) {
-                continue;
-            }
-            req = sync_internal::BuildAuthorizedRequest(
-                buildEventItemUrl(calendar, pending.providerEventId), accessToken, DELETE_);
-        }
-        else {
-            continue;
-        }
-
-        const HttpResponse response = PerformHttpRequestWithResponse(req);
-
-        if (pending.syncStatus == PENDING_DELETE) {
-            if ((response.statusCode == 404 || (response.statusCode >= 200 && response.statusCode < 300)) &&
-                CanCompletePendingUpload(eventRepo, pending)) {
-                eventRepo.deleteEvent(pending.id);
-                ++result.acceptedEventCount;
-            }
-            continue;
-        }
-
-        const auto parsed = sync_internal::ParseResponseJson(response.body);
-        if (!parsed.has_value()) {
-            continue;
-        }
-
-        Event synced = parseRemoteEvent(*parsed);
-        synced.id = pending.id;
-        synced.calendarId = calendar.id;
-        synced.createdAt = pending.createdAt == 0 ? std::time(nullptr) : pending.createdAt;
-        synced.updatedAt = std::time(nullptr);
-        synced.deletedAt = 0;
-        synced.syncStatus = SYNCED;
-
-        if (synced.providerEventId.empty()) {
-            synced.providerEventId = pending.providerEventId;
-        }
-
-        if (!eventRepo.updateById(synced)) {
-            eventRepo.upsert(synced);
         }
     }
 
@@ -303,16 +256,19 @@ SyncPendingEventsResult CalendarSyncService::syncPendingEvents(const AccessToken
     }
 
     for (const auto& uploadResult : results) {
-        if (uploadResult.httpStatus < 200 || uploadResult.httpStatus >= 300) {
-            continue;
-        }
-
         const auto pendingIt = pendingById.find(uploadResult.localEventId);
         if (pendingIt == pendingById.end()) {
             continue;
         }
 
         const Event& pending = pendingIt->second;
+        const bool requestSucceeded = uploadResult.httpStatus >= 200 && uploadResult.httpStatus < 300;
+        const bool deletedRemoteAlreadyMissing =
+            pending.syncStatus == PENDING_DELETE && uploadResult.httpStatus == 404;
+        if (!requestSucceeded && !deletedRemoteAlreadyMissing) {
+            continue;
+        }
+
         if (!CanCompletePendingUpload(eventRepo, pending)) {
             continue;
         }
@@ -384,6 +340,10 @@ std::vector<EventBatchRequest> CalendarSyncService::buildEventBatchRequests(
         else if (pending.syncStatus == PENDING_UPDATE && !pending.providerEventId.empty()) {
             req = sync_internal::BuildAuthorizedRequest(
                 buildEventItemUrl(calendar, pending.providerEventId), accessToken, PATCH, payload);
+        }
+        else if (pending.syncStatus == PENDING_DELETE && !pending.providerEventId.empty()) {
+            req = sync_internal::BuildAuthorizedRequest(
+                buildEventItemUrl(calendar, pending.providerEventId), accessToken, DELETE_);
         }
         else {
             continue;

@@ -82,6 +82,13 @@ std::string BuildMonthSegmentLabel(const MonthCellEventSegment& segment) {
     return segment.label;
 }
 
+wxColour SelectedEventColour(const wxColour& colour) {
+    return wxColour(
+        static_cast<unsigned char>(std::max(0, colour.Red() * 72 / 100)),
+        static_cast<unsigned char>(std::max(0, colour.Green() * 72 / 100)),
+        static_cast<unsigned char>(std::max(0, colour.Blue() * 72 / 100)));
+}
+
 void BindEventActionsRecursive(wxWindow* window,
                                std::function<void()> clickHandler,
                                std::function<void()> doubleClickHandler,
@@ -111,7 +118,6 @@ std::uint64_t MonthCellPanel::ComputeCellFingerprint(
     const bool inCurrentMonth,
     const bool isToday,
     const bool isSelected,
-    const long long selectedEventId,
     const std::vector<std::optional<MonthCellEventSegment>>& eventRows) {
     auto combine = [](std::uint64_t& seed, const std::uint64_t value) {
         seed ^= value + 0x9e3779b97f4a7c15ULL + (seed << 6) + (seed >> 2);
@@ -122,7 +128,6 @@ std::uint64_t MonthCellPanel::ComputeCellFingerprint(
     combine(seed, inCurrentMonth ? 1 : 0);
     combine(seed, isToday ? 1 : 0);
     combine(seed, isSelected ? 1 : 0);
-    combine(seed, static_cast<std::uint64_t>(selectedEventId));
     combine(seed, eventRows.size());
 
     for (const auto& row : eventRows) {
@@ -149,12 +154,14 @@ void MonthCellPanel::UpdateCell(const long long dayEpoch,
                                 const long long selectedEventId,
                                 const std::vector<std::optional<MonthCellEventSegment>>& eventRows) {
     const std::uint64_t newFingerprint =
-        ComputeCellFingerprint(dayEpoch, dayNumber, inCurrentMonth, isToday, isSelected, selectedEventId, eventRows);
+        ComputeCellFingerprint(dayEpoch, dayNumber, inCurrentMonth, isToday, isSelected, eventRows);
     if (newFingerprint == fingerprint_) {
+        ApplyEventSelection(selectedEventId);
         return;
     }
     fingerprint_ = newFingerprint;
     dayEpoch_ = dayEpoch;
+    selectedEventId_ = selectedEventId;
 
     std::ostringstream header;
     header << dayNumber;
@@ -177,16 +184,17 @@ void MonthCellPanel::UpdateCell(const long long dayEpoch,
     for (const auto& row : eventRows) {
         if (row.has_value()) {
             const bool rowSelected = row->eventId == selectedEventId;
+            const wxColour eventColour = row->isSummary
+                ? wxColour(245, 247, 250)
+                : wxColour(wxString::FromUTF8(NormalizeCalendarColor(row->colorHex)));
             auto* eventPanel = new wxPanel(
                 bodyPanel_,
                 wxID_ANY,
                 wxDefaultPosition,
                 wxSize(-1, 22),
-                rowSelected ? wxBORDER_SIMPLE : wxBORDER_NONE);
+                wxBORDER_NONE);
             eventPanel->SetMinSize(wxSize(-1, 22));
-            eventPanel->SetBackgroundColour(row->isSummary
-                ? wxColour(245, 247, 250)
-                : wxColour(wxString::FromUTF8(NormalizeCalendarColor(row->colorHex))));
+            eventPanel->SetBackgroundColour(rowSelected ? SelectedEventColour(eventColour) : eventColour);
 
             auto* eventSizer = new wxBoxSizer(wxHORIZONTAL);
             auto* eventLabel = new wxStaticText(
@@ -229,19 +237,39 @@ void MonthCellPanel::UpdateCell(const long long dayEpoch,
                 rowSizer->AddSpacer(4);
             }
             eventsSizer_->Add(rowSizer, 0, wxEXPAND | wxBOTTOM, 2);
-            eventWidgets_.push_back(eventPanel);
+            eventWidgets_.push_back({eventPanel, row->isSummary ? 0 : row->eventId, eventColour});
         }
         else {
             auto* spacer = new wxPanel(bodyPanel_, wxID_ANY, wxDefaultPosition, wxSize(-1, 24));
             spacer->SetMinSize(wxSize(-1, 24));
             spacer->SetBackgroundColour(cellColour);
             eventsSizer_->Add(spacer, 0, wxEXPAND);
-            eventWidgets_.push_back(spacer);
+            eventWidgets_.push_back({spacer, 0, cellColour});
         }
     }
 
     Layout();
     Refresh();
+}
+
+void MonthCellPanel::SetSelectedEventId(const long long selectedEventId) {
+    ApplyEventSelection(selectedEventId);
+}
+
+void MonthCellPanel::ApplyEventSelection(const long long selectedEventId) {
+    if (selectedEventId_ == selectedEventId) {
+        return;
+    }
+    selectedEventId_ = selectedEventId;
+
+    for (const auto& state : eventWidgets_) {
+        if (state.window == nullptr || state.eventId == 0) {
+            continue;
+        }
+        state.window->SetBackgroundColour(
+            state.eventId == selectedEventId_ ? SelectedEventColour(state.baseColour) : state.baseColour);
+        state.window->Refresh();
+    }
 }
 
 void MonthCellPanel::ApplyDayButtonStyle() {

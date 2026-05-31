@@ -31,6 +31,13 @@ std::string BuildHeaderSpanLabel(const Event& event, const bool continuesBefore,
     return label;
 }
 
+wxColour SelectedEventColour(const wxColour& colour) {
+    return wxColour(
+        static_cast<unsigned char>(std::max(0, colour.Red() * 72 / 100)),
+        static_cast<unsigned char>(std::max(0, colour.Green() * 72 / 100)),
+        static_cast<unsigned char>(std::max(0, colour.Blue() * 72 / 100)));
+}
+
 bool UsesWeekHeaderSpan(const CalendarViewMode mode, const Event& event) {
     return mode == CalendarViewMode::WEEK && (event.allDay || SpansMultipleDays(event));
 }
@@ -103,7 +110,7 @@ void TimelineViewPanel::SetSelectedEventId(const long long selectedEventId) {
         return;
     }
     selectedEventId_ = selectedEventId;
-    RefreshView();
+    ApplyEventSelection();
 }
 
 void TimelineViewPanel::SetEvents(const std::vector<Event>& events) {
@@ -214,6 +221,18 @@ void TimelineViewPanel::RefreshView() {
     canvas_->Refresh();
 }
 
+void TimelineViewPanel::ApplyEventSelection() {
+    for (const auto& state : eventButtons_) {
+        if (state.button == nullptr) {
+            continue;
+        }
+        state.button->SetBackgroundColour(
+            state.eventId == selectedEventId_ ? SelectedEventColour(state.baseColour) : state.baseColour);
+        state.button->Refresh();
+    }
+    canvas_->Refresh();
+}
+
 std::vector<Event> TimelineViewPanel::EventsForDay(const long long dayEpoch) const {
     std::vector<Event> results;
     const long long dayEnd = dayEpoch + kSecondsPerDay;
@@ -303,7 +322,8 @@ std::vector<TimelineViewPanel::HeaderSpanSegment> TimelineViewPanel::BuildHeader
 }
 
 void TimelineViewPanel::RebuildEventButtons() {
-    for (auto* button : eventButtons_) {
+    for (const auto& state : eventButtons_) {
+        auto* button = state.button;
         if (button != nullptr) {
             button->Destroy();
         }
@@ -322,9 +342,9 @@ void TimelineViewPanel::RebuildEventButtons() {
             auto* button = new wxButton(canvas_, wxID_ANY, wxString::FromUTF8(span.label),
                                         wxPoint(x, y),
                                         wxSize(width, kTimelineAllDayRowHeight - 4), wxBU_LEFT);
-            button->SetBackgroundColour(wxColour(wxString::FromUTF8(NormalizeCalendarColor(span.colorHex))));
+            const wxColour eventColour(wxString::FromUTF8(NormalizeCalendarColor(span.colorHex)));
+            button->SetBackgroundColour(span.eventId == selectedEventId_ ? SelectedEventColour(eventColour) : eventColour);
             button->SetForegroundColour(*wxWHITE);
-            button->SetWindowStyleFlag(button->GetWindowStyleFlag() | (span.eventId == selectedEventId_ ? wxBORDER_SIMPLE : 0));
             button->Bind(wxEVT_LEFT_UP, [handler = eventClickHandler_, id = span.eventId](wxMouseEvent&) {
                 if (handler) {
                     handler(id);
@@ -340,7 +360,7 @@ void TimelineViewPanel::RebuildEventButtons() {
                     handler(id);
                 }
             });
-            eventButtons_.push_back(button);
+            eventButtons_.push_back({button, span.eventId, eventColour});
         }
     }
 
@@ -464,9 +484,10 @@ void TimelineViewPanel::RebuildEventButtons() {
                                                 kTimelineHeaderHeight + kTimelineAllDayLanePadding +
                                                 static_cast<int>(index) * kTimelineAllDayRowHeight),
                                         wxSize(usableWidth, kTimelineAllDayRowHeight - 4), wxBU_LEFT);
-            button->SetBackgroundColour(wxColour(wxString::FromUTF8(NormalizeCalendarColor(allDaySegments[index].colorHex))));
+            const wxColour eventColour(wxString::FromUTF8(NormalizeCalendarColor(allDaySegments[index].colorHex)));
+            button->SetBackgroundColour(
+                allDaySegments[index].eventId == selectedEventId_ ? SelectedEventColour(eventColour) : eventColour);
             button->SetForegroundColour(*wxWHITE);
-            button->SetWindowStyleFlag(button->GetWindowStyleFlag() | (allDaySegments[index].eventId == selectedEventId_ ? wxBORDER_SIMPLE : 0));
             button->Bind(wxEVT_LEFT_UP, [handler = eventClickHandler_, id = allDaySegments[index].eventId](wxMouseEvent&) {
                 if (handler) {
                     handler(id);
@@ -482,7 +503,7 @@ void TimelineViewPanel::RebuildEventButtons() {
                     handler(id);
                 }
             });
-            eventButtons_.push_back(button);
+            eventButtons_.push_back({button, allDaySegments[index].eventId, eventColour});
         }
 
         for (const auto& segment : timedSegments) {
@@ -494,9 +515,9 @@ void TimelineViewPanel::RebuildEventButtons() {
 
             auto* button = new wxButton(canvas_, wxID_ANY, wxString::FromUTF8(segment.label),
                                         wxPoint(x, y), wxSize(width, height), wxBU_LEFT);
-            button->SetBackgroundColour(wxColour(wxString::FromUTF8(NormalizeCalendarColor(segment.colorHex))));
+            const wxColour eventColour(wxString::FromUTF8(NormalizeCalendarColor(segment.colorHex)));
+            button->SetBackgroundColour(segment.eventId == selectedEventId_ ? SelectedEventColour(eventColour) : eventColour);
             button->SetForegroundColour(*wxWHITE);
-            button->SetWindowStyleFlag(button->GetWindowStyleFlag() | (segment.eventId == selectedEventId_ ? wxBORDER_SIMPLE : 0));
             button->Bind(wxEVT_LEFT_UP, [handler = eventClickHandler_, id = segment.eventId](wxMouseEvent&) {
                 if (handler) {
                     handler(id);
@@ -512,7 +533,7 @@ void TimelineViewPanel::RebuildEventButtons() {
                     handler(id);
                 }
             });
-            eventButtons_.push_back(button);
+            eventButtons_.push_back({button, segment.eventId, eventColour});
         }
     }
 }

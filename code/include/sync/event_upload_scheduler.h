@@ -9,6 +9,7 @@
 #include <string>
 #include <thread>
 #include <unordered_map>
+#include <vector>
 
 #include "utils/access_token.h"
 
@@ -45,6 +46,7 @@ public:
     void RemoveSession(long long accountId);
     void QueueAccount(long long accountId);
     void QueueAllSignedInAccounts();
+    std::vector<PendingEventUploadResult> RunAllSignedInAccountsNow();
     int CountPendingUploadEvents(long long accountId) const;
     int CountPendingUploadEventsForAllSignedInAccounts() const;
 

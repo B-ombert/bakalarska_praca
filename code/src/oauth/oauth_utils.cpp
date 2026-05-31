@@ -6,6 +6,7 @@
 #include <atomic>
 #include <chrono>
 #include <future>
+#include <iostream>
 #include <sstream>
 
 #include <boost/asio.hpp>
@@ -147,7 +148,6 @@ void OAuthRedirectServer::Start(SuccessHandler onSuccess, ErrorHandler onError) 
         return;
     }
 
-    std::cout << "Waiting for redirect on " << GetRedirectUri() << "\n";
     DoAccept();
 
     worker_ = std::thread([this]() {

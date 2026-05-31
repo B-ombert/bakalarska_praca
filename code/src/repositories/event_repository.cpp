@@ -454,12 +454,38 @@ bool EventRepository::softDelete(long long id) {
     });
 }
 
+int EventRepository::softDeleteAllByCalendar(const long long calendarId) {
+    return RunInSavepoint(db, "event_soft_delete_all_by_calendar", [&]() {
+        SQLite::Statement query(
+            db,
+            "UPDATE events "
+            "SET deleted_at = ?, sync_status = ?, updated_at = ? "
+            "WHERE calendar_id = ? AND deleted_at = 0");
+
+        const long long now = static_cast<long long>(std::time(nullptr));
+        BindInt64(query, 1, now);
+        query.bind(2, PENDING_DELETE);
+        BindInt64(query, 3, now);
+        BindInt64(query, 4, calendarId);
+
+        return query.exec();
+    });
+}
+
 bool EventRepository::deleteEvent(long long id) {
     return RunInSavepoint(db, "event_delete", [&]() {
         SQLite::Statement query(db, "DELETE FROM events WHERE id = ?");
         BindInt64(query, 1, id);
 
         return query.exec() > 0;
+    });
+}
+
+int EventRepository::deleteAllByCalendar(const long long calendarId) {
+    return RunInSavepoint(db, "event_delete_all_by_calendar", [&]() {
+        SQLite::Statement query(db, "DELETE FROM events WHERE calendar_id = ?");
+        BindInt64(query, 1, calendarId);
+        return query.exec();
     });
 }
 
