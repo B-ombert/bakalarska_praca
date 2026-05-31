@@ -29,13 +29,17 @@ bool FetchAndStoreRemoteCalendarsForAccount(const Account& account,
     }
 
     auto remoteCalendars = service->fetchRemoteCalendars(token.GetToken());
-    ApplyProviderCalendarDisplayDefaults(account, remoteCalendars);
-    for (auto& calendar : remoteCalendars) {
+    if (!remoteCalendars.has_value()) {
+        return false;
+    }
+
+    ApplyProviderCalendarDisplayDefaults(account, *remoteCalendars);
+    for (auto& calendar : *remoteCalendars) {
         calendar.accountId = account.id;
     }
     service->syncCalendarsIncremental(
         account.id,
-        remoteCalendars,
+        *remoteCalendars,
         [&token]() { return token.GetToken(); },
         true);
 

@@ -11,7 +11,7 @@ class GoogleCalendarSyncService final : public CalendarSyncService {
 public:
     GoogleCalendarSyncService(CalendarRepository& calendarRepo, EventRepository& eventRepo);
 
-    std::vector<Calendar> fetchRemoteCalendars(const std::string& accessToken) override;
+    std::optional<std::vector<Calendar>> fetchRemoteCalendars(const std::string& accessToken) override;
     bool uploadCalendar(Calendar& calendar, const std::string& accessToken, RepositoryHolder& repository) override;
     bool deleteRemoteCalendar(Calendar& calendar, const std::string& accessToken, RepositoryHolder& repository) override;
     bool fetchAndStoreRemoteEventsInRange(

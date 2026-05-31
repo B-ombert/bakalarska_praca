@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <optional>
 #include <string>
 #include <vector>
 
@@ -33,7 +34,7 @@ public:
     CalendarSyncService(CalendarRepository& calendarRepo, EventRepository& eventRepo);
     virtual ~CalendarSyncService() = default;
 
-    virtual std::vector<Calendar> fetchRemoteCalendars(const std::string& accessToken) = 0;
+    virtual std::optional<std::vector<Calendar>> fetchRemoteCalendars(const std::string& accessToken) = 0;
     virtual bool uploadCalendar(Calendar& calendar, const std::string& accessToken, RepositoryHolder& repository) = 0;
     virtual bool deleteRemoteCalendar(Calendar& calendar, const std::string& accessToken, RepositoryHolder& repository) = 0;
 

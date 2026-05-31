@@ -240,7 +240,7 @@ void FillMissingLocalIdsFromRequestOrder(std::vector<EventBatchUploadResult>& re
     }
 }
 
-std::vector<Calendar> FetchGoogleCalendarsImpl(const std::string& accessToken) {
+std::optional<std::vector<Calendar>> FetchGoogleCalendarsImpl(const std::string& accessToken) {
     const auto payload = sync_internal::ParseResponseJson(
         PerformHttpRequest(sync_internal::BuildAuthorizedRequest(
             "https://www.googleapis.com/calendar/v3/users/me/calendarList",
@@ -248,7 +248,11 @@ std::vector<Calendar> FetchGoogleCalendarsImpl(const std::string& accessToken) {
         ))
     );
 
-    return payload.has_value() ? sync_internal::ParseCalendarCollection(*payload, false) : std::vector<Calendar>{};
+    if (!payload.has_value()) {
+        return std::nullopt;
+    }
+
+    return sync_internal::ParseCalendarCollection(*payload, false);
 }
 
 bool FetchGoogleRangeImpl(const Calendar& calendar,
@@ -326,7 +330,7 @@ void ReconcileGoogleRangeSnapshot(EventRepository& eventRepo,
 GoogleCalendarSyncService::GoogleCalendarSyncService(CalendarRepository& calendarRepo, EventRepository& eventRepo)
     : CalendarSyncService(calendarRepo, eventRepo) {}
 
-std::vector<Calendar> GoogleCalendarSyncService::fetchRemoteCalendars(const std::string& accessToken) {
+std::optional<std::vector<Calendar>> GoogleCalendarSyncService::fetchRemoteCalendars(const std::string& accessToken) {
     return FetchGoogleCalendarsImpl(accessToken);
 }
 

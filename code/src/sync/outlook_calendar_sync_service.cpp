@@ -170,7 +170,7 @@ std::string BuildOutlookCalendarViewDeltaUrl(const Calendar& calendar,
            "&endDateTime=" + AccessToken::UrlEncode(epochToIso(endEpoch));
 }
 
-std::vector<Calendar> FetchOutlookCalendarsImpl(const std::string& accessToken) {
+std::optional<std::vector<Calendar>> FetchOutlookCalendarsImpl(const std::string& accessToken) {
     const auto payload = sync_internal::ParseResponseJson(
         PerformHttpRequest(BuildOutlookAuthorizedRequest(
             "https://graph.microsoft.com/v1.0/me/calendars",
@@ -178,7 +178,11 @@ std::vector<Calendar> FetchOutlookCalendarsImpl(const std::string& accessToken) 
         ))
     );
 
-    return payload.has_value() ? sync_internal::ParseCalendarCollection(*payload, true) : std::vector<Calendar>{};
+    if (!payload.has_value()) {
+        return std::nullopt;
+    }
+
+    return sync_internal::ParseCalendarCollection(*payload, true);
 }
 
 bool FetchOutlookBucketDeltaImpl(const Calendar& calendar,
@@ -369,7 +373,7 @@ bool FetchAndPersistOutlookBucket(CalendarSyncRangeRepository& rangeRepository,
 OutlookCalendarSyncService::OutlookCalendarSyncService(CalendarRepository& calendarRepo, EventRepository& eventRepo)
     : CalendarSyncService(calendarRepo, eventRepo) {}
 
-std::vector<Calendar> OutlookCalendarSyncService::fetchRemoteCalendars(const std::string& accessToken) {
+std::optional<std::vector<Calendar>> OutlookCalendarSyncService::fetchRemoteCalendars(const std::string& accessToken) {
     return FetchOutlookCalendarsImpl(accessToken);
 }
 

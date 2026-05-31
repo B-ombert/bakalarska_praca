@@ -233,16 +233,20 @@ PendingEventUploadResult EventUploadScheduler::RunJob(const Job& job) {
             }
 
             auto remoteCalendars = service.fetchRemoteCalendars(currentAccessToken);
+            if (!remoteCalendars.has_value()) {
+                result.message = "Remote calendar list could not be loaded.";
+                return false;
+            }
             const auto account = accountRepository.GetById(job.accountId);
             if (account.has_value()) {
-                ApplyProviderCalendarDisplayDefaults(*account, remoteCalendars);
+                ApplyProviderCalendarDisplayDefaults(*account, *remoteCalendars);
             }
-            for (auto& calendar : remoteCalendars) {
+            for (auto& calendar : *remoteCalendars) {
                 calendar.accountId = job.accountId;
             }
             service.syncCalendarsIncremental(
                 job.accountId,
-                remoteCalendars,
+                *remoteCalendars,
                 [token]() { return token->GetToken(); },
                 false);
             return true;
