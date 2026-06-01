@@ -23,8 +23,7 @@ Cieľom práce je navrhnúť a implementovať open-source desktopovú multiplat
 
 ---
 
-[Text bakalárskej práce]
-(https://www.overleaf.com/read/pnwdxtdqdfwy#c00344)
+[Text bakalárskej práce](https://www.overleaf.com/read/pnwdxtdqdfwy#c00344)
 
 ---
 
